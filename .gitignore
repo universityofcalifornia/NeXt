@@ -29,3 +29,6 @@
 /app/assets/blocks/
 /bower_components
 /node_modules
+
+# Ignore Coveralls artifacts
+/coverage

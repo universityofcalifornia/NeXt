@@ -47,3 +47,6 @@ gem 'spring',        group: :development
 
 # Use web_blocks to compile Javascript assets
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
+
+# Test coverage
+gem 'coveralls', require: false
