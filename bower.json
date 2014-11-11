@@ -1,0 +1,10 @@
+{
+  "name": "uc-next",
+  "version": "1.0.0",
+  "dependencies": {
+    "WebBlocks-visibility": "WebBlocks/block-visibility",
+    "WebBlocks-wrapper-jquery": "WebBlocks/wrapper-jquery",
+    "WebBlocks-wrapper-bootstrap": "WebBlocks/wrapper-bootstrap#3.3.0",
+    "WebBlocks-wrapper-normalize.csss": "WebBlocks/wrapper-normalize.css"
+  }
+}

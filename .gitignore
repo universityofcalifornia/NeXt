@@ -23,3 +23,9 @@
 
 # Ignore rvm runcom
 .rvmrc
+
+# Ignore WebBlocks artifacts
+/.blocks
+/app/assets/blocks/
+/bower_components
+/node_modules
