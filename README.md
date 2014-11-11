@@ -12,9 +12,9 @@ The UC NeXt platform is open-source software licensed under the **BSD 3-clause l
 
 ## Credits
 
-The UC NeXt platform project is managed by [Eric Bollens](https://github.com/ebollens) as part of the UC NeXt movement. The UC NeXt platform is a product of its collaborators, including those who have contributed code, submitted bugs or even simply participated in the dialogue.
+The development of the UC NeXt platform is managed by [Eric Bollens](https://github.com/ebollens) as part of the UC NeXt initiative. The UC NeXt platform is a product of its collaborators, including those who have contributed code, submitted bugs or even simply participated in the dialogue.
 
-The UC NeXt platform is built on top of a number of outstanding open source platforms and packages including [Ruby](http://www.ruby-lang.org/), [RubyGems](http://rubygems.org/), [Bundler](http://gembundler.com/), [Ruby on Rails](http://rubyonrails.org/), [Rake](http://rake.rubyforge.org/), [Node.js](http://nodejs.org/), [npm](https://npmjs.org/), [Saas](http://sass-lang.com/), [Compass](http://compass-style.org/), [WebBlocks](http://rubygems.org/gems/web_blocks), [Elasticsearch](http://elasticsearch.org), [Bootstrap](http://getbootstrap.com), [Normalize.css](http://necolas.github.io/normalize.css/) and [jQuery](http://jquery.org). Its quality is also assured by [Gemnasium](https://gemnasium.com/), [Code Climate](https://codeclimate.com/), [Travis CI](https://travis-ci.org) and [Coveralls](https://coveralls.io/). A sincere thanks is extended to the authors, maintainers and providers of all these fine tools.
+The UC NeXt platform is built on top of a number of outstanding open source platforms and packages including [Ruby](http://www.ruby-lang.org/), [RubyGems](http://rubygems.org/), [Bundler](http://gembundler.com/), [Ruby on Rails](http://rubyonrails.org/), [Rake](http://rake.rubyforge.org/), [Node.js](http://nodejs.org/), [npm](https://npmjs.org/), [Saas](http://sass-lang.com/), [Compass](http://compass-style.org/), [WebBlocks](http://rubygems.org/gems/web_blocks), [Elasticsearch](http://elasticsearch.org), [Bootstrap](http://getbootstrap.com), [Normalize.css](http://necolas.github.io/normalize.css/) and [jQuery](http://jquery.org). Its quality is assured by [Gemnasium](https://gemnasium.com/), [Code Climate](https://codeclimate.com/), [Travis CI](https://travis-ci.org) and [Coveralls](https://coveralls.io/). A sincere thanks is extended to the authors, maintainers and providers of all these fine tools.
 
 ## Setup
 
@@ -48,7 +48,7 @@ Build your CSS and JS assets with WebBlocks:
 bundle exec blocks build
 ```
 
-NOTE: When editing CSS and JS assets, rerun the above command to recompile your site CSS and JS.
+When editing CSS and JS assets, rerun the above command to recompile your site CSS and JS.
 
 ### Configure
 
