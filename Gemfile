@@ -50,3 +50,6 @@ gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
 
 # Test coverage
 gem 'coveralls', require: false
+
+# Thin web server, useful if not using deployment method like Passenger
+gem 'thin'

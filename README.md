@@ -72,5 +72,5 @@ rm -rf db/development.sqlite3
 Run the application as:
 
 ```
-RAILS_ENV=development bundle exec rackup -p 8080
+RAILS_ENV=development bundle exec thin start --ssl -p 8080
 ```
