@@ -6,15 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create(name_first: 'Eric',
-            name_middle: 'Ross',
-            name_last: 'Bollens',
-            email: 'ebollens@oit.ucla.edu',
+User.create(name_first: 'Example',
+            name_last: 'User',
+            email: 'example@mail.localhost',
             super_admin: true,
             oauth2_identities: [
               Oauth2Identity.new(provider: 'shibboleth',
-                                    provider_user_id: 'ebollens@ucla.edu'),
-              Oauth2Identity.new(provider: 'facebook',
-                                    provider_user_id: '1063350227')
+                                    provider_user_id: 'example@localhost')
             ])
 

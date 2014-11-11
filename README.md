@@ -54,6 +54,31 @@ When editing CSS and JS assets, rerun the above command to recompile your site C
 
 Set your database connection details in `config/database.yml`.
 
+### Shibboleth via OAuth
+
+The easiest way to integrate this application with Shibboleth is to bridge it across OAuth. See:
+
+> https://github.com/ebollens/shib-oauth2-bridge
+
+Once this is set up, define the route to the bridge within `config/environments/[your rails environment name].yml`:
+
+```yaml
+oauth2:
+  provider:
+    shibboleth:
+      enabled: true
+      key: your-key
+      secret: your-secret
+      properties:
+        site: http://shib.auth.localhost
+        authorize_url: /oauth2/authorize
+        token_url: /oauth2/access_token
+      routes:
+        get_user: /oauth2/user
+```
+
+The login route via Shibboleth is then available at /auth/oauth2/shibboleth.
+
 ## Usage
 
 Run the following commands to populate the database:

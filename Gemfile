@@ -7,23 +7,8 @@ gem 'rails', '4.1.7'
 gem 'sqlite3'
 gem 'mysql2'
 
-# Use SCSS for stylesheets
-# gem 'sass-rails', '~> 4.0.3'
-
-# Use Uglifier as compressor for JavaScript assets
-# gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
-# gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -34,20 +19,14 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Reimplements acts as paranoid
+# Reimplements acts_as_paranoid
 gem 'paranoia', '~> 2.0'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+# Use oauth2 gem to support auth via OAuth 2
+gem 'oauth2'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+# Database-oriented session storage for larger session data
+gem 'activerecord-session_store'
 
 # Use web_blocks to compile Javascript assets
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
@@ -55,5 +34,5 @@ gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
 # Test coverage
 gem 'coveralls', require: false
 
-# Thin web server, useful if not using deployment method like Passenger
+# Use thin as the app server
 gem 'thin'

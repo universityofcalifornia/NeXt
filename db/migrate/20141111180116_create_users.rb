@@ -13,6 +13,10 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps
 
+      t.index [:name_last, :name_first, :name_middle, :name_suffix], :name => 'name'
+      t.index :super_admin
+      t.index :created_at
+
     end
   end
 end
