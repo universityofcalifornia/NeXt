@@ -7,7 +7,13 @@
 ebollens:
   id: 1
   name_first: Eric
-  name_middle: Ross
   name_last: Bollens
   email: ebollens@oit.ucla.edu
   super_admin: true
+
+joe_bruin:
+  id: 2
+  name_first: Joe
+  name_last: Bruin
+  email: joe@invalid.edu
+  super_admin: false
