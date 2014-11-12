@@ -38,12 +38,33 @@ block 'next', :path => BLOCKS_PATH do |n|
 
   end
 
+  bootstrap = block 'bootstrap', path: 'bootstrap' do |bootstrap|
+
+    dependency framework.route 'bootstrap', 'utilities'
+    dependency framework.route 'bootstrap', 'grid'
+    dependency framework.route 'bootstrap', 'navbar'
+    dependency framework.route 'bootstrap', 'buttons'
+    dependency framework.route 'bootstrap', 'type'
+    dependency framework.route 'bootstrap', 'js', 'collapse'
+    dependency framework.route 'bootstrap', 'js', 'dropdown'
+
+    # For the components block, load all component files with their name as their block name.
+    instance_exec(BLOCKS_PATH + 'bootstrap', &autoload_files_as_blocks)
+
+    # Make each block dependent on the equivalent block in Bootstrap
+    bootstrap.children.keys.each { |name| block(name) { dependency framework.route 'bootstrap', name } }
+
+  end
+
   # Define the "components" sub-block of general-purpose elements.
   components = block 'components', path: 'component' do |components|
 
-    # Components all depend on Normalize.css.
+    # Components all depend on Normalize.css
     dependency framework.route 'normalize.css'
-    dependency framework.route 'bootstrap', 'utilities'
+    dependency framework.route 'WebBlocks-visibility', 'hide'
+    dependency framework.route 'WebBlocks-visibility', 'accessible'
+    dependency framework.route 'WebBlocks-visibility', 'breakpoint'
+    dependency bootstrap.route
 
     # For the components block, load all component files with their name as their block name.
     instance_exec(BLOCKS_PATH + 'component', &autoload_files_as_blocks)
@@ -55,9 +76,6 @@ block 'next', :path => BLOCKS_PATH do |n|
 
     # Define dependencies that should be loaded before the site block.
     dependency framework.route 'jquery'
-    dependency framework.route 'WebBlocks-visibility', 'hide'
-    dependency framework.route 'WebBlocks-visibility', 'accessible'
-    dependency framework.route 'WebBlocks-visibility', 'breakpoint'
     dependency config.route
     dependency components.route
 

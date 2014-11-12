@@ -1,0 +1,15 @@
+footer {
+  > ul {
+    margin: 0;
+    padding: 0;
+    > li {
+      list-style: none;
+      display: inline;
+      &:not(:last-child):after {
+        padding: 0 2px 0 6px;
+        content: '•';
+        color: #999;
+      }
+    }
+  }
+}
