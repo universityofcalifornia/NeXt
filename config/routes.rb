@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :organizations
+
   resources :users
 
   resource :auth, controller: 'auth', only: [:destroy]
