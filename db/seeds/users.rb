@@ -18,6 +18,17 @@ User.create(name_first: 'Eric',
             name_middle: 'Ross',
             name_last: 'Bollens',
             email: 'ebollens@oit.ucla.edu',
+            website: 'http://eb.io',
+            phone_number: '310-206-1670',
+            fax_number: '310-206-7025',
+            mailing_address: 'Eric Bollens
+UCLA Ofc of Infor Technol (OIT)
+BOX 951557, 5308 MS
+Los Angeles, CA 90095-1557',
+            social_google: 'ebollens@g.ucla.edu',
+            social_github: 'ebollens',
+            social_linkedin: 'ebollens',
+            social_twitter: 'ericbollens',
             super_admin: true,
             oauth2_identities: [
                 Oauth2Identity.new(provider: 'shibboleth',

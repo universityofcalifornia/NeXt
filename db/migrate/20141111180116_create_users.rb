@@ -9,6 +9,16 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name_last, null: false
       t.string :name_suffix
 
+      t.string :website
+      t.string :phone_number
+      t.string :fax_number
+      t.text :mailing_address
+
+      t.string :social_google
+      t.string :social_github
+      t.string :social_linkedin
+      t.string :social_twitter
+
       t.boolean :super_admin, :default => false
 
       t.timestamps
