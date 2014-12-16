@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :positions
+
   resources :organizations
 
   resources :users

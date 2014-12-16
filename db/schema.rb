@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216174323) do
+ActiveRecord::Schema.define(version: 20141216181301) do
 
   create_table "oauth2_identities", force: true do |t|
     t.string   "provider",         null: false
@@ -36,6 +36,20 @@ ActiveRecord::Schema.define(version: 20141216174323) do
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", using: :btree
   add_index "organizations", ["shortname"], name: "index_organizations_on_shortname", using: :btree
+
+  create_table "positions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.string   "title"
+    t.string   "department"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "positions", ["department"], name: "index_positions_on_department", using: :btree
+  add_index "positions", ["title"], name: "index_positions_on_title", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
