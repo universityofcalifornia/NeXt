@@ -1,6 +1,8 @@
 class Position < ActiveRecord::Base
 
-  belongs_to :position, touch: true
+  acts_as_paranoid
+
+  belongs_to :user, touch: true
   belongs_to :organization
 
 end
