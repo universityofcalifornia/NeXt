@@ -1,0 +1,29 @@
+.profile {
+
+  position: relative;
+
+  figure.avatar {
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+  }
+
+  .positions {
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    h4 {
+      margin: 0 0 0.2rem;
+    }
+
+  }
+
+}

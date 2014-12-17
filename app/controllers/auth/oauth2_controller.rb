@@ -11,6 +11,8 @@ module Auth
 
     def launch
 
+      flash.keep
+
       redirect_to @provider_class.client.auth_code.authorize_url(redirect_uri: auth_oauth2_return_url)
 
     end
@@ -31,7 +33,7 @@ module Auth
 
       context.user = identity.user
 
-      redirect_to root_path
+      redirect_to flash[:return_to] ? flash[:return_to] : root_path
 
     end
 

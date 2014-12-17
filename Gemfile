@@ -28,6 +28,19 @@ gem 'oauth2'
 # Database-oriented session storage for larger session data
 gem 'activerecord-session_store'
 
+# GitHub-flavored markdown support
+gem 'github-markup'
+gem 'redcarpet'
+
+# Pagination support
+gem 'will_paginate'
+
+# Gravatar support
+gem 'gravatarify'
+
+# extend_method
+gem 'extend_method'
+
 # Use web_blocks to compile Javascript assets
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
 

@@ -63,20 +63,22 @@ ActiveRecord::Schema.define(version: 20141216181301) do
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "users", force: true do |t|
-    t.text     "email",                           null: false
+    t.text     "email",                               null: false
+    t.integer  "primary_position_id"
     t.string   "name_first"
     t.string   "name_middle"
-    t.string   "name_last",                       null: false
+    t.string   "name_last",                           null: false
     t.string   "name_suffix"
     t.string   "website"
     t.string   "phone_number"
     t.string   "fax_number"
     t.text     "mailing_address"
+    t.text     "biography"
     t.string   "social_google"
     t.string   "social_github"
     t.string   "social_linkedin"
     t.string   "social_twitter"
-    t.boolean  "super_admin",     default: false
+    t.boolean  "super_admin",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(version: 20141216181301) do
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
   add_index "users", ["name_last", "name_first", "name_middle", "name_suffix"], name: "name", using: :btree
+  add_index "users", ["primary_position_id"], name: "index_users_on_primary_position_id", using: :btree
   add_index "users", ["super_admin"], name: "index_users_on_super_admin", using: :btree
 
 end

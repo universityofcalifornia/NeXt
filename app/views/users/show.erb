@@ -1,0 +1,54 @@
+<div class="profile">
+
+  <header>
+
+    <h2><%= @user.display_name %></h2>
+
+    <figure class="avatar">
+      <%= gravatar_tag @user.email %>
+      <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
+    </figure>
+
+    <dl>
+      <% @user.positions.each do |position| %>
+      <dt><%= position.title %></dt>
+      <dd><%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %></dd>
+      <% end %>
+    </dl>
+
+  </header>
+
+  <div class="row">
+    <div class="col-lg-3 col-sm-4">
+      <h3>Contact</h3>
+      <dl>
+        <dt>Email Address</dt>
+        <dd><%= link_to @user.email, "mailto:#{@user.email}" %></dd>
+        <dt>Phone Number</dt>
+        <dd><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
+        <dt>Fax Number</dt>
+        <dd><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
+        <dt>Mailing Address</dt>
+        <dd><%= raw @user.mailing_address_html %></dd>
+      </dl>
+      <h3>Links</h3>
+      <dl>
+        <dt>Website</dt>
+        <dd><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
+        <dt>GitHub</dt>
+        <dd><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
+        <dt>LinkedIn</dt>
+        <dd><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
+        <dt>Twitter</dt>
+        <dd><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
+        <dt>Google+</dt>
+        <dd><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
+      </dl>
+    </div>
+    <div class="col-lg-9 col-sm-8">
+      <h3>Bio</h3>
+      <%= raw @user.biography_html %>
+    </div>
+  </div>
+
+</div>
