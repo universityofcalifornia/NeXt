@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216181301) do
+ActiveRecord::Schema.define(version: 20141217005312) do
+
+  create_table "idea_statuses", force: true do |t|
+    t.string   "key"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "idea_statuses", ["key"], name: "index_idea_statuses_on_key", using: :btree
+
+  create_table "ideas", force: true do |t|
+    t.integer  "idea_status_id"
+    t.string   "name"
+    t.text     "pitch"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "ideas", ["created_at"], name: "index_ideas_on_created_at", using: :btree
 
   create_table "oauth2_identities", force: true do |t|
     t.string   "provider",         null: false
