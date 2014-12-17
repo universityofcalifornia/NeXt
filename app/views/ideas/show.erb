@@ -16,8 +16,11 @@
 
     <div class="col-lg-3 col-sm-4">
 
+      <% unless @idea.has_been_voted_for_by? context.user %>
       <%= link_to 'Good Idea', '#', class: 'btn btn-info btn-block' %>
       <%= link_to 'Would Participate', '#', class: 'btn btn-success btn-block' %>
+      <% end %>
+
       <% if @idea.is_editable_by? context.user %>
       <%= link_to 'Edit', edit_idea_url(@idea), class: 'btn btn-warning btn-block' %>
       <% end %>
@@ -38,16 +41,23 @@
 
       <% end %>
 
+      <%
+      votes_count = @idea.idea_votes.count
+      if votes_count > 0 %>
+
       <h4>Supporters</h4>
 
       <ul>
-        <li>Joe Bruin</li>
-        <li>Scotty the Bear</li>
-        <li>Timmy Triton</li>
-        <li>Peter the Anteater</li>
+        <% @idea.idea_votes.take(5).each do |idea_vote| %>
+        <li><%= link_to idea_vote.user.display_name, idea_vote.user %></li>
+        <% end %>
       </ul>
 
-      <p><%= link_to 'See More', '#' %></p>
+      <% if votes_count > 5 %>
+      <p><em><%= link_to 'See More...', '#' %></em></p>
+      <% end %>
+
+      <% end %>
 
     </div>
 

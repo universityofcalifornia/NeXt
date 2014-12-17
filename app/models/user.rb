@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :organizations, through: :positions
 
   has_many :idea_roles, dependent: :destroy
-  has_many :ideas, through: :idea_roles
+  has_many :idea_votes, dependent: :destroy
 
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true

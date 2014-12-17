@@ -19,10 +19,23 @@
       <div class="col-lg-9 col-sm-7">
         <h4><%= idea.name %></h4>
         <%= raw idea.pitch_html %>
+        <p><small>
+          Proposed
+          <% if idea.idea_roles.founders.count > 0 %>
+          by <%= idea.idea_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %>
+          <% end %>
+          on <%= idea.created_at.strftime("%B %d, %Y") %>
+        </small></p>
       </div>
       <nav class="col-lg-2 col-sm-4">
-        <%= button_to 'Discover', idea_url(idea), class: 'btn btn-block btn-info', method: 'get' %>
-        <%= button_to 'Support', '#', class: 'btn btn-block btn-success', method: 'get' %>
+        <div class="visible-md-block visible-lg-block text-right">
+          <%= button_to '+1', '#', class: 'btn btn-success', method: 'get' %>
+          <%= button_to '...', idea_url(idea), class: 'btn btn-info', method: 'get' %>
+        </div>
+        <div class="hidden-md hidden-lg">
+          <%= button_to '+1', '#', class: 'btn btn-success', method: 'get' %>
+          <%= button_to '...', idea_url(idea), class: 'btn btn-info', method: 'get' %>
+        </div>
       </nav>
     </div>
   </a>

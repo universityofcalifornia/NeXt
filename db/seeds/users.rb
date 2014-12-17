@@ -3,16 +3,6 @@ logger.progname = 'Seed - Users'
 logger.info 'Truncate'
 User.truncate
 
-logger.info 'Create - oauth2_identity[shibboleth, example@localhost]'
-User.create(name_first: 'Example',
-            name_last: 'User',
-            email: 'example@mail.localhost',
-            super_admin: true,
-            oauth2_identities: [
-                Oauth2Identity.new(provider: 'shibboleth',
-                                   provider_user_id: 'example@localhost')
-            ])
-
 logger.info 'Create - oauth2_identity[shibboleth, ebollens@ucla.edu]'
 ebollens_primary_position = Position.new(organization: Organization.where(shortname: 'UCLA').first,
                                          title: 'Open Source Architect',
@@ -76,4 +66,37 @@ Los Angeles, CA 90095-1557',
                 Position.new(organization: Organization.where(shortname: 'UCLA').first,
                              title: 'Open Source Architect',
                              department: 'Office of Information Technology')
+            ])
+
+logger.info 'Create - oauth2_identity[shibboleth, example@localhost]'
+User.create(name_first: 'Example',
+            name_last: 'User',
+            email: 'example@mail.localhost',
+            super_admin: true,
+            oauth2_identities: [
+                Oauth2Identity.new(provider: 'shibboleth',
+                                   provider_user_id: 'example@localhost')
+            ])
+
+logger.info 'Create - oauth2_identity[shibboleth, example2@localhost]'
+User.create(name_first: 'John',
+            name_last: 'Doe',
+            email: 'example2@mail.localhost',
+            oauth2_identities: [
+                Oauth2Identity.new(provider: 'shibboleth',
+                                   provider_user_id: 'example2@localhost')
+            ])
+
+logger.info 'Create - oauth2_identity[shibboleth, example3@localhost]'
+User.create(name_first: 'Joe',
+            name_last: 'Bruin',
+            email: 'example3@mail.localhost',
+            oauth2_identities: [
+                Oauth2Identity.new(provider: 'shibboleth',
+                                   provider_user_id: 'example3@localhost')
+            ],
+            positions: [
+                Position.new(organization: Organization.where(shortname: 'UCLA').first,
+                             title: 'Fake Position',
+                             department: 'Non-Existent Department')
             ])

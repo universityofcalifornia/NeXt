@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217164152) do
+ActiveRecord::Schema.define(version: 20141217224103) do
 
   create_table "idea_roles", force: true do |t|
     t.integer  "idea_id"
@@ -36,6 +36,17 @@ ActiveRecord::Schema.define(version: 20141217164152) do
   end
 
   add_index "idea_statuses", ["key"], name: "index_idea_statuses_on_key", using: :btree
+
+  create_table "idea_votes", force: true do |t|
+    t.integer  "idea_id"
+    t.integer  "user_id"
+    t.boolean  "participate", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "idea_votes", ["created_at"], name: "index_idea_votes_on_created_at", using: :btree
 
   create_table "ideas", force: true do |t|
     t.integer  "idea_status_id"

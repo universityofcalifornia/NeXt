@@ -29,8 +29,14 @@ justo. Aliquam neque ligula, ultrices ut mauris ac, ultrices porttitor nisl. In 
 convallis porta. Nam tempor, ligula et ullamcorper sodales, risus dui eleifend mauris, vel vulputate nisi neque vel
 justo. Nunc eget nulla et felis sodales consequat.',
             idea_roles: [
-                IdeaRole.new(user: User.find(1), admin: true),
-                IdeaRole.new(user: User.find(2), founder: true, admin: true),
+                IdeaRole.new(user: User.find(1), founder: true, admin: true),
+                IdeaRole.new(user: User.find(2), admin: true),
+            ],
+            idea_votes: [
+                IdeaVote.new(user: User.find(1), participate: true),
+                IdeaVote.new(user: User.find(2)),
+                IdeaVote.new(user: User.find(3)),
+                IdeaVote.new(user: User.find(4)),
             ]
 
 logger.info 'Create - Collaboration training programs (conceptualization)'
@@ -47,7 +53,11 @@ Donec vitae eros eget justo bibendum sodales id sit amet elit. In hac habitasse 
 faucibus eleifend. Vivamus rutrum cursus pretium. Ut tristique lacus odio. Donec aliquam orci mauris, vitae gravida
 lorem malesuada et.',
             idea_roles: [
-                IdeaRole.new(user: User.find(2), admin: true),
+                IdeaRole.new(user: User.find(1), admin: true),
+            ],
+            idea_votes: [
+                IdeaVote.new(user: User.find(1)),
+                IdeaVote.new(user: User.find(4)),
             ]
 
 logger.info 'Create - Quarterly mobile meetings (abandoned)'
@@ -55,5 +65,8 @@ Idea.create name: 'Quarterly mobile meetings',
             idea_status: IdeaStatus.where(key: 'abandoned').first,
             pitch: 'Getting everyone together in a physical location to talk mobile strategy',
             idea_roles: [
-                IdeaRole.new(user: User.find(1), founder: true, admin: true)
+                IdeaRole.new(user: User.find(2), founder: true, admin: true)
+            ],
+            idea_votes: [
+                IdeaVote.new(user: User.find(4)),
             ]
