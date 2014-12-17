@@ -1,16 +1,4 @@
-require 'extend_method'
-require 'github/markup'
-
 class User < ActiveRecord::Base
-
-  class << self
-    include ExtendMethod
-    def attr_markdown_reader name
-      define_method "#{name}_html".to_sym do
-        GitHub::Markup.render("#{name}.markdown", send(name))
-      end
-    end
-  end
 
   acts_as_paranoid
 
@@ -27,8 +15,8 @@ class User < ActiveRecord::Base
     parent_method ? parent_method : positions.first
   end
 
-  attr_markdown_reader :biography
-  attr_markdown_reader :mailing_address
+  attr_html_reader :biography
+  attr_html_reader :mailing_address, :nl
 
   def display_name format = :fl
     str = ''
