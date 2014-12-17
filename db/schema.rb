@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217005312) do
+ActiveRecord::Schema.define(version: 20141217164152) do
+
+  create_table "idea_roles", force: true do |t|
+    t.integer  "idea_id"
+    t.integer  "user_id"
+    t.boolean  "founder",    default: false
+    t.boolean  "admin",      default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "idea_roles", ["created_at"], name: "index_idea_roles_on_created_at", using: :btree
 
   create_table "idea_statuses", force: true do |t|
     t.string   "key"

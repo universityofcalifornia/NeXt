@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :positions, dependent: :destroy
   has_many :organizations, through: :positions
 
+  has_many :idea_roles, dependent: :destroy
+  has_many :ideas, through: :idea_roles
+
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true
 
@@ -17,6 +20,9 @@ class User < ActiveRecord::Base
 
   attr_html_reader :biography
   attr_html_reader :mailing_address, :nl
+
+  scope :idea_founders, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, founder: true }) }
+  scope :idea_admins, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, admin: true }) }
 
   def display_name format = :fl
     str = ''
@@ -29,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def is_editable_by? user
-    user.id == id or user.super_admin
+    user and (user.id == id or user.super_admin)
   end
 
   def primary_organization

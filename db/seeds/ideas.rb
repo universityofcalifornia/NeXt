@@ -27,7 +27,11 @@ neque ultrices massa, sed dignissim magna turpis eget augue. Lorem ipsum dolor s
 Donec rutrum neque metus, et varius neque pellentesque nec. Nunc nunc velit, elementum non venenatis at, fermentum vel
 justo. Aliquam neque ligula, ultrices ut mauris ac, ultrices porttitor nisl. In id pulvinar ipsum. Maecenas varius
 convallis porta. Nam tempor, ligula et ullamcorper sodales, risus dui eleifend mauris, vel vulputate nisi neque vel
-justo. Nunc eget nulla et felis sodales consequat.'
+justo. Nunc eget nulla et felis sodales consequat.',
+            idea_roles: [
+                IdeaRole.new(user: User.find(1), admin: true),
+                IdeaRole.new(user: User.find(2), founder: true, admin: true),
+            ]
 
 logger.info 'Create - Collaboration training programs (conceptualization)'
 Idea.create name: 'Training programs to improve collaboration capabilities',
@@ -41,9 +45,15 @@ sodales. Ut congue arcu eget velit condimentum facilisis. Praesent id euismod ar
 suscipit ex at pharetra. Proin condimentum sit amet mauris at interdum. Vivamus posuere augue ut aliquet maximus.
 Donec vitae eros eget justo bibendum sodales id sit amet elit. In hac habitasse platea dictumst. Maecenas tincidunt
 faucibus eleifend. Vivamus rutrum cursus pretium. Ut tristique lacus odio. Donec aliquam orci mauris, vitae gravida
-lorem malesuada et.'
+lorem malesuada et.',
+            idea_roles: [
+                IdeaRole.new(user: User.find(2), admin: true),
+            ]
 
 logger.info 'Create - Quarterly mobile meetings (abandoned)'
 Idea.create name: 'Quarterly mobile meetings',
             idea_status: IdeaStatus.where(key: 'abandoned').first,
-            pitch: 'Getting everyone together in a physical location to talk mobile strategy'
+            pitch: 'Getting everyone together in a physical location to talk mobile strategy',
+            idea_roles: [
+                IdeaRole.new(user: User.find(1), founder: true, admin: true)
+            ]
