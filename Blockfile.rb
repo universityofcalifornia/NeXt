@@ -41,11 +41,13 @@ block 'next', :path => BLOCKS_PATH do |n|
   bootstrap = block 'bootstrap', path: 'bootstrap' do |bootstrap|
 
     dependency framework.route 'bootstrap', 'utilities'
+    dependency framework.route 'bootstrap', 'responsive-utilities'
     dependency framework.route 'bootstrap', 'grid'
     dependency framework.route 'bootstrap', 'navbar'
     dependency framework.route 'bootstrap', 'buttons'
     dependency framework.route 'bootstrap', 'type'
     dependency framework.route 'bootstrap', 'tables'
+    dependency framework.route 'bootstrap', 'list-group'
     dependency framework.route 'bootstrap', 'js', 'collapse'
     dependency framework.route 'bootstrap', 'js', 'dropdown'
 

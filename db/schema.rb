@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20141217005312) do
     t.string   "key"
     t.string   "name"
     t.text     "description"
+    t.text     "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"

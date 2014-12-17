@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :idea_statuses
+
+  resources :ideas
+
   resources :users, only: [:index, :show]
 
   resource :auth, controller: 'auth', only: [:destroy]

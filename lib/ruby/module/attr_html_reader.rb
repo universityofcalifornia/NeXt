@@ -5,11 +5,13 @@ class Module
     case type
       when :markdown
         define_method "#{name}_html".to_sym do
-          GitHub::Markup.render("#{name}.markdown", send(name))
+          data = send(name)
+          data ? GitHub::Markup.render("#{name}.markdown", data) : ''
         end
       when :nl
         define_method "#{name}_html".to_sym do
-          "<p>#{send(name).gsub(/(\r?\n\s*){2,}/,'</p><p>').gsub(/\r?\n\s*/,'<br>')}</p>"
+          data = send(name)
+          data ? "<p>#{data.gsub(/(\r?\n\s*){2,}/,'</p><p>').gsub(/\r?\n\s*/,'<br>')}</p>" : ''
         end
     end
   end

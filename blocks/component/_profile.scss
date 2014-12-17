@@ -1,6 +1,17 @@
 .profile {
 
   position: relative;
+  
+  .subtitle {
+
+    color: #777;
+    font-style: italic;
+
+    &, p {
+      font-size: 20px;
+    }
+
+  }
 
   figure.avatar {
 
@@ -24,6 +35,12 @@
       margin: 0 0 0.2rem;
     }
 
+  }
+
+  h3, h4, h5 {
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
 }

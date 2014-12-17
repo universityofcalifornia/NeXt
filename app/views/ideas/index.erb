@@ -1,0 +1,32 @@
+<h2>Ideas</h2>
+
+<%= will_paginate @ideas %>
+
+<div class="list-group">
+<% @ideas.each do |idea| %>
+  <a class="list-group-item" href="<%= idea_url(idea) %>">
+    <div class="row">
+      <div class="col-sm-1">
+        <figure class="visible-md-block visible-lg-block text-right">
+          <img src="<%= idea.idea_status.icon %>" alt="<%= idea.idea_status.name %>">
+          <figcaption class="hide-accessible"><%= idea.idea_status.name %></figcaption>
+        </figure>
+        <figure class="hidden-md hidden-lg">
+          <img src="<%= idea.idea_status.icon %>" alt="<%= idea.idea_status.name %>">
+          <figcaption class="hide-accessible"><%= idea.idea_status.name %></figcaption>
+        </figure>
+      </div>
+      <div class="col-lg-9 col-sm-7">
+        <h4><%= idea.name %></h4>
+        <%= raw idea.pitch_html %>
+      </div>
+      <nav class="col-lg-2 col-sm-4">
+        <%= button_to 'Discover', idea_url(idea), class: 'btn btn-block btn-info', method: 'get' %>
+        <%= button_to 'Support', '#', class: 'btn btn-block btn-success', method: 'get' %>
+      </nav>
+    </div>
+  </a>
+<% end %>
+</div>
+
+<%= will_paginate @ideas %>

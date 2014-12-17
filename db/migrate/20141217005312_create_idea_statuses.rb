@@ -5,6 +5,7 @@ class CreateIdeaStatuses < ActiveRecord::Migration
       t.string :key
       t.string :name
       t.text :description
+      t.text :icon
 
       t.timestamps
 
