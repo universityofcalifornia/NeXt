@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :positions
-
-  resources :organizations
-
-  resources :users
+  resources :users, only: [:index, :show]
 
   resource :auth, controller: 'auth', only: [:destroy]
 
