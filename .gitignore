@@ -32,3 +32,7 @@
 
 # Ignore Coveralls artifacts
 /coverage
+
+# Ignore asset paths we do not use in our templates
+/app/assets/javascripts/*
+/app/assets/stylesheets/*
