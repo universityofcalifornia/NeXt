@@ -20,12 +20,14 @@
 
   <div class="row">
     <div class="col-lg-9 col-sm-8">
-      <h4>Bio</h4>
-      <%= raw @user.biography_html %>
+      <section class="margin-bottom">
+        <h4>Bio</h4>
+        <%= raw @user.biography_html %>
+      </section>
       <div class="row">
         <% if @founded_ideas.count > 0 %>
           <div class="col-sm-6">
-            <section class="panel panel-success">
+            <section class="panel panel-default">
               <header class="panel-heading">
                 <h3 class="panel-title">Ideas Founded</h3>
               </header>
@@ -41,7 +43,7 @@
         <% end %>
         <% if @founded_ideas.count > 0 %>
           <div class="col-sm-6">
-            <section class="panel panel-success">
+            <section class="panel panel-default">
               <header class="panel-heading">
                 <h3 class="panel-title">Ideas Supported</h3>
               </header>

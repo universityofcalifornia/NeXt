@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :idea_statuses
-
-  resources :ideas
+  resources :ideas, only: [:index, :show] do
+    scope module: 'ideas' do
+      resources :votes, only: [:create]
+    end
+  end
 
   resources :users, only: [:index, :show]
 
