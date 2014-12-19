@@ -24,6 +24,8 @@ class UsersController < ApplicationController
                                        flash: { return_to: user_url(@user) }
                                    ]
     end
+    @founded_ideas = @user.idea_roles.where(founder: true).includes(:idea).take(5).map(){ |idea_role| idea_role.idea }
+    @supported_ideas = @user.idea_votes.includes(:idea).take(5).map(){ |idea_vote| idea_vote.idea }
   end
 
   def edit

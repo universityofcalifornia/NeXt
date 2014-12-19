@@ -19,35 +19,99 @@
   </header>
 
   <div class="row">
-    <div class="col-lg-3 col-sm-4">
-      <h3>Contact</h3>
-      <dl>
-        <dt>Email Address</dt>
-        <dd><%= link_to @user.email, "mailto:#{@user.email}" %></dd>
-        <dt>Phone Number</dt>
-        <dd><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
-        <dt>Fax Number</dt>
-        <dd><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
-        <dt>Mailing Address</dt>
-        <dd><%= raw @user.mailing_address_html %></dd>
-      </dl>
-      <h3>Links</h3>
-      <dl>
-        <dt>Website</dt>
-        <dd><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
-        <dt>GitHub</dt>
-        <dd><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
-        <dt>LinkedIn</dt>
-        <dd><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
-        <dt>Twitter</dt>
-        <dd><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
-        <dt>Google+</dt>
-        <dd><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
-      </dl>
-    </div>
     <div class="col-lg-9 col-sm-8">
-      <h3>Bio</h3>
+      <h4>Bio</h4>
       <%= raw @user.biography_html %>
+      <div class="row">
+        <% if @founded_ideas.count > 0 %>
+          <div class="col-sm-6">
+            <section class="panel panel-success">
+              <header class="panel-heading">
+                <h3 class="panel-title">Ideas Founded</h3>
+              </header>
+              <div class="panel-body">
+                <ul>
+                  <% @founded_ideas.each do |idea| %>
+                    <li><%= link_to idea.name, idea %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </section>
+          </div>
+        <% end %>
+        <% if @founded_ideas.count > 0 %>
+          <div class="col-sm-6">
+            <section class="panel panel-success">
+              <header class="panel-heading">
+                <h3 class="panel-title">Ideas Supported</h3>
+              </header>
+              <div class="panel-body">
+                <ul>
+                  <% @supported_ideas.each do |idea| %>
+                    <li><%= link_to idea.name, idea %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </section>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-4">
+      <section class="panel panel-info">
+        <header class="panel-heading">
+          <h3 class="panel-title">Contact</h3>
+        </header>
+        <div class="panel-body">
+          <dl>
+            <dt>Email Address</dt>
+            <dd><%= link_to @user.email, "mailto:#{@user.email}" %></dd>
+            <% if @user.phone_number %>
+              <dt>Phone Number</dt>
+              <dd><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
+            <% end %>
+            <% if @user.fax_number %>
+              <dt>Fax Number</dt>
+              <dd><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
+            <% end %>
+            <% if @user.mailing_address %>
+              <dt>Mailing Address</dt>
+              <dd><%= raw @user.mailing_address_html %></dd>
+            <% end %>
+          </dl>
+        </div>
+      </section>
+      <% if @user.website or @user.social_github or @user.social_linkedin or @user.social_twitter or @user.social_google %>
+        <section class="panel panel-info">
+          <header class="panel-heading">
+            <h3 class="panel-title">Links</h3>
+          </header>
+          <div class="panel-body">
+            <dl>
+              <% if @user.website %>
+                <dt>Website</dt>
+                <dd><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
+              <% end %>
+              <% if @user.social_github %>
+                <dt>GitHub</dt>
+                <dd><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
+              <% end %>
+              <% if @user.social_linkedin %>
+                <dt>LinkedIn</dt>
+                <dd><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
+              <% end %>
+              <% if @user.social_twitter %>
+                <dt>Twitter</dt>
+                <dd><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
+              <% end %>
+              <% if @user.social_google %>
+                <dt>Google+</dt>
+                <dd><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
+              <% end %>
+            </dl>
+          </div>
+        </section>
+      <% end %>
     </div>
   </div>
 
