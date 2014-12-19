@@ -29,11 +29,15 @@
       </div>
       <nav class="col-lg-2 col-sm-4">
         <div class="visible-md-block visible-lg-block text-right">
+          <% unless idea.has_been_voted_for_by? context.user %>
           <%= button_to '+1', '#', class: 'btn btn-success', method: 'get' %>
+          <% end %>
           <%= button_to '...', idea_url(idea), class: 'btn btn-info', method: 'get' %>
         </div>
         <div class="hidden-md hidden-lg">
-          <%= button_to '+1', '#', class: 'btn btn-success', method: 'get' %>
+          <% unless idea.has_been_voted_for_by? context.user %>
+            <%= button_to '+1', '#', class: 'btn btn-success', method: 'get' %>
+          <% end %>
           <%= button_to '...', idea_url(idea), class: 'btn btn-info', method: 'get' %>
         </div>
       </nav>
