@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :ideas, only: [:index, :show] do
+  resources :ideas do
     scope module: 'ideas' do
       resources :votes, only: [:create]
     end

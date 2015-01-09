@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     parent_method ? parent_method : positions.first
   end
 
-  attr_html_reader :biography
+  attr_html_reader :biography, :markdown
   attr_html_reader :mailing_address, :nl
 
   scope :idea_founders, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, founder: true }) }

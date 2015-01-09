@@ -1,0 +1,49 @@
+<%= form_for @idea, html: { class: 'form-horizontal' } do |f| %>
+
+  <% if params[:return_to] %>
+    <%= f.hidden_field :return_to, name: :return_to, value: params[:return_to] %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :idea_status_id, 'Status', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :idea_status_id,
+                   options_for_select(@idea_statuses.map(){ |o| [ o.name, o.id] }, @idea.idea_status_id),
+                   {},
+                   { class: 'form-control' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :pitch, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :pitch, class: 'form-control', rows: 2 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: 'form-control', rows: 12 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit(@idea.created_at_changed? ? 'Create' : 'Update', class: 'btn btn-success') %>
+    </div>
+  </div>
+
+<% end %>
+
+<script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script>
+<script type="text/javascript">
+  CKEDITOR.replace( 'idea_description' );
+</script>

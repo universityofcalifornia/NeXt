@@ -1,3 +1,11 @@
+<% if context.user %>
+<%= button_to 'Propose Idea',
+              new_idea_url,
+              method: 'get',
+              class: 'btn btn-warning btn-block',
+              form_class: 'button_to pull-right' %>
+<% end %>
+
 <h2>Ideas</h2>
 
 <%= will_paginate @ideas %>
@@ -18,7 +26,7 @@
       </div>
       <div class="col-lg-9 col-sm-7">
         <h4><%= idea.name %></h4>
-        <%= raw idea.pitch_html %>
+        <%= raw idea.pitch %>
         <p><small>
           Proposed
           <% if idea.idea_roles.founders.count > 0 %>

@@ -7,7 +7,7 @@
     <div class="col-lg-9 col-sm-8">
 
       <div class="subtitle">
-        <%= raw @idea.pitch_html %>
+        <%= @idea.pitch %>
       </div>
 
       <%= raw @idea.description_html %>
@@ -37,7 +37,11 @@
         <% end %>
 
         <% if @idea.is_editable_by? context.user %>
-        <%= button_to 'Edit', edit_idea_url(@idea), class: 'btn btn-warning btn-block', form_class: 'button_to full-width' %>
+        <%= button_to 'Edit',
+                      edit_idea_url(@idea),
+                      method: 'get',
+                      class: 'btn btn-warning btn-block',
+                      form_class: 'button_to full-width' %>
         <% end %>
 
       </section>

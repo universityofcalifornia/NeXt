@@ -20,10 +20,12 @@
 
   <div class="row">
     <div class="col-lg-9 col-sm-8">
+      <% if @user.biography and @user.biography.length > 0 %>
       <section class="margin-bottom">
         <h4>Bio</h4>
         <%= raw @user.biography_html %>
       </section>
+      <% end %>
       <div class="row">
         <% if @founded_ideas.count > 0 %>
           <div class="col-sm-6">

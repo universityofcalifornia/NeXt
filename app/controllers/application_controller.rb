@@ -1,8 +1,11 @@
+require 'extend_method'
+
 class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
   include ApplicationHelper
+  include ExtendMethod
 
   rescue_from Application::Error do |e|
     if e.properties.has_key? :redirect_to
@@ -13,6 +16,15 @@ class ApplicationController < ActionController::Base
       end
     else
 
+    end
+  end
+
+  # if return_to is set, use this parameter instead of the usual redirect_to properties
+  extend_method :redirect_to do |options = {}, response_status = {}|
+    if params[:return_to]
+      parent_method params[:return_to]
+    else
+      parent_method options, response_status
     end
   end
 
