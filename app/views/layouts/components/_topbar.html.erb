@@ -1,0 +1,49 @@
+<header class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <h1><a class="navbar-brand" href="#">UC NeXt</a></h1>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <% if context.user %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><%= link_to 'Logout',
+                              auth_path,
+                              :method => :delete,
+                              :data => { :confirm => 'Are you sure you wish to logout?' }
+              %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to 'Login', auth_oauth2_launch_url(:shibboleth) %></li>
+        <% end %>
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <nav>
+        <ul class="nav navbar-nav">
+          <li><a href="<%= users_url %>">People</a></li>
+          <li><a href="<%= ideas_url %>">Ideas</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
