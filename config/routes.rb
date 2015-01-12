@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :competencies
+
   resources :users, only: [:index, :show]
 
   resource :auth, controller: 'auth', only: [:destroy]

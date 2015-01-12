@@ -1,6 +1,10 @@
 .profile {
 
   position: relative;
+
+  header {
+    overflow: auto;
+  }
   
   .subtitle {
 
@@ -15,9 +19,8 @@
 
   figure.avatar {
 
-    position: absolute;
-    right: 0;
-    top: 0;
+    float: right;
+    margin-bottom: 1rem;
 
   }
 

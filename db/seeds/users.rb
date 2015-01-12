@@ -9,36 +9,36 @@ ebollens_primary_position = Position.new(organization: Organization.where(shortn
                                          department: 'Office of Information Technology')
 
 bio_text = <<TXT
-A passionate web technologist, Eric Bollens works as a software architect for the Education and Collaboration Technology
+<p>A passionate web technologist, Eric Bollens works as a software architect for the Education and Collaboration Technology
 Group in the UCLA Office of Information Technology. Tasked with developing and synthesizing new technologies and
 solutions for UCLA's diverse academic and research environment, Eric has been involved with numerous campus-wide
  initiatives, most recently including the WebBlocks Responsive Web Toolkit, the Mobile Web Framework (MWF), the Online
 Polling Tool (OPT) and a peer-to-peer app-sharing environment, as well as a number of other projects such as the UCLA
-Common Collaboration and Learning Environment (CCLE Moodle) and UCLA on iTunes U.
+Common Collaboration and Learning Environment (CCLE Moodle) and UCLA on iTunes U.</p>
 
-Technical lead and framework architect for the WebBlocks Responsive Web Toolkit and the Mobile Web Framework, Eric
+<p>Technical lead and framework architect for the WebBlocks Responsive Web Toolkit and the Mobile Web Framework, Eric
 oversees technology development for both initiatives, coordinating their distributed developer communities and
 maintaining their roadmaps, development processes and release cycles. His role, like the initiatives themselves, grew
 out of UCLA Mobile (http://m.ucla.edu), a campus-specific offering he initially developed within the UCLA Office of
-Information Technology to reduce the cost of mobilizing web resources at UCLA.
+Information Technology to reduce the cost of mobilizing web resources at UCLA.</p>
 
-Beyond his work on WebBlocks, MWF and OPT, Eric has also retained a long-term role in both development and system
+<p>Beyond his work on WebBlocks, MWF and OPT, Eric has also retained a long-term role in both development and system
 operations of the Common Collaboration and Learning Environment, the campus-wide LMS deployment of Moodle. He has
 developed a number of security and performance modifications to CCLE, including several contributed back to the Moodle
 open-source community, as well as helped maintain over 99.9% uptime for the campus-wide system over a four-year period.
 Meanwhile, as the campus looked to expand its iTunes U offerings to include private course material, he led development
 of an application that integrated Apple's Deimos web services, the campus identity management system, and various other
-data sources.
+data sources.</p>
 
-Eric has also developed several other campus applications, as well as worked alongside the UCLA IT Security Office on
+<p>Eric has also developed several other campus applications, as well as worked alongside the UCLA IT Security Office on
 security audits and penetration testing, pinpointing vulnerabilities in UCLA's authentication system, wireless
 infrastructure, payment gateway and others. He sits on the UC-wide Mobile Collaboration Group, the UCLA Mobile Steering
 Committee, and has participated in working groups related to web security, content management systems, distributed
-hosting, and student enrollment.
+hosting, and student enrollment.</p>
 
-In recognition for his accomplishments, Eric is a two-time Gold winner of the UC-wide Larry L. Sautter Award for
-Innovation in Information Technology (http://www.ucop.edu/irc/itlc/sautter), recognized for the Mobile Web Framework in
-2011 and iTunes U in 2009.
+<p>In recognition for his accomplishments, Eric is a two-time Gold winner of the UC-wide
+<a href="http://www.ucop.edu/irc/itlc/sautter" target="_blank">Larry L. Sautter Award for Innovation in Information
+Technology</a>, recognized for the Mobile Web Framework in 2011 and iTunes U in 2009.</p>
 TXT
 
 User.create(name_first: 'Eric',

@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217224103) do
+ActiveRecord::Schema.define(version: 20150109185134) do
+
+  create_table "competencies", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "competencies", ["name"], name: "index_competencies_on_name", using: :btree
+
+  create_table "competency_users", force: true do |t|
+    t.integer  "competency_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
 
   create_table "idea_roles", force: true do |t|
     t.integer  "idea_id"

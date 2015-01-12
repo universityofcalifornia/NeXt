@@ -2,12 +2,12 @@
 
   <header>
 
-    <h2><%= @user.display_name %></h2>
-
     <figure class="avatar">
       <%= gravatar_tag @user.email %>
       <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
     </figure>
+
+    <h2><%= @user.display_name %></h2>
 
     <dl>
       <% @user.positions.each do |position| %>
