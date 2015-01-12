@@ -3,7 +3,7 @@ class CompetenciesController < ApplicationController
   before_action do
     if context.user
       unless context.user.super_admin
-        render nothing: true, status: :unauthorized
+        raise Application::Error.new "You do not have permission to manage competencies. Please try searching by user instead."
       end
     else
       redirect_to new_session_path
