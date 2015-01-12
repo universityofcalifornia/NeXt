@@ -1,0 +1,147 @@
+<%= form_for @user, html: { class: 'form-horizontal' } do |f| %>
+
+  <fieldset>
+
+    <legend>Basic</legend>
+
+    <div class="form-group">
+      <%= f.label :name_first, 'First Name', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :name_first, class: 'form-control', required: true %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name_middle, 'Middle Name', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :name_middle, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name_last, 'Last Name', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :name_last, class: 'form-control', required: true %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name_suffix, 'Suffix', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :name_suffix, class: 'form-control' %>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset>
+
+    <legend>Contact</legend>
+
+    <div class="form-group">
+      <%= f.label :email, 'Email', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :email, class: 'form-control', required: true %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :website, 'Website', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :website, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :phone_number, 'Phone Number', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :phone_number, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :fax_number, 'Fax Number', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :fax_number, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :mailing_address, 'Mailing Address', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_area :mailing_address, class: 'form-control', rows: 3 %>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset>
+
+    <legend>About</legend>
+
+    <div class="form-group">
+      <%= f.label :biography, 'Biography', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_area :biography, class: 'form-control', rows: 8 %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :competencies, 'Competencies', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.select :competencies,
+                     options_for_select(@competencies.map(){ |c| [ c.name, c.id] }, @user.competency_ids),
+                     {},
+                     { class: 'form-control', multiple: true, style: 'height: 15rem' } %>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset>
+
+    <legend>Social</legend>
+
+    <div class="form-group">
+      <%= f.label :social_google, 'Google+', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :social_google, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :social_github, 'GitHub', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :social_github, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :social_linkedin, 'LinkedIn', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :social_linkedin, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :social_twitter, 'Twitter', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :social_twitter, class: 'form-control' %>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit 'Save', class: 'btn btn-success' %>
+      <%= link_to 'Cancel', competencies_url, class: 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
+
+<script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script>
+<script type="text/javascript">
+  CKEDITOR.replace( 'user_biography' );
+</script>

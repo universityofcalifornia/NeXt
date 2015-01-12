@@ -7,7 +7,13 @@
       <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
     </figure>
 
-    <h2><%= @user.display_name %></h2>
+    <h2>
+      <%= @user.display_name %>
+    </h2>
+
+    <% if @user.is_editable_by? context.user %>
+    <p><%= link_to '[Edit Profile]', edit_user_url(@user) %></p>
+    <% end %>
 
     <dl>
       <% @user.positions.each do |position| %>
@@ -25,6 +31,33 @@
         <h4>Bio</h4>
         <%= raw @user.biography_html %>
       </section>
+      <% end %>
+      <%
+      if @user.competencies.count > 0
+        rows = [[]]
+        @user.competencies.each do |competency|
+          if rows[rows.length - 1].length > 2
+            rows << []
+          end
+          rows[rows.length - 1] << competency
+        end
+      %>
+        <div class="margin-bottom">
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Competencies</h3>
+            </header>
+            <div class="panel-body">
+              <% rows.each do |row| %>
+                <div class="row">
+                  <% row.each do |col| %>
+                    <div class="col-md-4"><%= col.name %></div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </section>
+        </div>
       <% end %>
       <div class="row">
         <% if @founded_ideas.count > 0 %>
@@ -70,15 +103,15 @@
           <dl>
             <dt>Email Address</dt>
             <dd><%= link_to @user.email, "mailto:#{@user.email}" %></dd>
-            <% if @user.phone_number %>
+            <% if @user.phone_number and @user.phone_number.length > 0 %>
               <dt>Phone Number</dt>
               <dd><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
             <% end %>
-            <% if @user.fax_number %>
+            <% if @user.fax_number and @user.fax_number.length > 0 %>
               <dt>Fax Number</dt>
               <dd><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
             <% end %>
-            <% if @user.mailing_address %>
+            <% if @user.mailing_address and @user.mailing_address.length > 0 %>
               <dt>Mailing Address</dt>
               <dd><%= raw @user.mailing_address_html %></dd>
             <% end %>
@@ -92,23 +125,23 @@
           </header>
           <div class="panel-body">
             <dl>
-              <% if @user.website %>
+              <% if @user.website and @user.website.length > 0 %>
                 <dt>Website</dt>
                 <dd><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
               <% end %>
-              <% if @user.social_github %>
+              <% if @user.social_github and @user.social_github.length > 0 %>
                 <dt>GitHub</dt>
                 <dd><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
               <% end %>
-              <% if @user.social_linkedin %>
+              <% if @user.social_linkedin and @user.social_linkedin.length > 0 %>
                 <dt>LinkedIn</dt>
                 <dd><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
               <% end %>
-              <% if @user.social_twitter %>
+              <% if @user.social_twitter and @user.social_twitter.length > 0 %>
                 <dt>Twitter</dt>
                 <dd><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
               <% end %>
-              <% if @user.social_google %>
+              <% if @user.social_google and @user.social_google.length > 0 %>
                 <dt>Google+</dt>
                 <dd><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
               <% end %>

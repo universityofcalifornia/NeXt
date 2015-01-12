@@ -1,0 +1,8 @@
+<h1>
+  Edit Profile
+  <% if context.user.id != @user.id %>
+  <br><%= @user.display_name %>
+  <% end %>
+</h1>
+
+<%= render 'form' %>

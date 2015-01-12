@@ -29,9 +29,26 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @competencies = Competency.order(name: :asc).all
   end
 
   def update
+    @user.update params[:user].permit(:email,
+                                      :name_first,
+                                      :name_middle,
+                                      :name_last,
+                                      :name_suffix,
+                                      :website,
+                                      :phone_number,
+                                      :fax_number,
+                                      :mailing_address,
+                                      :biography,
+                                      :social_google,
+                                      :social_github,
+                                      :social_linkedin,
+                                      :social_twitter)
+    @user.competency_ids = params[:user][:competencies]
+    redirect_to user_url(@user)
   end
 
 end
