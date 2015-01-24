@@ -5,7 +5,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include ApplicationHelper
-  include ExtendMethod
+
+  class << self
+    include ExtendMethod
+  end
 
   rescue_from Application::Error do |e|
     if e.properties.has_key? :redirect_to
