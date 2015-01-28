@@ -14,17 +14,7 @@
 <% @ideas.each do |idea| %>
   <a class="list-group-item" href="<%= idea_url(idea) %>">
     <div class="row">
-      <div class="col-sm-1">
-        <figure class="visible-md-block visible-lg-block text-right">
-          <img src="<%= idea.idea_status.icon %>" alt="<%= idea.idea_status.name %>">
-          <figcaption class="hide-accessible"><%= idea.idea_status.name %></figcaption>
-        </figure>
-        <figure class="hidden-md hidden-lg">
-          <img src="<%= idea.idea_status.icon %>" alt="<%= idea.idea_status.name %>">
-          <figcaption class="hide-accessible"><%= idea.idea_status.name %></figcaption>
-        </figure>
-      </div>
-      <div class="col-lg-9 col-sm-7">
+      <div class="col-sm-10">
         <h4><%= idea.name %></h4>
         <%= raw idea.pitch %>
         <p><small>
@@ -35,7 +25,7 @@
           on <%= idea.created_at.strftime("%B %d, %Y") %>
         </small></p>
       </div>
-      <nav class="col-lg-2 col-sm-4">
+      <nav class="col-sm-2">
         <div class="visible-md-block visible-lg-block text-right">
           <% unless idea.has_been_voted_for_by? context.user %>
           <%= button_to '+1', '#', class: 'btn btn-success', method: 'get' %>
