@@ -7,6 +7,7 @@ logger.level = Logger::INFO
 
 [
   'idea_statuses',
+  'project_statuses',
   'organizations',
   'positions',
   'users',

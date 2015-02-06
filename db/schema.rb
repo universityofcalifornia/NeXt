@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109185134) do
+ActiveRecord::Schema.define(version: 20150206182236) do
 
   create_table "competencies", force: true do |t|
     t.string   "name"
@@ -114,6 +114,56 @@ ActiveRecord::Schema.define(version: 20150109185134) do
 
   add_index "positions", ["department"], name: "index_positions_on_department", using: :btree
   add_index "positions", ["title"], name: "index_positions_on_title", using: :btree
+
+  create_table "project_ideas", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "idea_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "project_ideas", ["created_at"], name: "index_project_ideas_on_created_at", using: :btree
+
+  create_table "project_roles", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.boolean  "founder",    default: false
+    t.boolean  "admin",      default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "project_roles", ["created_at"], name: "index_project_roles_on_created_at", using: :btree
+
+  create_table "project_statuses", force: true do |t|
+    t.string   "key"
+    t.string   "name"
+    t.text     "description"
+    t.text     "icon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "project_statuses", ["key"], name: "index_project_statuses_on_key", using: :btree
+
+  create_table "projects", force: true do |t|
+    t.integer  "project_status_id"
+    t.string   "name"
+    t.text     "pitch"
+    t.text     "description"
+    t.string   "website_url"
+    t.string   "documentation_url"
+    t.string   "source_url"
+    t.string   "download_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "projects", ["created_at"], name: "index_projects_on_created_at", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false

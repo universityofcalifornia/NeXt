@@ -1,0 +1,87 @@
+<%= form_for @project, html: { class: 'form-horizontal' } do |f| %>
+
+  <% if params[:return_to] %>
+    <%= f.hidden_field :return_to, name: :return_to, value: params[:return_to] %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :project_status_id, 'Status', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :project_status_id,
+                   options_for_select(@project_statuses.map(){ |o| [ o.name, o.id] }, @project.project_status_id),
+                   {},
+                   { class: 'form-control' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :pitch, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :pitch, class: 'form-control', rows: 2 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: 'form-control', rows: 12 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ideas, 'Related Ideas', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :ideas,
+                   options_for_select(@ideas.map(){ |i| [ i.name, i.id] }, @project.idea_ids),
+                   {},
+                   { class: 'form-control', multiple: true, style: 'height: 16rem' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :website_url, 'Website', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :website_url, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :documentation_url, 'Documentation', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :documentation_url, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :source_url, 'Source', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :source_url, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :download_url, 'Download', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :download_url, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit(@project.new_record? ? 'Create' : 'Update', class: 'btn btn-success') %>
+    </div>
+  </div>
+
+<% end %>
+
+<script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script>
+<script type="text/javascript">
+  CKEDITOR.replace( 'project_description' );
+</script>

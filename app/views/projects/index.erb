@@ -1,0 +1,36 @@
+<% if context.user %>
+<%= button_to 'Create Project',
+              new_project_url,
+              method: 'get',
+              class: 'btn btn-warning btn-block',
+              form_class: 'button_to pull-right' %>
+<% end %>
+
+<h2>Projects</h2>
+
+<%= will_paginate @projects %>
+
+<div class="list-group">
+<% @projects.each do |project| %>
+  <a class="list-group-item" href="<%= project_url(project) %>">
+    <div class="row">
+      <div class="col-sm-10">
+        <h4><%= project.name %></h4>
+        <%= raw project.pitch %>
+        <p><small>
+          Started
+          <% if project.project_roles.founders.count > 0 %>
+          by <%= project.project_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %>
+          <% end %>
+          on <%= project.created_at.strftime("%B %d, %Y") %>
+        </small></p>
+      </div>
+      <nav class="col-sm-2">
+        <!-- TODO -->
+      </nav>
+    </div>
+  </a>
+<% end %>
+</div>
+
+<%= will_paginate @projects %>

@@ -1,0 +1,86 @@
+<div class="profile">
+
+  <h2><%= @project.name %></h2>
+
+  <div class="row">
+
+    <div class="col-lg-9 col-sm-8">
+
+      <div class="subtitle">
+        <%= @project.pitch %>
+      </div>
+
+      <%= raw @project.description_html %>
+
+      <% if @project.users.length > 0 %>
+        <section>
+          <h4>Collaborators</h4>
+          <ul>
+            <% @project.users.order(name_last: :asc, name_first: :asc).each do |user| %>
+              <li><%= link_to user.display_name(:fl), user %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <% if @project.ideas.length > 0 %>
+        <section>
+          <h4>Related Ideas</h4>
+          <ul>
+            <% @project.ideas.order(name: :asc).each do |idea| %>
+              <li><%= link_to idea.name, idea %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+    </div>
+
+    <div class="col-lg-3 col-sm-4">
+
+      <section class="panel panel-invisible">
+
+        <% if @project.is_editable_by? context.user %>
+        <%= button_to 'Edit',
+                      edit_project_url(@project),
+                      method: 'get',
+                      class: 'btn btn-warning btn-block',
+                      form_class: 'button_to full-width' %>
+        <% end %>
+
+      </section>
+
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h4 class="panel-title">Details</h4>
+        </header>
+        <div class="panel-body">
+          <h5 class="text-muted no-margin-bottom">Status</h5>
+          <p><%= @project.project_status.name %></p>
+          <% if @project.project_roles.founders.count > 0 %>
+          <h5 class="text-muted no-margin-bottom">Founder</h5>
+          <ul class="list-unstyled">
+            <% @project.project_roles.founders.each do |project_role| %>
+              <li><%= link_to project_role.user.display_name, project_role.user %></li>
+            <% end %>
+          </ul>
+          <% end %>
+          <% {
+                 'Website' => :website_url,
+                 'Documentation' => :documentation_url,
+                 'Source' => :source_url,
+                 'Download' => :download_url
+             }.each do |name, attr| next unless @project.send(attr) and @project.send(attr).strip.length > 0 %>
+            <h5 class="text-muted no-margin-bottom"><%= name %></h5>
+            <%= link_to @project.send(attr), @project.send(attr), target: '_blank', class: 'ellipsis-text-block' %>
+          <% end %>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+</div>
+
+

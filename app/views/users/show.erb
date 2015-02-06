@@ -60,6 +60,40 @@
         </div>
       <% end %>
       <div class="row">
+        <% if @founded_projects.count > 0 %>
+          <div class="col-sm-6">
+            <section class="panel panel-default">
+              <header class="panel-heading">
+                <h3 class="panel-title">Projects Founded</h3>
+              </header>
+              <div class="panel-body">
+                <ul>
+                  <% @founded_projects.each do |project| %>
+                    <li><%= link_to project.name, project %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </section>
+          </div>
+        <% end %>
+        <% if @founded_projects.count > 0 %>
+          <div class="col-sm-6">
+            <section class="panel panel-default">
+              <header class="panel-heading">
+                <h3 class="panel-title">Projects Supported</h3>
+              </header>
+              <div class="panel-body">
+                <ul>
+                  <% @supported_projects.each do |project| %>
+                    <li><%= link_to project.name, project %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </section>
+          </div>
+        <% end %>
+      </div>
+      <div class="row">
         <% if @founded_ideas.count > 0 %>
           <div class="col-sm-6">
             <section class="panel panel-default">
@@ -102,18 +136,18 @@
         <div class="panel-body">
           <dl>
             <dt>Email Address</dt>
-            <dd><%= link_to @user.email, "mailto:#{@user.email}" %></dd>
+            <dd class="ellipsis-text-block"><%= link_to @user.email, "mailto:#{@user.email}" %></dd>
             <% if @user.phone_number and @user.phone_number.length > 0 %>
               <dt>Phone Number</dt>
-              <dd><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
+              <dd class="ellipsis-text-block"><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
             <% end %>
             <% if @user.fax_number and @user.fax_number.length > 0 %>
               <dt>Fax Number</dt>
-              <dd><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
+              <dd class="ellipsis-text-block"><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
             <% end %>
             <% if @user.mailing_address and @user.mailing_address.length > 0 %>
               <dt>Mailing Address</dt>
-              <dd><%= raw @user.mailing_address_html %></dd>
+              <dd class="ellipsis-text-block"><%= raw @user.mailing_address_html %></dd>
             <% end %>
           </dl>
         </div>
@@ -127,23 +161,23 @@
             <dl>
               <% if @user.website and @user.website.length > 0 %>
                 <dt>Website</dt>
-                <dd><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
+                <dd class="ellipsis-text-block"><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
               <% end %>
               <% if @user.social_github and @user.social_github.length > 0 %>
                 <dt>GitHub</dt>
-                <dd><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
+                <dd class="ellipsis-text-block"><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
               <% end %>
               <% if @user.social_linkedin and @user.social_linkedin.length > 0 %>
                 <dt>LinkedIn</dt>
-                <dd><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
+                <dd class="ellipsis-text-block"><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
               <% end %>
               <% if @user.social_twitter and @user.social_twitter.length > 0 %>
                 <dt>Twitter</dt>
-                <dd><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
+                <dd class="ellipsis-text-block"><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
               <% end %>
               <% if @user.social_google and @user.social_google.length > 0 %>
                 <dt>Google+</dt>
-                <dd><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
+                <dd class="ellipsis-text-block"><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
               <% end %>
             </dl>
           </div>
