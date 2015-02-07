@@ -31,10 +31,27 @@
               <% rows.each do |row| %>
                 <div class="row">
                   <% row.each do |col| %>
-                    <div class="col-md-4"><%= col.name %></div>
+                    <div class="col-md-4"><%= link_to col.name, col %></div>
                   <% end %>
                 </div>
               <% end %>
+            </div>
+          </section>
+        </div>
+      <% end %>
+
+      <% if @idea.projects.length > 0 %>
+        <div class="margin-bottom">
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Related Projects</h3>
+            </header>
+            <div class="panel-body">
+              <ul class="list-unstyled">
+                <% @idea.projects.order(name: :asc).each do |project| %>
+                  <li><%= link_to project.name, project %></li>
+                <% end %>
+              </ul>
             </div>
           </section>
         </div>

@@ -51,7 +51,7 @@
               <% rows.each do |row| %>
                 <div class="row">
                   <% row.each do |col| %>
-                    <div class="col-md-4"><%= col.name %></div>
+                    <div class="col-md-4"><%= link_to col.name, col %></div>
                   <% end %>
                 </div>
               <% end %>

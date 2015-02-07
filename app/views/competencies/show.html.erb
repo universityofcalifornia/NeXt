@@ -1,0 +1,56 @@
+<div class="profile">
+
+  <h2><%= @competency.name %></h2>
+
+  <% if @competency.projects.length > 0 %>
+    <div class="margin-bottom">
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h3 class="panel-title">Projects</h3>
+        </header>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <% @competency.projects.order(name: :asc).each do |project| %>
+              <li><%= link_to project.name, project %></li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    </div>
+  <% end %>
+
+  <% if @competency.ideas.length > 0 %>
+    <div class="margin-bottom">
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h3 class="panel-title">Ideas</h3>
+        </header>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <% @competency.ideas.order(name: :asc).each do |idea| %>
+              <li><%= link_to idea.name, idea %></li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    </div>
+  <% end %>
+
+  <% if @competency.users.length > 0 %>
+    <div class="margin-bottom">
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h3 class="panel-title">Users</h3>
+        </header>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <% @competency.users.order(name_last: :asc, name_first: :asc).each do |user| %>
+              <li><%= link_to user.display_name(:lf), user %></li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    </div>
+  <% end %>
+
+</div>

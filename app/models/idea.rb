@@ -7,6 +7,9 @@ class Idea < ActiveRecord::Base
   has_many :idea_roles, dependent: :destroy
   has_many :idea_votes, dependent: :destroy
 
+  has_many :project_ideas
+  has_many :projects, through: :project_ideas, source: :project
+
   has_many :idea_competencies
   has_many :competencies, through: :idea_competencies, source: :competency
 
