@@ -12,6 +12,34 @@
 
       <%= raw @idea.description_html %>
 
+      <%
+         if @idea.competencies.count > 0
+           rows = [[]]
+           @idea.competencies.each do |competency|
+             if rows[rows.length - 1].length > 2
+               rows << []
+             end
+             rows[rows.length - 1] << competency
+           end
+      %>
+        <div class="margin-bottom">
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Related Competencies</h3>
+            </header>
+            <div class="panel-body">
+              <% rows.each do |row| %>
+                <div class="row">
+                  <% row.each do |col| %>
+                    <div class="col-md-4"><%= col.name %></div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </section>
+        </div>
+      <% end %>
+
     </div>
 
     <div class="col-lg-3 col-sm-4">

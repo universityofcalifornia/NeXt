@@ -10,6 +10,7 @@ class IdeasController < ApplicationController
 
   before_action only: [:new, :edit] do
     @idea_statuses = IdeaStatus.all
+    @competencies = Competency.order(name: :asc)
   end
 
   def index
@@ -25,6 +26,7 @@ class IdeasController < ApplicationController
   def create
     idea = Idea.create params[:idea].permit(:name, :pitch, :description, :idea_status_id)
     idea.idea_roles << IdeaRole.new(user: context.user, founder: true, admin: true)
+    idea.competency_ids = params[:idea][:competencies]
     redirect_to idea_url(idea)
   end
 
@@ -36,6 +38,7 @@ class IdeasController < ApplicationController
 
   def update
     @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+    @idea.competency_ids = params[:idea][:competencies]
     redirect_to params[:return_to] ? params[:return_to] : idea_url(@idea)
   end
 

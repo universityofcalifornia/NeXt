@@ -12,26 +12,66 @@
 
       <%= raw @project.description_html %>
 
+      <%
+         if @project.competencies.count > 0
+           rows = [[]]
+           @project.competencies.each do |competency|
+             if rows[rows.length - 1].length > 2
+               rows << []
+             end
+             rows[rows.length - 1] << competency
+           end
+      %>
+        <div class="margin-bottom">
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Related Competencies</h3>
+            </header>
+            <div class="panel-body">
+              <% rows.each do |row| %>
+                <div class="row">
+                  <% row.each do |col| %>
+                    <div class="col-md-4"><%= col.name %></div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </section>
+        </div>
+      <% end %>
+
       <% if @project.users.length > 0 %>
-        <section>
-          <h4>Collaborators</h4>
-          <ul>
-            <% @project.users.order(name_last: :asc, name_first: :asc).each do |user| %>
-              <li><%= link_to user.display_name(:fl), user %></li>
-            <% end %>
-          </ul>
-        </section>
+        <div class="margin-bottom">
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Collaborators</h3>
+            </header>
+            <div class="panel-body">
+              <ul class="list-unstyled">
+                <% @project.users.order(name_last: :asc, name_first: :asc).each do |user| %>
+                  <li><%= link_to user.display_name(:fl), user %></li>
+                <% end %>
+              </ul>
+            </div>
+          </section>
+        </div>
       <% end %>
 
       <% if @project.ideas.length > 0 %>
-        <section>
-          <h4>Related Ideas</h4>
-          <ul>
-            <% @project.ideas.order(name: :asc).each do |idea| %>
-              <li><%= link_to idea.name, idea %></li>
-            <% end %>
-          </ul>
-        </section>
+        <div class="margin-bottom">
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Related Ideas</h3>
+            </header>
+            <div class="panel-body">
+              <ul class="list-unstyled">
+                <% @project.ideas.order(name: :asc).each do |idea| %>
+                  <li><%= link_to idea.name, idea %></li>
+                <% end %>
+              </ul>
+            </div>
+          </section>
+        </div>
       <% end %>
 
     </div>

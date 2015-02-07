@@ -10,6 +10,9 @@ class Project < ActiveRecord::Base
   has_many :project_ideas
   has_many :ideas, through: :project_ideas, source: :idea
 
+  has_many :project_competencies
+  has_many :competencies, through: :project_competencies, source: :competency
+
   attr_html_reader :description
 
   def is_editable_by? user

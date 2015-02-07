@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206182236) do
+ActiveRecord::Schema.define(version: 20150207003421) do
 
   create_table "competencies", force: true do |t|
     t.string   "name"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 20150206182236) do
   create_table "competency_users", force: true do |t|
     t.integer  "competency_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  create_table "idea_competencies", force: true do |t|
+    t.integer  "idea_id"
+    t.integer  "competency_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -114,6 +122,14 @@ ActiveRecord::Schema.define(version: 20150206182236) do
 
   add_index "positions", ["department"], name: "index_positions_on_department", using: :btree
   add_index "positions", ["title"], name: "index_positions_on_title", using: :btree
+
+  create_table "project_competencies", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "competency_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
 
   create_table "project_ideas", force: true do |t|
     t.integer  "project_id"

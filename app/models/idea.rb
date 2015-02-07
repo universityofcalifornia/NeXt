@@ -7,6 +7,9 @@ class Idea < ActiveRecord::Base
   has_many :idea_roles, dependent: :destroy
   has_many :idea_votes, dependent: :destroy
 
+  has_many :idea_competencies
+  has_many :competencies, through: :idea_competencies, source: :competency
+
   attr_html_reader :description
 
   def is_editable_by? user
