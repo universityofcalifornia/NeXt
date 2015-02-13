@@ -1,5 +1,5 @@
 # RELOAD_INDICES: set true to reset all Organization indices and then load in all Polls again (performance intense!)
-RELOAD_INDICES = true
+RELOAD_INDICES = false
 
 # Load environment
 require ::File.expand_path('../config/environment',  __FILE__)
