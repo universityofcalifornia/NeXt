@@ -70,6 +70,14 @@ GEM
       thor
     daemons (1.1.9)
     docile (1.1.5)
+    elasticsearch (1.0.5)
+      elasticsearch-api (= 1.0.5)
+      elasticsearch-transport (= 1.0.5)
+    elasticsearch-api (1.0.5)
+      multi_json
+    elasticsearch-transport (1.0.5)
+      faraday
+      multi_json
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.2)
@@ -184,6 +192,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   coveralls
+  elasticsearch
   extend_method
   github-markup
   gravatarify

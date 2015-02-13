@@ -1,3 +1,6 @@
+require 'application/index_adapter/elasticsearch'
+require 'application/index'
+
 class User < ActiveRecord::Base
 
   acts_as_paranoid
@@ -65,6 +68,37 @@ class User < ActiveRecord::Base
 
   def social_twitter_url
     "https://twitter.com/#{social_twitter}"
+  end
+
+  # ELASTICSEARCH
+
+  include Application::IndexAdapter::Elasticsearch
+  include Application::Index
+
+  after_save do
+    create_index!
+  end
+
+  before_destroy do
+    destroy_index!
+  end
+
+  def index_identity
+    {
+        index: index_name,
+        type: 'users',
+        id: id
+    }
+  end
+
+  def index_body
+    body = prepare_index_body do
+      serializable_hash.merge({
+        'competencies' => competencies.map(){ |c| c.name },
+        'positions' => positions.map(){ |p| p.title }
+      })
+    end
+    body
   end
 
 end

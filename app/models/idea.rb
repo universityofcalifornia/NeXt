@@ -1,3 +1,6 @@
+require 'application/index_adapter/elasticsearch'
+require 'application/index'
+
 class Idea < ActiveRecord::Base
 
   acts_as_paranoid
@@ -21,6 +24,36 @@ class Idea < ActiveRecord::Base
 
   def has_been_voted_for_by? user
     user and (idea_votes.where(user_id: user.id).count > 0)
+  end
+
+  # ELASTICSEARCH
+
+  include Application::IndexAdapter::Elasticsearch
+  include Application::Index
+
+  after_save do
+    create_index!
+  end
+
+  before_destroy do
+    destroy_index!
+  end
+
+  def index_identity
+    {
+        index: index_name,
+        type: 'ideas',
+        id: id
+    }
+  end
+
+  def index_body
+    body = prepare_index_body do
+      serializable_hash.merge({
+        'competencies' => competencies.map(){ |c| c.name }
+      })
+    end
+    body
   end
 
 end

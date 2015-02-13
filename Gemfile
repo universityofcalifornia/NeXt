@@ -7,6 +7,9 @@ gem 'rails', '4.1.7'
 gem 'sqlite3'
 gem 'mysql2'
 
+# Use elasticsearch as Elasticsearch client
+gem 'elasticsearch'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
