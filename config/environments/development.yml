@@ -6,7 +6,7 @@ oauth2:
       secret: txen
       properties:
         site: http://localhost
-        authorize_url: /shib-oauth2-bridge/public/oauth2/authorize
+        authorize_url: /shib-oauth2-bridge/public/oauth2/test-authorize
         token_url: /shib-oauth2-bridge/public/oauth2/access_token
       routes:
         get_user: /shib-oauth2-bridge/public/oauth2/user
