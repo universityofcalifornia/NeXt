@@ -15,7 +15,7 @@
     <p><%= link_to '[Edit Profile]', edit_user_url(@user) %></p>
     <% end %>
 
-    <dl>
+    <dl style="font-style:italic">
       <% @user.positions.each do |position| %>
       <dt><%= position.title %></dt>
       <dd><%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %></dd>
@@ -28,36 +28,8 @@
     <div class="col-lg-9 col-sm-8">
       <% if @user.biography and @user.biography.length > 0 %>
       <section class="margin-bottom">
-        <h4>Bio</h4>
         <%= raw @user.biography_html %>
       </section>
-      <% end %>
-      <%
-      if @user.competencies.count > 0
-        rows = [[]]
-        @user.competencies.each do |competency|
-          if rows[rows.length - 1].length > 2
-            rows << []
-          end
-          rows[rows.length - 1] << competency
-        end
-      %>
-        <div class="margin-bottom">
-          <section class="panel panel-default">
-            <header class="panel-heading">
-              <h3 class="panel-title">Competencies</h3>
-            </header>
-            <div class="panel-body">
-              <% rows.each do |row| %>
-                <div class="row">
-                  <% row.each do |col| %>
-                    <div class="col-md-4"><%= link_to col.name, col %></div>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-          </section>
-        </div>
       <% end %>
       <div class="row">
         <% if @founded_projects.count > 0 %>
@@ -76,11 +48,11 @@
             </section>
           </div>
         <% end %>
-        <% if @founded_projects.count > 0 %>
+        <% if @supported_projects.count > 0 %>
           <div class="col-sm-6">
             <section class="panel panel-default">
               <header class="panel-heading">
-                <h3 class="panel-title">Projects Supported</h3>
+                <h3 class="panel-title">Projects Involved With</h3>
               </header>
               <div class="panel-body">
                 <ul>
@@ -185,5 +157,32 @@
       <% end %>
     </div>
   </div>
+  <%
+     if @user.competencies.count > 0
+       rows = [[]]
+       @user.competencies.each do |competency|
+         if rows[rows.length - 1].length > 2
+           rows << []
+         end
+         rows[rows.length - 1] << competency
+       end
+  %>
+    <div class="margin-bottom">
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h3 class="panel-title">Competencies</h3>
+        </header>
+        <div class="panel-body">
+          <% rows.each do |row| %>
+            <div class="row">
+              <% row.each do |col| %>
+                <div class="col-md-4"><%= link_to col.name, col %></div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    </div>
+  <% end %>
 
 </div>

@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   end
 
   before_action only: [:new, :edit] do
-    @ideas = Idea.all # TODO: refine the list of this to only those pertinent to the user
+    @ideas = Idea.order(name: :asc) # TODO: refine the list of this to only those pertinent to the user
     @project_statuses = ProjectStatus.all
     @competencies = Competency.order(name: :asc)
   end

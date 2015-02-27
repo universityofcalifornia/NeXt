@@ -32,6 +32,7 @@ class Idea < ActiveRecord::Base
   include Application::Index
 
   after_save do
+    destroy_index! if index_exists?
     create_index!
   end
 

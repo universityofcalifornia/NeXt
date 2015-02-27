@@ -20,9 +20,11 @@
         <p><small>
           Proposed
           <% if idea.idea_roles.founders.count > 0 %>
-          by <%= idea.idea_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %>
+          by <strong><%= idea.idea_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %></strong>
           <% end %>
-          on <%= idea.created_at.strftime("%B %d, %Y") %>
+          on <strong><%= idea.created_at.strftime("%B %d, %Y") %></strong>
+          <br>
+          <em>Supported by <%= idea.idea_votes.count %> ( <%= idea.idea_votes.where(participate: true).count %> would participate )</em>
         </small></p>
       </div>
       <nav class="col-sm-2">
@@ -49,13 +51,13 @@
           <%= button_to 'I think this is a good idea',
                         idea_votes_url(idea),
                         method: :post,
-                        params: { participate: false },
+                        params: { participate: false, return_to: ideas_url },
                         class: 'btn btn-block btn-info',
                         form_class: 'button_to full-width' %>
           <%= button_to 'I would participate if this were a project',
                         idea_votes_url(idea),
                         method: :post,
-                        params: { participate: true },
+                        params: { participate: true, return_to: ideas_url },
                         class: 'btn btn-block btn-success',
                         form_class: 'button_to full-width' %>
           <%= button_to 'I want to learn more about this',

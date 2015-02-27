@@ -1,2 +1,36 @@
-<h1>Home#dashboard</h1>
-<p>Find me in app/views/home/dashboard.html.erb</p>
+<h1>Your NeXt Ideas</h1>
+
+<h4>Looking to get involved?</h4>
+
+<p>Check out these cool ideas and projects looking that might be of interest...</p>
+
+<div class="row">
+  <div class="col-md-6">
+    <section class="panel panel-default">
+      <header class="panel-heading">
+        <h4 class="panel-title">Ideas</h4>
+      </header>
+      <div class="panel-body">
+        <ul>
+          <% Idea.joins(:idea_votes).select('`ideas`.id, `ideas`.name, count(*) as count').group('`ideas`.id').order('count DESC').take(5).each do |idea| %>
+            <li><%= link_to idea.name, idea %></li>
+          <% end %>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <div class="col-md-6">
+    <section class="panel panel-default">
+      <header class="panel-heading">
+        <h4 class="panel-title">Projects</h4>
+      </header>
+      <div class="panel-body">
+        <ul>
+          <% Project.order(created_at: :desc).take(5).each do |idea| %>
+            <li><%= link_to idea.name, idea %></li>
+          <% end %>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>

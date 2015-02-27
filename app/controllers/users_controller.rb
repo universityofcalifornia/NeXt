@@ -32,6 +32,7 @@ class UsersController < ApplicationController
 
   def edit
     @competencies = Competency.order(name: :asc).all
+    @organizations = Organization.order(name: :asc).all
   end
 
   def update
@@ -50,6 +51,18 @@ class UsersController < ApplicationController
                                       :social_linkedin,
                                       :social_twitter)
     @user.competency_ids = params[:user][:competencies]
+    if params[:primary_position_organization_id]
+      if params[:primary_position_organization_id] != '0'
+        position = @user.primary_position ? @user.primary_position : Position.new(user_id: @user.id)
+        position.organization_id = params[:primary_position_organization_id]
+        position.title = params[:primary_position_title]
+        position.department = params[:primary_position_department]
+        position.description = params[:primary_position_description]
+        position.save
+      elsif @user.primary_position
+        @user.primary_position.delete
+      end
+    end
     redirect_to user_url(@user)
   end
 

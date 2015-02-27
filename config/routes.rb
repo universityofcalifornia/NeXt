@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     get '/oauth2/:id', to: 'oauth2#launch', as: :oauth2_launch
   end
 
+  get 'search', to: 'search#default'
+  post 'search', to: 'search#default'
+
   root 'home#index'
 
 end
