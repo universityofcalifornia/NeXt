@@ -3,6 +3,13 @@ logger.progname = 'Seed - Users'
 logger.info 'Truncate'
 User.truncate
 
+logger.info 'Create - user[local, admin@localhost, password]'
+User.create(email: 'admin@localhost',
+            name_first: 'Admin',
+            name_last: 'User',
+            super_admin: true,
+            password_hash: BCrypt::Password.create('password'))
+
 logger.info 'Create - oauth2_identity[shibboleth, ebollens@ucla.edu]'
 ebollens_primary_position = Position.new(organization: Organization.where(shortname: 'UCLA').first,
                                          title: 'Open Source Architect',

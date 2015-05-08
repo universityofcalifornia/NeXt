@@ -36,21 +36,29 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update params[:user].permit(:email,
-                                      :name_first,
-                                      :name_middle,
-                                      :name_last,
-                                      :name_suffix,
-                                      :website,
-                                      :phone_number,
-                                      :fax_number,
-                                      :mailing_address,
-                                      :biography,
-                                      :social_google,
-                                      :social_github,
-                                      :social_linkedin,
-                                      :social_twitter)
+
+    permitted_params = [
+        :email,
+        :name_first,
+        :name_middle,
+        :name_last,
+        :name_suffix,
+        :website,
+        :phone_number,
+        :fax_number,
+        :mailing_address,
+        :biography,
+        :social_google,
+        :social_github,
+        :social_linkedin,
+        :social_twitter
+    ]
+
+    permitted_params << :super_admin if context.is_super_admin?
+
+    @user.update params[:user].permit(permitted_params)
     @user.competency_ids = params[:user][:competencies]
+
     if params[:primary_position_organization_id]
       if params[:primary_position_organization_id] != '0'
         position = @user.primary_position ? @user.primary_position : Position.new(user_id: @user.id)
@@ -63,7 +71,9 @@ class UsersController < ApplicationController
         @user.primary_position.delete
       end
     end
+
     redirect_to user_url(@user)
+
   end
 
 end

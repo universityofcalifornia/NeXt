@@ -52,3 +52,5 @@ gem 'coveralls', require: false
 
 # Use thin as the app server
 gem 'thin'
+
+gem 'bcrypt', :require => 'bcrypt'

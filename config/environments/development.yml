@@ -1,12 +1,3 @@
-oauth2:
-  provider:
-    shibboleth:
-      enabled: true
-      key: next
-      secret: txen
-      properties:
-        site: http://localhost
-        authorize_url: /shib-oauth2-bridge/public/oauth2/test-authorize
-        token_url: /shib-oauth2-bridge/public/oauth2/access_token
-      routes:
-        get_user: /shib-oauth2-bridge/public/oauth2/user
+auth:
+  route: /auth/local/new
+  allow_local: true

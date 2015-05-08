@@ -32,6 +32,17 @@
       </div>
     </div>
 
+    <% if context.is_super_admin? %>
+
+        <div class="form-group">
+          <%= f.label :super_admin, 'Super Admin', class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10">
+            <%= f.check_box :super_admin %>
+          </div>
+        </div>
+
+    <% end %>
+
   </fieldset>
 
   <fieldset>

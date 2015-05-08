@@ -29,8 +29,12 @@ class User < ActiveRecord::Base
   attr_html_reader :biography
   attr_html_reader :mailing_address, :nl
 
+  attr_accessor :password,
+                :password_confirmation
+
   scope :idea_founders, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, founder: true }) }
   scope :idea_admins, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, admin: true }) }
+  scope :where_local, -> { where.not(:password_hash => nil) }
 
   def display_name format = :fl
     str = ''
@@ -48,6 +52,10 @@ class User < ActiveRecord::Base
 
   def primary_organization
     primary_position ? primary_position.organization : nil
+  end
+
+  def is_local?
+    !password_hash.nil?
   end
 
   def website_url

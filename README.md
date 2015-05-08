@@ -54,7 +54,28 @@ When editing CSS and JS assets, rerun the above command to recompile your site C
 
 Set your database connection details in `config/database.yml`.
 
-### Shibboleth via OAuth
+### Authorization
+
+Two authorization methods are supported:
+
+* Local users, recommended for development use
+* Shibboleth via OAuth, recommended for production use
+
+#### Local Users
+
+By default, the development environment is set up to use local login.
+
+The configuration for this is available in `config/environments/[your rails environment name].yml`:
+
+```yaml
+auth:
+  route: /auth/local/new
+  allow_local: true
+```
+
+If local login is supported, once you seed the database (see the "Usage" section), you'll be able to log in with the starting account **admin@localhost** and the password **password**.
+
+#### Shibboleth via OAuth
 
 The easiest way to integrate this application with Shibboleth is to bridge it across OAuth. See:
 
@@ -78,6 +99,14 @@ oauth2:
 ```
 
 The login route via Shibboleth is then available at /auth/oauth2/shibboleth.
+
+You should also change the `auth` block in `config/environments/[your rails environment name].yml`:
+
+```yaml
+auth:
+  route: /auth/oauth2/shibboleth
+  allow_local: false
+```
 
 ## Usage
 

@@ -1,0 +1,30 @@
+<h2>Local Accounts</h2>
+
+<%= link_to 'Create Local Account', new_local_user_url, class: 'btn btn-primary' %>
+
+<%= will_paginate @users %>
+
+<table class="table table-stripped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.display_name(:lf), user_url(user) %></td>
+        <td><%= link_to 'Change Password', edit_local_user_url(user) %></td>
+        <td><%= link_to 'Edit Profile', edit_user_url(user) %></td>
+        <td><%= link_to 'Delete Account', local_user_url(user), method: :delete,
+                        data: { confirm: "Are you sure you wish to delete \"#{user.display_name}\"?" } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @users %>

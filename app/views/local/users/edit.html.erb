@@ -1,0 +1,30 @@
+<%= form_for @user, url: local_user_url(@user), html: { class: 'form-horizontal' } do |f| %>
+
+    <fieldset>
+
+      <legend><%= @user.display_name %></legend>
+
+      <div class="form-group">
+        <%= f.label :password, 'New Password', class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= f.password_field :password, class: 'form-control', required: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, 'New Password (confirm)', class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+      </div>
+
+    </fieldset>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit 'Save', class: 'btn btn-success' %>
+        <%= link_to 'Cancel', competencies_url, class: 'btn btn-default' %>
+      </div>
+    </div>
+
+<% end %>
