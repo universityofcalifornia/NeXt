@@ -54,6 +54,26 @@ When editing CSS and JS assets, rerun the above command to recompile your site C
 
 Set your database connection details in `config/database.yml`.
 
+### Database
+
+Run the following command to populate the schema:
+
+```
+bundle exec rake db:migrate RAILS_ENV=development
+```
+
+To load some sample data (such as a local test account), run the following command:
+
+```
+bundle exec rake db:seed RAILS_ENV=development
+```
+
+If using SQLite, you can erase your development database as (and then must rerun the above migration - and possibly seed - command):
+
+```
+rm -rf db/development.sqlite3
+```
+
 ### Authorization
 
 Two authorization methods are supported:
@@ -73,7 +93,7 @@ auth:
   allow_local: true
 ```
 
-If local login is supported, once you seed the database (see the "Usage" section), you'll be able to log in with the starting account **admin@localhost** and the password **password**.
+If local login is supported, once you seed the database (see the "Database" section above), you'll be able to log in with the starting account **admin@localhost** and the password **password**.
 
 #### Shibboleth via OAuth
 
@@ -109,19 +129,6 @@ auth:
 ```
 
 ## Usage
-
-Run the following commands to populate the database:
-
-```
-bundle exec rake db:migrate RAILS_ENV=development
-bundle exec rake db:seed RAILS_ENV=development
-```
-
-If using SQLite, you can erase your development database as (and then must rerun the above migration & seed):
-
-```
-rm -rf db/development.sqlite3
-```
 
 Run the application as:
 
