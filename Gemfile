@@ -54,3 +54,11 @@ gem 'coveralls', require: false
 gem 'thin'
 
 gem 'bcrypt', :require => 'bcrypt'
+
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'capybara'
+end
