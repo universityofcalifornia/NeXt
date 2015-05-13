@@ -8,7 +8,7 @@
     </figure>
 
     <h2>
-      <%= @user.display_name %>
+      <%= @user.display_name :fmls %>
     </h2>
 
     <% if @user.is_editable_by? context.user %>
@@ -19,6 +19,7 @@
       <% @user.positions.each do |position| %>
       <dt><%= position.title %></dt>
       <dd><%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %></dd>
+      <dd><%= "#{position.description ? "#{position.description}" : ''}" %></dd>
       <% end %>
     </dl>
 
