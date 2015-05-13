@@ -47,6 +47,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.10)
     builder (3.2.2)
@@ -115,6 +116,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.2)
     jwt (1.2.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.4.3)
@@ -240,6 +243,7 @@ DEPENDENCIES
   gravatarify
   jbuilder (~> 2.0)
   jquery-rails
+  launchy
   mysql2
   oauth2
   paranoia (~> 2.0)
