@@ -1,4 +1,4 @@
-<%= form_for @event, html: { class: 'form-horizontal' } do |f| %>
+<%= form_for @event, html: { class: 'form-horizontal', :multipart => true } do |f| %>
 
   <% if params[:return_to] %>
     <%= f.hidden_field :return_to, name: :return_to, value: params[:return_to] %>
@@ -18,12 +18,9 @@
     </div>
   </div>
 
-  <div class='input-group date' id='datetimepicker'>
-    <input type='text' class="form-control" />
-    <span class="input-group-addon">
-        <span class="glyphicon glyphicon-calendar"></span>
-    </span>
-  </div>
+  <p>
+    <%= f.file_field :image %>
+  </p>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
@@ -32,9 +29,3 @@
   </div>
 
 <% end %>
-
-<script type="text/javascript">
-  $(function () {
-      $('#datetimepicker').datetimepicker();
-  });
-</script>

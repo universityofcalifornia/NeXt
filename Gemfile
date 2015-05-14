@@ -55,6 +55,9 @@ gem 'thin'
 
 gem 'bcrypt', :require => 'bcrypt'
 
+gem "rmagick"
+gem "carrierwave"
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
