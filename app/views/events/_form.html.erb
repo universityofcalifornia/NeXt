@@ -1,0 +1,40 @@
+<%= form_for @event, html: { class: 'form-horizontal' } do |f| %>
+
+  <% if params[:return_to] %>
+    <%= f.hidden_field :return_to, name: :return_to, value: params[:return_to] %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: 'form-control', rows: 12 %>
+    </div>
+  </div>
+
+  <div class='input-group date' id='datetimepicker'>
+    <input type='text' class="form-control" />
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit(@event.new_record? ? 'Create' : 'Update', class: 'btn btn-success') %>
+    </div>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(function () {
+      $('#datetimepicker').datetimepicker();
+  });
+</script>
