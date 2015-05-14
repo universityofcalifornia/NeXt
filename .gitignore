@@ -36,3 +36,6 @@
 # Ignore asset paths we do not use in our templates
 /app/assets/javascripts/*
 /app/assets/stylesheets/*
+
+#ignore file in uploader
+/uploads/*

@@ -5,7 +5,7 @@
               class: 'btn btn-warning btn-block',
               form_class: 'button_to pull-right' %>
 <% end %>
-
+<%= link_to 'Show all', events_path %>
 <h2>Events</h2>
 
 <%= will_paginate @events %>
@@ -22,6 +22,7 @@
           
           on <%#= event.created_at.strftime("%B %d, %Y") %>
         </small></p>
+        <%= image_tag event.image_url(:thumb) if event.image? %>
       </div>
       <nav class="col-sm-2">
         <!-- TODO -->
