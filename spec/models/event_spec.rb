@@ -7,4 +7,7 @@ describe Event do
 		expect(event.name).to eql("My first event")
 	end
 
+	it { should belong_to(:user) }
+  it { should validate_presence_of(:name) }
+
 end

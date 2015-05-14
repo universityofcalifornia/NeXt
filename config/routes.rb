@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   resource :auth, controller: 'auth', only: [:destroy]
 
-  resources :events
+  resources :events do
+    collection do
+      get 'logged_in'
+    end
+  end
 
   namespace :auth do
     get '/oauth2/:id', to: 'oauth2#return', as: :oauth2_return, constraints: lambda { |request| request.query_parameters.include? 'code' }
