@@ -38,4 +38,4 @@
 /app/assets/stylesheets/*
 
 #ignore file in uploader
-/uploads/*
+public/uploads/*

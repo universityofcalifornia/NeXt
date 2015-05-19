@@ -22,7 +22,10 @@
           
           on <%#= event.created_at.strftime("%B %d, %Y") %>
         </small></p>
-        <%= image_tag event.image_url(:thumb) if event.image? %>
+        <p><%= event.event_url %></p>
+        <p><%= event.map_url %></p>
+        <p><%= image_tag event.image_url(:thumb) if event.image? %></p>
+        <p><%= link_to 'Edit', edit_event_path(event) if context.user %></p>
       </div>
       <nav class="col-sm-2">
         <!-- TODO -->
