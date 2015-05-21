@@ -26,8 +26,8 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = @event.update(event_params)
-    respond_with @event
+    @event.update(event_params)
+    redirect_to params[:return_to] || event_url(@event)
   end
 
   def show
