@@ -16,6 +16,7 @@ describe Event do
 
   context "validations and relationships" do
   	it { should belong_to(:user) }
+    it {should have_many(:invites)}
     it { should validate_presence_of(:name) }
   end
 

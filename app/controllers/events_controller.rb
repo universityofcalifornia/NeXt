@@ -2,7 +2,7 @@ class EventsController < ApplicationController
 
   respond_to :html
 
-  before_action :find_event, only: [:show, :edit, :update] 
+  before_action :find_event, only: [:show, :edit, :update]
 
   def index
     @events = Event.order(created_at: :desc).paginate(page: params[:page], per_page: 50)
@@ -26,8 +26,8 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.update(event_params)
-    redirect_to params[:return_to] || event_url(@event)
+    @event.update!(event_params)
+    redirect_to event_url(@event)
   end
 
   def show
@@ -40,6 +40,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.required(:event).permit(:name, :description, :image, :map_url, :event_url, :location)
+      params.required(:event).permit(:name, :description, :image, :map_url, :event_url, :location, :invite_list)
     end
 end
