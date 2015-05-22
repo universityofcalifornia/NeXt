@@ -1,3 +1,7 @@
+<% flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, class: name %>
+    <% end -%>
+
 <%= form_for @event, html: { class: 'form-horizontal', :multipart => true } do |f| %>
 
   <% if params[:return_to] %>

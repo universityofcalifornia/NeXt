@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
 	after_create :create_invites
 
 	def invite_list
-		self.invites.pluck(:email)
+		self.invites.pluck(:email).compact.join(', ')
 	end
 
 	private
