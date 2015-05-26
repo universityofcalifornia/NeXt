@@ -4,33 +4,33 @@
               method: 'get',
               class: 'btn btn-warning btn-block',
               form_class: 'button_to pull-right' %>
+<%= link_to 'Show all', events_path, class: 'btn btn-warning btn-block', form_class: 'button_to pull-left' %>
 <% end %>
-<%= link_to 'Show all', events_path %>
 <h2>Events</h2>
 
 <%= will_paginate @events %>
 
 <div class="list-group">
-<% @events.each do |event| %>
-  <a class="list-group-item" href="<%= event_url(event) %>">
-    <div class="row">
-      <div class="col-sm-10">
-        <h4><%= event.name %></h4>
-        <%= raw event.description %>
-        <p><small>Started on <%= event.created_at.strftime("%B %d, %Y") %></small></p>
-        <p><%= event.event_url %></p>
-        <p><%= event.map_url %></p>
-        Invites:</br>
-        <p><%= event.invite_list %>
-        <p><%= image_tag event.image_url(:thumb) if event.image? %></p>
-        <p><%#= link_to 'Edit', edit_event_path(event) if context.user %></p>
+  <% @events.each do |event| %>
+    <a class="list-group-item" href="<%= event_url(event) %>">
+      <div class="row">
+        <div class="col-sm-10">
+          <h4><%= event.name %></h4>
+          <p><%= raw event.description %></p>
+          <p><small>Started on <%= event.created_at.strftime("%B %d, %Y") %></small></p>
+          <p><%= event.event_url %></p>
+          <p><%= event.map_url %></p>
+          Invites:</br>
+          <p><%= event.invite_list %></p>
+          <p><%= image_tag event.image_url(:thumb) if event.image? %></p>
+          <p><%#= link_to 'Edit', edit_event_path(event) if context.user %></p>
+        </div>
+        <nav class="col-sm-2">
+          <!-- TODO -->
+        </nav>
       </div>
-      <nav class="col-sm-2">
-        <!-- TODO -->
-      </nav>
-    </div>
-  </a>
-<% end %>
+    </a>
+  <% end %>
 </div>
 
 <%= will_paginate @events %>
