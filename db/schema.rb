@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521234734) do
+ActiveRecord::Schema.define(version: 20150526194833) do
 
   create_table "competencies", force: true do |t|
     t.string   "name"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(version: 20150521234734) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
   end
+
+  create_table "event_groups", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "event_groups", ["event_id", "group_id"], name: "index_event_groups_on_event_id_and_group_id", using: :btree
+  add_index "event_groups", ["event_id"], name: "index_event_groups_on_event_id", using: :btree
+  add_index "event_groups", ["group_id"], name: "event_groups_group_id_fk", using: :btree
 
   create_table "events", force: true do |t|
     t.integer  "user_id"
@@ -48,6 +60,17 @@ ActiveRecord::Schema.define(version: 20150521234734) do
     t.datetime "deleted_at"
     t.string   "image"
   end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
 
   create_table "idea_competencies", force: true do |t|
     t.integer  "idea_id"
@@ -250,5 +273,8 @@ ActiveRecord::Schema.define(version: 20150521234734) do
   add_index "users", ["name_last", "name_first", "name_middle", "name_suffix"], name: "name", using: :btree
   add_index "users", ["primary_position_id"], name: "index_users_on_primary_position_id", using: :btree
   add_index "users", ["super_admin"], name: "index_users_on_super_admin", using: :btree
+
+  add_foreign_key "event_groups", "events", name: "event_groups_event_id_fk"
+  add_foreign_key "event_groups", "groups", name: "event_groups_group_id_fk"
 
 end

@@ -12,7 +12,10 @@
       Invites:</br>
       <p><%= @event.invite_list %>
       <%= image_tag @event.image_url if @event.image? %>
-
+      <!--
+      Groups:<br/>
+    -->
+      <%#= render 'events/event_groups', :event => @event %>
     </div>
 
 

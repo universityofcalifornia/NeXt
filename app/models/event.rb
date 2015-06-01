@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
 	belongs_to :user
 
 	has_many :invites #, :dependent => :destroy
+	has_many :groups, :through => :event_groups
+	has_many :event_groups
 
 	validates :name, :presence => true
 
@@ -15,6 +17,8 @@ class Event < ActiveRecord::Base
   validates :event_url, :format => { :with => domain_regex }, :if => "event_url.present?"
 
 	mount_uploader :image, EventPromoPhotoUploader
+
+	accepts_nested_attributes_for :groups, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
 
 	after_create :create_invites
 

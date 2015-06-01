@@ -2,6 +2,7 @@ class EventsController < ApplicationController
 
   respond_to :html
 
+  #around_action :not_logged_in, :only => :index
   before_action :find_event, only: [:show, :edit, :update]
 
   def index
@@ -15,6 +16,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @event.groups.build
   end
 
   def create
@@ -34,6 +36,12 @@ class EventsController < ApplicationController
   end
 
   private
+
+    def not_logged_in
+      unless context.user
+        yield
+      end
+    end
 
     def find_event
       @event = Event.find_by(:id => params[:id])

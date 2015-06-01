@@ -57,8 +57,8 @@ gem 'bcrypt', :require => 'bcrypt'
 
 gem "rmagick"
 gem "carrierwave"
-
 gem "letter_opener", :group => :development
+gem'foreigner'
 
 group :development, :test do
   gem 'rspec-rails'
