@@ -1,0 +1,25 @@
+<div class="profile">
+
+  <h2><%= @event.name %></h2>
+
+  <div class="row">
+
+    <div class="col-lg-9 col-sm-8">
+
+      <div class="subtitle">
+        <%= @event.description %>
+      </div>
+      Invites:</br>
+      <p><%= @event.invite_list %>
+      <%= image_tag @event.image_url if @event.image? %>
+      <!--
+      Groups:<br/>
+    -->
+      <%#= render 'events/event_groups', :event => @event %>
+    </div>
+
+
+
+  </div>
+
+</div>

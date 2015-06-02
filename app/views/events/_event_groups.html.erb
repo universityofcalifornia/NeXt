@@ -1,0 +1,7 @@
+<% if event.groups %>
+  <ul>
+    <% event.groups.each do |group| %>
+      <li><%= group.name %></li>
+    <% end %>
+  </ul>
+<% end %>

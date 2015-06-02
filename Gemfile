@@ -54,3 +54,17 @@ gem 'coveralls', require: false
 gem 'thin'
 
 gem 'bcrypt', :require => 'bcrypt'
+
+gem "rmagick"
+gem "carrierwave"
+gem "letter_opener", :group => :development
+gem'foreigner'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'launchy'
+end
