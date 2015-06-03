@@ -1,11 +1,10 @@
 class CommentsController < ApplicationController
 
   def new
+  	
     @comment = Comment.new
     @comment.parent_id = params[:parent_id]
     @idea = @comment.root.idea
-
-    logger.info("parent id = #{@comment.parent_id}")
 
     render :layout => false
 
@@ -13,13 +12,11 @@ class CommentsController < ApplicationController
 
   def create
 
-    logger.info ('==>in comments create')
-
   	path = params[:return_to]
 
     unless context.user
 
-      logger.info('==> no context.user')
+      logger.info ('in CommentsController::create. user was not logged in')
 
       raise Application::Error.new "You must be logged in to comment",
                                      redirect_to: [
@@ -28,9 +25,7 @@ class CommentsController < ApplicationController
                                      ]
     end
 
-    comment = Comment.new params[:comment].permit(:parent_id, :idea_id, :body, :commit)  
-    comment.user_id = context.user.id
-    comment.save
+    context.user.comments.create(params[:comment].permit(:parent_id, :idea_id, :body, :commit))
 
     redirect_to path,
                 flash: {
