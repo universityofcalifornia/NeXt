@@ -7,7 +7,7 @@ footer {
       display: inline;
       &:not(:last-child):after {
         padding: 0 2px 0 6px;
-        content: '•';
+        content: '\2022';
         color: #999;
       }
     }
