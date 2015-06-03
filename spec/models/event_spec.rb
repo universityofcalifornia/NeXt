@@ -14,10 +14,23 @@ describe Event do
     end
   end
 
+  describe "invites" do
+    it "should call create_invites"do
+      event = FactoryGirl.build(:event)
+      event.should_receive(:create_invites)
+      event.save!
+    end
+
+    it "should create invites" do
+      event = FactoryGirl.create(:event, :invite_list => 'moo@moo.com, test@test.com')
+      expect(event.invites.map(&:email)).to eq(['moo@moo.com','test@test.com'])
+    end
+  end
+
   context "validations and relationships" do
   	it { should belong_to(:user) }
     it { should have_many(:invites) }
-    xit { should have_many(:groups).through(:event_groups) }
+    #xit { should have_many(:groups).through(:event_groups) }
     it { should validate_presence_of(:name) }
   end
 
