@@ -1,29 +1,37 @@
 require 'rails_helper'
 
 describe Event do
-  context "invalid url's" do
+  let(:event) { build(:event) }
 
+  context "invalid url's" do
     it "should validate map_url if present" do
-      bad_map_url  = FactoryGirl.build(:event, :map_url => 'moo')
-      expect(bad_map_url).to be_invalid
+      event.map_url = 'moo'
+      expect(event).to be_invalid
     end
 
     it "should validate event_url if present" do
-      bad_event_url  = FactoryGirl.build(:event, :event_url => 'moo')
-      expect(bad_event_url).to be_invalid
+      event.event_url = 'moo'
+      expect(event).to be_invalid
     end
   end
 
   describe "invites" do
     it "should call create_invites"do
-      event = FactoryGirl.build(:event)
-      event.should_receive(:create_invites)
+      expect(event).to receive(:create_invites)
       event.save!
     end
 
     it "should create invites" do
-      event = FactoryGirl.create(:event, :invite_list => 'moo@moo.com, test@test.com')
+      event = create(:event, :invite_list => 'moo@moo.com, test@test.com')
       expect(event.invites.map(&:email)).to eq(['moo@moo.com','test@test.com'])
+    end
+
+    it "should create groups" do
+      event = create(:event, :name => 'moo')
+      group1 = event.groups.create(:name => 'moo@moo.com')
+      group2 = event.groups.create( :name => 'test@test.com')
+      event.group_tokens = ("#{group1.id},#{group2.id}")
+      expect(event.groups.map(&:name)).to eq(['moo@moo.com', 'test@test.com'])
     end
   end
 
