@@ -48,6 +48,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.required(:event).permit(:name, :description, :image, :map_url, :event_url, :location, :invite_list)
+      params.required(:event).permit(:name, :description, :image, :map_url, :event_url, :location, :invite_list, :group_tokens)
     end
 end

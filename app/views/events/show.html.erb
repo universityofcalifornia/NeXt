@@ -9,13 +9,10 @@
       <div class="subtitle">
         <%= @event.description %>
       </div>
-      Invites:</br>
-      <p><%= @event.invite_list %>
+      <%= render 'events/invite_list', :event => @event %><br />
+      <%= render 'events/event_groups', :event => @event %><br />
       <%= image_tag @event.image_url if @event.image? %>
-      <!--
-      Groups:<br/>
-    -->
-      <%#= render 'events/event_groups', :event => @event %>
+
     </div>
 
 

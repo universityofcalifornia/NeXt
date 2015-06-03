@@ -11,6 +11,7 @@ class Event < ActiveRecord::Base
   domain_regex = URI::regexp(%w(http https))
 
 	attr_accessor :invite_list
+	attr_accessor :group_tokens
 
 	validates :map_url, :format => { :with => domain_regex }, :if => "map_url.present?"
 
@@ -18,13 +19,15 @@ class Event < ActiveRecord::Base
 
 	mount_uploader :image, EventPromoPhotoUploader
 
-	accepts_nested_attributes_for :groups, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
-
 	after_create :create_invites
 
 	def invite_list
 		self.invites.pluck(:email).compact.join(', ')
 	end
+
+	def group_tokens=(ids)
+    self.group_ids = ids.split(",")
+  end
 
 	private
   def create_invites

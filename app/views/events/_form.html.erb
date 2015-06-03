@@ -1,4 +1,5 @@
-<%#= javascript_include_tag 'jquery.tokeninput.js' %>
+<%= stylesheet_link_tag 'token-input.css' %>
+<%= javascript_include_tag 'jquery.tokeninput.js' %>
 <%= form_for @event, html: { class: 'form-horizontal', :multipart => true } do |f| %>
   <%= render 'shared/errors', :object => @event %>
 
@@ -56,9 +57,9 @@
       <%= f.file_field :image, class: 'form-control', rows: 8 %>
     </div>
   </div>
+
+  <%= f.text_field :group_tokens, "data-pre" => @event.groups.map(&:name).to_json %>
 <!--
-  <input id="group_select" data-event-id="<%= @event.id %>">
-  <input id="event_group_ids" name="event[group_ids]" type="text" style="display: none;">
 -->
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
@@ -70,10 +71,12 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
+-->
 <script type="text/javascript">
 $(document).ready(function () {
-    $("#group_select").tokenInput("/groups.json");
+    $("#event_group_tokens").tokenInput("/groups.json", {
+      crossDomain: false,
+      prePopulate: $('#event_group_tokens').data('pre')
+    });
 });
 </script>
--->
