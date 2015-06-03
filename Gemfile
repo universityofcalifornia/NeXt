@@ -54,3 +54,5 @@ gem 'coveralls', require: false
 gem 'thin'
 
 gem 'bcrypt', :require => 'bcrypt'
+
+gem 'awesome_nested_set'

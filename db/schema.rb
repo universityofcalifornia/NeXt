@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506010736) do
+ActiveRecord::Schema.define(version: 20150603172213) do
+
+  create_table "comments", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "idea_id"
+    t.integer  "user_id",                null: false
+    t.integer  "parent_id"
+    t.integer  "lft",                    null: false
+    t.integer  "rgt",                    null: false
+    t.integer  "depth",      default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "comments", ["idea_id"], name: "index_comments_on_idea_id", using: :btree
+  add_index "comments", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
+  add_index "comments", ["rgt"], name: "index_comments_on_rgt", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "competencies", force: true do |t|
     t.string   "name"
