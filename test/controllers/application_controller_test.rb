@@ -30,7 +30,7 @@ class ApplicationControllerTest < ActionController::TestCase
     @instance.context.load_from_session!
     assert_nil @instance.current_user
 
-    @instance.current_user = User.find(2)
+    @instance.context.user = User.find(2)
     assert_not_nil @instance.current_user
     assert_equal @instance.current_user.id, 2
     assert_equal session[:current_user_id], 2
