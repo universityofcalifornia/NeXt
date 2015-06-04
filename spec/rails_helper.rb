@@ -35,7 +35,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
+  config.include FactoryGirl::Syntax::Methods
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -60,7 +60,7 @@ end
 
 
 def run_ssl_server(app, port)
- 
+
   opts = {
     :Port => port,
     :SSLEnable => true,
@@ -68,9 +68,9 @@ def run_ssl_server(app, port)
     :SSLPrivateKey => OpenSSL::PKey::RSA.new(File.read "./spec/support/server.key"),
     :SSLCertificate => OpenSSL::X509::Certificate.new(File.read "./spec/support/server.crt"),
     :SSLCertName => [["US", 'localhost']],
-    :AccessLog => [], 
+    :AccessLog => [],
     :Logger => WEBrick::Log::new(Rails.root.join("./log/capybara_test.log").to_s)
   }
- 
+
   Rack::Handler::WEBrick.run(app, opts)
 end

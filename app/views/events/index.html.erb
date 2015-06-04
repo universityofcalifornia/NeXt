@@ -20,8 +20,8 @@
           <p><small>Started on <%= event.created_at.strftime("%B %d, %Y") %></small></p>
           <p><%= event.event_url %></p>
           <p><%= event.map_url %></p>
-          Invites:</br>
-          <p><%= event.invite_list %></p>
+          <%= render 'events/invite_list', :event => event %><br />
+          <%= render 'events/event_groups', :event => event %><br />
           <p><%= image_tag event.image_url(:thumb) if event.image? %></p>
           <p><%#= link_to 'Edit', edit_event_path(event) if current_user %></p>
         </div>
