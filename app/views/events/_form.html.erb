@@ -83,10 +83,11 @@ $(document).ready(function () {
     }
   });
 
-  // $("#event_group_tokens").tokenInput("/groups.json", {
-  //   crossDomain: false,
-  //   prePopulate: $('#event_group_tokens').data('pre')
-  // });
+  $("#event_group_tokens").tokenInput("/groups.json", {
+    crossDomain: false,
+    preventDuplicates: true,
+    prePopulate: $('#event_group_tokens').data('pre')
+  });
 
 });
 
