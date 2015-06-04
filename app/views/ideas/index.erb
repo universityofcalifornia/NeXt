@@ -1,7 +1,7 @@
 <% if context.user %>
 <%= button_to 'Propose Idea',
               new_idea_url,
-              method: 'get',
+              method: :get,
               class: 'btn btn-warning btn-block',
               form_class: 'button_to pull-right' %>
 <% end %>
@@ -27,59 +27,22 @@
           <em>Supported by <%= idea.idea_votes.count %> ( <%= idea.idea_votes.where(participate: true).count %> would participate )</em>
         </small></p>
       </div>
-      <nav class="col-sm-2">
-        <div class="visible-md-block visible-lg-block text-right">
-          <% unless idea.has_been_voted_for_by? context.user %>
-          <%= button_to '+1', '#', class: 'btn btn-success vote', method: 'get' %>
-          <% end %>
-        </div>
-        <div class="hidden-md hidden-lg">
-          <% unless idea.has_been_voted_for_by? context.user %>
-            <%= button_to '+1', '#', class: 'btn btn-success vote', method: 'get' %>
-          <% end %>
-        </div>
-      </nav>
+      <% unless idea.has_been_voted_for_by? context.user %>
+        <nav class="col-sm-2 text-right-md text-right-lg">
+          <%= button_to '+1', '#', class: 'btn btn-success modal-button', method: :get %>
+          <%= render partial: "shared/modal_dialog", locals: {
+            object: idea,
+            button_text: [
+              'I think this is a good idea',
+              'I would participate if this were a project',
+              'I want to learn more about this'
+            ]
+          } %>
+        </nav>
+      <% end %>
     </div>
   </a>
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel"><%= idea.name %></h4>
-        </div>
-        <div class="modal-body">
-          <%= button_to 'I think this is a good idea',
-                        idea_votes_url(idea),
-                        method: :post,
-                        params: { participate: false, return_to: ideas_url },
-                        class: 'btn btn-block btn-info',
-                        form_class: 'button_to full-width' %>
-          <%= button_to 'I would participate if this were a project',
-                        idea_votes_url(idea),
-                        method: :post,
-                        params: { participate: true, return_to: ideas_url },
-                        class: 'btn btn-block btn-success',
-                        form_class: 'button_to full-width' %>
-          <%= button_to 'I want to learn more about this',
-                        idea_url(idea),
-                        class: 'btn btn-block btn-primary',
-                        method: 'get',
-                        form_class: 'button_to full-width' %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 <% end %>
 </div>
 
 <%= will_paginate @ideas %>
-
-<script type="text/javascript">
-  $('input.vote').click(function(e){
-    e.preventDefault();
-    $(this).closest('a').next('.modal').modal('show');
-  });
-</script>

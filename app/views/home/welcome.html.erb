@@ -24,8 +24,8 @@
       </header>
       <div class="panel-body">
         <ul>
-          <% Idea.order(created_at: :desc).take(5).each do |idea| %>
-            <li><%= link_to idea.name, idea %></li>
+          <% Project.joins(:project_votes).select('`projects`.id, `projects`.name, count(*) as count').group('`projects`.id').order('count DESC').take(5).each do |project| %>
+            <li><%= link_to project.name, project %></li>
           <% end %>
         </ul>
       </div>
