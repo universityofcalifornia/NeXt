@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   end
 
   before_action only: [:edit, :update, :delete] do
-    render nothing: true, status: :unauthorized unless @project.is_editable_by? context.user
+    render nothing: true, status: :unauthorized unless @project.is_editable_by? current_user
   end
 
   before_action only: [:new, :edit] do
@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
 
   def create
     project = Project.create params[:project].permit(:name, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
-    project.project_roles << ProjectRole.new(user: context.user, founder: true, admin: true)
+    project.project_roles << ProjectRole.new(user: current_user, founder: true, admin: true)
     project.idea_ids = params[:project][:ideas]
     project.competency_ids = params[:project][:competencies]
     redirect_to project_url(project)

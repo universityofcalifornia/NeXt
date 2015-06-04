@@ -9,7 +9,7 @@ module Ideas
 
       path = params[:return_to] ? params[:return_to] : idea_path(@idea)
 
-      unless context.user
+      unless current_user
         raise Application::Error.new "You must be logged in to vote for an idea",
                                      redirect_to: [
                                          auth_oauth2_launch_url(:shibboleth),
@@ -17,10 +17,10 @@ module Ideas
                                      ]
       end
 
-      unless @idea.has_been_voted_for_by? context.user
-        vote = IdeaVote.new idea: @idea, user: context.user
+      unless @idea.has_been_voted_for_by? current_user
+        vote = IdeaVote.new idea: @idea, user: current_user
       else
-        vote = IdeaVote.where(idea: @idea, user: context.user).first
+        vote = IdeaVote.where(idea: @idea, user: current_user).first
       end
 
       vote.participate = params[:participate]

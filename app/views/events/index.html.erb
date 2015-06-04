@@ -1,4 +1,4 @@
-<% if context.user %>
+<% if current_user %>
 <%= button_to 'Create Event',
               new_event_url,
               method: 'get',
@@ -23,7 +23,7 @@
           Invites:</br>
           <p><%= event.invite_list %></p>
           <p><%= image_tag event.image_url(:thumb) if event.image? %></p>
-          <p><%#= link_to 'Edit', edit_event_path(event) if context.user %></p>
+          <p><%#= link_to 'Edit', edit_event_path(event) if current_user %></p>
         </div>
         <nav class="col-sm-2">
           <!-- TODO -->

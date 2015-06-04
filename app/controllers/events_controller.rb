@@ -10,7 +10,7 @@ class EventsController < ApplicationController
   end
 
   def logged_in
-    @events = context.user.events.order(created_at: :desc).paginate(page: params[:page], per_page: 50)
+    @events = current_user.events.order(created_at: :desc).paginate(page: params[:page], per_page: 50)
     render :index
   end
 
@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = context.user.events.create(event_params)
+    @event = current_user.events.create(event_params)
     respond_with @event
   end
 
@@ -38,7 +38,7 @@ class EventsController < ApplicationController
   private
 
     def not_logged_in
-      unless context.user
+      unless current_user
         yield
       end
     end

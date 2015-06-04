@@ -5,7 +5,7 @@ class IdeasController < ApplicationController
   end
 
   before_action only: [:edit, :update, :delete] do
-    render nothing: true, status: :unauthorized unless @idea.is_editable_by? context.user
+    render nothing: true, status: :unauthorized unless @idea.is_editable_by? current_user
   end
 
   before_action only: [:new, :edit] do
@@ -25,7 +25,7 @@ class IdeasController < ApplicationController
 
   def create
     idea = Idea.create params[:idea].permit(:name, :pitch, :description, :idea_status_id)
-    idea.idea_roles << IdeaRole.new(user: context.user, founder: true, admin: true)
+    idea.idea_roles << IdeaRole.new(user: current_user, founder: true, admin: true)
     idea.competency_ids = params[:idea][:competencies]
     redirect_to idea_url(idea)
   end
