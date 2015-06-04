@@ -31,4 +31,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user
+    context.user
+  end
+  helper_method :current_user
 end

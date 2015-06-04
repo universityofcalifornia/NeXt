@@ -1,8 +1,8 @@
 class CompetenciesController < ApplicationController
 
   before_action except: [:show] do
-    if context.user
-      unless context.user.super_admin
+    if current_user
+      unless current_user.super_admin
         raise Application::Error.new "You do not have permission to manage competencies. Please try searching by user instead."
       end
     else

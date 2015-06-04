@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    return context.user ? dashboard : welcome
+    return current_user ? dashboard : welcome
   end
 
   private

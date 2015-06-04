@@ -1,4 +1,4 @@
-<% if context.user %>
+<% if current_user %>
 <%= button_to 'Create Project',
               new_project_url,
               method: 'get',
