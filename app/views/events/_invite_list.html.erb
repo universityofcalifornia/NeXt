@@ -1,0 +1,10 @@
+<% if event.invites.present? %>
+Invites:<br/>
+  <ul>
+    <% event.invites.each do |invite| %>
+      <li><%= invite.email %></li>
+    <% end %>
+  </ul>
+<% else %>
+No Invites
+<% end %>

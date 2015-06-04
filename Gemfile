@@ -55,4 +55,19 @@ gem 'thin'
 
 gem 'bcrypt', :require => 'bcrypt'
 
+# Use awesome_nested_set for nested comments
 gem 'awesome_nested_set'
+
+gem "rmagick"
+gem "carrierwave"
+gem "letter_opener", :group => :development
+gem'foreigner'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'launchy'
+end

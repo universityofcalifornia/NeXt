@@ -1,4 +1,4 @@
-<% if context.user %>
+<% if current_user %>
 <%= button_to 'Propose Idea',
               new_idea_url,
               method: 'get',
@@ -29,12 +29,12 @@
       </div>
       <nav class="col-sm-2">
         <div class="visible-md-block visible-lg-block text-right">
-          <% unless idea.has_been_voted_for_by? context.user %>
+          <% unless idea.has_been_voted_for_by? current_user %>
           <%= button_to '+1', '#', class: 'btn btn-success vote', method: 'get' %>
           <% end %>
         </div>
         <div class="hidden-md hidden-lg">
-          <% unless idea.has_been_voted_for_by? context.user %>
+          <% unless idea.has_been_voted_for_by? current_user %>
             <%= button_to '+1', '#', class: 'btn btn-success vote', method: 'get' %>
           <% end %>
         </div>

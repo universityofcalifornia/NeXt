@@ -11,8 +11,8 @@ module Local
     end
 
     before_action do
-      if context.user
-        unless context.user.super_admin
+      if current_user
+        unless current_user.super_admin
           raise Application::Error.new "You do not have permission to manage other users."
         end
       else

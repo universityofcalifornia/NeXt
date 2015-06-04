@@ -1,0 +1,10 @@
+<% if event.groups.present? %>
+Groups:<br/>
+  <ul>
+    <% event.groups.each do |group| %>
+      <li><%= group.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+No Groups
+<% end %>

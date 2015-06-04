@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   has_many :project_roles, dependent: :destroy
 
+  has_many :events
+
   has_many :competency_users, dependent: :destroy, class: CompetencyUser
   has_many :competencies, through: :competency_users
 
@@ -40,9 +42,10 @@ class User < ActiveRecord::Base
 
   def display_name format = :fl
     str = ''
-    str << "#{name_first} " if format == :fml or format == :fl
-    str << "#{name_middle[0,1].capitalize}. " if format == :fml and name_middle
+    str << "#{name_first} " if format == :fml or format == :fl or format == :fmls
+    str << "#{name_middle[0,1].capitalize}. " if (format == :fml or format == :fmls) and name_middle
     str << name_last
+    str << ", #{name_suffix}" if format == :fmls
     str << ", #{name_first}" if format == :lfm or format == :lf
     str << " #{name_middle[0,1].capitalize}." if format == :lfm and name_middle
     str
