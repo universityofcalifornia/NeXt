@@ -63,16 +63,27 @@
 -->
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit(@event.new_record? ? 'Create' : 'Update', class: 'btn btn-success') %>
+      <%= f.submit(@event.new_record? ? 'Create' : 'Update', class: 'btn btn-success', id: "event_submit") %>
     </div>
   </div>
 <% end %>
 
 <script type="text/javascript">
 $(document).ready(function () {
-    $("#event_group_tokens").tokenInput("/groups.json", {
-      crossDomain: false,
-      prePopulate: $('#event_group_tokens').data('pre')
-    });
+  $('#event_submit').prop('disabled', true);
+  $("#event_name").keyup(function() {
+    if($(this).val().length > 0) {
+      $('#event_submit').prop('disabled', false);
+    } else {
+      $('#event_submit').attr('disabled', true);
+    }
+  });
+
+  // $("#event_group_tokens").tokenInput("/groups.json", {
+  //   crossDomain: false,
+  //   prePopulate: $('#event_group_tokens').data('pre')
+  // });
+
 });
+
 </script>
