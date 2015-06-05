@@ -1,14 +1,15 @@
 require 'rails_helper'
 
-describe Comment do
+RSpec.describe Comment, type: :model do
+  let(:comment) { build(:comment) }  
 
-  let(:comment) { build(:comment) }
+  pending "Test nested relationships"
 
-  context "relationships" do
-    
-  	it { should belong_to(:user) }
-    it { should belong_to(:ideas) }
+  context "validations and relationships" do
+    it { should belong_to(:user) }
+    it { should belong_to(:idea) }
 
+    it { should validate_presence_of(:body) }
   end
 
 end

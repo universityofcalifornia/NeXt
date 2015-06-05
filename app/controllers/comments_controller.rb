@@ -13,14 +13,10 @@ class CommentsController < ApplicationController
   def create
 
   	path = params[:return_to]
-    flash_msg = {
-                  :page_alert => "Thanks for commenting!",
-                  :page_alert_type => 'success'
-                }
 
     unless context.user
 
-      logger.info ('in CommentsController::create. user was not logged in')
+      #logger.info ('in CommentsController::create. user was not logged in')
 
       raise Application::Error.new "You must be logged in to comment",
                                      redirect_to: [
@@ -35,13 +31,11 @@ class CommentsController < ApplicationController
       flash[:page_alert_type] = 'success'
 
     rescue Exception => e
-      logger.info("Caught Exception. message=#{e.message}")
       flash[:page_alert] = e.message
       flash[:page_alert_type] = 'warning'
     end
 
-    redirect_to path #,
-                #flash: flash_msg
+    redirect_to path 
 
   end
 
