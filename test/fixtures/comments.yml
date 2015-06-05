@@ -3,13 +3,19 @@
 one:
   title: 
   body: MyText
-  idea_id: 
-  user_id: 
+  idea_id: 1
+  user_id: 1
   parent_id: 
+  lft: 35
+  rgt: 36
+  depth: 0
 
 two:
   title: 
   body: MyText
-  idea_id: 
-  user_id: 
+  idea_id: 1
+  user_id: 2
   parent_id: 
+  lft: 37
+  rgt: 38
+  depth: 0
