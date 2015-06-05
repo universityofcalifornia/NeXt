@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many :project_roles, dependent: :destroy
   has_many :project_votes, dependent: :destroy
 
+  has_many :events
+
   has_many :competency_users, dependent: :destroy, class: CompetencyUser
   has_many :competencies, through: :competency_users
 

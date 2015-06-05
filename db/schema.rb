@@ -30,6 +30,48 @@ ActiveRecord::Schema.define(version: 20150603201158) do
     t.datetime "deleted_at"
   end
 
+  create_table "event_groups", force: true do |t|
+    t.integer  "event_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "event_groups", ["event_id", "group_id"], name: "index_event_groups_on_event_id_and_group_id", using: :btree
+  add_index "event_groups", ["event_id"], name: "index_event_groups_on_event_id", using: :btree
+  add_index "event_groups", ["group_id"], name: "event_groups_group_id_fk", using: :btree
+
+  create_table "events", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "description"
+    t.date     "start_date"
+    t.date     "stop_date"
+    t.time     "start_time"
+    t.time     "stop_time"
+    t.string   "location"
+    t.string   "event_url"
+    t.string   "map_url"
+    t.integer  "number_going"
+    t.integer  "number_invited"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.string   "image"
+  end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
+
   create_table "idea_competencies", force: true do |t|
     t.integer  "idea_id"
     t.integer  "competency_id"
@@ -84,6 +126,18 @@ ActiveRecord::Schema.define(version: 20150603201158) do
   end
 
   add_index "ideas", ["created_at"], name: "index_ideas_on_created_at", using: :btree
+
+  create_table "invites", force: true do |t|
+    t.integer  "event_id"
+    t.string   "email"
+    t.boolean  "status",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "invites", ["event_id", "email"], name: "index_invites_on_event_id_and_email", using: :btree
+  add_index "invites", ["event_id"], name: "index_invites_on_event_id", using: :btree
 
   create_table "oauth2_identities", force: true do |t|
     t.string   "provider",         null: false
@@ -230,5 +284,8 @@ ActiveRecord::Schema.define(version: 20150603201158) do
   add_index "users", ["name_last", "name_first", "name_middle", "name_suffix"], name: "name", using: :btree
   add_index "users", ["primary_position_id"], name: "index_users_on_primary_position_id", using: :btree
   add_index "users", ["super_admin"], name: "index_users_on_super_admin", using: :btree
+
+  add_foreign_key "event_groups", "events", name: "event_groups_event_id_fk"
+  add_foreign_key "event_groups", "groups", name: "event_groups_group_id_fk"
 
 end

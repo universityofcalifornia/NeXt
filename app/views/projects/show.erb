@@ -80,7 +80,7 @@
 
       <section class="panel panel-invisible">
 
-        <% unless @project.has_been_voted_for_by? context.user %>
+        <% unless @project.has_been_voted_for_by? current_user %>
 
         <%= button_to 'Good Project',
                       project_votes_url(@project),
@@ -98,7 +98,7 @@
 
         <% end %>
 
-        <% if @project.is_editable_by? context.user %>
+        <% if @project.is_editable_by? current_user %>
         <%= button_to 'Edit',
                       edit_project_url(@project),
                       method: :get,
@@ -163,5 +163,3 @@
   </div>
 
 </div>
-
-

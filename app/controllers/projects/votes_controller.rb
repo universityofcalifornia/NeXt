@@ -9,7 +9,7 @@ module Projects
 
       path = params[:return_to] ? params[:return_to] : project_path(@project)
 
-      unless context.user
+      unless current_user
         raise Application::Error.new "You must be logged in to vote for a project",
                                      redirect_to: [
                                          auth_oauth2_launch_url(:shibboleth),
@@ -17,10 +17,10 @@ module Projects
                                      ]
       end
 
-      unless @project.has_been_voted_for_by? context.user
-        vote = ProjectVote.new project: @project, user: context.user
+      unless @project.has_been_voted_for_by? current_user
+        vote = ProjectVote.new project: @project, user: current_user
       else
-        vote = ProjectVote.where(project: @project, user: context.user).first
+        vote = ProjectVote.where(project: @project, user: current_user).first
       end
 
       vote.participate = params[:participate]

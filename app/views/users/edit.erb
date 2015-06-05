@@ -1,6 +1,6 @@
 <h1>
   Edit Profile
-  <% if context.user.id != @user.id %>
+  <% if current_user.id != @user.id %>
   <br><%= @user.display_name %>
   <% end %>
 </h1>

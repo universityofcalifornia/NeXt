@@ -47,9 +47,21 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.10)
     builder (3.2.2)
+    capybara (2.4.4)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     chunky_png (1.3.3)
     compass (1.0.1)
       chunky_png (~> 1.2)
@@ -70,6 +82,8 @@ GEM
       term-ansicolor
       thor
     daemons (1.1.9)
+    database_cleaner (1.4.1)
+    diff-lcs (1.2.5)
     docile (1.1.5)
     elasticsearch (1.0.5)
       elasticsearch-api (= 1.0.5)
@@ -84,9 +98,16 @@ GEM
     execjs (2.2.2)
     extend_method (1.0.0)
     facets (2.9.3)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
+    foreigner (1.7.4)
+      activerecord (>= 3.0.0)
     fork (1.0.1)
     fssm (0.2.10)
     github-markup (1.3.1)
@@ -102,15 +123,22 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.2)
     jwt (1.2.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.0)
+      launchy (~> 2.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.4.3)
+    mini_portile (0.6.2)
     minitest (5.5.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.17)
     netrc (0.10.3)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -148,6 +176,24 @@ GEM
     rest-client (1.7.3)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rmagick (2.15.0)
+    rspec-core (3.2.3)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-rails (3.2.1)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.2)
     ruby-bower (0.0.1)
       execjs
     sass (3.4.9)
@@ -156,6 +202,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -185,6 +233,8 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     will_paginate (3.0.7)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     yui-compressor (0.12.0)
 
 PLATFORMS
@@ -193,19 +243,29 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   bcrypt
+  capybara
+  carrierwave
   coveralls
+  database_cleaner
   elasticsearch
   extend_method
+  factory_girl_rails
+  foreigner
   github-markup
   gravatarify
   jbuilder (~> 2.0)
   jquery-rails
+  launchy
+  letter_opener
   mysql2
   oauth2
   paranoia (~> 2.0)
   rails (= 4.1.7)
   redcarpet
+  rmagick
+  rspec-rails
   sdoc (~> 0.4.0)
+  shoulda-matchers
   spring
   sqlite3
   thin
