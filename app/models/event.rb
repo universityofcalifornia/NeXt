@@ -35,7 +35,13 @@ class Event < ActiveRecord::Base
       self.invites = @invite_list.split(/,/).map do |email|
         Invite.where(:email => email.strip).first_or_create
       end
-
+			notify_invites
     end
   end
+
+	def notify_invites
+		self.invites.each do |invite|
+			EventNotifier.notify_invites(invite).deliver
+		end
+	end
 end

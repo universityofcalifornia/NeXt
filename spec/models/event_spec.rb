@@ -35,6 +35,11 @@ describe Event do
     end
   end
 
+  it "sends an email" do
+    event.invites << create(:invite)
+    expect { event.save }.to change { ActionMailer::Base.deliveries.count }.by(1)
+  end
+
   context "validations and relationships" do
   	it { should belong_to(:user) }
     it { should have_many(:invites) }

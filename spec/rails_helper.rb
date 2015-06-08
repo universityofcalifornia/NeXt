@@ -8,26 +8,28 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'webrick/https'
 require 'rack/handler/webrick'
+require "email_spec"
 
 p "START"
-# Capybara.server_port = 8080
-# Capybara.app_host = "https://localhost:%d" % Capybara.server_port
-# Capybara.register_driver :selenium do |app|
-#   profile = Selenium::WebDriver::Chrome::Profile.new
-#   profile.secure_ssl = false
-#   profile.assume_untrusted_certificate_issuer = false
-#   Capybara::Selenium::Driver.new(app, :browser => :chrome, profile: profile)
-# end
-# Capybara.register_driver :webkit do |app|
-#   Capybara::Webkit::Driver.new(app).tap {|d| d.browser.ignore_ssl_errors }
-# end
-# p "END"
-# puts "Running with Capybara.current_driver: "
-# puts Capybara.app_host
-# Capybara.server do |app, port|
-#   p "SERVER!!!"
-#   run_ssl_server(app, port)
-# end
+ Capybara.server_port = 3000
+ Capybara.run_server = false
+ Capybara.app_host = "http://localhost:%d" % Capybara.server_port
+Capybara.register_driver :selenium do |app|
+  profile = Selenium::WebDriver::Chrome::Profile.new
+  profile.secure_ssl = false
+  profile.assume_untrusted_certificate_issuer = false
+  Capybara::Selenium::Driver.new(app, :browser => :chrome, profile: profile)
+end
+Capybara.register_driver :webkit do |app|
+  Capybara::Webkit::Driver.new(app).tap {|d| d.browser.ignore_ssl_errors }
+end
+p "END"
+puts "Running with Capybara.current_driver: "
+puts Capybara.app_host
+Capybara.server do |app, port|
+  p "SERVER!!!"
+  run_ssl_server(app, port)
+end
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
@@ -40,6 +42,9 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
