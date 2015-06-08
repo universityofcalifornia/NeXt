@@ -17,10 +17,10 @@ module Projects
                                      ]
       end
 
-      unless @project.has_been_voted_for_by? current_user
-        vote = ProjectVote.new project: @project, user: current_user
+      if @project.has_been_voted_for_by? current_user
+        vote = current_user.project_votes(project: @project).first
       else
-        vote = ProjectVote.where(project: @project, user: current_user).first
+        vote = current_user.project_votes.new(project: @project)
       end
 
       vote.participate = params[:participate]
