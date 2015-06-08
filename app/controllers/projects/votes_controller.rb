@@ -7,7 +7,7 @@ module Projects
 
     def create
 
-      path = params[:return_to] ? params[:return_to] : project_path(@project)
+      path = params[:return_to] || project_path(@project)
 
       unless current_user
         raise Application::Error.new "You must be logged in to vote for a project",
@@ -17,14 +17,8 @@ module Projects
                                      ]
       end
 
-      if @project.has_been_voted_for_by? current_user
-        vote = current_user.project_votes(project: @project).first
-      else
-        vote = current_user.project_votes.new(project: @project)
-      end
-
+      vote = @project.voted_by current_user
       vote.participate = params[:participate]
-
       vote.save
 
       redirect_to path,
