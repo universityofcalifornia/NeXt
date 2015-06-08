@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :idea_votes, dependent: :destroy
 
   has_many :project_roles, dependent: :destroy
+  has_many :project_votes, dependent: :destroy
 
   has_many :events
 

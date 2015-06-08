@@ -16,10 +16,24 @@ class Project < ActiveRecord::Base
   has_many :project_competencies
   has_many :competencies, through: :project_competencies, source: :competency
 
+  has_many :project_votes, dependent: :destroy
+
   attr_html_reader :description
+
+  scope :top_voted, -> (limit = nil) {
+    joins("LEFT JOIN `project_votes` ON `project_votes`.`project_id` = `projects`.`id`")
+      .select("`projects`.`id`, `projects`.`name`, COUNT(`project_votes`.`id`) AS `votes`")
+      .group("`projects`.`id`")
+      .order("votes DESC")
+      .limit(limit)
+  }
 
   def is_editable_by? user
     user and (project_roles.where(user_id: user.id).count > 0 or user.super_admin)
+  end
+
+  def has_been_voted_for_by? user
+    user and (project_votes.where(user_id: user.id).count > 0)
   end
 
   # ELASTICSEARCH

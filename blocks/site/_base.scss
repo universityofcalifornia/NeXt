@@ -22,3 +22,51 @@ h1, h2, h3, h4, h5, h6 {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+@media (max-width: $screen-xs-max) {
+  .text-left-xs {
+    text-align: left;
+  }
+  .text-right-xs {
+    text-align: right;
+  }
+  .text-center-xs {
+    text-align: center;
+  }
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  .text-left-sm {
+    text-align: left;
+  }
+  .text-right-sm {
+    text-align: right;
+  }
+  .text-center-sm {
+    text-align: center;
+  }
+}
+
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+  .text-left-md {
+    text-align: left;
+  }
+  .text-right-md {
+    text-align: right;
+  }
+  .text-center-md {
+    text-align: center;
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .text-left-lg {
+    text-align: left;
+  }
+  .text-right-lg {
+    text-align: right;
+  }
+  .text-center-lg {
+    text-align: center;
+  }
+}

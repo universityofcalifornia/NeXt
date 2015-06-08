@@ -34,7 +34,7 @@
       <% end %>
       <div class="row">
         <% if @founded_projects.count > 0 %>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <section class="panel panel-default">
               <header class="panel-heading">
                 <h3 class="panel-title">Projects Founded</h3>
@@ -49,11 +49,27 @@
             </section>
           </div>
         <% end %>
-        <% if @supported_projects.count > 0 %>
-          <div class="col-sm-6">
+        <% if @involved_projects.count > 0 %>
+          <div class="col-sm-4">
             <section class="panel panel-default">
               <header class="panel-heading">
                 <h3 class="panel-title">Projects Involved With</h3>
+              </header>
+              <div class="panel-body">
+                <ul>
+                  <% @involved_projects.each do |project| %>
+                    <li><%= link_to project.name, project %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </section>
+          </div>
+        <% end %>
+        <% if @supported_projects.count > 0 %>
+          <div class="col-sm-4">
+            <section class="panel panel-default">
+              <header class="panel-heading">
+                <h3 class="panel-title">Projects Supported</h3>
               </header>
               <div class="panel-body">
                 <ul>
@@ -68,7 +84,7 @@
       </div>
       <div class="row">
         <% if @founded_ideas.count > 0 %>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <section class="panel panel-default">
               <header class="panel-heading">
                 <h3 class="panel-title">Ideas Founded</h3>
@@ -83,8 +99,8 @@
             </section>
           </div>
         <% end %>
-        <% if @founded_ideas.count > 0 %>
-          <div class="col-sm-6">
+        <% if @supported_ideas.count > 0 %>
+          <div class="col-sm-4">
             <section class="panel panel-default">
               <header class="panel-heading">
                 <h3 class="panel-title">Ideas Supported</h3>

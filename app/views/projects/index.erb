@@ -1,7 +1,7 @@
 <% if current_user %>
 <%= button_to 'Create Project',
               new_project_url,
-              method: 'get',
+              method: :get,
               class: 'btn btn-warning btn-block',
               form_class: 'button_to pull-right' %>
 <% end %>
@@ -20,14 +20,26 @@
         <p><small>
           Started
           <% if project.project_roles.founders.count > 0 %>
-          by <%= project.project_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %>
+          by <strong><%= project.project_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %></strong>
           <% end %>
-          on <%= project.created_at.strftime("%B %d, %Y") %>
+          on <strong><%= project.created_at.strftime("%B %d, %Y") %></strong>
+          <br>
+          <em>Supported by <%= project.project_votes.count %> ( <%= project.project_votes.where(participate: true).count %> would participate )</em>
         </small></p>
       </div>
-      <nav class="col-sm-2">
-        <!-- TODO -->
-      </nav>
+      <% unless project.has_been_voted_for_by? current_user %>
+        <nav class="col-sm-2 text-right-md text-right-lg">
+          <%= button_to '+1', '#', class: 'btn btn-success modal-button', method: :get %>
+          <%= render partial: "shared/vote_dialog", locals: {
+            object: project,
+            button_text: [
+              'I like this project',
+              'I would like to participate in this project',
+              'I want to learn more about this'
+            ]
+          } %>
+        </nav>
+      <% end %>
     </div>
   </a>
 <% end %>

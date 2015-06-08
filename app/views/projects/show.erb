@@ -80,10 +80,28 @@
 
       <section class="panel panel-invisible">
 
+        <% unless @project.has_been_voted_for_by? current_user %>
+
+        <%= button_to 'Good Project',
+                      project_votes_url(@project),
+                      method: :post,
+                      params: { participate: false },
+                      class: 'btn btn-info btn-block',
+                      form_class: 'button_to full-width' %>
+
+        <%= button_to 'Would Participate',
+                      project_votes_url(@project),
+                      method: :post,
+                      params: { participate: true },
+                      class: 'btn btn-success btn-block',
+                      form_class: 'button_to full-width' %>
+
+        <% end %>
+
         <% if @project.is_editable_by? current_user %>
         <%= button_to 'Edit',
                       edit_project_url(@project),
-                      method: 'get',
+                      method: :get,
                       class: 'btn btn-warning btn-block',
                       form_class: 'button_to full-width' %>
         <% end %>
@@ -117,10 +135,31 @@
         </div>
       </section>
 
+      <%
+      votes_count = @project.project_votes.count
+      if votes_count > 0 %>
+
+        <section class="panel panel-default">
+          <header class="panel-heading">
+            <h4 class="panel-title">Supporters</h4>
+          </header>
+          <div class="panel-body">
+            <ul>
+              <% @project.project_votes.take(5).each do |project_vote| %>
+                <li><%= link_to project_vote.user.display_name, project_vote.user %><% if project_vote.participate %> <strong style="font-size: 1.2rem">&#9734;</strong><% end %></li>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+
+      <% if votes_count > 5 %>
+      <p><em><%= link_to 'See More...', '#' %></em></p>
+      <% end %>
+
+      <% end %>
+
     </div>
 
   </div>
 
 </div>
-
-
