@@ -96,7 +96,7 @@
         <% if @idea.is_editable_by? current_user %>
         <%= button_to 'Edit',
                       edit_idea_url(@idea),
-                      method: 'get',
+                      method: :get,
                       class: 'btn btn-warning btn-block',
                       form_class: 'button_to full-width' %>
         <% end %>

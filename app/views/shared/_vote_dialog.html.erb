@@ -1,0 +1,34 @@
+<% title_id = "#{object.class.model_name.singular}-#{object.id}" %>
+<% collection = object.class.model_name.collection.to_sym %>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="<%= title_id %>" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="<%= title_id %>"><%= object.name %></h4>
+      </div>
+      <div class="modal-body">
+        <%= button_to button_text[0],
+                      url_for([object, :votes]),
+                      method: :post,
+                      params: { participate: false, return_to: url_for(collection) },
+                      class: 'btn btn-block btn-info',
+                      form_class: 'button_to full-width' %>
+        <%= button_to button_text[1],
+                      url_for([object, :votes]),
+                      method: :post,
+                      params: { participate: true, return_to: url_for(collection) },
+                      class: 'btn btn-block btn-success',
+                      form_class: 'button_to full-width' %>
+        <%= button_to button_text[2],
+                      url_for(object),
+                      class: 'btn btn-block btn-primary',
+                      method: :get,
+                      form_class: 'button_to full-width' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

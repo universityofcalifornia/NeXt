@@ -12,7 +12,7 @@
       </header>
       <div class="panel-body">
         <ul>
-          <% Idea.joins(:idea_votes).select('`ideas`.id, `ideas`.name, count(*) as count').group('`ideas`.id').order('count DESC').take(5).each do |idea| %>
+          <% Idea.top_voted(5).each do |idea| %>
             <li><%= link_to idea.name, idea %></li>
           <% end %>
         </ul>
@@ -26,8 +26,8 @@
       </header>
       <div class="panel-body">
         <ul>
-          <% Project.order(created_at: :desc).take(5).each do |idea| %>
-            <li><%= link_to idea.name, idea %></li>
+          <% Project.top_voted(5).each do |project| %>
+            <li><%= link_to project.name, project %></li>
           <% end %>
         </ul>
       </div>
