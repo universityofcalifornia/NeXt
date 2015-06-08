@@ -32,8 +32,6 @@ ActiveRecord::Schema.define(version: 20150603172213) do
   add_index "comments", ["rgt"], name: "index_comments_on_rgt", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-#ActiveRecord::Schema.define(version: 20150526194833) do
-
   create_table "competencies", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
