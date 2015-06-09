@@ -18,6 +18,8 @@ class Project < ActiveRecord::Base
 
   has_many :project_votes, dependent: :destroy
 
+  has_many :project_documents, dependent: :destroy
+
   attr_html_reader :description
 
   scope :top_voted, -> (limit = nil) {

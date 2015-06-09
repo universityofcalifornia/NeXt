@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603201158) do
+ActiveRecord::Schema.define(version: 20150608231710) do
 
   create_table "competencies", force: true do |t|
     t.string   "name"
@@ -180,6 +180,15 @@ ActiveRecord::Schema.define(version: 20150603201158) do
   create_table "project_competencies", force: true do |t|
     t.integer  "project_id"
     t.integer  "competency_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  create_table "project_documents", force: true do |t|
+    t.integer  "project_id"
+    t.string   "filename"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
