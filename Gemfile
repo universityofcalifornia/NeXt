@@ -67,6 +67,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'launchy'
+  gem 'rspec-activemodel-mocks'
 end
 
 group :test do
