@@ -1,0 +1,26 @@
+class InvitesController < ApplicationController
+
+  before_action :set_data
+
+  def accept
+    @invite.update(:status => true)
+    flash[:notice] = "You have accepted and invite to #{@event.name}"
+    redirect_to root_path
+  end
+
+  def decline
+    @invite = Invite.where(:id => params[:id]).first
+    event = Event.find(@invite.event_id)
+    @invite.update(:status => false)
+    flash[:notice] = "You declined the invitation to #{@event.name} "
+    redirect_to root_path
+  end
+
+  private
+
+  def set_data
+    @invite = Invite.where(:id => params[:id]).first
+    @event = Event.find(@invite.event_id)
+  end
+
+end

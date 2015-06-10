@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'invites/accept/:id', to: 'invites#accept', as: 'accept_invitation'
+  get 'invites/decline/:id', to: 'invites#decline', as: 'decline_invitation'
+
   resources :groups do
     member do
       post 'add_event'

@@ -41,7 +41,7 @@ class Event < ActiveRecord::Base
 
 	def notify_invites
 		self.invites.each do |invite|
-			EventNotifier.notify_invites(invite).deliver
+			EventNotifier.notify_invite(invite).deliver
 		end
 	end
 end

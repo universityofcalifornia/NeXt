@@ -11,25 +11,27 @@ require 'rack/handler/webrick'
 require "email_spec"
 
 p "START"
- Capybara.server_port = 3000
- Capybara.run_server = false
- Capybara.app_host = "http://localhost:%d" % Capybara.server_port
-Capybara.register_driver :selenium do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new
-  profile.secure_ssl = false
-  profile.assume_untrusted_certificate_issuer = false
-  Capybara::Selenium::Driver.new(app, :browser => :chrome, profile: profile)
-end
-Capybara.register_driver :webkit do |app|
-  Capybara::Webkit::Driver.new(app).tap {|d| d.browser.ignore_ssl_errors }
-end
-p "END"
-puts "Running with Capybara.current_driver: "
-puts Capybara.app_host
-Capybara.server do |app, port|
-  p "SERVER!!!"
-  run_ssl_server(app, port)
-end
+
+  # Capybara.run_server = true
+  # Capybara.server_port = 1234
+  # Capybara.always_include_port = true
+  # Capybara.app_host = 'http://localhost:1234'
+# Capybara.register_driver :selenium do |app|
+#   profile = Selenium::WebDriver::Chrome::Profile.new
+#   profile.secure_ssl = false
+#   profile.assume_untrusted_certificate_issuer = false
+#   Capybara::Selenium::Driver.new(app, :browser => :chrome, profile: profile)
+# end
+# Capybara.register_driver :webkit do |app|
+#   Capybara::Webkit::Driver.new(app).tap {|d| d.browser.ignore_ssl_errors }
+# end
+# p "END"
+# puts "Running with Capybara.current_driver: "
+# puts Capybara.app_host
+# Capybara.server do |app, port|
+#   p "SERVER!!!"
+#   run_ssl_server(app, port)
+# end
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
@@ -64,18 +66,18 @@ end
 
 
 
-def run_ssl_server(app, port)
-
-  opts = {
-    :Port => port,
-    :SSLEnable => true,
-    :SSLVerifyClient => OpenSSL::SSL::VERIFY_NONE,
-    :SSLPrivateKey => OpenSSL::PKey::RSA.new(File.read "./spec/support/server.key"),
-    :SSLCertificate => OpenSSL::X509::Certificate.new(File.read "./spec/support/server.crt"),
-    :SSLCertName => [["US", 'localhost']],
-    :AccessLog => [],
-    :Logger => WEBrick::Log::new(Rails.root.join("./log/capybara_test.log").to_s)
-  }
-
-  Rack::Handler::WEBrick.run(app, opts)
-end
+# def run_ssl_server(app, port)
+#
+#   opts = {
+#     :Port => port,
+#     :SSLEnable => true,
+#     :SSLVerifyClient => OpenSSL::SSL::VERIFY_NONE,
+#     :SSLPrivateKey => OpenSSL::PKey::RSA.new(File.read "./spec/support/server.key"),
+#     :SSLCertificate => OpenSSL::X509::Certificate.new(File.read "./spec/support/server.crt"),
+#     :SSLCertName => [["US", 'localhost']],
+#     :AccessLog => [],
+#     :Logger => WEBrick::Log::new(Rails.root.join("./log/capybara_test.log").to_s)
+#   }
+#
+#   Rack::Handler::WEBrick.run(app, opts)
+# end

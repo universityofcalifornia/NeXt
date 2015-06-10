@@ -1,1 +1,6 @@
 You have been invite to event <b><%= @event.name %></b>
+
+
+<%= link_to "Accept", accept_invitation_url(@invite) %><br />
+
+<%= link_to "Decline", decline_invitation_url(@invite) %>
