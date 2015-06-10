@@ -20,7 +20,7 @@ class InvitesController < ApplicationController
 
   def set_data
     @invite = Invite.where(:id => params[:id]).first
-    @event = Event.find(@invite.event_id)
+    @event = @invite.event.name
   end
 
 end

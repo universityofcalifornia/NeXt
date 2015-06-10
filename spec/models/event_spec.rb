@@ -35,7 +35,7 @@ describe Event do
     end
   end
 
-  it "sends an email" do
+  xit "sends an email" do
     expect { create(:event, :with_invites) }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 
