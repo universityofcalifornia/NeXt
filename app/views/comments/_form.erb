@@ -1,0 +1,28 @@
+<%= form_for @comment, html: { class: 'form-horizontal' } do |f| %>
+
+  <%= f.hidden_field :return_to, name: :return_to, value: idea_path(@idea) unless @idea.nil? %>
+
+  <%= f.hidden_field :idea_id, value: @idea.id unless @idea.nil? %>
+
+  <%= f.hidden_field :parent_id %>
+
+  <div class="form-group">
+    <div class="col-sm-12">
+      <%= f.text_area :body, class: 'form-control', rows: 3, placeholder: 'Enter a new comment' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-12">
+      <%= f.submit('Comment' , class: 'btn btn-success') %>
+    </div>
+  </div>
+
+<% end %>
+
+<!--
+<script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script>
+<script type="text/javascript">
+  CKEDITOR.replace( 'comment' );
+</script>
+-->
