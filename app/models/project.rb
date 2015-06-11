@@ -36,6 +36,10 @@ class Project < ActiveRecord::Base
     user and (project_votes.where(user_id: user.id).count > 0)
   end
 
+  def voted_by user
+    project_votes.find_by_user_id(user.id) || project_votes.new(:user => user)
+  end
+
   # ELASTICSEARCH
 
   include Application::IndexAdapter::Elasticsearch

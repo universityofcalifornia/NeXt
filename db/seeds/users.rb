@@ -18,7 +18,7 @@ ebollens_primary_position = Position.new(organization: Organization.where(shortn
 bio_text = <<TXT
 <p>A passionate web technologist, Eric Bollens works as a software architect for the Education and Collaboration Technology
 Group in the UCLA Office of Information Technology. Tasked with developing and synthesizing new technologies and
-solutions for UCLA's diverse academic and research environment, Eric has been involved with numerous campus-wide
+solutions for UCLA's diverse academic and research environment, Eric has been involved with numerous campus-wide
  initiatives, most recently including the WebBlocks Responsive Web Toolkit, the Mobile Web Framework (MWF), the Online
 Polling Tool (OPT) and a peer-to-peer app-sharing environment, as well as a number of other projects such as the UCLA
 Common Collaboration and Learning Environment (CCLE Moodle) and UCLA on iTunes U.</p>

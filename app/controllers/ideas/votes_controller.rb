@@ -7,7 +7,7 @@ module Ideas
 
     def create
 
-      path = params[:return_to] ? params[:return_to] : idea_path(@idea)
+      path = params[:return_to] || idea_path(@idea)
 
       unless current_user
         raise Application::Error.new "You must be logged in to vote for an idea",
@@ -17,14 +17,8 @@ module Ideas
                                      ]
       end
 
-      if @idea.has_been_voted_for_by? current_user
-        vote = current_user.idea_votes(project: @project).first
-      else
-        vote = current_user.idea_votes.new(project: @project)
-      end
-
+      vote = @idea.voted_by current_user
       vote.participate = params[:participate]
-
       vote.save
 
       redirect_to path,
