@@ -59,6 +59,7 @@ gem "rmagick"
 gem "carrierwave"
 gem 'foreigner'
 gem "letter_opener", :group => :development
+gem 'rufus-scheduler'
 
 group :development, :test do
   gem 'rspec-rails'

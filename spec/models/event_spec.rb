@@ -35,10 +35,6 @@ describe Event do
     end
   end
 
-  xit "sends an email" do
-    expect { create(:event, :with_invites) }.to change { ActionMailer::Base.deliveries.count }.by(1)
-  end
-
   context "validations and relationships" do
   	it { should belong_to(:user) }
     it { should have_many(:invites) }

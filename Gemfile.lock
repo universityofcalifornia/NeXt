@@ -203,6 +203,7 @@ GEM
     rspec-support (3.2.2)
     ruby-bower (0.0.1)
       execjs
+    rufus-scheduler (3.1.2)
     sass (3.4.9)
     sass-css-importer (1.0.0.beta.0)
       sass (>= 3.1)
@@ -273,6 +274,7 @@ DEPENDENCIES
   rmagick
   rspec-activemodel-mocks
   rspec-rails
+  rufus-scheduler
   sdoc (~> 0.4.0)
   shoulda-matchers
   spring
