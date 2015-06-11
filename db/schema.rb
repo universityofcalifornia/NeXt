@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603201158) do
+ActiveRecord::Schema.define(version: 20150610195345) do
 
   create_table "competencies", force: true do |t|
     t.string   "name"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20150603201158) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.boolean  "responded",  default: false
   end
 
   add_index "invites", ["event_id", "email"], name: "index_invites_on_event_id_and_email", using: :btree
@@ -287,5 +288,7 @@ ActiveRecord::Schema.define(version: 20150603201158) do
 
   add_foreign_key "event_groups", "events", name: "event_groups_event_id_fk"
   add_foreign_key "event_groups", "groups", name: "event_groups_group_id_fk"
+
+  add_foreign_key "invites", "events", name: "invites_event_id_fk"
 
 end

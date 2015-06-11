@@ -8,8 +8,9 @@ feature "Log in" do
 
   scenario "User visits secret page to log in" do
 
-    visit root_path #'http://localhost:8080/auth/local/new'
-    #save_and_open_page
+    #visit 'http://localhost:1234/auth/local/new'
+    #p "URL #{current_url}"
+		#save_and_open_page
     #click_link 'Login'
     #fill_in "Email", :with => "new"
     #fill_in "Password", :with => "password"

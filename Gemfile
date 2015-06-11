@@ -57,8 +57,9 @@ gem 'bcrypt', :require => 'bcrypt'
 
 gem "rmagick"
 gem "carrierwave"
+gem 'foreigner'
 gem "letter_opener", :group => :development
-gem'foreigner'
+gem 'rufus-scheduler'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -67,4 +68,9 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'launchy'
+  gem 'rspec-activemodel-mocks'
+end
+
+group :test do
+  gem 'email_spec'
 end
