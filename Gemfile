@@ -48,7 +48,7 @@ gem 'extend_method'
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
 
 # Test coverage
-gem 'coveralls', require: false
+gem 'coveralls', :require => false
 
 # Use thin as the app server
 gem 'thin'
