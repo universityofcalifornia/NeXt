@@ -104,6 +104,11 @@
                       method: :get,
                       class: 'btn btn-warning btn-block',
                       form_class: 'button_to full-width' %>
+        <%= button_to 'Manage Documents',
+                      project_documents_url(@project),
+                      method: :get,
+                      class: 'btn btn-primary btn-block',
+                      form_class: 'button_to full-width' %>
         <% end %>
 
       </section>
@@ -116,7 +121,9 @@
           <h5 class="text-muted no-margin-bottom">Phase</h5>
           <p><%= @project.project_status.name %></p>
           <% if @project.project_roles.founders.count > 0 %>
-          <h5 class="text-muted no-margin-bottom">Founder<% if @project.project_roles.founders.count > 1 %>s<% end %></h5>
+          <h5 class="text-muted no-margin-bottom">
+            <%= "Founder".pluralize @project.project_roles.founders.count %>
+          </h5>
           <ul class="list-unstyled">
             <% @project.project_roles.founders.each do |project_role| %>
               <li><%= link_to project_role.user.display_name, project_role.user %></li>
@@ -132,6 +139,18 @@
             <h5 class="text-muted no-margin-bottom"><%= name %></h5>
             <%= link_to @project.send(attr), @project.send(attr), target: '_blank', class: 'ellipsis-text-block' %>
           <% end %>
+
+          <% if @project.project_documents.any? %>
+            <h5 class="text-muted no-margin-bottom">Documents</h5>
+            <ul class="list-unstyled">
+              <% @project.project_documents.each do |document| %>
+                <li>
+                  <%= link_to document.description, project_document_url(@project, document) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
         </div>
       </section>
 
