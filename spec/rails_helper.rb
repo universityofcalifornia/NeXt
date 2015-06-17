@@ -8,10 +8,14 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'webrick/https'
 require 'rack/handler/webrick'
+require "email_spec"
 
 p "START"
-# Capybara.server_port = 8080
-# Capybara.app_host = "https://localhost:%d" % Capybara.server_port
+
+  # Capybara.run_server = true
+  # Capybara.server_port = 1234
+  # Capybara.always_include_port = true
+  # Capybara.app_host = 'http://localhost:1234'
 # Capybara.register_driver :selenium do |app|
 #   profile = Selenium::WebDriver::Chrome::Profile.new
 #   profile.secure_ssl = false
@@ -41,6 +45,9 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -59,18 +66,18 @@ end
 
 
 
-def run_ssl_server(app, port)
-
-  opts = {
-    :Port => port,
-    :SSLEnable => true,
-    :SSLVerifyClient => OpenSSL::SSL::VERIFY_NONE,
-    :SSLPrivateKey => OpenSSL::PKey::RSA.new(File.read "./spec/support/server.key"),
-    :SSLCertificate => OpenSSL::X509::Certificate.new(File.read "./spec/support/server.crt"),
-    :SSLCertName => [["US", 'localhost']],
-    :AccessLog => [],
-    :Logger => WEBrick::Log::new(Rails.root.join("./log/capybara_test.log").to_s)
-  }
-
-  Rack::Handler::WEBrick.run(app, opts)
-end
+# def run_ssl_server(app, port)
+#
+#   opts = {
+#     :Port => port,
+#     :SSLEnable => true,
+#     :SSLVerifyClient => OpenSSL::SSL::VERIFY_NONE,
+#     :SSLPrivateKey => OpenSSL::PKey::RSA.new(File.read "./spec/support/server.key"),
+#     :SSLCertificate => OpenSSL::X509::Certificate.new(File.read "./spec/support/server.crt"),
+#     :SSLCertName => [["US", 'localhost']],
+#     :AccessLog => [],
+#     :Logger => WEBrick::Log::new(Rails.root.join("./log/capybara_test.log").to_s)
+#   }
+#
+#   Rack::Handler::WEBrick.run(app, opts)
+# end

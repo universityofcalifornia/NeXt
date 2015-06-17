@@ -21,6 +21,7 @@ class IdeasController < ApplicationController
 
   def new
     @idea = Idea.new
+
   end
 
   def create
@@ -31,6 +32,8 @@ class IdeasController < ApplicationController
   end
 
   def show
+    @comment = Comment.new(parent_id: params[:parent_id])
+    @comments = Comment.where("idea_id = ? and depth = 0", @idea.id)
   end
 
   def edit

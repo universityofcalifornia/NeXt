@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :comments, only: [:create]
+
+  get '/comments/new/(:parent_id)', to: 'comments#new', as: 'new_comment'
+
   resources :competencies
 
   resources :users, only: [:index, :show, :edit, :update]
@@ -24,6 +28,9 @@ Rails.application.routes.draw do
       get 'logged_in'
     end
   end
+
+  get 'invites/accept/:id', to: 'invites#accept', as: 'accept_invitation'
+  get 'invites/decline/:id', to: 'invites#decline', as: 'decline_invitation'
 
   resources :groups do
     member do

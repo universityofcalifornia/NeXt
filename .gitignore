@@ -37,5 +37,5 @@
 /app/assets/javascripts/*
 /app/assets/stylesheets/*
 
-# Ignore file in uploader
+# Ignore uploaded files
 /public/uploads/*

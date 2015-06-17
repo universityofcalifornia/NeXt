@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.5'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7'
 
@@ -17,10 +19,10 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', :group => :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+gem 'spring', :group => :development
 
 # Reimplements acts_as_paranoid
 gem 'paranoia', '~> 2.0'
@@ -48,17 +50,21 @@ gem 'extend_method'
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
 
 # Test coverage
-gem 'coveralls', require: false
+gem 'coveralls', :require => false
 
 # Use thin as the app server
 gem 'thin'
 
 gem 'bcrypt', :require => 'bcrypt'
 
+# Use awesome_nested_set for nested comments
+gem 'awesome_nested_set'
+
 gem "rmagick"
 gem "carrierwave"
+gem 'foreigner'
 gem "letter_opener", :group => :development
-gem'foreigner'
+gem 'rufus-scheduler'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -67,4 +73,9 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'launchy'
+  gem 'rspec-activemodel-mocks'
+end
+
+group :test do
+  gem 'email_spec'
 end

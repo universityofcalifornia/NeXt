@@ -27,6 +27,7 @@ The UC NeXt platform is built on top of a number of outstanding open source plat
 * [Git](http://git-scm.com/)
 * Java 7.x JDK ([Oracle](http://www.oracle.com/technetwork/java/javase) / [OpenJDK](http://openjdk.java.net/install/))
 * [Elasticsearch 1.x](http://www.elasticsearch.org/)
+* [ImageMagick](http://www.imagemagick.org/)
 
 ### Build
 

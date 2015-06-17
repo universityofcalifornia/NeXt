@@ -49,6 +49,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (5.0.1.20140414130214)
+    awesome_nested_set (3.0.2)
+      activerecord (>= 4.0.0, < 5)
     bcrypt (3.1.10)
     builder (3.2.2)
     capybara (2.4.4)
@@ -93,6 +95,9 @@ GEM
     elasticsearch-transport (1.0.5)
       faraday
       multi_json
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.2.2)
@@ -177,6 +182,10 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rmagick (2.15.0)
+    rspec-activemodel-mocks (1.0.1)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
     rspec-core (3.2.3)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.1)
@@ -196,6 +205,7 @@ GEM
     rspec-support (3.2.2)
     ruby-bower (0.0.1)
       execjs
+    rufus-scheduler (3.1.2)
     sass (3.4.9)
     sass-css-importer (1.0.0.beta.0)
       sass (>= 3.1)
@@ -242,12 +252,14 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  awesome_nested_set
   bcrypt
   capybara
   carrierwave
   coveralls
   database_cleaner
   elasticsearch
+  email_spec
   extend_method
   factory_girl_rails
   foreigner
@@ -263,7 +275,9 @@ DEPENDENCIES
   rails (= 4.1.7)
   redcarpet
   rmagick
+  rspec-activemodel-mocks
   rspec-rails
+  rufus-scheduler
   sdoc (~> 0.4.0)
   shoulda-matchers
   spring

@@ -16,6 +16,8 @@ class Idea < ActiveRecord::Base
   has_many :idea_competencies
   has_many :competencies, through: :idea_competencies, source: :competency
 
+  has_many :comments, dependent: :destroy
+
   attr_html_reader :description
 
   scope :top_voted, -> (limit = nil) {
