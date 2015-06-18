@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.create params[:project].permit(:name, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
+    project = Project.create params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
     project.project_roles << ProjectRole.new(user: current_user, founder: true, admin: true)
     project.idea_ids = params[:project][:ideas]
     project.competency_ids = params[:project][:competencies]
@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project.update params[:project].permit(:name, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
+    @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
     @project.idea_ids = params[:project][:ideas]
     @project.competency_ids = params[:project][:competencies]
     redirect_to params[:return_to] ? params[:return_to] : project_url(@project)
