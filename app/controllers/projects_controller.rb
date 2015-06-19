@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
     @ideas = Idea.order(name: :asc) # TODO: refine the list of this to only those pertinent to the user
     @project_statuses = ProjectStatus.all
     @competencies = Competency.order(name: :asc)
+    @resources = Resource.all
   end
 
   def index
@@ -29,6 +30,7 @@ class ProjectsController < ApplicationController
     project.project_roles << ProjectRole.new(user: current_user, founder: true, admin: true)
     project.idea_ids = params[:project][:ideas]
     project.competency_ids = params[:project][:competencies]
+    project.resource_ids = params[:project][:resources]
     redirect_to project_url(project)
   end
 
@@ -42,6 +44,7 @@ class ProjectsController < ApplicationController
     @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
     @project.idea_ids = params[:project][:ideas]
     @project.competency_ids = params[:project][:competencies]
+    @project.resource_ids = params[:project][:resources]
     redirect_to params[:return_to] ? params[:return_to] : project_url(@project)
   end
 

@@ -9,4 +9,6 @@ class Competency < ActiveRecord::Base
   has_many :project_competencies
   has_many :projects, through: :project_competencies, source: :project
 
+  default_scope { order(:name) }
+
 end

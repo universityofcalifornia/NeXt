@@ -53,10 +53,20 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :competencies, 'Related Competencies', class: 'col-sm-2 control-label' %>
+    <%= f.label :competencies, 'Expertise Needed', class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
       <%= f.select :competencies,
                    options_for_select(@competencies.map(){ |i| [ i.name, i.id] }, @project.competency_ids),
+                   {},
+                   { class: 'form-control', multiple: true, style: 'height: 16rem' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :resources, 'Infrastructure Resources Needed', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :resources,
+                   options_for_select(@resources.map(){ |i| [ i.name, i.id] }, @project.resource_ids),
                    {},
                    { class: 'form-control', multiple: true, style: 'height: 16rem' } %>
     </div>

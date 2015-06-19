@@ -16,6 +16,9 @@ class Project < ActiveRecord::Base
   has_many :project_competencies
   has_many :competencies, through: :project_competencies, source: :competency
 
+  has_many :project_resources
+  has_many :resources, through: :project_resources, source: :resource
+
   has_many :project_votes, dependent: :destroy
 
   has_many :project_documents, dependent: :destroy
