@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   resources :competencies
 
+  resources :resources
+
   resources :users, only: [:index, :show, :edit, :update]
 
   resource :auth, controller: 'auth', only: [:destroy]
