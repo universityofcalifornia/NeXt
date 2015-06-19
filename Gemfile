@@ -58,7 +58,7 @@ gem 'bcrypt', :require => 'bcrypt'
 # Use awesome_nested_set for nested comments
 gem 'awesome_nested_set'
 
-gem "rmagick"
+#gem "rmagick"
 gem "carrierwave"
 gem 'foreigner'
 gem "letter_opener", :group => :development
