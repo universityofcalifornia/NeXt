@@ -25,6 +25,15 @@ class Project < ActiveRecord::Base
 
   attr_html_reader :description
 
+  validates :name,
+    presence: true, length: { maximum: 255 }
+
+  validates :pitch,
+    length: { maximum: 2000 }
+
+  validates :website_url, :documentation_url, :source_url, :download_url,
+    url: true, length: { maximum: 255 }
+
   scope :top_voted, -> (limit = nil) {
     joins("LEFT JOIN `project_votes` ON `project_votes`.`project_id` = `projects`.`id`")
       .select("`projects`.`id`, `projects`.`name`, COUNT(`project_votes`.`id`) AS `votes`")
