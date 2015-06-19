@@ -181,7 +181,6 @@ GEM
     rest-client (1.7.3)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rmagick (2.15.0)
     rspec-activemodel-mocks (1.0.1)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
@@ -274,7 +273,6 @@ DEPENDENCIES
   paranoia (~> 2.0)
   rails (= 4.1.7)
   redcarpet
-  rmagick
   rspec-activemodel-mocks
   rspec-rails
   rufus-scheduler
