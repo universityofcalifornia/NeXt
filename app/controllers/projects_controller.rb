@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     render nothing: true, status: :unauthorized unless @project.is_editable_by? current_user
   end
 
-  before_action only: [:new, :edit] do
+  before_action only: [:new, :create, :edit, :update] do
     @ideas = Idea.order(name: :asc) # TODO: refine the list of this to only those pertinent to the user
     @project_statuses = ProjectStatus.all
     @competencies = Competency.order(name: :asc)
@@ -26,12 +26,19 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.create params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
-    project.project_roles << ProjectRole.new(user: current_user, founder: true, admin: true)
-    project.idea_ids = params[:project][:ideas]
-    project.competency_ids = params[:project][:competencies]
-    project.resource_ids = params[:project][:resources]
-    redirect_to project_url(project)
+    @project = Project.new params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
+
+    if @project.save
+      @project.project_roles << ProjectRole.new(user: current_user, founder: true, admin: true)
+      @project.idea_ids       = params[:project][:ideas]
+      @project.competency_ids = params[:project][:competencies]
+      @project.resource_ids   = params[:project][:resources]
+
+      redirect_to project_url(@project)
+
+    else
+      render action: 'new'
+    end
   end
 
   def show
@@ -41,11 +48,16 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
-    @project.idea_ids = params[:project][:ideas]
-    @project.competency_ids = params[:project][:competencies]
-    @project.resource_ids = params[:project][:resources]
-    redirect_to params[:return_to] ? params[:return_to] : project_url(@project)
+    if @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url)
+      @project.idea_ids       = params[:project][:ideas]
+      @project.competency_ids = params[:project][:competencies]
+      @project.resource_ids   = params[:project][:resources]
+
+      redirect_to params[:return_to] || project_url(@project)
+
+    else
+      render action: 'edit'
+    end
   end
 
   def delete
