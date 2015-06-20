@@ -10,8 +10,8 @@ class Event < ActiveRecord::Base
 
   domain_regex = URI::regexp(%w(http https))
 
-	attr_accessor :invite_list
-	attr_accessor :group_tokens
+	attr_accessor :invite_list, :group_tokens
+	attr_accessor :end_date_time, :start_date_time
 
 	validates :map_url, :format => { :with => domain_regex }, :if => "map_url.present?"
 
@@ -28,6 +28,24 @@ class Event < ActiveRecord::Base
 	def group_tokens=(ids)
     self.group_ids = ids.split(",")
   end
+
+	def start_date_time
+		DateTime.parse(self.start_date + self.start_time).strftime("%B %d, %Y") if start_date && start_time
+	end
+
+	def end_date_time
+		DateTime.parse(self.stop_date + self.stop_time).strftime("%B %d, %Y") if stop_date && stop_time
+	end
+
+	def start_date_time=(datetime)
+		self.start_date = datetime.split(' ').first
+		self.start_time = datetime.split(' ').last
+	end
+
+	def end_date_time=(datetime)
+		self.stop_date = datetime.split(' ').first
+		self.stop_time = datetime.split(' ').last
+	end
 
 	private
   def create_invites
