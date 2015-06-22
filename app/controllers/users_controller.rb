@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   def edit
     @competencies = Competency.order(name: :asc).all
     @organizations = Organization.order(name: :asc).all
+    @resources = Resource.all
   end
 
   def update
@@ -59,6 +60,7 @@ class UsersController < ApplicationController
 
     @user.update params[:user].permit(permitted_params)
     @user.competency_ids = params[:user][:competencies]
+    @user.resource_ids = params[:user][:resources]
 
     if params[:primary_position_organization_id]
       if params[:primary_position_organization_id] != '0'

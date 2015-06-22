@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :projects do
     scope module: 'projects' do
       resources :votes, only: [:create]
+      resources :documents
     end
   end
 
@@ -17,6 +18,8 @@ Rails.application.routes.draw do
   get '/comments/new/(:parent_id)', to: 'comments#new', as: 'new_comment'
 
   resources :competencies
+
+  resources :resources
 
   resources :users, only: [:index, :show, :edit, :update]
 

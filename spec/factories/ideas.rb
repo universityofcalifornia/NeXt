@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :idea do
     idea_status_id 3
     name "Amazing Idea"
+    problem_statement "The world is a terrible place"
     pitch "This will change your life forever"
     description "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pellentesque sagittis
 interdum. Phasellus faucibus, mauris at scelerisque aliquam, diam lectus facilisis mauris, eu egestas diam leo placerat

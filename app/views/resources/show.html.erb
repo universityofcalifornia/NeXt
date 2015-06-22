@@ -1,0 +1,39 @@
+<div class="profile">
+
+  <h2><%= @resource.name %></h2>
+
+  <% if @resource.projects.length > 0 %>
+    <div class="margin-bottom">
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h3 class="panel-title">Projects</h3>
+        </header>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <% @resource.projects.each do |project| %>
+              <li><%= link_to project.name, project %></li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    </div>
+  <% end %>
+
+  <% if @resource.users.length > 0 %>
+    <div class="margin-bottom">
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h3 class="panel-title">Users</h3>
+        </header>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <% @resource.users.each do |user| %>
+              <li><%= link_to user.display_name(:lf), user %></li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    </div>
+  <% end %>
+
+</div>

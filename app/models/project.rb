@@ -16,9 +16,23 @@ class Project < ActiveRecord::Base
   has_many :project_competencies
   has_many :competencies, through: :project_competencies, source: :competency
 
+  has_many :project_resources
+  has_many :resources, through: :project_resources, source: :resource
+
   has_many :project_votes, dependent: :destroy
 
+  has_many :project_documents, dependent: :destroy
+
   attr_html_reader :description
+
+  validates :name,
+    presence: true, length: { maximum: 255 }
+
+  validates :pitch,
+    length: { maximum: 2000 }
+
+  validates :website_url, :documentation_url, :source_url, :download_url,
+    url: true, length: { maximum: 255 }
 
   scope :top_voted, -> (limit = nil) {
     joins("LEFT JOIN `project_votes` ON `project_votes`.`project_id` = `projects`.`id`")

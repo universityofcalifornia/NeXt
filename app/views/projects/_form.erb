@@ -1,4 +1,5 @@
 <%= form_for @project, html: { class: 'form-horizontal' } do |f| %>
+  <%= render 'shared/errors', :object => @project %>
 
   <% if params[:return_to] %>
     <%= f.hidden_field :return_to, name: :return_to, value: params[:return_to] %>
@@ -7,7 +8,10 @@
   <div class="form-group">
     <%= f.label :name, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.text_field :name, class: 'form-control', maxlength: 255 %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 
@@ -22,9 +26,19 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :problem_statement, 'Problem Statement', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :problem_statement, class: 'form-control', rows: 2 %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :pitch, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_area :pitch, class: 'form-control', rows: 2 %>
+      <%= f.text_area :pitch, class: 'form-control', rows: 2, maxlength: 2000 %>
+      <div class="text-right">
+        <small>Limit: 2000 characters</small>
+      </div>
     </div>
   </div>
 
@@ -46,7 +60,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :competencies, 'Related Competencies', class: 'col-sm-2 control-label' %>
+    <%= f.label :competencies, 'Expertise Needed', class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
       <%= f.select :competencies,
                    options_for_select(@competencies.map(){ |i| [ i.name, i.id] }, @project.competency_ids),
@@ -56,30 +70,52 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :resources, 'Infrastructure Resources Needed', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :resources,
+                   options_for_select(@resources.map(){ |i| [ i.name, i.id] }, @project.resource_ids),
+                   {},
+                   { class: 'form-control', multiple: true, style: 'height: 16rem' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :website_url, 'Website', class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :website_url, class: 'form-control' %>
+      <%= f.text_field :website_url, class: 'form-control', maxlength: 255 %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :documentation_url, 'Documentation', class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :documentation_url, class: 'form-control' %>
+      <%= f.text_field :documentation_url, class: 'form-control', maxlength: 255 %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :source_url, 'Source', class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :source_url, class: 'form-control' %>
+      <%= f.text_field :source_url, class: 'form-control', maxlength: 255 %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :download_url, 'Download', class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :download_url, class: 'form-control' %>
+      <%= f.text_field :download_url, class: 'form-control', maxlength: 255 %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 

@@ -7,25 +7,29 @@
     <div class="col-lg-9 col-sm-8">
 
       <div class="subtitle">
+        <%= @project.problem_statement %>
+      </div>
+
+      <div class="subtitle">
         <%= @project.pitch %>
       </div>
 
       <%= raw @project.description_html %>
 
       <%
-         if @project.competencies.count > 0
+         if @project.competencies.count > 0 || @project.resources.count > 0
            rows = [[]]
-           @project.competencies.each do |competency|
+           (@project.competencies + @project.resources).each do |item|
              if rows[rows.length - 1].length > 2
                rows << []
              end
-             rows[rows.length - 1] << competency
+             rows[rows.length - 1] << item
            end
       %>
         <div class="margin-bottom">
           <section class="panel panel-default">
             <header class="panel-heading">
-              <h3 class="panel-title">Related Competencies</h3>
+              <h3 class="panel-title">Expertise and Infrastructure Resources Needed</h3>
             </header>
             <div class="panel-body">
               <% rows.each do |row| %>
@@ -104,6 +108,11 @@
                       method: :get,
                       class: 'btn btn-warning btn-block',
                       form_class: 'button_to full-width' %>
+        <%= button_to 'Manage Documents',
+                      project_documents_url(@project),
+                      method: :get,
+                      class: 'btn btn-primary btn-block',
+                      form_class: 'button_to full-width' %>
         <% end %>
 
       </section>
@@ -116,7 +125,9 @@
           <h5 class="text-muted no-margin-bottom">Phase</h5>
           <p><%= @project.project_status.name %></p>
           <% if @project.project_roles.founders.count > 0 %>
-          <h5 class="text-muted no-margin-bottom">Founder<% if @project.project_roles.founders.count > 1 %>s<% end %></h5>
+          <h5 class="text-muted no-margin-bottom">
+            <%= "Founder".pluralize @project.project_roles.founders.count %>
+          </h5>
           <ul class="list-unstyled">
             <% @project.project_roles.founders.each do |project_role| %>
               <li><%= link_to project_role.user.display_name, project_role.user %></li>
@@ -132,6 +143,18 @@
             <h5 class="text-muted no-margin-bottom"><%= name %></h5>
             <%= link_to @project.send(attr), @project.send(attr), target: '_blank', class: 'ellipsis-text-block' %>
           <% end %>
+
+          <% if @project.project_documents.any? %>
+            <h5 class="text-muted no-margin-bottom">Documents</h5>
+            <ul class="list-unstyled">
+              <% @project.project_documents.each do |document| %>
+                <li>
+                  <%= link_to document.description, project_document_url(@project, document) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
         </div>
       </section>
 

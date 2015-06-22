@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610195345) do
+ActiveRecord::Schema.define(version: 20150618020918) do
 
   create_table "comments", force: true do |t|
     t.string   "title"
@@ -205,6 +205,15 @@ ActiveRecord::Schema.define(version: 20150610195345) do
     t.datetime "deleted_at"
   end
 
+  create_table "project_documents", force: true do |t|
+    t.integer  "project_id"
+    t.string   "filename"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
   create_table "project_ideas", force: true do |t|
     t.integer  "project_id"
     t.integer  "idea_id"
@@ -214,6 +223,14 @@ ActiveRecord::Schema.define(version: 20150610195345) do
   end
 
   add_index "project_ideas", ["created_at"], name: "index_project_ideas_on_created_at", using: :btree
+
+  create_table "project_resources", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
 
   create_table "project_roles", force: true do |t|
     t.integer  "project_id"
@@ -262,9 +279,27 @@ ActiveRecord::Schema.define(version: 20150610195345) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.text     "problem_statement", limit: 16777215
   end
 
   add_index "projects", ["created_at"], name: "index_projects_on_created_at", using: :btree
+
+  create_table "resource_users", force: true do |t|
+    t.integer  "resource_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  create_table "resources", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "resources", ["name"], name: "index_resources_on_name", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
