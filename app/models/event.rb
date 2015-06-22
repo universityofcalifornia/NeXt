@@ -29,24 +29,6 @@ class Event < ActiveRecord::Base
     self.group_ids = ids.split(",")
   end
 
-	def start_date_time
-		DateTime.parse(self.start_date + self.start_time).strftime("%B %d, %Y") if start_date && start_time
-	end
-
-	def end_date_time
-		DateTime.parse(self.stop_date + self.stop_time).strftime("%B %d, %Y") if stop_date && stop_time
-	end
-
-	def start_date_time=(datetime)
-		self.start_date = datetime.split(' ').first
-		self.start_time = datetime.split(' ').last
-	end
-
-	def end_date_time=(datetime)
-		self.stop_date = datetime.split(' ').first
-		self.stop_time = datetime.split(' ').last
-	end
-
 	private
   def create_invites
     if @invite_list

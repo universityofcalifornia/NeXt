@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610195345) do
+ActiveRecord::Schema.define(version: 20150622181404) do
 
   create_table "comments", force: true do |t|
     t.string   "title"
@@ -65,10 +65,8 @@ ActiveRecord::Schema.define(version: 20150610195345) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "description"
-    t.date     "start_date"
-    t.date     "stop_date"
-    t.time     "start_time"
-    t.time     "stop_time"
+    t.datetime "start_datetime"
+    t.datetime "stop_datetime"
     t.string   "location"
     t.string   "event_url"
     t.string   "map_url"
