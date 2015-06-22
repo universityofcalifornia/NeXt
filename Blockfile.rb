@@ -54,6 +54,7 @@ block 'next', :path => BLOCKS_PATH do |n|
     dependency framework.route 'bootstrap', 'js', 'collapse'
     dependency framework.route 'bootstrap', 'js', 'dropdown'
     dependency framework.route 'bootstrap', 'js', 'modal'
+    dependency framework.route 'bootstrap', 'js', 'tooltip'
 
     # For the components block, load all component files with their name as their block name.
     instance_exec(BLOCKS_PATH + 'bootstrap', &autoload_files_as_blocks)
