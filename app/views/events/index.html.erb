@@ -18,6 +18,12 @@
           <h4><%= event.name %></h4>
           <p><%= raw event.description %></p>
           <p><small>Started on <%= event.created_at.strftime("%B %d, %Y") %></small></p>
+          Start Date:<br/ >
+          <%= event.start_datetime.try(:to_s, (:formatted_date)) %><br />
+
+          End Date:<br/ >
+          <%= event.stop_datetime.try(:to_s, (:formatted_date)) %>
+        </div>
           <p><%= event.event_url %></p>
           <p><%= event.map_url %></p>
           <%= render 'events/invite_list', :event => event %><br />
