@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618020918) do
+ActiveRecord::Schema.define(version: 20150622181404) do
 
   create_table "comments", force: true do |t|
     t.string   "title"
@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "comments", ["idea_id"], name: "index_comments_on_idea_id", using: :btree
-  add_index "comments", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
-  add_index "comments", ["rgt"], name: "index_comments_on_rgt", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["idea_id"], name: "index_comments_on_idea_id"
+  add_index "comments", ["parent_id"], name: "index_comments_on_parent_id"
+  add_index "comments", ["rgt"], name: "index_comments_on_rgt"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "competencies", force: true do |t|
     t.string   "name"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "competencies", ["name"], name: "index_competencies_on_name", using: :btree
+  add_index "competencies", ["name"], name: "index_competencies_on_name"
 
   create_table "competency_users", force: true do |t|
     t.integer  "competency_id"
@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "event_groups", ["event_id", "group_id"], name: "index_event_groups_on_event_id_and_group_id", using: :btree
-  add_index "event_groups", ["event_id"], name: "index_event_groups_on_event_id", using: :btree
-  add_index "event_groups", ["group_id"], name: "event_groups_group_id_fk", using: :btree
+  add_index "event_groups", ["event_id", "group_id"], name: "index_event_groups_on_event_id_and_group_id"
+  add_index "event_groups", ["event_id"], name: "index_event_groups_on_event_id"
+  add_index "event_groups", ["group_id"], name: "event_groups_group_id_fk"
 
   create_table "events", force: true do |t|
     t.integer  "user_id"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.string   "image"
   end
 
-  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+  add_index "events", ["user_id"], name: "index_events_on_user_id"
 
   create_table "groups", force: true do |t|
     t.string   "name"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
+  add_index "groups", ["name"], name: "index_groups_on_name", unique: true
 
   create_table "idea_competencies", force: true do |t|
     t.integer  "idea_id"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "idea_roles", ["created_at"], name: "index_idea_roles_on_created_at", using: :btree
+  add_index "idea_roles", ["created_at"], name: "index_idea_roles_on_created_at"
 
   create_table "idea_statuses", force: true do |t|
     t.string   "key"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "idea_statuses", ["key"], name: "index_idea_statuses_on_key", using: :btree
+  add_index "idea_statuses", ["key"], name: "index_idea_statuses_on_key"
 
   create_table "idea_votes", force: true do |t|
     t.integer  "idea_id"
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "idea_votes", ["created_at"], name: "index_idea_votes_on_created_at", using: :btree
+  add_index "idea_votes", ["created_at"], name: "index_idea_votes_on_created_at"
 
   create_table "ideas", force: true do |t|
     t.integer  "idea_status_id"
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "ideas", ["created_at"], name: "index_ideas_on_created_at", using: :btree
+  add_index "ideas", ["created_at"], name: "index_ideas_on_created_at"
 
   create_table "invites", force: true do |t|
     t.integer  "event_id"
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.boolean  "responded",  default: false
   end
 
-  add_index "invites", ["event_id", "email"], name: "index_invites_on_event_id_and_email", using: :btree
-  add_index "invites", ["event_id"], name: "index_invites_on_event_id", using: :btree
+  add_index "invites", ["event_id", "email"], name: "index_invites_on_event_id_and_email"
+  add_index "invites", ["event_id"], name: "index_invites_on_event_id"
 
   create_table "oauth2_identities", force: true do |t|
     t.string   "provider",         null: false
@@ -166,8 +166,8 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "oauth2_identities", ["provider", "provider_user_id", "deleted_at"], name: "provider_compound_key", unique: true, using: :btree
-  add_index "oauth2_identities", ["user_id"], name: "index_oauth2_identities_on_user_id", using: :btree
+  add_index "oauth2_identities", ["provider", "provider_user_id", "deleted_at"], name: "provider_compound_key", unique: true
+  add_index "oauth2_identities", ["user_id"], name: "index_oauth2_identities_on_user_id"
 
   create_table "organizations", force: true do |t|
     t.string   "name"
@@ -178,8 +178,8 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "organizations", ["name"], name: "index_organizations_on_name", using: :btree
-  add_index "organizations", ["shortname"], name: "index_organizations_on_shortname", using: :btree
+  add_index "organizations", ["name"], name: "index_organizations_on_name"
+  add_index "organizations", ["shortname"], name: "index_organizations_on_shortname"
 
   create_table "positions", force: true do |t|
     t.integer  "user_id"
@@ -192,8 +192,8 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "positions", ["department"], name: "index_positions_on_department", using: :btree
-  add_index "positions", ["title"], name: "index_positions_on_title", using: :btree
+  add_index "positions", ["department"], name: "index_positions_on_department"
+  add_index "positions", ["title"], name: "index_positions_on_title"
 
   create_table "project_competencies", force: true do |t|
     t.integer  "project_id"
@@ -220,7 +220,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "project_ideas", ["created_at"], name: "index_project_ideas_on_created_at", using: :btree
+  add_index "project_ideas", ["created_at"], name: "index_project_ideas_on_created_at"
 
   create_table "project_resources", force: true do |t|
     t.integer  "project_id"
@@ -240,7 +240,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "project_roles", ["created_at"], name: "index_project_roles_on_created_at", using: :btree
+  add_index "project_roles", ["created_at"], name: "index_project_roles_on_created_at"
 
   create_table "project_statuses", force: true do |t|
     t.string   "key"
@@ -252,7 +252,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "project_statuses", ["key"], name: "index_project_statuses_on_key", using: :btree
+  add_index "project_statuses", ["key"], name: "index_project_statuses_on_key"
 
   create_table "project_votes", force: true do |t|
     t.integer  "project_id"
@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "project_votes", ["created_at"], name: "index_project_votes_on_created_at", using: :btree
+  add_index "project_votes", ["created_at"], name: "index_project_votes_on_created_at"
 
   create_table "projects", force: true do |t|
     t.integer  "project_status_id"
@@ -280,7 +280,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.text     "problem_statement", limit: 16777215
   end
 
-  add_index "projects", ["created_at"], name: "index_projects_on_created_at", using: :btree
+  add_index "projects", ["created_at"], name: "index_projects_on_created_at"
 
   create_table "resource_users", force: true do |t|
     t.integer  "resource_id"
@@ -297,7 +297,7 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "resources", ["name"], name: "index_resources_on_name", using: :btree
+  add_index "resources", ["name"], name: "index_resources_on_name"
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
@@ -307,8 +307,8 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.datetime "deleted_at"
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
 
   create_table "users", force: true do |t|
     t.text     "email",                               null: false
@@ -333,14 +333,9 @@ ActiveRecord::Schema.define(version: 20150618020918) do
     t.string   "password_hash"
   end
 
-  add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
-  add_index "users", ["name_last", "name_first", "name_middle", "name_suffix"], name: "name", using: :btree
-  add_index "users", ["primary_position_id"], name: "index_users_on_primary_position_id", using: :btree
-  add_index "users", ["super_admin"], name: "index_users_on_super_admin", using: :btree
-
-  add_foreign_key "event_groups", "events", name: "event_groups_event_id_fk"
-  add_foreign_key "event_groups", "groups", name: "event_groups_group_id_fk"
-
-  add_foreign_key "invites", "events", name: "invites_event_id_fk"
+  add_index "users", ["created_at"], name: "index_users_on_created_at"
+  add_index "users", ["name_last", "name_first", "name_middle", "name_suffix"], name: "name"
+  add_index "users", ["primary_position_id"], name: "index_users_on_primary_position_id"
+  add_index "users", ["super_admin"], name: "index_users_on_super_admin"
 
 end
