@@ -1,5 +1,9 @@
 <%= stylesheet_link_tag 'token-input.css' %>
+<%= stylesheet_link_tag 'jquery.datetimepicker.css' %>
+
+<%= javascript_include_tag 'jquery.datetimepicker.js'%>
 <%= javascript_include_tag 'jquery.tokeninput.js' %>
+
 <%= form_for @event, html: { class: 'form-horizontal', :multipart => true } do |f| %>
   <%= render 'shared/errors', :object => @event %>
 
@@ -45,6 +49,20 @@
   </div>
 
   <div class="form-group">
+    <%= f.label "Start Date", class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :start_datetime, class: 'form-control', rows: 8 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "End Date", class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :stop_datetime, class: 'form-control', rows: 8 %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :invite_list, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
       <%= f.text_field :invite_list, class: 'form-control', rows: 8 %>
@@ -61,7 +79,7 @@
   <div class="form-group">
     <%= f.label :groups, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :group_tokens, "data-pre" => @event.groups.map(&:name).to_json %>
+      <%= f.text_field :group_tokens, "data-pre" => @event.groups.map(&:name).compact %>
     </div>
   </div>
 
@@ -87,6 +105,14 @@ $(document).ready(function () {
     crossDomain: false,
     preventDuplicates: true,
     prePopulate: $('#event_group_tokens').data('pre')
+  });
+
+  $('#event_start_datetime').datetimepicker({
+    minDate: '-1'
+  });
+
+  $('#event_end_datetime').datetimepicker({
+    minDate: '-1'
   });
 
 });

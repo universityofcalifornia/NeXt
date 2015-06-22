@@ -6,6 +6,8 @@ FactoryGirl.define do
     map_url "http://my.map_url.org"
     event_url "http://my.event_url.org"
     location "new location"
+    start_datetime Date.today
+    stop_datetime Date.today + 2.days
 
     trait :with_invites do
       before(:save) do |event|

@@ -17,10 +17,10 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', :group => :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+gem 'spring', :group => :development
 
 # Reimplements acts_as_paranoid
 gem 'paranoia', '~> 2.0'
@@ -48,7 +48,7 @@ gem 'extend_method'
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
 
 # Test coverage
-gem 'coveralls', require: false
+gem 'coveralls', :require => false
 
 # Use thin as the app server
 gem 'thin'
