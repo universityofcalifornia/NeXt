@@ -37,11 +37,12 @@ Rails.application.routes.draw do
   get 'invites/decline/:id', to: 'invites#decline', as: 'decline_invitation'
 
   resources :groups do
-    member do
-      post 'add_event'
+    collection do
+      get 'ajax_index'
     end
-
   end
+
+  resource :user_groups
 
   namespace :auth do
     get '/oauth2/:id', to: 'oauth2#return', as: :oauth2_return, constraints: lambda { |request| request.query_parameters.include? 'code' }

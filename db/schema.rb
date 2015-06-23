@@ -334,10 +334,18 @@ ActiveRecord::Schema.define(version: 20150623003625) do
     t.integer  "user_id"
     t.integer  "badge_id"
     t.boolean  "showcase",   default: false
+  end
+
+  create_table "user_groups", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
   end
+
+  add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
+  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.text     "email",                               null: false

@@ -72,6 +72,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'rspec-activemodel-mocks'
+  gem 'capybara-webkit', '1.5.0'
 end
 
 group :test do

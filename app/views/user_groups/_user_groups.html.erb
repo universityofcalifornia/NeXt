@@ -1,0 +1,9 @@
+<% if current_user.groups.present? %>
+  <% current_user.groups.each do |group| %>
+    <ul>
+      <li><%= group.name %></li>
+    </ul>
+  <% end %>
+<% else %>
+  You are not a member of any groups right now
+<% end %>

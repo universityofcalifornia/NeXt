@@ -59,6 +59,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.5.0)
+      capybara (>= 2.3.0, < 2.5.0)
+      json
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -255,6 +258,7 @@ DEPENDENCIES
   awesome_nested_set
   bcrypt
   capybara
+  capybara-webkit (= 1.5.0)
   carrierwave
   coveralls
   database_cleaner
