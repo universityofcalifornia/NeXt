@@ -6,7 +6,14 @@
     <li><a href="<%= current_user ? logged_in_events_url : events_url %>">Events</a></li>
     <li><%=link_to 'About', "#" %></li>
     <li>
-      <div><%= link_to_if current_user, 'Groups', groups_path -%><span id="group_count"><%= render 'user_groups/count' %></span></div>
+      <div>
+        <% if current_user %>
+          <%= link_to_if current_user, 'Groups', groups_path %>
+          <span id="group_count">
+            <%= render 'user_groups/count', :current_user => current_user %>
+          </span>
+        <% end %>
+      </div>
     </li>
   </ul>
 </nav>
