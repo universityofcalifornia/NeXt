@@ -25,7 +25,6 @@ $(function(){
     select: function( event, ui ) {
       $.post("/user_groups", {
         id: ui.item.id,
-        user_id: "<%= current_user.id %>",
         authenticity_token: AUTH_TOKEN
         });
       return false;
