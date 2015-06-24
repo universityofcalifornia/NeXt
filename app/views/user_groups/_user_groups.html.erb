@@ -1,7 +1,7 @@
 <% if current_user.groups.present? %>
   <% current_user.groups.each do |group| %>
     <ul>
-      <li><%= group.name %><%= link_to 'delete', user_groups_path(:group_id => group), {:remote=> true, :method => :delete, :class => 'glyphicon glyphicon-remove'} %></li>
+      <li><%= group.name %><%= link_to 'delete', user_groups_path(:group_id => group), :remote=> true, :method => :delete, :class => 'glyphicon glyphicon-remove' %></li>
     </ul>
   <% end %>
 <% else %>
