@@ -18,6 +18,13 @@
 # Ignore common editor files.
 /.idea
 
+
+### Sandon Jurowski
+### Ignore db/schema.rb
+### this file is auto-generated per environment
+### and constantly causing merge issues
+/db/schema.rb
+
 # Ignore common filesystem files.
 .DS_Store
 
@@ -37,5 +44,5 @@
 /app/assets/javascripts/*
 /app/assets/stylesheets/*
 
-#ignore file in uploader
-public/uploads/*
+# Ignore uploaded files
+/public/uploads/*

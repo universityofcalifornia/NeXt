@@ -143,6 +143,16 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <%= f.label :resources, 'Resources', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.select :resources,
+                     options_for_select(@resources.map(){ |c| [ c.name, c.id] }, @user.resource_ids),
+                     {},
+                     { class: 'form-control', multiple: true, style: 'height: 15rem' } %>
+      </div>
+    </div>
+
   </fieldset>
 
   <fieldset>

@@ -1,0 +1,35 @@
+<%= button_to 'Upload Document',
+              new_project_document_url(@project),
+              method: :get,
+              class: 'btn btn-warning btn-block',
+              form_class: 'button_to pull-right' %>
+
+<h2>Documents for <%= @project.name %></h2>
+
+<div class="list-group">
+<% @project.project_documents.each do |document| %>
+  <a class="list-group-item" href="<%= project_document_url(@project, document) %>">
+    <div class="row">
+      <div class="col-sm-10">
+        <h4><%= document.description %></h4>
+        <p><small>
+          <%= document.filename_identifier %>
+        </small></p>
+      </div>
+      <nav class="col-sm-2 text-right-md text-right-lg">
+        <%= button_to 'Edit',
+                      edit_project_document_url(@project, document),
+                      method: :get,
+                      class: 'btn btn-primary' %>
+        <%= button_to 'Delete',
+                      project_document_url(@project, document),
+                      method: :delete,
+                      class: 'btn btn-success',
+                      data: {
+                        confirm: 'Are you sure you want to delete this document? This cannot be undone!'
+                      } %>
+      </nav>
+    </div>
+  </a>
+<% end %>
+</div>

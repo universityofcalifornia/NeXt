@@ -1,18 +1,28 @@
 <%= form_for @project, html: { class: 'form-horizontal' } do |f| %>
+  <%= render 'shared/errors', :object => @project %>
 
   <% if params[:return_to] %>
     <%= f.hidden_field :return_to, name: :return_to, value: params[:return_to] %>
   <% end %>
 
   <div class="form-group">
-    <%= f.label :name, class: 'col-sm-2 control-label' %>
+    <%= f.label :name, class: 'col-sm-2 control-label' do %>
+      Name
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter a short name for your project."></span>
+    <% end %>
     <div class="col-sm-10">
-      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.text_field :name, class: 'form-control', maxlength: 255, placeholder: 'Example: My Clever Project' %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :project_status_id, 'Phase', class: 'col-sm-2 control-label' %>
+    <%= f.label :project_status_id, class: 'col-sm-2 control-label' do %>
+      Phase
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Choose the current phase of your project from the list."></span>
+    <% end %>
     <div class="col-sm-10">
       <%= f.select :project_status_id,
                    options_for_select(@project_statuses.map(){ |o| [ o.name, o.id] }, @project.project_status_id),
@@ -22,21 +32,43 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :pitch, class: 'col-sm-2 control-label' %>
+    <%= f.label :problem_statement, class: 'col-sm-2 control-label' do %>
+      Problem Statement
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter a description of the problem your project aims to solve."></span>
+    <% end %>
     <div class="col-sm-10">
-      <%= f.text_area :pitch, class: 'form-control', rows: 2 %>
+      <%= f.text_area :problem_statement, class: 'form-control', rows: 2, placeholder: 'Example: There are not enough clever projects' %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :description, class: 'col-sm-2 control-label' %>
+    <%= f.label :pitch, class: 'col-sm-2 control-label' do %>
+      Pitch
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter your project's pitch to get people motivated to help."></span>
+    <% end %>
+    <div class="col-sm-10">
+      <%= f.text_area :pitch, class: 'form-control', rows: 2, maxlength: 2000, placeholder: 'Example: If you contribute to our project, everyone will know how awesome you are!' %>
+      <div class="text-right">
+        <small>Limit: 2000 characters</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: 'col-sm-2 control-label' do %>
+      Description
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter as much detail about your project as you want. You can use the formatting tools to add custom fonts, colors, etc."></span>
+    <% end %>
     <div class="col-sm-10">
       <%= f.text_area :description, class: 'form-control', rows: 12 %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :ideas, 'Related Ideas', class: 'col-sm-2 control-label' %>
+    <%= f.label :ideas, class: 'col-sm-2 control-label' do %>
+      Related Ideas
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Select any ideas related to your project. Hold the Ctrl key while clicking to select multiple items."></span>
+    <% end %>
     <div class="col-sm-10">
       <%= f.select :ideas,
                    options_for_select(@ideas.map(){ |i| [ i.name, i.id] }, @project.idea_ids),
@@ -46,7 +78,10 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :competencies, 'Related Competencies', class: 'col-sm-2 control-label' %>
+    <%= f.label :competencies, class: 'col-sm-2 control-label' do %>
+      Expertise Needed
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Select any expertise needed by your project. Hold the Ctrl key while clicking to select multiple items."></span>
+    <% end %>
     <div class="col-sm-10">
       <%= f.select :competencies,
                    options_for_select(@competencies.map(){ |i| [ i.name, i.id] }, @project.competency_ids),
@@ -56,30 +91,67 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :website_url, 'Website', class: 'col-sm-2 control-label' %>
+    <%= f.label :resources, class: 'col-sm-2 control-label' do %>
+      Infrastructure Resources Needed
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Select any infrastructure resources needed by your project. Hold the Ctrl key while clicking to select multiple items."></span>
+    <% end %>
     <div class="col-sm-10">
-      <%= f.text_field :website_url, class: 'form-control' %>
+      <%= f.select :resources,
+                   options_for_select(@resources.map(){ |i| [ i.name, i.id] }, @project.resource_ids),
+                   {},
+                   { class: 'form-control', multiple: true, style: 'height: 16rem' } %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :documentation_url, 'Documentation', class: 'col-sm-2 control-label' %>
+    <%= f.label :website_url, class: 'col-sm-2 control-label' do %>
+      Website
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL for your project's main website."></span>
+    <% end %>
     <div class="col-sm-10">
-      <%= f.text_field :documentation_url, class: 'form-control' %>
+      <%= f.text_field :website_url, class: 'form-control', maxlength: 255, placeholder: 'http://www.example.com' %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :source_url, 'Source', class: 'col-sm-2 control-label' %>
+    <%= f.label :documentation_url, class: 'col-sm-2 control-label' do %>
+      Documentation
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL for your project's documentation page."></span>
+    <% end %>
     <div class="col-sm-10">
-      <%= f.text_field :source_url, class: 'form-control' %>
+      <%= f.text_field :documentation_url, class: 'form-control', maxlength: 255, placeholder: 'http://www.example.com/about' %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :download_url, 'Download', class: 'col-sm-2 control-label' %>
+    <%= f.label :source_url, class: 'col-sm-2 control-label' do %>
+      Source
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL for your project's source code."></span>
+    <% end %>
     <div class="col-sm-10">
-      <%= f.text_field :download_url, class: 'form-control' %>
+      <%= f.text_field :source_url, class: 'form-control', maxlength: 255, placeholder: 'https://github.com/example/test' %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :download_url, class: 'col-sm-2 control-label' do %>
+      Download
+      <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL where users can download your project."></span>
+    <% end %>
+    <div class="col-sm-10">
+      <%= f.text_field :download_url, class: 'form-control', maxlength: 255, placeholder: 'http://www.example.com/download' %>
+      <div class="text-right">
+        <small>Limit: 255 characters</small>
+      </div>
     </div>
   </div>
 

@@ -15,7 +15,7 @@ class CompetenciesController < ApplicationController
   end
 
   def index
-    @competencies = Competency.order(name: :asc).all
+    @competencies = Competency.all
   end
 
   def new
