@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :ideas do
     scope module: 'ideas' do
-      resources :votes, only: [:create]
+      resources :votes, only: [:create, :update, :destroy]
     end
   end
 
