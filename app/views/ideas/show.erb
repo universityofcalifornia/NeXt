@@ -75,7 +75,7 @@
 
       <section class="panel panel-invisible">
 
-        <% unless @idea.has_been_voted_for_by? current_user %>
+        <% unless @idea.has_been_voted_for_by? current_user or @idea.abandoned? %>
 
         <%= button_to 'Good Idea',
                       idea_votes_url(@idea),

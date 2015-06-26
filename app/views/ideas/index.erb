@@ -27,7 +27,7 @@
           <em>Supported by <%= idea.idea_votes.count %> ( <%= idea.idea_votes.where(participate: true).count %> would participate )</em>
         </small></p>
       </div>
-      <% unless idea.has_been_voted_for_by? current_user %>
+      <% unless idea.has_been_voted_for_by? current_user or idea.abandoned? %>
         <nav class="col-sm-2 text-right-md text-right-lg">
           <%= button_to '+1', '#', class: 'btn btn-success modal-button', method: :get %>
           <%= render partial: "shared/vote_dialog", locals: {

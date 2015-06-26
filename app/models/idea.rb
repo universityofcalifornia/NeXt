@@ -40,6 +40,10 @@ class Idea < ActiveRecord::Base
     idea_votes.find_by_user_id(user.id) || idea_votes.new(:user => user)
   end
 
+  def abandoned?
+    idea_status.name == "Abandoned"
+  end
+
   # ELASTICSEARCH
 
   include Application::IndexAdapter::Elasticsearch
