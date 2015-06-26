@@ -2,38 +2,20 @@
 <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
 
 <h1> Groups </h1>
+<div id="autocomplete_groups">
+  <div>
+    <%= text_field_tag 'groups' %>
+  </div>
 
-<div>
-  <%= text_field_tag 'groups' %>
+  <div id ="user_groups" >
+    <%= render 'user_groups/user_groups' %>
+  </div>
 </div>
-
-<div id ="user_groups" >
-  <%= render 'user_groups/user_groups' %>
+<div id="new_group" style="display: none">
+  <%= render 'groups/new_group' %>
 </div>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script>
-$(function(){
-  $("#groups").autocomplete({
-    source: '/groups/ajax_index.json',
-    open: function(e, ui) {
-      // Appends a div at the end, containing the link to open myModal
-      $('.ui-autocomplete').prepend("<div id='endtext'><a href='#' data-toggle='modal' data-target='#myModal'>Create a new group</a></div>");
-    },
-    select: function( event, ui ) {
-      $.post("/user_groups", {
-        id: ui.item.id,
-        authenticity_token: AUTH_TOKEN
-        });
-      return false;
-    }
-  })
-  .autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<a>" + item.name + "</a>" )
-        .appendTo( ul );
-    }
-});
-</script>
+<%= javascript_include_tag 'groups.js' %>

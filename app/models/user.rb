@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :user_groups
   has_many :user_groups
 
+  has_many :created_groups, :foreign_key => 'user_id', :class_name => 'Group'
+
   has_many :competency_users, dependent: :destroy
   has_many :competencies, through: :competency_users
 
@@ -29,12 +31,9 @@ class User < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
 
-<<<<<<< HEAD
   has_many :user_badges, dependent: :destroy
   has_many :badges, through: :user_badges
 
-=======
->>>>>>> link to groups if logged in, ability to add yourself to a group, WIP
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true
 
