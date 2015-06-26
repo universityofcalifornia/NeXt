@@ -22,7 +22,7 @@
             </div>
           </div>
       <% end %>
-      <%= render 'comments/form' %>
+      <%= render 'comments/form' if current_user %>
 
       <%
          if @idea.competencies.count > 0
