@@ -1,0 +1,2 @@
+class Award < Badge
+end

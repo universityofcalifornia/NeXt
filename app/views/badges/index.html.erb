@@ -1,0 +1,15 @@
+<nav class="pull-right">
+  <% if Badge.is_creatable_by? current_user %>
+    <%= link_to 'Create Badge/Award', new_badge_url, class: 'btn btn-success' %>
+  <% end %>
+</nav>
+
+<h1>Badges/Awards</h1>
+
+<ul class="badges">
+  <% @badges.each do |badge| %>
+    <li>
+      <%= render badge.becomes(Badge) %>
+    </li>
+  <% end %>
+</ul>

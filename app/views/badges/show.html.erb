@@ -1,0 +1,29 @@
+<div class="profile">
+  <h2>
+    <%= @badge.name %>
+    <%= image_tag @badge.image %>
+  </h2>
+
+  <div class="row">
+    <div class="col-lg-9 col-sm-8">
+      <div class="subtitle">
+        <%= @badge.badge_group.name %>
+        <%= @badge.type %>
+      </div>
+      <p><%= @badge.description %></p>
+    </div>
+
+    <div class="col-lg-3 col-sm-4">
+      <section class="panel panel-invisible">
+        <% if @badge.is_editable_by? current_user %>
+          <%= button_to 'Edit',
+                        edit_badge_url(@badge),
+                        method: :get,
+                        class: 'btn btn-warning btn-block',
+                        form_class: 'button_to full-width'
+          %>
+        <% end %>
+      </section>
+    </div>
+  </div>
+</div>
