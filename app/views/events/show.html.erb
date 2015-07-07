@@ -13,6 +13,11 @@
       <%= render 'events/event_groups', :event => @event %><br />
       <%= image_tag @event.image_url if @event.image? %>
 
+      Start Date:<br/ >
+      <%= @event.start_datetime.try(:to_s, (:formatted_date)) %><br />
+
+      End Date:<br/ >
+      <%= @event.stop_datetime.try(:to_s, (:formatted_date)) %>
     </div>
 
 

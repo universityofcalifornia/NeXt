@@ -18,6 +18,14 @@
 # Ignore common editor files.
 /.idea
 
+
+### Sandon Jurowski
+### Ignore db/schema.rb
+### this file is auto-generated per environment
+### and constantly causing merge issues
+/db/schema.rb
+/Gemfile.lock
+
 # Ignore common filesystem files.
 .DS_Store
 

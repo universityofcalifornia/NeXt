@@ -3,7 +3,10 @@
 class EventPromoPhotoUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  include CarrierWave::RMagick
+
+  ### Sandon Jurowski 20150625 disabling until we get CentOS happy w/ RMagick
+  #include CarrierWave::RMagick
+
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
