@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623003625) do
+ActiveRecord::Schema.define(version: 20150624191913) do
 
   create_table "badge_groups", force: true do |t|
     t.string   "name"
@@ -105,9 +105,11 @@ ActiveRecord::Schema.define(version: 20150623003625) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "user_id"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
+  add_index "groups", ["user_id"], name: "groups_user_id_fk", using: :btree
 
   create_table "idea_competencies", force: true do |t|
     t.integer  "idea_id"
@@ -339,6 +341,17 @@ ActiveRecord::Schema.define(version: 20150623003625) do
     t.datetime "deleted_at"
   end
 
+  create_table "user_groups", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
+  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.text     "email",                               null: false
     t.integer  "primary_position_id"
@@ -369,6 +382,8 @@ ActiveRecord::Schema.define(version: 20150623003625) do
 
   add_foreign_key "event_groups", "events", name: "event_groups_event_id_fk"
   add_foreign_key "event_groups", "groups", name: "event_groups_group_id_fk"
+
+  add_foreign_key "groups", "users", name: "groups_user_id_fk"
 
   add_foreign_key "invites", "events", name: "invites_event_id_fk"
 

@@ -1,0 +1,8 @@
+<div>
+  <% if current_user %>
+    <%= link_to_if current_user, 'Groups', groups_path %>
+    <span id="group_count">
+      <%= render 'user_groups/count', :current_user => current_user %>
+    </span>
+  <% end %>
+</div>
