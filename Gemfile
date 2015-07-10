@@ -58,9 +58,7 @@ gem 'bcrypt', :require => 'bcrypt'
 # Use awesome_nested_set for nested comments
 gem 'awesome_nested_set'
 
-### not messing w/ images right now until we get CentOS/Chef/Vagrant happy
-#gem "rmagick"
-
+gem "rmagick"
 gem "carrierwave"
 gem 'foreigner'
 gem "letter_opener", :group => :development
@@ -74,6 +72,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'rspec-activemodel-mocks'
+  gem 'capybara-webkit', '1.5.0'
 end
 
 group :test do

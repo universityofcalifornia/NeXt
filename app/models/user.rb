@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
 
   has_many :events
 
+  has_many :groups, :through => :user_groups
+  has_many :user_groups
+
+  has_many :created_groups, :foreign_key => 'user_id', :class_name => 'Group'
+
   has_many :competency_users, dependent: :destroy
   has_many :competencies, through: :competency_users
 

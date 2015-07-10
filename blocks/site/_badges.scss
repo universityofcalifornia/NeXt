@@ -1,0 +1,25 @@
+ul.badges {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+.badge {
+  width: 400px;
+
+  .icon {
+    width: 90px;
+    height: 90px;
+    float: left;
+    margin-right: 10px;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+}

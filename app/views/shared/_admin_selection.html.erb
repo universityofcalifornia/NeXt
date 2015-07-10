@@ -8,6 +8,7 @@
         <% if Rails.application.config.respond_to?(:auth) and Rails.application.config.auth.respond_to?(:allow_local) and Rails.application.config.auth.allow_local %>
         <li><%= link_to 'Local Accounts', local_users_path  %></li>
         <% end %>
+        <li><%= link_to 'Badges/Awards', badges_path  %></li>
       </ul>
     </li>
   </ul>
