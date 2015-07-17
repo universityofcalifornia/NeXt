@@ -1,4 +1,10 @@
-<h2><%= @user.name_first %>'s Badges and Awards</h2>
+<nav class="pull-right">
+  <% if @givable_badges.any? %>
+    <%= link_to 'Give Them a Badge/Award', new_user_badge_url(@user), class: 'btn btn-success' %>
+  <% end %>
+</nav>
+
+<h1><%= @user.name_first %>'s Badges and Awards</h1>
 
 <ul class="badges">
   <% @user_badges.each do |user_badge| %>

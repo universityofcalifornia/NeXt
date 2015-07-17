@@ -5,6 +5,10 @@ module Users
       @user = User.find params[:user_id]
     end
 
+    before_action only: [:index, :new] do
+      @givable_badges = Badge.all.select { |badge| badge.is_givable_by? current_user }
+    end
+
     before_action only: [:update] do
       render nothing: true, status: :unauthorized unless @user.id == current_user.id
     end
@@ -33,6 +37,8 @@ module Users
     end
 
     def create
+      @user.badges << @badge
+      redirect_to user_badges_url
     end
 
     def update
