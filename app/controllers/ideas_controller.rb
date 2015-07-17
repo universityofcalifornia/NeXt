@@ -1,10 +1,10 @@
 class IdeasController < ApplicationController
 
-  before_action only: [:show, :edit, :update, :delete] do
+  before_action only: [:show, :edit, :update, :destroy] do
     @idea = Idea.includes(:idea_status).find(params[:id])
   end
 
-  before_action only: [:edit, :update, :delete] do
+  before_action only: [:edit, :update, :destroy] do
     render nothing: true, status: :unauthorized unless @idea.is_editable_by? current_user
   end
 
@@ -45,7 +45,7 @@ class IdeasController < ApplicationController
     redirect_to params[:return_to] ? params[:return_to] : idea_url(@idea)
   end
 
-  def delete
+  def destroy
     @idea.destroy
     redirect_to ideas_url
   end

@@ -1,0 +1,27 @@
+<h2><%= @user.name_first %>'s Badges and Awards</h2>
+
+<ul class="badges">
+  <% @user_badges.each do |user_badge| %>
+    <li>
+      <%= render partial: '/badges/badge', object: user_badge.badge %>
+      <% if @user.id == current_user.id %>
+        <%= button_to (user_badge.showcase ? 'Hide' : 'Showcase'),
+                      user_badge_url(@user, user_badge),
+                      method: :put,
+                      params: { showcase: !user_badge.showcase },
+                      class: 'btn btn-info btn-block',
+                      form_class: 'button_to full-width'
+        %>
+      <% end %>
+      <% if user_badge.badge.is_givable_by? current_user %>
+        <%= button_to 'Remove',
+                      user_badge_url(@user, user_badge),
+                      method: :delete,
+                      class: 'btn btn-warning btn-block',
+                      form_class: 'button_to full-width',
+                      data: { confirm: 'Are you sure you want to remove this badge?' }
+        %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

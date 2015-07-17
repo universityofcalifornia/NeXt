@@ -1,10 +1,10 @@
 class ProjectsController < ApplicationController
 
-  before_action only: [:show, :edit, :update, :delete] do
+  before_action only: [:show, :edit, :update, :destroy] do
     @project = Project.includes(:project_status).find(params[:id])
   end
 
-  before_action only: [:edit, :update, :delete] do
+  before_action only: [:edit, :update, :destroy] do
     render nothing: true, status: :unauthorized unless @project.is_editable_by? current_user
   end
 
@@ -60,7 +60,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @project.destroy
     redirect_to projects_url
   end

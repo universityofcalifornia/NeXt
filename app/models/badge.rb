@@ -30,4 +30,14 @@ class Badge < ActiveRecord::Base
     end
   end
 
+  def is_givable_by? user
+    if user.nil?
+      return false
+    elsif user.super_admin
+      return true
+    else
+      return user.badge_roles.where(user_id: user.id, giver: true).count > 0
+    end
+  end
+
 end

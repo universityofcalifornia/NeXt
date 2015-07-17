@@ -172,6 +172,23 @@
           </div>
         </section>
       <% end %>
+      <% if @user.badges.any? %>
+        <section class="panel panel-info">
+          <header class="panel-heading">
+            <h3 class="panel-title">
+              Showcased Badges / Awards
+              (<%= link_to "see all", user_badges_path(@user) %>)
+            </h3>
+          </header>
+          <div class="panel-body">
+            <% @showcased_badges.each do |badge| %>
+              <%= link_to(badge_url badge) do %>
+                <% image_tag badge.image.thumb %>
+              <% end %>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
     </div>
   </div>
   <%
