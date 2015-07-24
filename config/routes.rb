@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :ideas do
     scope module: 'ideas' do
-      resources :votes, only: [:create]
+      resources :votes, only: [:create, :update, :destroy]
     end
   end
 
@@ -23,7 +23,11 @@ Rails.application.routes.draw do
 
   resources :resources
 
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update] do
+    scope module: 'users' do
+      resources :badges, only: [:index, :new, :create, :update, :destroy]
+    end
+  end
 
   resource :auth, controller: 'auth', only: [:destroy]
 
@@ -37,11 +41,13 @@ Rails.application.routes.draw do
   get 'invites/decline/:id', to: 'invites#decline', as: 'decline_invitation'
 
   resources :groups do
-    member do
-      post 'add_event'
+    collection do
+      get 'ajax_index'
+      post 'ajax_create'
     end
-
   end
+
+  resource :user_groups
 
   namespace :auth do
     get '/oauth2/:id', to: 'oauth2#return', as: :oauth2_return, constraints: lambda { |request| request.query_parameters.include? 'code' }

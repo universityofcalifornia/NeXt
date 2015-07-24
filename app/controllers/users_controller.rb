@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     @founded_projects = @user.project_roles.where('founder = 1 or admin = 1').includes(:project).take(5).map(){ |project_role| project_role.project }
     @involved_projects = @user.project_roles.where('founder = 0 and admin = 0').includes(:project).take(5).map(){ |project_role| project_role.project }
     @supported_projects = @user.project_votes.includes(:project).take(5).map(&:project)
+    @showcased_badges = @user.user_badges.where(showcase: true).take(5).map(&:badge)
   end
 
   def edit
