@@ -1,0 +1,20 @@
+<h1>Give Award/Badge to <%= @user.name_first %></h1>
+
+<% if @givable_badges.blank? %>
+  <p>You do not have permission to give any badges to this user.</p>
+<% else %>
+  <ul class="badges">
+    <% @givable_badges.each do |badge| %>
+      <li>
+        <%= render partial: '/badges/badge', object: badge %>
+        <%= button_to 'Give This',
+                      user_badges_url(@user),
+                      method: :post,
+                      params: { badge_id: badge.id },
+                      class: 'btn btn-success btn-block',
+                      form_class: 'button_to full-width'
+        %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

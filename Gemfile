@@ -78,3 +78,8 @@ end
 group :test do
   gem 'email_spec'
 end
+
+# Really useful gem for debugging
+group :development do
+  gem 'awesome_print'
+end

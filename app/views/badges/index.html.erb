@@ -10,6 +10,21 @@
   <% @badges.each do |badge| %>
     <li>
       <%= render badge.becomes(Badge) %>
+      <% if badge.is_editable_by? current_user %>
+        <%= button_to 'Edit',
+                      edit_badge_url(badge),
+                      method: :get,
+                      class: 'btn btn-warning btn-block',
+                      form_class: 'button_to full-width'
+        %>
+        <%= button_to 'Delete',
+                      badge_url(badge),
+                      method: :delete,
+                      class: 'btn btn-danger btn-block',
+                      form_class: 'button_to full-width',
+                      data: { confirm: 'Are you sure you want to delete this badge?' }
+        %>
+      <% end %>
     </li>
   <% end %>
 </ul>
