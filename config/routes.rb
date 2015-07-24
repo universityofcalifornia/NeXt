@@ -23,7 +23,11 @@ Rails.application.routes.draw do
 
   resources :resources
 
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update] do
+    scope module: 'users' do
+      resources :badges, only: [:index, :new, :create, :update, :destroy]
+    end
+  end
 
   resource :auth, controller: 'auth', only: [:destroy]
 
