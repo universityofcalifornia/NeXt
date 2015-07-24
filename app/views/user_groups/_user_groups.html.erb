@@ -1,0 +1,9 @@
+<% if current_user.groups.present? %>
+  <% current_user.groups.most_recent.each do |group| %>
+    <ul>
+      <li><%= group.name %> - <%= link_to '', user_groups_path(:group_id => group), :remote=> true, :method => :delete, :class => 'glyphicon glyphicon-remove' %></li>
+    </ul>
+  <% end %>
+<% else %>
+  You are not a member of any groups right now
+<% end %>

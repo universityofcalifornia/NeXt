@@ -31,7 +31,7 @@ module Auth
         identity.save
       end
 
-      current_user = identity.user
+      context.user = identity.user
 
       redirect_to flash[:return_to] ? flash[:return_to] : root_path
 
