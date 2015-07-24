@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :ideas do
     scope module: 'ideas' do
-      resources :votes, only: [:create]
+      resources :votes, only: [:create, :update, :destroy]
     end
   end
 
@@ -23,7 +23,11 @@ Rails.application.routes.draw do
 
   resources :resources
 
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update] do
+    scope module: 'users' do
+      resources :badges, only: [:index, :new, :create, :update, :destroy]
+    end
+  end
 
   resource :auth, controller: 'auth', only: [:destroy]
 

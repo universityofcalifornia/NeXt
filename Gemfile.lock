@@ -51,6 +51,7 @@ GEM
     arel (5.0.1.20140414130214)
     awesome_nested_set (3.0.2)
       activerecord (>= 4.0.0, < 5)
+    awesome_print (1.6.1)
     bcrypt (3.1.10)
     builder (3.2.2)
     capybara (2.4.4)
@@ -59,9 +60,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.5.0)
-      capybara (>= 2.3.0, < 2.5.0)
-      json
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -184,6 +182,7 @@ GEM
     rest-client (1.7.3)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rmagick (2.15.0)
     rspec-activemodel-mocks (1.0.1)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
@@ -255,9 +254,9 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   awesome_nested_set
+  awesome_print
   bcrypt
   capybara
-  capybara-webkit (= 1.5.0)
   carrierwave
   coveralls
   database_cleaner
@@ -277,6 +276,7 @@ DEPENDENCIES
   paranoia (~> 2.0)
   rails (= 4.1.7)
   redcarpet
+  rmagick
   rspec-activemodel-mocks
   rspec-rails
   rufus-scheduler
