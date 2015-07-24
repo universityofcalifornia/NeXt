@@ -31,6 +31,10 @@ class BadgesController < ApplicationController
     @badge = Badge.new params[:badge].permit(:name, :description, :image, :badge_group_id, :type, :website_url)
 
     if @badge.save
+      @badge.badge_roles << BadgeRole.new(user: current_user, owner: true)
+      @badge.badge_editor_ids = params[:badge][:badge_editor_ids]
+      @badge.badge_giver_ids  = params[:badge][:badge_giver_ids]
+
       redirect_to badge_url(@badge)
     else
       render action: 'new'
@@ -45,18 +49,13 @@ class BadgesController < ApplicationController
 
   def update
     if @badge.update params[:badge].permit(:name, :description, :image, :badge_group_id, :type, :website_url)
+      @badge.badge_editor_ids = params[:badge][:badge_editor_ids] if @badge.is_owned_by? current_user
+      @badge.badge_giver_ids  = params[:badge][:badge_giver_ids]
+
       redirect_to badge_url(@badge)
     else
       render action: 'edit'
     end
-  end
-
-  def edit
-  end
-
-  def update
-    @badge.update params[:badge].permit(:name, :description, :image, :badge_group_id, :type, :website_url)
-    redirect_to badges_url
   end
 
   def destroy
