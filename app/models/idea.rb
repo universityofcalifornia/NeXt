@@ -23,6 +23,7 @@ class Idea < ActiveRecord::Base
   scope :top_voted, -> (limit = nil) {
     joins("LEFT JOIN `idea_votes` ON `idea_votes`.`idea_id` = `ideas`.`id`")
       .select("`ideas`.`id`, `ideas`.`name`, COUNT(`idea_votes`.`id`) AS `votes`")
+      .where("`ideas`.`idea_status_id` != 5")
       .group("`ideas`.`id`")
       .order("votes DESC")
       .limit(limit)

@@ -14,8 +14,10 @@ class IdeasController < ApplicationController
   end
 
   def index
+    abandoned_idea_status_id = IdeaStatus.where("`key` = 'abandoned'").first.id
     @ideas = Idea.includes(:idea_status)
                  .order(created_at: :desc)
+                 .where("idea_status_id != #{abandoned_idea_status_id}")
                  .paginate(page: params[:page], per_page: 50)
   end
 
