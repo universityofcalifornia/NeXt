@@ -99,6 +99,13 @@
                       method: :get,
                       class: 'btn btn-warning btn-block',
                       form_class: 'button_to full-width' %>
+        <%= button_to 'Delete',
+                      idea_url(@idea),
+                      method: :delete,
+                      class: 'btn btn-danger btn-block',
+                      form_class: 'button_to full-width',
+                      data: { confirm: 'Are you sure you want to delete this idea?' }
+        %>
         <% end %>
 
       </section>

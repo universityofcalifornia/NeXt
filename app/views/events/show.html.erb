@@ -1,11 +1,8 @@
 <div class="profile">
-
   <h2><%= @event.name %></h2>
 
   <div class="row">
-
     <div class="col-lg-9 col-sm-8">
-
       <div class="subtitle">
         <%= @event.description %>
       </div>
@@ -20,8 +17,24 @@
       <%= @event.stop_datetime.try(:to_s, (:formatted_date)) %>
     </div>
 
-
-
+    <div class="col-lg-3 col-sm-4">
+      <section class="panel panel-invisible">
+        <% if @event.is_editable_by? current_user %>
+          <%= button_to 'Edit',
+                        edit_event_url(@event),
+                        method: :get,
+                        class: 'btn btn-warning btn-block',
+                        form_class: 'button_to full-width'
+          %>
+          <%= button_to 'Delete',
+                        event_url(@event),
+                        method: :delete,
+                        class: 'btn btn-danger btn-block',
+                        form_class: 'button_to full-width',
+                        data: { confirm: 'Are you sure you want to delete this event?' }
+          %>
+        <% end %>
+      </section>
+    </div>
   </div>
-
 </div>
