@@ -6,7 +6,9 @@
       <div class="subtitle">
         <%= @event.description %>
       </div>
+      <% if @event.is_editable_by? current_user %>
       <%= render 'events/invite_list', :event => @event %><br />
+      <% end %>
       <%= render 'events/event_groups', :event => @event %><br />
       <%= image_tag @event.image_url if @event.image? %>
 
