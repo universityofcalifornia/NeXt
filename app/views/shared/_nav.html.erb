@@ -3,8 +3,8 @@
     <li><%= link_to 'People', users_url %></li>
     <li><%= link_to 'Ideas', ideas_url %></li>
     <li><%= link_to 'Projects', projects_url %></li>
-    <li><a href="<%= current_user ? logged_in_events_url : events_url %>">Events</a></li>
-    <li><%=link_to 'About', "#" %></li>
+    <li><%= link_to 'Events', current_user ? logged_in_events_url : events_url %></li>
+    <li><%= link_to 'About', "#" %></li>
     <li><%= render 'groups/user_group_link_count' %></li>
   </ul>
 </nav>

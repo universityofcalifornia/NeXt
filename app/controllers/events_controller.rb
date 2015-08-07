@@ -3,7 +3,11 @@ class EventsController < ApplicationController
   respond_to :html
 
   #around_action :not_logged_in, :only => :index
-  before_action :find_event, only: [:show, :edit, :update]
+  before_action :find_event, only: [:show, :edit, :update, :destroy]
+
+  before_action only: [:edit, :update, :destroy] do
+    render nothing: true, status: :unauthorized unless @event.is_editable_by? current_user
+  end
 
   def index
     @events = Event.order(created_at: :desc).paginate(page: params[:page], per_page: 50)
@@ -33,6 +37,11 @@ class EventsController < ApplicationController
   end
 
   def show
+  end
+
+  def destroy
+    @event.destroy
+    redirect_to events_url
   end
 
   private

@@ -1,0 +1,64 @@
+@mixin button-variant-hover($color, $background, $border) {
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+  }
+}
+
+.btn {
+  width: 210px;
+  height: 40px;
+  text-shadow: 1px 1px 0px #999999;
+  text-transform: uppercase;
+
+  &:hover {
+    color: #ffffff;
+    text-shadow: 1px 1px 0px #999999;
+  }
+}
+
+.btn-edit {
+  @include button-variant      ($btn-default-color, #ccdded, #2d6892);
+  @include button-variant-hover($btn-hover-color,   #3a71a5, #2d6892);
+}
+
+.btn-delete {
+  @include button-variant      ($btn-default-color, #ffafaf, #b36969);
+  @include button-variant-hover($btn-hover-color,   #730000, #990000);
+}
+
+.btn-support {
+  @include button-variant      ($btn-default-color, #c6e7c6, #5cb85c);
+  @include button-variant-hover($btn-hover-color,   #5cb85c, #2e692e);
+}
+
+.btn-participate {
+  @include button-variant      ($btn-default-color, #fff48b, #fdba35);
+  @include button-variant-hover($btn-hover-color,   #bb3200, #6a1c00);
+}
+
+.btn-learn-more {
+  @include button-variant      ($btn-default-color, #39c7ff, #347bad);
+  @include button-variant-hover($btn-hover-color,   #1d4a86, #347bad);
+}
+
+.btn-withdraw-support {
+  @include button-variant      ($btn-default-color, #bac1bc, #454d47);
+  @include button-variant-hover($btn-hover-color,   #6a756c, #454d47);
+}
+
+.btn-withdraw-participation {
+  @include button-variant      ($btn-default-color, #c3bbb8, #5f5651);
+  @include button-variant-hover($btn-hover-color,   #706660, #5f5651);
+}
+
+.btn-manage-documents {
+  @include button-variant      ($btn-default-color, #39c7ff, #347bad);
+  @include button-variant-hover($btn-hover-color,   #1d4a86, #347bad);
+}
