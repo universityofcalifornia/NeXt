@@ -15,6 +15,7 @@
             <%= f.password_field :password, class: 'form-control margin-bottom', required: true %>
 
             <%= f.submit 'Login', class: 'btn btn-success' %>
+            or <%= link_to 'Register', new_auth_local_registration_url %>
 
         <% end %>
       </div>
