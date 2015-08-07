@@ -1,23 +1,38 @@
-<%= form_for :session, url: auth_local_url, html: { class: 'form-horizontal' } do |f| %>
+<div class="row">
 
-    <div class="form-group">
-      <%= f.label :email, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10">
-        <%= f.text_field :email, class: 'form-control', required: true %>
+  <nav class="col-sm-6">
+    <div class="panel panel-info">
+      <header class="panel-heading">
+        Local Login
+      </header>
+      <div class="panel-body">
+        <%= form_for :session, url: auth_local_url do |f| %>
+
+            <%= f.label :email %>
+            <%= f.text_field :email, class: 'form-control', required: true %>
+
+            <%= f.label :password %>
+            <%= f.password_field :password, class: 'form-control margin-bottom', required: true %>
+
+            <%= f.submit 'Login', class: 'btn btn-success' %>
+
+        <% end %>
       </div>
     </div>
+  </nav>
 
-    <div class="form-group">
-      <%= f.label :password, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10">
-        <%= f.password_field :password, class: 'form-control', required: true %>
-      </div>
+  <nav class="col-sm-6">
+    <% if Rails.application.config.respond_to?(:oauth2) and Rails.application.config.oauth2.respond_to?(:provider) and Rails.application.config.oauth2.provider.respond_to?(:shibboleth) and Rails.application.config.oauth2.provider.shibboleth.respond_to?(:enabled) and Rails.application.config.oauth2.provider.shibboleth.enabled %>
+        <div class="panel panel-primary">
+          <header class="panel-heading">
+            Campus Login
+          </header>
+          <div class="panel-body">
+            <p>Have a campus login account?</p>
+            <p><%= link_to 'Log In with Campus Account', auth_oauth2_launch_url(:shibboleth), class: 'btn btn-primary' %></p>
+          </div>
+    <% end %>
     </div>
+  </nav>
 
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <%= f.submit 'Login', class: 'btn btn-success' %>
-      </div>
-    </div>
-
-<% end %>
+</div>
