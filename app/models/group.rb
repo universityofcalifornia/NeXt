@@ -9,4 +9,8 @@ class Group < ActiveRecord::Base
   belongs_to :user
 
   scope :most_recent, -> { order(created_at: :desc) }
+
+  def is_editable_by? user
+    user.id == self.user_id
+  end
 end

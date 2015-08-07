@@ -1,8 +1,5 @@
 <% if current_user %>
   <%= link_to(groups_path) do %>
     Groups
-    <span id="group_count">
-      <%= render 'user_groups/count', :current_user => current_user %>
-    </span>
   <% end %>
 <% end %>

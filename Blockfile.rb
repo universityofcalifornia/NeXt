@@ -55,6 +55,7 @@ block 'next', :path => BLOCKS_PATH do |n|
     dependency framework.route 'bootstrap', 'js', 'collapse'
     dependency framework.route 'bootstrap', 'js', 'dropdown'
     dependency framework.route 'bootstrap', 'js', 'modal'
+    dependency framework.route 'bootstrap', 'js', 'tab'
     dependency framework.route 'bootstrap', 'js', 'tooltip'
     dependency framework.route 'bootstrap', 'js', 'alert'
 
