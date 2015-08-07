@@ -3,9 +3,9 @@
 
   <div class="row">
     <div class="col-lg-9 col-sm-8">
-      <div class="subtitle">
-        <%= @event.description %>
-      </div>
+      <section class="margin-bottom">
+        <%= raw @event.description_html %>
+      </section>
       <% if @event.is_editable_by? current_user %>
       <%= render 'events/invite_list', :event => @event %><br />
       <% end %>
