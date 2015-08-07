@@ -12,10 +12,9 @@
   <% end %>
 
   <div class="form-group">
-    <%= mark_required(@event, :name) %>
     <%= f.label :name, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.text_field :name, class: 'form-control', required: true %>
     </div>
   </div>
 
@@ -92,14 +91,6 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-  $('#event_submit').prop('disabled', true);
-  $("#event_name").keyup(function() {
-    if($(this).val().length > 0) {
-      $('#event_submit').prop('disabled', false);
-    } else {
-      $('#event_submit').attr('disabled', true);
-    }
-  });
 
   $("#event_group_tokens").tokenInput("/groups.json", {
     crossDomain: false,
