@@ -6,6 +6,22 @@ $font-family-sans-serif: "Open Sans", sans-serif;
 $font-size-base: 16px;
 $line-height-base: 1.5;
 $headings-line-height: 1.2;
+$link-color: #9d5600;
+$link-header-hover-color: $link-color;
 $border-radius-base: 5px;
+
 $btn-default-color: #1d4a86;
 $btn-hover-color: #ffffff;
+
+$panel-bg: #e0ebf4;
+$panel-body-padding: 10px;
+$panel-heading-padding: 10px;
+$panel-border-radius: 0;
+$panel-inner-border: #0054a6;
+$panel-footer-bg: $panel-bg;
+$panel-default-border: $panel-inner-border;
+$panel-default-heading-bg: $panel-bg;
+
+$input-border: $panel-default-border;
+$input-border-radius: 0;
+$form-group-margin-bottom: 10px;
