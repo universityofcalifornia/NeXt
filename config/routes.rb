@@ -53,6 +53,9 @@ Rails.application.routes.draw do
     get '/oauth2/:id', to: 'oauth2#return', as: :oauth2_return, constraints: lambda { |request| request.query_parameters.include? 'code' }
     get '/oauth2/:id', to: 'oauth2#launch', as: :oauth2_launch
     resource :local, controller: 'local', only: [:new, :create]
+    namespace :local do
+      resource :registration, controller: 'registration', only: [:new, :create]
+    end
   end
 
   namespace :local do

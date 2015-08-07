@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   # if return_to is set, use this parameter instead of the usual redirect_to properties
   extend_method :redirect_to do |options = {}, response_status = {}|
     if params[:return_to]
-      parent_method params[:return_to]
+      parent_method params[:return_to], response_status
     else
       parent_method options, response_status
     end

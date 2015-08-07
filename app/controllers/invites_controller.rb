@@ -4,16 +4,22 @@ class InvitesController < ApplicationController
 
   def accept
     @invite.update(:status => true, :responded => true)
-    flash[:notice] = "You have accepted and invite to #{@event.name}"
-    redirect_to root_path
+
+    redirect_to root_path, flash: {
+      page_alert:      "You have accepted and invite to #{@event.name}",
+      page_alert_type: 'success'
+    }
   end
 
   def decline
     @invite = Invite.where(:id => params[:id]).first
     event = Event.find(@invite.event_id)
     @invite.update(:status => false, :responded => true)
-    flash[:notice] = "You declined the invitation to #{@event.name} "
-    redirect_to root_path
+
+    redirect_to root_path, flash: {
+      page_alert:      "You declined the invitation to #{@event.name}",
+      page_alert_type: 'success'
+    }
   end
 
   private

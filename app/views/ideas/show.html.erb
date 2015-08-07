@@ -115,14 +115,14 @@
                       idea_votes_url(@idea),
                       method: :post,
                       params: { participate: false },
-                      class: 'btn btn-info btn-block',
+                      class: 'btn btn-support btn-block',
                       form_class: 'button_to full-width' %>
 
           <%= button_to 'Would Participate',
                       idea_votes_url(@idea),
                       method: :post,
                       params: { participate: true },
-                      class: 'btn btn-success btn-block',
+                      class: 'btn btn-participate btn-block',
                       form_class: 'button_to full-width' %>
 
         <% end %>
@@ -131,8 +131,15 @@
         <%= button_to 'Edit',
                       edit_idea_url(@idea),
                       method: :get,
-                      class: 'btn btn-warning btn-block',
+                      class: 'btn btn-edit btn-block',
                       form_class: 'button_to full-width' %>
+        <%= button_to 'Delete',
+                      idea_url(@idea),
+                      method: :delete,
+                      class: 'btn btn-delete btn-block',
+                      form_class: 'button_to full-width',
+                      data: { confirm: 'Are you sure you want to delete this idea?' }
+        %>
         <% end %>
 
       </section>

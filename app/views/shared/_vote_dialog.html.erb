@@ -12,17 +12,17 @@
                       url_for([object, :votes]),
                       method: :post,
                       params: { participate: false, return_to: url_for(collection) },
-                      class: 'btn btn-block btn-info',
+                      class: 'btn btn-block btn-support',
                       form_class: 'button_to full-width' %>
         <%= button_to button_text[1],
                       url_for([object, :votes]),
                       method: :post,
                       params: { participate: true, return_to: url_for(collection) },
-                      class: 'btn btn-block btn-success',
+                      class: 'btn btn-block btn-participate',
                       form_class: 'button_to full-width' %>
         <%= button_to button_text[2],
                       url_for(object),
-                      class: 'btn btn-block btn-primary',
+                      class: 'btn btn-block btn-learn-more',
                       method: :get,
                       form_class: 'button_to full-width' %>
       </div>

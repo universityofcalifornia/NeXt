@@ -29,6 +29,14 @@ class Event < ActiveRecord::Base
     self.group_ids = ids.split(",")
   end
 
+  def is_editable_by? user
+    if user && (user.id == user_id || user.super_admin)
+      return true
+    else
+      return false
+    end
+  end
+
 	private
   def create_invites
     if @invite_list

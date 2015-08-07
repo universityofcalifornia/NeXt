@@ -13,6 +13,23 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 33px; /* Estimate */
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 44px; /* Estimate */
+}
+
+h3 {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: bold;
+  font-size: 40px; /* Estimate */
+}
+
 .no-margin-bottom {
   margin-bottom: 0;
 }

@@ -90,14 +90,14 @@
                       project_votes_url(@project),
                       method: :post,
                       params: { participate: false },
-                      class: 'btn btn-info btn-block',
+                      class: 'btn btn-support btn-block',
                       form_class: 'button_to full-width' %>
 
         <%= button_to 'Would Participate',
                       project_votes_url(@project),
                       method: :post,
                       params: { participate: true },
-                      class: 'btn btn-success btn-block',
+                      class: 'btn btn-participate btn-block',
                       form_class: 'button_to full-width' %>
 
         <% end %>
@@ -106,13 +106,20 @@
         <%= button_to 'Edit',
                       edit_project_url(@project),
                       method: :get,
-                      class: 'btn btn-warning btn-block',
+                      class: 'btn btn-edit btn-block',
                       form_class: 'button_to full-width' %>
         <%= button_to 'Manage Documents',
                       project_documents_url(@project),
                       method: :get,
-                      class: 'btn btn-primary btn-block',
+                      class: 'btn btn-manage-documents btn-block',
                       form_class: 'button_to full-width' %>
+        <%= button_to 'Delete',
+                      project_url(@project),
+                      method: :delete,
+                      class: 'btn btn-delete btn-block',
+                      form_class: 'button_to full-width',
+                      data: { confirm: 'Are you sure you want to delete this project?' }
+        %>
         <% end %>
 
       </section>
