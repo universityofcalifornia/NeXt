@@ -21,6 +21,8 @@ class Event < ActiveRecord::Base
 
 	after_create :create_invites
 
+  attr_html_reader :description
+
 	def invite_list
 		self.invites.pluck(:email).compact.join(', ')
 	end
