@@ -14,9 +14,11 @@
   <%= render 'layouts/components/topbar' %>
 
   <main class="container-fluid">
-    <%= flash_messages %>
     <% if flash[:page_alert] %>
-      <div class="alert alert-<%= flash[:page_alert_type] ? flash[:page_alert_type] : 'info' %>" role="alert">
+      <div class="alert alert-<%= flash[:page_alert_type] || 'info' %> alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <%= raw flash[:page_alert] %>
       </div>
     <% end %>
