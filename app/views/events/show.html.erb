@@ -2,43 +2,8 @@
   <h2><%= @event.name %></h2>
 
   <div class="row">
-    <div class="col-lg-9 col-sm-8">
-      <section class="margin-bottom">
-        <% if @event.image? %>
-        <p><%= image_tag @event.image_url %></p>
-        <% end %>
-        <%= raw @event.description_html %>
-      </section>
-      <% if @event.is_editable_by? current_user %>
-      <%= render 'events/invite_list', :event => @event %><br />
-      <% end %>
-      <%= render 'events/event_groups', :event => @event %><br />
-    </div>
 
-    <div class="col-lg-3 col-sm-4">
-      <% if @event.is_editable_by? current_user %>
-      <section class="panel panel-invisible">
-        <div class="row">
-          <div class="col-md-6">
-            <%= button_to 'Edit',
-                          edit_event_url(@event),
-                          method: :get,
-                          class: 'btn btn-success btn-block',
-                          form_class: 'button_to full-width'
-            %>
-          </div>
-          <div class="col-md-6">
-            <%= button_to 'Delete',
-                          event_url(@event),
-                          method: :delete,
-                          class: 'btn btn-danger btn-block',
-                          form_class: 'button_to full-width',
-                          data: { confirm: 'Are you sure you want to delete this event?' }
-            %>
-          </div>
-        </div>
-      </section>
-      <% end %>
+    <div class="col-lg-3 col-lg-push-9 col-sm-4 col-sm-push-8">
       <section class="panel panel-primary">
         <header class="panel-heading">
           Details
@@ -50,6 +15,41 @@
           <p><%= @event.stop_datetime.strftime('%Y-%m-%d %H:%M') %></p>
         </div>
       </section>
+      <% if @event.is_editable_by? current_user %>
+          <section class="panel panel-invisible">
+            <div class="row">
+              <div class="col-sm-6" style="margin-bottom:8px;">
+                <%= button_to 'Edit',
+                              edit_event_url(@event),
+                              method: :get,
+                              class: 'btn btn-success btn-block btn-sm',
+                              form_class: 'button_to full-width'
+                %>
+              </div>
+              <div class="col-sm-6">
+                <%= button_to 'Delete',
+                              event_url(@event),
+                              method: :delete,
+                              class: 'btn btn-danger btn-block btn-sm',
+                              form_class: 'button_to full-width',
+                              data: { confirm: 'Are you sure you want to delete this event?' }
+                %>
+              </div>
+            </div>
+          </section>
+      <% end %>
+    </div>
+    <div class="col-lg-9 col-lg-pull-3 col-sm-8 col-sm-pull-4 margin-bottom">
+      <section class="margin-bottom">
+        <% if @event.image? %>
+        <p><%= image_tag @event.image_url %></p>
+        <% end %>
+        <%= raw @event.description_html %>
+      </section>
+      <% if @event.is_editable_by? current_user %>
+      <%= render 'events/invite_list', :event => @event %><br />
+      <% end %>
+      <%= render 'events/event_groups', :event => @event %><br />
     </div>
   </div>
 </div>
