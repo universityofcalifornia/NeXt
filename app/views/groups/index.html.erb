@@ -11,6 +11,8 @@
 
 <h1>Groups</h1>
 
+<% if current_user %>
+
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All Groups</a></li>
   <li role="presentation"><a href="#my" aria-controls="my" role="tab" data-toggle="tab">My Groups</a></li>
@@ -21,6 +23,8 @@
   <div role="tabpanel" class="tab-pane active" id="all">
 
     <h3>All Groups</h3>
+
+    <% end %>
 
     <%= will_paginate @groups %>
 
@@ -37,6 +41,8 @@
     </div>
 
     <%= will_paginate @groups %>
+
+  <% if current_user %>
 
   </div>
   <div role="tabpanel" class="tab-pane" id="my">
@@ -64,3 +70,5 @@
 
   </div>
 </div>
+
+<% end %>
