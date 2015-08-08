@@ -7,6 +7,10 @@ class HomeController < ApplicationController
     # return current_user ? dashboard : welcome
   end
 
+  def about
+
+  end
+
   private
 
   def dashboard
