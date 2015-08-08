@@ -1,9 +1,9 @@
 <% if current_user.groups.present? %>
   <% current_user.groups.most_recent.each do |group| %>
     <div class="list-group my-group-list">
-      <div class="list-group-item" data-group_id="<%= group.id %>">
-        <span><%= group.name %></span>
-        <%= link_to '', user_groups_path(:group_id => group), :remote=> true, :method => :delete, :class => 'glyphicon glyphicon-remove', :style => 'display:block; float:right; padding-top: 4px;' %>
+      <div class="list-group-item" data-group_id="<%= group.id %>" style="position:relative;">
+        <h4 style="cursor:pointer"><%= group.name %></h4>
+        <%= link_to '', user_groups_path(:group_id => group), :remote=> true, :method => :delete, :class => 'glyphicon glyphicon-remove', :style => 'position: absolute; right: 0; top: 22px; right: 15px;' %>
       </div>
     </div>
   <% end %>
@@ -12,7 +12,7 @@
 <% end %>
 
 <script type="text/javascript">
-$('.list-group.my-group-list').on('click', '.list-group-item span', function() {
+$('.list-group.my-group-list').on('click', '.list-group-item h4', function() {
     window.location = '<%= groups_url %>/'+$(this).closest('.list-group-item').attr('data-group_id');
 });
 </script>
