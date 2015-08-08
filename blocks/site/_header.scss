@@ -7,4 +7,12 @@ body > header {
     margin: 0;
   }
 
+  a {
+    color: $brand-primary;
+    &:hover {
+      color: lighten($brand-primary, 10%);
+      text-decoration: none;
+    }
+  }
+
 }
