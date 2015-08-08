@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action only: [:show, :edit, :update] do
+  before_action only: [:show, :edit, :update, :destroy] do
     @user = User.find(params[:id])
   end
 
@@ -80,6 +80,11 @@ class UsersController < ApplicationController
 
     redirect_to user_url(@user)
 
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to users_url
   end
 
 end
