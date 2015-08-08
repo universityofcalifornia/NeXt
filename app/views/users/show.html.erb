@@ -116,6 +116,40 @@
           </div>
         <% end %>
       </div>
+      <div class="row">
+        <% if @founded_groups.count > 0 %>
+            <div class="col-sm-4">
+              <section class="panel panel-default">
+                <header class="panel-heading">
+                  <h3 class="panel-title">Groups Founded</h3>
+                </header>
+                <div class="panel-body">
+                  <ul>
+                    <% @founded_groups.each do |group| %>
+                        <li><%= link_to group.name, group %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </section>
+            </div>
+        <% end %>
+        <% if @groups.count > 0 %>
+            <div class="col-sm-4">
+              <section class="panel panel-default">
+                <header class="panel-heading">
+                  <h3 class="panel-title">Groups</h3>
+                </header>
+                <div class="panel-body">
+                  <ul>
+                    <% @groups.each do |group| %>
+                        <li><%= link_to group.name, group %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </section>
+            </div>
+        <% end %>
+      </div>
     </div>
     <div class="col-lg-3 col-sm-4">
       <section class="panel panel-default">
