@@ -11,18 +11,6 @@
   }
 }
 
-.btn {
-  width: 210px;
-  height: 40px;
-  text-shadow: 1px 1px 0px #999999;
-  text-transform: uppercase;
-
-  &:hover {
-    color: #ffffff;
-    text-shadow: 1px 1px 0px #999999;
-  }
-}
-
 .btn-edit {
   @include button-variant      ($btn-default-color, #ccdded, #2d6892);
   @include button-variant-hover($btn-hover-color,   #3a71a5, #2d6892);

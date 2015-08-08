@@ -1,10 +1,10 @@
 <nav>
   <ul class="nav navbar-nav">
-    <li><%= link_to 'People', users_url %></li>
+    <li><%= link_to 'About', about_url %></li>
     <li><%= link_to 'Ideas', ideas_url %></li>
     <li><%= link_to 'Projects', projects_url %></li>
     <li><%= link_to 'Events', current_user ? logged_in_events_url : events_url %></li>
-    <li><%= link_to 'About', "#" %></li>
-    <li><%= render 'groups/user_group_link_count' %></li>
+    <li><%= link_to 'People', users_url %></li>
+    <li><%= link_to 'Groups', groups_url %></li>
   </ul>
 </nav>

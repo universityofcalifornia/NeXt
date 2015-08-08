@@ -1,13 +1,4 @@
 .list-group {
-  > .list-group-item:nth-child(odd) {
-    background-color: $panel-bg;
-  }
-
-  &.list-group-secondary {
-    > .list-group-item:nth-child(odd) {
-      background-color: #fff48b;
-    }
-  }
 
   .list-group-item {
     padding: 10px;
