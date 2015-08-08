@@ -1,11 +1,27 @@
 <div class="group">
 
-  <% if @group.is_editable_by? current_user %>
-      <div class="pull-right">
+  <div class="pull-right">
+
+    <% if UserGroup.where(group_id: @group.id, user_id: current_user.id).count > 0 %>
+        <%= button_to 'Leave',
+                      user_groups_url({group_id: @group.id, return_to: group_url(@group)}),
+                      method: :delete,
+                      class: 'btn btn-warning',
+                      form_class: 'button_to'
+        %>
+    <% else %>
+        <%= button_to 'Join',
+                      user_groups_url({id: @group.id, return_to: group_url(@group)}),
+                      method: :post,
+                      class: 'btn btn-primary',
+                      form_class: 'button_to'
+        %>
+    <% end %>
+    <% if @group.is_editable_by? current_user %>
       <%= button_to 'Edit',
                     edit_group_url(@group),
                     method: :get,
-                    class: 'btn btn-warning',
+                    class: 'btn btn-success',
                     form_class: 'button_to'
       %>
       <%= button_to 'Delete',
@@ -15,9 +31,55 @@
                     form_class: 'button_to',
                     data: { confirm: 'Are you sure you want to delete this group?' }
       %>
-      </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <h2><%= @group.name %></h2>
+
+  <div class="row">
+
+    <div class="col-sm-3">
+
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          Details
+        </header>
+        <div class="panel-body">
+          <h5>Contact</h5>
+          <%= @group.contact_email ? @group.contact_email : raw('<em>None</em>') %>
+          <h5>Listserv</h5>
+          <%= @group.listserv ? @group.listserv : raw('<em>None</em>') %>
+          <% if @group.user %>
+          <h5>Founder</h5>
+          <p><%= @group.user.display_name :fl %></p>
+          <% end %>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="col-sm-9">
+
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          Description
+        </header>
+        <div class="panel-body">
+          <%= raw @group.description_html %>
+        </div>
+      </section>
+
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          Meeting Times &amp; Locations
+        </header>
+        <div class="panel-body">
+          <%= raw @group.meetings_html %>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
 
 </div>

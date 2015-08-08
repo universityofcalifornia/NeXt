@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702174644) do
+ActiveRecord::Schema.define(version: 20150808195315) do
 
   create_table "badge_groups", force: true do |t|
     t.string   "name"
@@ -121,6 +121,11 @@ ActiveRecord::Schema.define(version: 20150702174644) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "user_id"
+    t.text     "description"
+    t.string   "contact_email"
+    t.text     "listserv"
+    t.text     "meetings"
+    t.string   "membership_type"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
