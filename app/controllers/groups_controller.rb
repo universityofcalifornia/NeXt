@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
   end
 
   before_action only: [:edit, :update, :destroy] do
-    render nothing: true, status: :unauthorized unless @group.user_id == current_user.id
+    render nothing: true, status: :unauthorized unless @group.is_editable_by? current_user
   end
 
   def index
@@ -67,7 +67,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.required(:group).permit(:name, :user_id)
+    params.required(:group).permit(:name, :user_id, :description, :contact_email, :listserv, :meetings, :membership_type)
   end
 
 end

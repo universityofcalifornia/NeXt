@@ -1,9 +1,18 @@
 <% if current_user.groups.present? %>
   <% current_user.groups.most_recent.each do |group| %>
-    <ul>
-      <li><%= group.name %> - <%= link_to '', user_groups_path(:group_id => group), :remote=> true, :method => :delete, :class => 'glyphicon glyphicon-remove' %></li>
-    </ul>
+    <div class="list-group my-group-list">
+      <div class="list-group-item" data-group_id="<%= group.id %>">
+        <span><%= group.name %></span>
+        <%= link_to '', user_groups_path(:group_id => group), :remote=> true, :method => :delete, :class => 'glyphicon glyphicon-remove', :style => 'display:block; float:right; padding-top: 4px;' %>
+      </div>
+    </div>
   <% end %>
 <% else %>
   You are not a member of any groups right now
 <% end %>
+
+<script type="text/javascript">
+$('.list-group.my-group-list').on('click', '.list-group-item span', function() {
+    window.location = '<%= groups_url %>/'+$(this).closest('.list-group-item').attr('data-group_id');
+});
+</script>

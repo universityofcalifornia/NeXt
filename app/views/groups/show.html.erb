@@ -20,4 +20,50 @@
 
   <h2><%= @group.name %></h2>
 
+  <div class="row">
+
+    <div class="col-sm-3">
+
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          Details
+        </header>
+        <div class="panel-body">
+          <h5>Contact</h5>
+          <%= @group.contact_email ? @group.contact_email : raw('<em>None</em>') %>
+          <h5>Listserv</h5>
+          <%= @group.listserv ? @group.listserv : raw('<em>None</em>') %>
+          <% if @group.user %>
+          <h5>Founder</h5>
+          <p><%= @group.user.display_name :fl %></p>
+          <% end %>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="col-sm-9">
+
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          Description
+        </header>
+        <div class="panel-body">
+          <%= raw @group.description_html %>
+        </div>
+      </section>
+
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          Meeting Times &amp; Locations
+        </header>
+        <div class="panel-body">
+          <%= raw @group.meetings_html %>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
 </div>
