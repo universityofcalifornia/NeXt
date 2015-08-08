@@ -4,17 +4,23 @@
   <div class="row">
 
     <div class="col-lg-3 col-lg-push-9 col-sm-4 col-sm-push-8">
+      <% if @event.start_datetime or @event.stop_datetime %>
       <section class="panel panel-primary">
         <header class="panel-heading">
           Details
         </header>
         <div class="panel-body">
+          <% if @event.start_datetime %>
           <h5>Start Date</h5>
           <p><%= @event.start_datetime.strftime('%Y-%m-%d %H:%M') %></p>
+          <% end %>
+          <% if @event.stop_datetime %>
           <h5>End Date</h5>
           <p><%= @event.stop_datetime.strftime('%Y-%m-%d %H:%M') %></p>
+          <% end %>
         </div>
       </section>
+      <% end %>
       <% if @event.is_editable_by? current_user %>
           <section class="panel panel-invisible">
             <div class="row">
