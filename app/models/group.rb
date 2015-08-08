@@ -11,6 +11,6 @@ class Group < ActiveRecord::Base
   scope :most_recent, -> { order(created_at: :desc) }
 
   def is_editable_by? user
-    user.id == self.user_id
+    user and (user.id == user_id || user.super_admin)
   end
 end
