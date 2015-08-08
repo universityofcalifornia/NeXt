@@ -1,13 +1,25 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic);
-@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic,700,700italic);
 @import url(//fonts.googleapis.com/css?family=Open+Sans+Condensed:700);
+@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic,700,700italic);
+
+$brand-primary: #0054a6;
 
 $font-family-sans-serif: "Open Sans", sans-serif;
 $font-size-base: 16px;
+$font-size-small: 10px;
 $line-height-base: 1.5;
+
+$font-size-h1: 28px;
+$font-size-h2: 24px;
+$font-size-h3: 19px;
+$headings-font-weight: 600;
 $headings-line-height: 1.2;
-$link-color: #9d5600;
-$link-header-hover-color: $link-color;
+$headings-color: $brand-primary;
+
+$text-color: #121212;
+$link-color: #9c5500;
+$link-hover-color: $link-color;
+
 $border-radius-base: 5px;
 
 $btn-default-color: #1d4a86;
