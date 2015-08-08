@@ -25,20 +25,24 @@ $border-radius-base: 5px;
 $btn-default-color: #1d4a86;
 $btn-hover-color: #ffffff;
 
-$panel-bg: #e0ebf4;
+/*$panel-bg: #e0ebf4;
 $panel-body-padding: 10px;
 $panel-heading-padding: 10px;
 $panel-border-radius: 0;
 $panel-inner-border: #0054a6;
 $panel-footer-bg: $panel-bg;
 $panel-default-border: $panel-inner-border;
-$panel-default-heading-bg: $panel-bg;
+$panel-default-heading-bg: $panel-bg;*/
 
-$input-border: $panel-default-border;
+$panel-border-radius: 0;
+
+$input-border: #0054a6;
 $input-border-radius: 0;
 $form-group-margin-bottom: 10px;
 
-$list-group-bg: #ffffff;
+/*$list-group-bg: #ffffff;
 $list-group-border: transparent;
 $list-group-border-radius: 0;
-$list-group-hover-bg: $list-group-bg;
+$list-group-hover-bg: $list-group-bg;*/
+
+$list-group-border-radius: 0;
