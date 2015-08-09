@@ -4,7 +4,7 @@
 
     <div class="col-sm-7">
 
-      <header class="profile-header">
+      <header class="profile-header" style="overflow:auto">
 
         <figure class="avatar">
           <%= gravatar_tag @user.email %>
@@ -63,10 +63,14 @@
             </p>
             <p>
               <em>
-                <% if Badge.all.select { |badge| badge.is_givable_by? current_user }.length > 0 %>
-                    <%= link_to "Give badge / award", new_user_badge_path(@user), class: 'btn btn-xs btn-success' %>
+                <% if @user.id == current_user.id %>
+                    <%= link_to "Manage badges / awards", user_badges_path(@user), class: 'btn btn-xs btn-info' %>
+                <% else %>
+                    <% if Badge.all.select { |badge| badge.is_givable_by? current_user }.length > 0 %>
+                        <%= link_to "Give badge / award", new_user_badge_path(@user), class: 'btn btn-xs btn-success' %>
+                    <% end %>
+                    <%= link_to "View additional badges / awards", user_badges_path(@user), class: 'btn btn-xs btn-info' %>
                 <% end %>
-                <%= link_to "View additional badges / awards", user_badges_path(@user), class: 'btn btn-xs btn-info' %>
               </em>
             </p>
           </section>
