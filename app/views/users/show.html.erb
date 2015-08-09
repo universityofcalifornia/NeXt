@@ -16,14 +16,14 @@
       <%= button_to 'Edit',
                     edit_user_url(@user),
                     method: :get,
-                    class: 'btn btn-success',
+                    class: 'btn btn-edit',
                     form_class: 'button_to'
       %>
       <% if current_user.super_admin and current_user.id != @user.id %>
       <%= button_to 'Delete',
                     user_url(@user),
                     method: :delete,
-                    class: 'btn btn-danger',
+                    class: 'btn btn-delete',
                     form_class: 'button_to',
                     data: { confirm: 'Are you sure you want to delete this user? This action cannot be undone.' }
       %>

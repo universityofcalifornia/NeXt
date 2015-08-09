@@ -21,13 +21,13 @@
       <%= button_to 'Edit',
                     edit_group_url(@group),
                     method: :get,
-                    class: 'btn btn-success',
+                    class: 'btn btn-edit',
                     form_class: 'button_to'
       %>
       <%= button_to 'Delete',
                     group_url(@group),
                     method: :delete,
-                    class: 'btn btn-danger',
+                    class: 'btn btn-delete',
                     form_class: 'button_to',
                     data: { confirm: 'Are you sure you want to delete this group?' }
       %>
