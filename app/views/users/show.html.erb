@@ -1,173 +1,95 @@
 <div class="profile">
 
-  <header>
-
-    <figure class="avatar">
-      <%= gravatar_tag @user.email %>
-      <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
-    </figure>
-
-    <h2>
-      <%= @user.display_name :fmls %>
-    </h2>
-
-    <% if @user.is_editable_by? current_user %>
-    <p>
-      <%= button_to 'Edit',
-                    edit_user_url(@user),
-                    method: :get,
-                    class: 'btn btn-success',
-                    form_class: 'button_to'
-      %>
-      <% if current_user.super_admin and current_user.id != @user.id %>
-      <%= button_to 'Delete',
-                    user_url(@user),
-                    method: :delete,
-                    class: 'btn btn-danger',
-                    form_class: 'button_to',
-                    data: { confirm: 'Are you sure you want to delete this user? This action cannot be undone.' }
-      %>
-      <% end %>
-    </p>
-    <% end %>
-
-    <dl style="font-style:italic">
-      <% @user.positions.each do |position| %>
-      <dt><%= position.title %></dt>
-      <dd><%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %></dd>
-      <dd><%= "#{position.description ? "#{position.description}" : ''}" %></dd>
-      <% end %>
-    </dl>
-
-  </header>
-
   <div class="row">
-    <div class="col-lg-9 col-sm-8">
-      <% if @user.biography and @user.biography.length > 0 %>
-      <section class="margin-bottom">
-        <%= raw @user.biography_html %>
-      </section>
+
+    <div class="col-sm-7">
+
+      <header class="profile-header">
+
+        <figure class="avatar">
+          <%= gravatar_tag @user.email %>
+          <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
+        </figure>
+
+        <h2>
+          <%= @user.display_name :fl %>
+        </h2>
+
+        <dl>
+          <% @user.positions.each do |position| %>
+              <dt style="font-style:italic">
+                <a href="#" data-toggle="modal" data-target="#position<%= position.id %>">
+                    <%= position.title %>
+                </a>
+              </dt>
+              <dd>
+                <span style="font-style:italic">
+                  <%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %>
+                </span>
+                <div class="modal fade" id="position<%= position.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><%= position.title %></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p><%= raw "#{position.description_html ? "#{position.description_html}" : ''}" %></p>
+                        <p><em>at <%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %></em></p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+          <% end %>
+        </dl>
+
+      </header>
+
+      <% if @showcased_badges.any? %>
+          <section>
+            <h3>
+                Badges / Awards
+            </h3>
+            <p>
+              <% @showcased_badges.each do |badge| %>
+                  <%= link_to(badge_url badge) do %>
+                      <% image_tag badge.image.thumb %>
+                  <% end %>
+              <% end %>
+            </p>
+            <p>
+              <em>
+                <% if Badge.all.select { |badge| badge.is_givable_by? current_user }.length > 0 %>
+                    <%= link_to "Give badge / award", new_user_badge_path(@user), class: 'btn btn-xs btn-success' %>
+                <% end %>
+                <%= link_to "View additional badges / awards", user_badges_path(@user), class: 'btn btn-xs btn-info' %>
+              </em>
+            </p>
+          </section>
       <% end %>
-      <div class="row">
-        <% if @founded_projects.count > 0 %>
-          <div class="col-sm-4">
-            <section class="panel panel-default">
-              <header class="panel-heading">
-                <h3 class="panel-title">Projects Founded</h3>
-              </header>
-              <div class="panel-body">
-                <ul>
-                  <% @founded_projects.each do |project| %>
-                    <li><%= link_to project.name, project %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </section>
-          </div>
-        <% end %>
-        <% if @involved_projects.count > 0 %>
-          <div class="col-sm-4">
-            <section class="panel panel-default">
-              <header class="panel-heading">
-                <h3 class="panel-title">Projects Involved With</h3>
-              </header>
-              <div class="panel-body">
-                <ul>
-                  <% @involved_projects.each do |project| %>
-                    <li><%= link_to project.name, project %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </section>
-          </div>
-        <% end %>
-        <% if @supported_projects.count > 0 %>
-          <div class="col-sm-4">
-            <section class="panel panel-default">
-              <header class="panel-heading">
-                <h3 class="panel-title">Projects Supported</h3>
-              </header>
-              <div class="panel-body">
-                <ul>
-                  <% @supported_projects.each do |project| %>
-                    <li><%= link_to project.name, project %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </section>
-          </div>
-        <% end %>
-      </div>
-      <div class="row">
-        <% if @founded_ideas.count > 0 %>
-          <div class="col-sm-4">
-            <section class="panel panel-default">
-              <header class="panel-heading">
-                <h3 class="panel-title">Ideas Founded</h3>
-              </header>
-              <div class="panel-body">
-                <ul>
-                  <% @founded_ideas.each do |idea| %>
-                    <li><%= link_to idea.name, idea %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </section>
-          </div>
-        <% end %>
-        <% if @supported_ideas.count > 0 %>
-          <div class="col-sm-4">
-            <section class="panel panel-default">
-              <header class="panel-heading">
-                <h3 class="panel-title">Ideas Supported</h3>
-              </header>
-              <div class="panel-body">
-                <ul>
-                  <% @supported_ideas.each do |idea| %>
-                    <li><%= link_to idea.name, idea %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </section>
-          </div>
-        <% end %>
-      </div>
-      <div class="row">
-        <% if @founded_groups.count > 0 %>
-            <div class="col-sm-4">
-              <section class="panel panel-default">
-                <header class="panel-heading">
-                  <h3 class="panel-title">Groups Founded</h3>
-                </header>
-                <div class="panel-body">
-                  <ul>
-                    <% @founded_groups.each do |group| %>
-                        <li><%= link_to group.name, group %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </section>
-            </div>
-        <% end %>
-        <% if @groups.count > 0 %>
-            <div class="col-sm-4">
-              <section class="panel panel-default">
-                <header class="panel-heading">
-                  <h3 class="panel-title">Groups</h3>
-                </header>
-                <div class="panel-body">
-                  <ul>
-                    <% @groups.each do |group| %>
-                        <li><%= link_to group.name, group %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </section>
-            </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-4">
+
+      <% if @user.biography and @user.biography.length > 0 %>
+          <section class="margin-bottom">
+            <%= raw @user.biography_html %>
+
+            <% if @user.competencies.count > 0 %>
+                <p>
+                  <strong>Competencies</strong><br><%= raw @user.competencies.map(){ |c| link_to c.name, c  }.to_sentence %>
+                </p>
+            <% end %>
+
+            <% if @user.resources.count > 0 %>
+                <p>
+                  <strong>Resources</strong><br><%= raw @user.resources.map(){ |c| link_to c.name, c  }.to_sentence %>
+                </p>
+            <% end %>
+          </section>
+      <% end %>
+
       <section class="panel panel-default">
         <header class="panel-heading">
           <h3 class="panel-title">Contact</h3>
@@ -177,96 +99,163 @@
             <dt>Email Address</dt>
             <dd class="ellipsis-text-block"><%= link_to @user.email, "mailto:#{@user.email}" %></dd>
             <% if @user.phone_number and @user.phone_number.length > 0 %>
-              <dt>Phone Number</dt>
-              <dd class="ellipsis-text-block"><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
+                <dt>Phone Number</dt>
+                <dd class="ellipsis-text-block"><%= link_to @user.phone_number, "tel:#{@user.phone_number}" %></dd>
             <% end %>
             <% if @user.fax_number and @user.fax_number.length > 0 %>
-              <dt>Fax Number</dt>
-              <dd class="ellipsis-text-block"><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
+                <dt>Fax Number</dt>
+                <dd class="ellipsis-text-block"><%= link_to @user.fax_number, "tel:#{@user.fax_number}" %></dd>
             <% end %>
             <% if @user.mailing_address and @user.mailing_address.length > 0 %>
-              <dt>Mailing Address</dt>
-              <dd class="ellipsis-text-block"><%= raw @user.mailing_address_html %></dd>
+                <dt>Mailing Address</dt>
+                <dd class="ellipsis-text-block"><%= raw @user.mailing_address_html %></dd>
             <% end %>
           </dl>
         </div>
       </section>
       <% if @user.website or @user.social_github or @user.social_linkedin or @user.social_twitter or @user.social_google %>
-        <section class="panel panel-default">
-          <header class="panel-heading">
-            <h3 class="panel-title">Links</h3>
-          </header>
-          <div class="panel-body">
-            <dl>
-              <% if @user.website and @user.website.length > 0 %>
-                <dt>Website</dt>
-                <dd class="ellipsis-text-block"><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
-              <% end %>
-              <% if @user.social_github and @user.social_github.length > 0 %>
-                <dt>GitHub</dt>
-                <dd class="ellipsis-text-block"><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
-              <% end %>
-              <% if @user.social_linkedin and @user.social_linkedin.length > 0 %>
-                <dt>LinkedIn</dt>
-                <dd class="ellipsis-text-block"><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
-              <% end %>
-              <% if @user.social_twitter and @user.social_twitter.length > 0 %>
-                <dt>Twitter</dt>
-                <dd class="ellipsis-text-block"><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
-              <% end %>
-              <% if @user.social_google and @user.social_google.length > 0 %>
-                <dt>Google+</dt>
-                <dd class="ellipsis-text-block"><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
-              <% end %>
-            </dl>
-          </div>
-        </section>
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Links</h3>
+            </header>
+            <div class="panel-body">
+              <dl>
+                <% if @user.website and @user.website.length > 0 %>
+                    <dt>Website</dt>
+                    <dd class="ellipsis-text-block"><%= link_to @user.website, @user.website_url, target: '_blank' %></dd>
+                <% end %>
+                <% if @user.social_github and @user.social_github.length > 0 %>
+                    <dt>GitHub</dt>
+                    <dd class="ellipsis-text-block"><%= link_to @user.social_github, @user.social_github_url, target: '_blank' %></dd>
+                <% end %>
+                <% if @user.social_linkedin and @user.social_linkedin.length > 0 %>
+                    <dt>LinkedIn</dt>
+                    <dd class="ellipsis-text-block"><%= link_to @user.social_linkedin, @user.social_linkedin_url, target: '_blank' %></dd>
+                <% end %>
+                <% if @user.social_twitter and @user.social_twitter.length > 0 %>
+                    <dt>Twitter</dt>
+                    <dd class="ellipsis-text-block"><%= link_to @user.social_twitter, @user.social_twitter_url, target: '_blank' %></dd>
+                <% end %>
+                <% if @user.social_google and @user.social_google.length > 0 %>
+                    <dt>Google+</dt>
+                    <dd class="ellipsis-text-block"><%= link_to @user.social_google, @user.social_google_url, target: '_blank' %></dd>
+                <% end %>
+              </dl>
+            </div>
+          </section>
       <% end %>
-      <% if @user.badges.any? %>
-        <section class="panel panel-default">
-          <header class="panel-heading">
-            <h3 class="panel-title">
-              Showcased Badges / Awards
-              (<%= link_to "see all", user_badges_path(@user) %>)
-            </h3>
-          </header>
-          <div class="panel-body">
-            <% @showcased_badges.each do |badge| %>
-              <%= link_to(badge_url badge) do %>
-                <% image_tag badge.image.thumb %>
-              <% end %>
+
+    </div>
+
+    <div class="col-sm-5">
+
+      <% if @user.is_editable_by? current_user %>
+          <div style="text-align:right">
+            <%= button_to 'Edit',
+                          edit_user_url(@user),
+                          method: :get,
+                          class: 'btn btn-success',
+                          form_class: 'button_to'
+            %>
+            <% if current_user.super_admin and current_user.id != @user.id %>
+                <%= button_to 'Delete',
+                              user_url(@user),
+                              method: :delete,
+                              class: 'btn btn-danger',
+                              form_class: 'button_to',
+                              data: { confirm: 'Are you sure you want to delete this user? This action cannot be undone.' }
+                %>
             <% end %>
           </div>
+      <% end %>
+
+      <% if @founded_projects.count > 0 or @involved_projects.count > 0 or @supported_projects.count > 0 %>
+        <p><img src="<%= asset_url('images/header_icons/projects.png') %>" alt="" aria-hidden="true" style="height:40px"></p>
+      <% end %>
+
+      <% if @founded_projects.count > 0 %>
+        <section>
+            <h3>Projects Founded</h3>
+            <ul class="list-group">
+              <% @founded_projects.each do |project| %>
+                  <li class="list-group-item"><%= link_to project.name, project %></li>
+              <% end %>
+            </ul>
         </section>
       <% end %>
-    </div>
-  </div>
-  <%
-     if @user.competencies.count > 0 || @user.resources.count > 0
-       rows = [[]]
-       (@user.competencies + @user.resources).each do |item|
-         if rows[rows.length - 1].length > 2
-           rows << []
-         end
-         rows[rows.length - 1] << item
-       end
-  %>
-    <div class="margin-bottom">
-      <section class="panel panel-default">
-        <header class="panel-heading">
-          <h3 class="panel-title">Competencies / Resources</h3>
-        </header>
-        <div class="panel-body">
-          <% rows.each do |row| %>
-            <div class="row">
-              <% row.each do |col| %>
-                <div class="col-md-4"><%= link_to col.name, col %></div>
+      <% if @involved_projects.count > 0 %>
+        <section>
+            <h3>Projects Involved With</h3>
+            <ul class="list-group">
+              <% @involved_projects.each do |project| %>
+                  <li class="list-group-item"><%= link_to project.name, project %></li>
               <% end %>
-            </div>
-          <% end %>
-        </div>
-      </section>
+            </ul>
+        </section>
+      <% end %>
+      <% if @supported_projects.count > 0 %>
+        <section>
+            <h3>Projects Supported</h3>
+            <ul class="list-group">
+              <% @supported_projects.each do |project| %>
+                  <li class="list-group-item"><%= link_to project.name, project %></li>
+              <% end %>
+            </ul>
+        </section>
+      <% end %>
+
+      <% if @founded_ideas.count > 0 or @supported_ideas.count > 0 %>
+          <p><img src="<%= asset_url('images/header_icons/ideas.png') %>" alt="" aria-hidden="true" style="height:40px"></p>
+      <% end %>
+
+      <% if @founded_ideas.count > 0 %>
+        <section>
+            <h3>Ideas Founded</h3>
+            <ul class="list-group">
+              <% @founded_ideas.each do |idea| %>
+                  <li class="list-group-item"><%= link_to idea.name, idea %></li>
+              <% end %>
+            </ul>
+        </section>
+      <% end %>
+      <% if @supported_ideas.count > 0 %>
+        <section>
+            <h3>Ideas Supported</h3>
+            <ul class="list-group">
+              <% @supported_ideas.each do |idea| %>
+                  <li class="list-group-item"><%= link_to idea.name, idea %></li>
+              <% end %>
+            </ul>
+        </section>
+      <% end %>
+
+      <% if @founded_groups.count > 0 or @groups.count > 0 %>
+          <p><img src="<%= asset_url('images/header_icons/social.png') %>" alt="" aria-hidden="true" style="height:40px"></p>
+      <% end %>
+
+      <% if @founded_groups.count > 0 %>
+        <section>
+            <h3>Groups Founded</h3>
+            <ul class="list-group">
+              <% @founded_groups.each do |group| %>
+                  <li class="list-group-item"><%= link_to group.name, group %></li>
+              <% end %>
+            </ul>
+        </section>
+      <% end %>
+      <% if @groups.count > 0 %>
+        <section>
+            <h3>Groups</h3>
+            <ul class="list-group">
+              <% @groups.each do |group| %>
+                  <li class="list-group-item"><%= link_to group.name, group %></li>
+              <% end %>
+            </ul>
+        </section>
+      <% end %>
+
     </div>
-  <% end %>
+
+  </div>
 
 </div>
