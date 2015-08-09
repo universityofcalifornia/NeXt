@@ -11,7 +11,6 @@ class Event < ActiveRecord::Base
   domain_regex = URI::regexp(%w(http https))
 
 	attr_accessor :invite_list, :group_tokens
-	attr_accessor :end_date_time, :start_date_time
 
 	validates :map_url, :format => { :with => domain_regex }, :if => "map_url.present?"
 
