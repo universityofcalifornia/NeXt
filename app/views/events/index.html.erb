@@ -10,20 +10,61 @@
 
 <%= will_paginate @events %>
 
-<div class="list-group">
+<div class="event-list">
   <% @events.each do |event| %>
-    <a class="list-group-item" href="<%= event_url(event) %>">
+    <a href="<%= event_url(event) %>">
       <div class="row">
-        <div class="col-sm-10">
-          <h4><%= event.name %></h4>
-          <% if event.start_datetime %>
-          <p><small><%= event.start_datetime.strftime("%B %d, %Y") %>
-            <% if event.start_datetime.strftime("%B %d, %Y") != event.stop_datetime.strftime("%B %d, %Y") %>
-            - <%= event.stop_datetime.strftime("%B %d, %Y") %>
+
+        <div class="col-sm-2 date">
+          <% if event.start_datetime or event.stop_datetime %>
+            <% if event.start_datetime and event.stop_datetime %>
+              <% if event.start_datetime.strftime('%b %d %Y') == event.stop_datetime.strftime('%b %d %Y') %>
+                <%= event.start_datetime.strftime('%b %d %Y') %>
+              <% elsif event.start_datetime.strftime('%b %Y') == event.stop_datetime.strftime('%b %Y') %>
+                <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
+              <% elsif event.start_datetime.strftime('%Y') == event.stop_datetime.strftime('%Y')  %>
+                <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%b %d %Y') %>
+              <% else %>
+                <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%b %d %Y') %>
+              <% end %>
+            <% elsif event.start_datetime %>
+              <%= event.start_datetime.strftime('%b %d %Y') %>
+            <% elsif event.stop_datetime %>
+              <%= event.stop_datetime.strftime('%b %d %Y') %>
             <% end %>
-          </small></p>
           <% end %>
         </div>
+
+        <div class="col-sm-10">
+          <h4><%= event.name %></h4>
+          <% if event.short_description %>
+            <p><%= event.short_description %></p>
+          <% end %>
+          <p style="font-size:10px;">
+            <% if event.start_datetime or event.stop_datetime %>
+                <% if event.start_datetime and event.stop_datetime %>
+                    <% if event.start_datetime.strftime('%b %d %Y') == event.stop_datetime.strftime('%b %d %Y') %>
+                        <%= event.start_datetime.strftime('%l:%I %p') %> - <%= event.stop_datetime.strftime('%l:%I %p') %>
+                    <% elsif event.start_datetime.strftime('%b %Y') == event.stop_datetime.strftime('%b %Y') %>
+
+                        <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
+                    <% elsif event.start_datetime.strftime('%Y') == event.stop_datetime.strftime('%Y')  %>
+                        <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
+                    <% else %>
+                        <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
+                    <% end %>
+                <% elsif event.start_datetime %>
+                    <%= event.start_datetime.strftime('%l:%I %p %b %d %Y') %>
+                <% elsif event.stop_datetime %>
+                    <%= event.stop_datetime.strftime('%l:%I %p %b %d %Y') %>
+                <% end %>
+            <% end %>
+            <% if event.location %>
+                @ <%= event.location %>
+            <% end %>
+          </p>
+        </div>
+
       </div>
     </a>
   <% end %>
