@@ -5,4 +5,6 @@ class Position < ActiveRecord::Base
   belongs_to :user, touch: true
   belongs_to :organization
 
+  attr_html_reader :description, :nl
+
 end

@@ -7,7 +7,9 @@
   <div class="row">
     <div class="col-lg-9 col-sm-8">
       <div class="subtitle">
+        <% if @badge.badge_group %>
         <%= @badge.badge_group.name %>
+        <% end %>
         <%= @badge.type %>
       </div>
       <p><%= @badge.description %></p>
