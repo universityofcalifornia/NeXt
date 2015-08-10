@@ -11,6 +11,23 @@ body > main {
     }
   }
 
+  .montage {
+    overflow-x: hidden;
+
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      width: 640px;
+    }
+
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+      background-color: orange;
+      width: 896px;
+    }
+
+    @media (min-width: $screen-lg-min) {
+      width: 1024px;
+    }
+  }
+
   .wave-logo {
     max-width: 500px;
     float: right;
