@@ -34,6 +34,8 @@ class ProjectsController < ApplicationController
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
 
+      current_user.alter_points :projects, 5
+
       redirect_to project_url(@project)
 
     else
@@ -62,6 +64,8 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
+    current_user.alter_points :projects, -5
+
     redirect_to projects_url
   end
 

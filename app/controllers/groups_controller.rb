@@ -25,6 +25,9 @@ class GroupsController < ApplicationController
     group_data[:user_id] = current_user.id
     @group = Group.create group_data
     current_user.groups << @group
+
+    current_user.alter_points :other, 3
+
     redirect_to group_url(@group)
   end
 
@@ -40,7 +43,10 @@ class GroupsController < ApplicationController
   end
 
   def destroy
+ap "DEP!"
     @group.destroy
+    current_user.alter_points :other, -3
+
     redirect_to groups_url
   end
 
@@ -57,6 +63,8 @@ class GroupsController < ApplicationController
     if params[:group_name].present?
       new_group = current_user.created_groups.where(:name => params[:group_name]).first_or_create
       current_user.groups << new_group if params[:checked]
+
+      current_user.alter_points(:other, 3) if new_group.new_record?
     end
   end
 
