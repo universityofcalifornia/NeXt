@@ -43,7 +43,6 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-ap "DEP!"
     @group.destroy
     current_user.alter_points :other, -3
 
