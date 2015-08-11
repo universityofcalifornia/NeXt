@@ -45,7 +45,7 @@
           <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
         </span>
       </h1>
-      <%= render "shared/engagement_meter" %>
+      <%= render partial: "shared/engagement_meter", locals: { type: :all } %>
     </section>
   </div>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809224840) do
+ActiveRecord::Schema.define(version: 20150811054732) do
 
   create_table "badge_groups", force: true do |t|
     t.string   "name"
@@ -219,6 +219,9 @@ ActiveRecord::Schema.define(version: 20150809224840) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "idea_points",    default: 0
+    t.integer  "project_points", default: 0
+    t.integer  "other_points",   default: 0
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", using: :btree
@@ -394,6 +397,9 @@ ActiveRecord::Schema.define(version: 20150809224840) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "password_hash"
+    t.integer  "idea_points",         default: 0
+    t.integer  "project_points",      default: 0
+    t.integer  "other_points",        default: 0
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
