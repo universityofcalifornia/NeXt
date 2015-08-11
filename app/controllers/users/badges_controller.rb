@@ -38,6 +38,8 @@ module Users
 
     def create
       @user.badges << @badge
+      @user.alter_points :other, @badge.points
+
       redirect_to user_badges_url
     end
 
@@ -50,6 +52,8 @@ module Users
 
     def destroy
       @user_badge.destroy
+      @user.alter_points :other, -@badge.points
+
       redirect_to user_badges_url
     end
 
