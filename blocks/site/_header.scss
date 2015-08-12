@@ -73,7 +73,7 @@ body > header {
     border: 3px solid #ccdded;
     border-radius: 20px;
 
-    input[type="text"] {
+    .search-input {
       display: block;
       width: 100%;
       border: 1px solid $brand-primary;
@@ -83,7 +83,7 @@ body > header {
       outline: none;
     }
 
-    button {
+    .search-button {
       position: absolute;
       top: 0;
       right: 0;
@@ -92,6 +92,8 @@ body > header {
       border: 1px solid $brand-primary;
       border-radius: 20px;
       background-color: $brand-primary;
+      background-image: url(/images/header_icons/search.png);
+      background-size: 27px;
     }
   }
 }
