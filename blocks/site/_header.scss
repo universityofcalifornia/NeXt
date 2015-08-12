@@ -2,8 +2,41 @@ body > header {
   border-radius: 0;
   border-width: 0 0 1px 0;
 
-  &.navbar {
-    margin: 0;
+  .navbar {
+    border: none;
+    border-radius: 0;
+    background-color: $brand-primary;
+
+    @media (min-width: $screen-sm-min) {
+      .navbar-nav {
+        width: 100%;
+        text-align: center;
+
+        > li {
+          display: inline-block;
+          float: none;
+          margin-top: 8px;
+          border-left: 1px solid white;
+
+          &:last-child {
+            border-right: 1px solid white;
+          }
+
+          a {
+            padding: 5px 20px;
+          }
+        }
+      }
+
+      .nav-icon {
+        height: 25px;
+        margin-right: 5px;
+      }
+    }
+
+    .navbar-nav > li a {
+      color: white;
+    }
   }
 
   a {
