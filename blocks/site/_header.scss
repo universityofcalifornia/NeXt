@@ -1,6 +1,5 @@
 body > header {
-
-  border-radius:0;
+  border-radius: 0;
   border-width: 0 0 1px 0;
 
   &.navbar {
@@ -15,4 +14,51 @@ body > header {
     }
   }
 
+  $logo-height: 40px;
+
+  .logo {
+    height: $logo-height;
+  }
+
+  .header-item {
+    font-size: 16px;
+    line-height: $logo-height;
+    margin: 0;
+
+    .my-account {
+      font-size: 14px;
+    }
+  }
+
+  .small-wave {
+    height: 30px;
+  }
+
+  .search {
+    position: relative;
+    margin-top: 2px;
+    border: 3px solid #ccdded;
+    border-radius: 20px;
+
+    input[type="text"] {
+      display: block;
+      width: 100%;
+      border: 1px solid $brand-primary;
+      border-radius: 20px;
+      line-height: 20px;
+      padding: 3px 10px;
+      outline: none;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      border: 1px solid $brand-primary;
+      border-radius: 20px;
+      background-color: $brand-primary;
+    }
+  }
 }
