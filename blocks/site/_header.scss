@@ -1,10 +1,42 @@
 body > header {
-
-  border-radius:0;
+  border-radius: 0;
   border-width: 0 0 1px 0;
 
-  &.navbar {
-    margin: 0;
+  .navbar {
+    border: none;
+    border-radius: 0;
+    background-color: $brand-primary;
+
+    @media (min-width: $screen-sm-min) {
+      .navbar-nav {
+        width: 100%;
+        text-align: center;
+
+        > li {
+          display: inline-block;
+          float: none;
+          margin-top: 8px;
+          border-left: 1px solid white;
+
+          &:last-child {
+            border-right: 1px solid white;
+          }
+
+          a {
+            padding: 5px 20px;
+          }
+        }
+      }
+
+      .nav-icon {
+        height: 25px;
+        margin-right: 5px;
+      }
+    }
+
+    .navbar-nav > li a {
+      color: white;
+    }
   }
 
   a {
@@ -15,4 +47,53 @@ body > header {
     }
   }
 
+  $logo-height: 40px;
+
+  .logo {
+    height: $logo-height;
+  }
+
+  .header-item {
+    font-size: 16px;
+    line-height: $logo-height;
+    margin: 0;
+
+    .my-account {
+      font-size: 14px;
+    }
+  }
+
+  .small-wave {
+    height: 30px;
+  }
+
+  .search {
+    position: relative;
+    margin-top: 2px;
+    border: 3px solid #ccdded;
+    border-radius: 20px;
+
+    .search-input {
+      display: block;
+      width: 100%;
+      border: 1px solid $brand-primary;
+      border-radius: 20px;
+      line-height: 20px;
+      padding: 3px 10px;
+      outline: none;
+    }
+
+    .search-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      border: 1px solid $brand-primary;
+      border-radius: 20px;
+      background-color: $brand-primary;
+      background-image: url(/images/header_icons/search.png);
+      background-size: 27px;
+    }
+  }
 }
