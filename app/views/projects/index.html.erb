@@ -1,35 +1,75 @@
-<% if current_user %>
-<%= button_to 'Create Project',
-              new_project_url,
-              method: :get,
-              class: 'btn btn-warning btn-block',
-              form_class: 'button_to pull-right' %>
-<% end %>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4 text-center">
+    <h2 class="valign-middle">
+      <span class="header-icon hidden-xs">
+        <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive" } %>
+      </span>
+      <span>Projects</span>
+    </h2>
+  </div>
 
-<h2>Projects</h2>
+  <div class="col-sm-4">
+    <% if current_user %>
+    <%= button_to 'Create Project',
+                  new_project_url,
+                  method: :get,
+                  class: 'btn btn-create btn-block',
+                  form_class: 'button_to pull-right' %>
+    <% end %>
+  </div>
+</div>
 
-<%= will_paginate @projects %>
+<div class="row">
+  <div class="col-md-6">
+    <h1>UC NeXt Projects</h1>
 
-<div class="list-group">
-<% @projects.each do |project| %>
-  <a class="list-group-item" href="<%= project_url(project) %>">
-    <div class="row">
-      <div class="col-sm-10">
-        <h4><%= project.name %></h4>
-        <%= raw project.pitch %>
-        <p><small>
-          Started
-          <% if project.project_roles.founders.count > 0 %>
-          by <strong><%= project.project_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %></strong>
-          <% end %>
-          on <strong><%= project.created_at.strftime("%B %d, %Y") %></strong>
-          <br>
-          <em>Supported by <%= project.project_votes.count %> ( <%= project.project_votes.where(participate: true).count %> would participate )</em>
-        </small></p>
-      </div>
-      <% unless project.has_been_voted_for_by? current_user %>
-        <nav class="col-sm-2 text-right-md text-right-lg">
-          <%= button_to '+1', '#', class: 'btn btn-success modal-button', method: :get %>
+    <p>
+      Projects are how we work together and actually coordinate our
+    </p>
+    <p>
+      UC Next is a place to find out who is looking for partners,
+      collaborators and anyone who might be trying to solve the same or
+      similar problems.
+    </p>
+    <p>
+      It's not a stodgy portfolio tool, but rather a virtual meeting place
+      to find like minded team members who can help us get solutions in
+      place faster, more efficiently and with a shared purpose of
+      furthering our shared mission of providing World Class Education,
+      Research support and Service.
+    </p>
+  </div>
+
+  <div class="col-md-6">
+    <h1>5 Top Trending Projects</h1>
+    <ul class="list-group">
+      <% Project.top_voted(5).each do |project| %>
+        <li class="list-group-item"><%= link_to project.name, project %></li>
+      <% end %>
+    </ul>
+
+    <h1 class="valign-middle">
+      <span>Engagement Meter</span>
+      <span class="header-icon hidden-xs">
+        <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
+      </span>
+    </h1>
+    <%= render partial: "shared/engagement_meter", locals: { type: :projects } %>
+  </div>
+</div>
+
+<% if @projects.any? %>
+  <h1 class="text-center">UC NeXt Projects</h1>
+
+  <div class="panel-table panel-table-secondary container-fluid">
+    <% @projects.each_with_index do |project, i| %>
+      <% if i % 3 == 0 %>
+        <div class="row">
+      <% end %>
+
+      <div class="col-md-4 panel-cell">
+        <% unless project.has_been_voted_for_by? current_user %>
+          <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
           <%= render partial: "shared/vote_dialog", locals: {
             object: project,
             button_text: [
@@ -38,11 +78,42 @@
               'Learn more'
             ]
           } %>
-        </nav>
+        <% end %>
+
+        <h4>
+          <%= link_to project.name, project %>
+        </h4>
+        <p>
+          <%= project.pitch %>
+        </p>
+
+        <p class="condensed">
+          <small>
+            Started
+            <% if project.project_roles.founders.count > 0 %>
+              by
+              <%= project.project_roles.founders.includes(:user).map { |r| link_to r.user.display_name, r.user }.to_sentence.html_safe %>
+            <% end %>
+            on
+            <%= project.created_at.strftime("%B %d, %Y") %>
+          </small>
+        </p>
+
+        <% if project.project_votes.count > 0 %>
+          <p class="condensed">
+            <small>
+              Supported by <%= project.project_votes.count %>
+              (<%= project.project_votes.where(participate: true).count %> would participate )
+            </small>
+          </p>
+        <% end %>
+      </div>
+
+      <% if i % 3 == 2 %>
+        </div>
       <% end %>
-    </div>
-  </a>
+    <% end %>
+  </div>
 <% end %>
-</div>
 
 <%= will_paginate @projects %>

@@ -43,6 +43,11 @@ h3 {
   }
 }
 
+.nav-icon {
+  height: 25px;
+  margin-right: 5px;
+}
+
 .valign-middle > * {
   vertical-align: middle;
 }
@@ -52,6 +57,17 @@ h3 {
   height: 50px;
   margin-right: 10px;
   background-color: $brand-primary;
+}
+
+.condensed {
+  line-height: 0.8em;
+  margin-bottom: 0;
+}
+
+.about-features {
+  width: 300px;
+  max-width: 100%;
+  margin-left: -40px;
 }
 
 @media (max-width: $screen-xs-max) {

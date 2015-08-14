@@ -1,16 +1,42 @@
 footer {
-  margin-top: 3em;
-  > ul {
-    margin: 0;
-    padding: 0;
+  background-color: $brand-primary;
+  color: #ffffff;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-image: url(/images/footer/seal.png);
+  background-size: 130px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @media (max-width: $screen-sm-max) {
+    background-image: none;
+  }
+
+  a {
+    color: $navbar-default-link-color;
+
+    &:hover,
+    &:focus {
+      color: $navbar-default-link-hover-color;
+      text-decoration: none;
+    }
+  }
+
+  ul.list-inline {
+    margin-bottom: 0;
+
     > li {
-      list-style: none;
-      display: inline;
-      &:not(:last-child):after {
-        padding: 0 2px 0 6px;
-        content: '\2022';
-        color: #999;
+      padding-right: 10px;
+      line-height: 18px;
+
+      &:not(:last-child) {
+        border-right: 1px solid white;
       }
     }
+  }
+
+  .footer-icon {
+    height: 40px;
+    margin: 0 20px 20px 0;
   }
 }

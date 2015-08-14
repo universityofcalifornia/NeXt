@@ -16,7 +16,7 @@ class IdeasController < ApplicationController
   def index
     @ideas = Idea.includes(:idea_status)
                  .order(created_at: :desc)
-                 .paginate(page: params[:page], per_page: 50)
+                 .paginate(page: params[:page], per_page: 15)
   end
 
   def new

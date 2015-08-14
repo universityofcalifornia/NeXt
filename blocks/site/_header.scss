@@ -27,23 +27,11 @@ body > header {
           }
         }
       }
-
-      .nav-icon {
-        height: 25px;
-        margin-right: 5px;
-      }
     }
 
-    .navbar-nav > li a {
-      color: white;
-    }
-  }
-
-  a {
-    color: $brand-primary;
-    &:hover {
-      color: lighten($brand-primary, 10%);
-      text-decoration: none;
+    a:hover,
+    a:focus {
+      text-decoration: underline;
     }
   }
 
