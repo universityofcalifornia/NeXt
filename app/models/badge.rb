@@ -68,7 +68,7 @@ class Badge < ActiveRecord::Base
     elsif user.super_admin
       return true
     else
-      return user.badge_roles.where(user_id: user.id, owner: true).count > 0
+      return BadgeRole.where(user_id: user.id, owner: true).count > 0
     end
   end
 
@@ -78,7 +78,7 @@ class Badge < ActiveRecord::Base
     elsif is_owned_by? user
       return true
     else
-      return user.badge_roles.where(user_id: user.id, editor: true).count > 0
+      return BadgeRole.where(user_id: user.id, editor: true).count > 0
     end
   end
 
@@ -88,7 +88,7 @@ class Badge < ActiveRecord::Base
     elsif is_editable_by? user
       return true
     else
-      return user.badge_roles.where(user_id: user.id, giver: true).count > 0
+      return BadgeRole.where(user_id: user.id, giver: true).count > 0
     end
   end
 
