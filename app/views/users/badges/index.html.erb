@@ -1,6 +1,6 @@
 <nav class="pull-right">
   <% if @givable_badges.any? %>
-    <%= link_to 'Give Badge/Award', new_user_badge_url(@user), class: 'btn btn-success' %>
+    <%= link_to 'Give Badge/Award', new_user_badge_url(@user), class: 'btn btn-create' %>
   <% end %>
 </nav>
 
@@ -18,7 +18,7 @@
                       user_badge_url(@user, user_badge),
                       method: :put,
                       params: { showcase: !user_badge.showcase },
-                      class: 'btn btn-info btn-block',
+                      class: 'btn btn-edit btn-block',
                       form_class: 'button_to full-width'
         %>
       <% end %>
@@ -26,7 +26,7 @@
         <%= button_to 'Remove',
                       user_badge_url(@user, user_badge),
                       method: :delete,
-                      class: 'btn btn-warning btn-block',
+                      class: 'btn btn-delete btn-block',
                       form_class: 'button_to full-width',
                       data: { confirm: 'Are you sure you want to remove this badge?' }
         %>
