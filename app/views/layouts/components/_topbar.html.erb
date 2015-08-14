@@ -1,30 +1,24 @@
 <header>
 
-  <div class="container">
+  <div class="container topbar">
     <div class="row">
-      <div class="col-md-3">
-        <%= link_to(root_url, { class: "valign-middle" }) do %>
+      <div class="col-md-3 text-center">
+        <%= link_to root_url do %>
           <%= image_tag "/images/header_icons/ucnext.png",
-            { alt: "UC NeXt", class: 'logo' }
+            { alt: "UC NeXt", class: 'img-responsive center-block logo' }
           %>
         <% end %>
+        <p>Catch the wave of collaboration</p>
       </div>
 
-      <div class="col-md-4">
-        <h2 class="header-item">Catch the wave of collaboration</h2>
-      </div>
-
-      <div class="col-md-2 text-right-md text-right-lg">
+      <div class="col-md-3 col-md-offset-6 text-right">
         <h2 class="header-item">
           <%= image_tag "/images/header_icons/wave.png",
             { class: "small-wave" }
           %>
-
           <%= render "shared/login" %>
         </h2>
-      </div>
 
-      <div class="col-md-3">
         <%= form_tag search_url, { role: "search", class: "header-item search" } do %>
           <input type="text" name="query" placeholder="Search" class="search-input">
           <button class="btn search-button" type="submit"></button>

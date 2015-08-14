@@ -2,6 +2,12 @@ body > header {
   border-radius: 0;
   border-width: 0 0 1px 0;
 
+  .topbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: $brand-primary;
+  }
+
   .navbar {
     border: none;
     border-radius: 0;
@@ -35,20 +41,13 @@ body > header {
     }
   }
 
-  $logo-height: 40px;
-
   .logo {
-    height: $logo-height;
+    max-height: 50px;
   }
 
-  .header-item {
-    font-size: 16px;
-    line-height: $logo-height;
-    margin: 0;
-
-    .my-account {
-      font-size: 14px;
-    }
+  .my-account {
+    font-size: 14px;
+    margin-right: 15px;
   }
 
   .small-wave {
