@@ -18,7 +18,7 @@ Organization.truncate
   { name: 'Lawrence Berkeley Lab', shortname: 'LBL', url: 'http://www.lbl.gov/' },
   { name: 'Lawrence Livermore National Lab', shortname: 'LLNL', url: 'https://www.llnl.gov' },
   { name: 'Los Alamos National Laboratory', shortname: 'LANL', url: 'http://www.lanl.gov/' },
-  { name: 'Agriculture &amp; National Resources', shortname: 'ANR', url: 'http://ucanr.edu/' },
+  { name: 'Agriculture & National Resources', shortname: 'ANR', url: 'http://ucanr.edu/' },
   { name: 'Hastings', shortname: 'UC Hastings', url: 'http://www.uchastings.edu/' },
   { name: 'California Digital Library', shortname: 'CDL', url: 'http://www.cdlib.org/' }
 ].each do |data|
