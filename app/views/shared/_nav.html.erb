@@ -19,7 +19,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to current_user ? logged_in_events_url : events_url do %>
+      <%= link_to events_url do %>
         <%= image_tag "/images/nav_icons/events.png", { class: "nav-icon hidden-xs hidden-sm" } %>
         Events
       <% end %>
