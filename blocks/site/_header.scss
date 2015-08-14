@@ -33,13 +33,10 @@ body > header {
         margin-right: 5px;
       }
     }
-  }
 
-  a {
-    color: $brand-primary;
-    &:hover {
-      color: lighten($brand-primary, 10%);
-      text-decoration: none;
+    a:hover,
+    a:focus {
+      text-decoration: underline;
     }
   }
 
