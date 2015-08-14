@@ -3,6 +3,8 @@
 @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic,700,700italic);
 
 $brand-primary: #0054a6;
+$pale-blue: #dfeaf3;
+$pale-yellow: #fff9ab;
 
 $font-family-sans-serif: "Open Sans", sans-serif;
 $font-size-base: 16px;
@@ -25,11 +27,11 @@ $border-radius-base: 5px;
 $btn-default-color: #1d4a86;
 $btn-hover-color: #ffffff;
 
-$panel-bg: #eef4f9;
+$panel-bg: $pale-blue;
 $panel-body-padding: 10px;
 $panel-heading-padding: 10px;
 $panel-border-radius: 0;
-$panel-inner-border: #0054a6;
+$panel-inner-border: $brand-primary;
 $panel-footer-bg: $panel-bg;
 $panel-default-border: $panel-inner-border;
 $panel-default-heading-bg: #e0ebf4;
@@ -44,3 +46,4 @@ $list-group-border-radius: 0;
 $list-group-hover-bg: $list-group-bg;
 
 $navbar-default-link-color: #ffffff;
+$navbar-default-link-hover-color: #ffc277;
