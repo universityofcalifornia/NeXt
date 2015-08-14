@@ -54,6 +54,11 @@ h3 {
   background-color: $brand-primary;
 }
 
+.condensed {
+  line-height: 0.8em;
+  margin-bottom: 0;
+}
+
 @media (max-width: $screen-xs-max) {
   .text-left-xs {
     text-align: left;

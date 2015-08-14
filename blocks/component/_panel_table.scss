@@ -1,0 +1,14 @@
+.panel-table {
+  border: 5px solid $pale-yellow;
+  margin-bottom: 10px;
+
+  .panel-cell {
+    border: 1px solid $brand-primary;
+    background-color: $pale-blue;
+    padding: 10px;
+
+    h4 {
+      margin-top: 0;
+    }
+  }
+}

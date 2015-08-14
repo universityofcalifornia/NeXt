@@ -5,12 +5,12 @@
   }
 
   > .list-group-item:nth-child(odd) {
-    background-color: #eef4f9;
+    background-color: $pale-blue;
   }
 
   &.list-group-secondary {
     > .list-group-item:nth-child(odd) {
-      background-color: #fff9ab;
+      background-color: $pale-yellow;
     }
   }
 }

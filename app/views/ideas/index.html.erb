@@ -1,35 +1,91 @@
-<% if current_user %>
-<%= button_to 'Propose Idea',
-              new_idea_url,
-              method: :get,
-              class: 'btn btn-warning btn-block',
-              form_class: 'button_to pull-right' %>
-<% end %>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4 text-center">
+    <h2 class="valign-middle">
+      <span class="header-icon hidden-xs">
+        <%= image_tag "/images/header_icons/ideas.png", { class: "img-responsive" } %>
+      </span>
+      <span>Ideas</span>
+    </h2>
+  </div>
 
-<h2>Ideas</h2>
+  <div class="col-sm-4">
+    <% if current_user %>
+    <%= button_to 'Propose Idea',
+                  new_idea_url,
+                  method: :get,
+                  class: 'btn btn-create btn-block',
+                  form_class: 'button_to pull-right' %>
+    <% end %>
+  </div>
+</div>
 
-<%= will_paginate @ideas %>
+<div class="row">
+  <div class="col-md-6">
+    <h1>UC NeXt Ideas</h1>
 
-<div class="list-group">
-<% @ideas.each do |idea| %>
-  <a class="list-group-item" href="<%= idea_url(idea) %>">
-    <div class="row">
-      <div class="col-sm-10">
-        <h4><%= idea.name %></h4>
-        <%= raw idea.pitch %>
-        <p><small>
-          Proposed
-          <% if idea.idea_roles.founders.count > 0 %>
-          by <strong><%= idea.idea_roles.founders.includes(:user).map(){ |r| r.user.display_name }.to_sentence %></strong>
-          <% end %>
-          on <strong><%= idea.created_at.strftime("%B %d, %Y") %></strong>
-          <br>
-          <em>Supported by <%= idea.idea_votes.count %> ( <%= idea.idea_votes.where(participate: true).count %> would participate )</em>
-        </small></p>
+    <p>
+      Ideas are the currency of the 21st Century, so collecting them,
+      sharing them, and valuing them is the first step in creating a
+      culture of innovation in the IT community at the UC!
+    </p>
+    <p>
+      As you are going through your day keep in mind that your ideas are
+      important, they matter, and that others might help you with them,
+      if they just knew about them.
+    </p>
+    <p>
+      Think of the UC Next platform - when you have that stroke of Genius,
+      as the place to put these ideas, so that collectively we can move the
+      bar across the system, and innovate faster with more alignment with
+      our shared mission of Education, Research and Service!
+    </p>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>
+          The Information Technology Leadership council has agreed that a
+          tool like UC Next is the kind of platform that the IT community
+          of the UC needs!
+        </p>
+        <p>
+          They have agreed to look at our top 5 new ideas each month at
+          their monthly meetings, that explains just how important the CIOs
+          of the UC feel your ideas are!
+        </p>
       </div>
-      <% unless idea.has_been_voted_for_by? current_user %>
-        <nav class="col-sm-2 text-right-md text-right-lg">
-          <%= button_to '+1', '#', class: 'btn btn-success modal-button', method: :get %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h1>5 Top Trending Ideas</h1>
+    <ul class="list-group list-group-secondary">
+      <% Idea.top_voted(5).each do |idea| %>
+        <li class="list-group-item"><%= link_to idea.name, idea %></li>
+      <% end %>
+    </ul>
+
+    <h1 class="valign-middle">
+      <span>Engagement Meter</span>
+      <span class="header-icon hidden-xs">
+        <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
+      </span>
+    </h1>
+    <%= render partial: "shared/engagement_meter", locals: { type: :ideas } %>
+  </div>
+</div>
+
+<% if @ideas.any? %>
+  <h1 class="text-center">UC NeXt Ideas</h1>
+
+  <div class="panel-table container-fluid">
+    <% @ideas.each_with_index do |idea, i| %>
+      <% if i % 3 == 0 %>
+        <div class="row">
+      <% end %>
+
+      <div class="col-md-4 panel-cell">
+        <% unless idea.has_been_voted_for_by? current_user %>
+          <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
           <%= render partial: "shared/vote_dialog", locals: {
             object: idea,
             button_text: [
@@ -38,11 +94,42 @@
               'Learn more'
             ]
           } %>
-        </nav>
+        <% end %>
+
+        <h4>
+          <%= link_to idea.name, idea_url(idea) %>
+        </h4>
+        <p>
+          <%= idea.pitch %>
+        </p>
+
+        <p class="condensed">
+          <small>
+            Proposed
+            <% if idea.idea_roles.founders.count > 0 %>
+              by
+              <%= idea.idea_roles.founders.includes(:user).map { |r| link_to r.user.display_name, user_url(r.user) }.to_sentence %>
+            <% end %>
+            on
+            <%= idea.created_at.strftime("%B %d, %Y") %>
+          </small>
+        </p>
+
+        <% if idea.idea_votes.count > 0 %>
+          <p class="condensed">
+            <small>
+              Supported by <%= idea.idea_votes.count %>
+              (<%= idea.idea_votes.where(participate: true).count %> would participate )
+            </small>
+          </p>
+        <% end %>
+      </div>
+
+      <% if i % 3 == 2 %>
+        </div>
       <% end %>
-    </div>
-  </a>
+    <% end %>
+  </div>
 <% end %>
-</div>
 
 <%= will_paginate @ideas %>

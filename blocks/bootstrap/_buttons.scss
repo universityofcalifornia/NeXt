@@ -11,6 +11,11 @@
   }
 }
 
+.btn-create {
+  @include button-variant      ($btn-default-color, #f0ad4e, #eea236);
+  @include button-variant-hover($btn-hover-color,   #ec971f, #d58512);
+}
+
 .btn-edit {
   @include button-variant      ($btn-default-color, #ccdded, #2d6892);
   @include button-variant-hover($btn-hover-color,   #3a71a5, #2d6892);
