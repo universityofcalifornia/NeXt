@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814222150) do
+ActiveRecord::Schema.define(version: 20150815211525) do
 
   create_table "badge_groups", force: true do |t|
     t.string   "name"
@@ -413,7 +413,5 @@ ActiveRecord::Schema.define(version: 20150814222150) do
   add_foreign_key "event_groups", "groups", name: "event_groups_group_id_fk"
 
   add_foreign_key "groups", "users", name: "groups_user_id_fk"
-
-  add_foreign_key "invites", "events", name: "invites_event_id_fk"
 
 end
