@@ -2,10 +2,16 @@
 <%= button_to 'Create Event',
               new_event_url,
               method: 'get',
-              class: 'btn btn-warning btn-block',
+              class: 'btn btn-create btn-block',
               form_class: 'button_to pull-right' %>
-<%= link_to 'Show all', events_path, class: 'btn btn-warning' %>
+
+  <% if @logged_in %>
+    <%= link_to 'Show all', events_path, class: 'btn btn-create' %>
+  <% else %>
+    <%= link_to 'Show my events', logged_in_events_path, class: 'btn btn-create' %>
+  <% end %>
 <% end %>
+
 <h2>Events</h2>
 
 <%= will_paginate @events %>

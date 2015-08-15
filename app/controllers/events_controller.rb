@@ -11,10 +11,12 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.order(created_at: :desc).paginate(page: params[:page], per_page: 50)
+    @logged_in = false
   end
 
   def logged_in
     @events = current_user.events.order(created_at: :desc).paginate(page: params[:page], per_page: 50)
+    @logged_in = true
     render :index
   end
 

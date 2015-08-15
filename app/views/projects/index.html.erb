@@ -38,18 +38,18 @@
       furthering our shared mission of providing World Class Education,
       Research support and Service.
     </p>
-  </div>
 
-  <div class="col-md-6">
     <h1>5 Top Trending Projects</h1>
     <ul class="list-group">
       <% Project.top_voted(5).each do |project| %>
         <li class="list-group-item"><%= link_to project.name, project %></li>
       <% end %>
     </ul>
+  </div>
 
+  <div class="col-md-6">
     <h1 class="valign-middle">
-      <span>Engagement Meter</span>
+      <span>Project Engagement Meter</span>
       <span class="header-icon hidden-xs">
         <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
       </span>

@@ -1,5 +1,5 @@
 <div class="engagement-meter">
-  <% Organization.all.each do |org| %>
+  <% Organization.where(engagement_meter_display: true).each do |org| %>
     <div class="row">
       <div class="col-md-4 org-name">
         <%= org.name %>
