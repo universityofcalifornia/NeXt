@@ -43,7 +43,6 @@ class UsersController < ApplicationController
   def update
 
     permitted_params = [
-        :email,
         :name_first,
         :name_middle,
         :name_last,
@@ -60,8 +59,19 @@ class UsersController < ApplicationController
     ]
 
     permitted_params << :super_admin if context.is_super_admin?
+    permitted_params << :email if @user.password_hash and @user.password_hash.length > 0
 
-    @user.update params[:user].permit(permitted_params)
+    data = params[:user].permit(permitted_params)
+
+    if @user.password_hash and @user.password_hash.length > 0
+      if params[:user][:password].length > 0
+        if params[:user][:password] == params[:user][:password_confirmation]
+          data[:password_hash] = BCrypt::Password.create(params[:user][:password])
+        end
+      end
+    end
+
+    @user.update data
     @user.competency_ids = params[:user][:competencies]
     @user.resource_ids = params[:user][:resources]
 
