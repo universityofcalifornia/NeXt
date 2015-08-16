@@ -11,6 +11,10 @@
         <%= @badge.badge_category.name %>
         <% end %>
         <%= @badge.type %>
+        <% if @badge.badge_groups %>
+          <br>Auto-assigned to these groups:
+          <%= @badge.badge_groups.map { |bg| link_to bg.group.name, bg.group }.to_sentence.html_safe %>
+        <% end %>
       </div>
       <p><%= @badge.description %></p>
     </div>

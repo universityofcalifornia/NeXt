@@ -6,6 +6,9 @@ class Group < ActiveRecord::Base
   has_many :user, :through => :user_groups
   has_many :user_groups
 
+  has_many :badge_groups, dependent: :destroy
+  has_many :badges, through: :badge_groups, source: :badge
+
   belongs_to :user
 
   scope :most_recent, -> { order(created_at: :desc) }

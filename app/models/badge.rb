@@ -10,6 +10,9 @@ class Badge < ActiveRecord::Base
   has_many :badge_roles, dependent: :destroy
   has_many :users, through: :badge_roles, source: :user
 
+  has_many :badge_groups, dependent: :destroy
+  has_many :groups, through: :badge_groups, source: :group
+
   mount_uploader :image, BadgeUploader
 
   def badge_editor_ids
