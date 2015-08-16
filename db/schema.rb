@@ -422,6 +422,4 @@ ActiveRecord::Schema.define(version: 20150816190116) do
 
   add_foreign_key "groups", "users", name: "groups_user_id_fk"
 
-  add_foreign_key "invites", "events", name: "invites_event_id_fk"
-
 end
