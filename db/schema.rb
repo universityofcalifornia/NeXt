@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815211525) do
+ActiveRecord::Schema.define(version: 20150816190116) do
 
-  create_table "badge_groups", force: true do |t|
+  create_table "badge_categories", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  create_table "badge_groups", force: true do |t|
+    t.integer  "badge_id"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -38,13 +46,13 @@ ActiveRecord::Schema.define(version: 20150815211525) do
     t.string   "name"
     t.text     "description"
     t.string   "image"
-    t.integer  "badge_group_id"
+    t.integer  "badge_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "type"
     t.string   "website_url"
-    t.integer  "points",         default: 0
+    t.integer  "points",            default: 0
   end
 
   add_index "badges", ["name"], name: "index_badges_on_name", using: :btree

@@ -2,13 +2,16 @@ class Badge < ActiveRecord::Base
 
   acts_as_paranoid
 
-  belongs_to :badge_group
+  belongs_to :badge_category
 
   has_many :user_badges, dependent: :destroy
   has_many :users, through: :user_badges
 
   has_many :badge_roles, dependent: :destroy
   has_many :users, through: :badge_roles, source: :user
+
+  has_many :badge_groups, dependent: :destroy
+  has_many :groups, through: :badge_groups, source: :group
 
   mount_uploader :image, BadgeUploader
 

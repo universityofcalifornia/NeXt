@@ -16,6 +16,10 @@ class BadgesController < ApplicationController
     end
   end
 
+  before_action only: [:new, :edit] do
+    @groups = Group.order(name: :asc)
+  end
+
   def index
     @badges = Badge.all
   end
@@ -28,7 +32,8 @@ class BadgesController < ApplicationController
   end
 
   def create
-    @badge = Badge.new params[:badge].permit(:name, :description, :image, :badge_group_id, :type, :website_url, :points)
+    @badge = Badge.new params[:badge].permit(:name, :description, :image, :badge_category_id, :type, :website_url, :points)
+    @badge.group_ids = params[:badge][:groups]
 
     if @badge.save
       @badge.badge_roles << BadgeRole.new(user: current_user, owner: true)
@@ -48,7 +53,8 @@ class BadgesController < ApplicationController
   end
 
   def update
-    if @badge.update params[:badge].permit(:name, :description, :image, :badge_group_id, :type, :website_url, :points)
+    if @badge.update params[:badge].permit(:name, :description, :image, :badge_category_id, :type, :website_url, :points)
+      @badge.group_ids = params[:badge][:groups]
       @badge.badge_editor_ids = params[:badge][:badge_editor_ids] if @badge.is_owned_by? current_user
       @badge.badge_giver_ids  = params[:badge][:badge_giver_ids]
 
