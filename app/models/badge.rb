@@ -2,7 +2,7 @@ class Badge < ActiveRecord::Base
 
   acts_as_paranoid
 
-  belongs_to :badge_group
+  belongs_to :badge_category
 
   has_many :user_badges, dependent: :destroy
   has_many :users, through: :user_badges
