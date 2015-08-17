@@ -1,34 +1,87 @@
-<h1>NeXt Ideas</h1>
-
-<p>A blurb about what UC next is...</p>
+<div class="montage center-block">
+  <%= image_tag "/images/montage.jpg", { class: "hidden-xs" } %>
+</div>
 
 <div class="row">
   <div class="col-md-6">
-    <section class="panel panel-default">
-      <header class="panel-heading">
-        <h4 class="panel-title">Popular Ideas</h4>
-      </header>
-      <div class="panel-body">
-        <ul>
-          <% Idea.top_voted(5).each do |idea| %>
-            <li><%= link_to idea.name, idea %></li>
-          <% end %>
-        </ul>
-      </div>
+    <section class="padded-section">
+      <h1 class="valign-middle">
+        <span>Projects</span>
+        <span class="header-icon hidden-xs">
+          <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive" } %>
+        </span>
+      </h1>
+      <ul class="list-group">
+        <% Project.top_voted(5).each do |idea| %>
+          <li class="list-group-item"><%= link_to idea.name, idea %></li>
+        <% end %>
+      </ul>
     </section>
   </div>
+
   <div class="col-md-6">
-    <section class="panel panel-default">
-      <header class="panel-heading">
-        <h4 class="panel-title">New Ideas</h4>
-      </header>
-      <div class="panel-body">
-        <ul>
-          <% Project.top_voted(5).each do |project| %>
-            <li><%= link_to project.name, project %></li>
-          <% end %>
-        </ul>
-      </div>
+    <section class="padded-section">
+      <h1 class="valign-middle">
+        <span>Ideas</span>
+        <span class="header-icon hidden-xs">
+          <%= image_tag "/images/header_icons/ideas.png", { class: "img-responsive" } %>
+        </span>
+      </h1>
+      <ul class="list-group list-group-secondary">
+        <% Idea.top_voted(5).each do |idea| %>
+          <li class="list-group-item"><%= link_to idea.name, idea %></li>
+        <% end %>
+      </ul>
     </section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <section>
+      <h1 class="valign-middle">
+        <%= link_to "Engagement Meter", engagement_url %>
+        <span class="header-icon hidden-xs">
+          <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
+        </span>
+      </h1>
+      <%= render partial: "shared/engagement_meter", locals: { type: :all } %>
+    </section>
+  </div>
+
+  <div class="col-md-6">
+    <!--
+    <section class="padded-section">
+      <h1 class="valign-middle">
+        <span>Social</span>
+        <span class="header-icon">
+          <%= image_tag "/images/header_icons/social.png", { class: "img-responsive" } %>
+        </span>
+      </h1>
+
+      <% [].each do |item| %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="social-avatar pull-left img-circle"></div>
+            <%= link_to item.author_name, item.url %>
+            <p><%= item.content %></p>
+          </div>
+
+          <div class="panel-footer">
+            <span class="social-icon <%= item.icon_class %>"></span>
+            <%= link_to item.author_handle, item.author_url %>
+            <div class="pull-right">
+              <%= item.time %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </section>
+
+    -->
+
+    <div class="wave-logo hidden-xs" style="margin-top:2em;">
+      <%= image_tag "/images/wave.png", { class: "img-responsive" } %>
+    </div>
   </div>
 </div>

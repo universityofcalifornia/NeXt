@@ -22,6 +22,8 @@ module Ideas
       vote.participate = params[:participate]
       vote.save
 
+      current_user.alter_points :ideas, 1
+
       redirect_to path,
                   flash: {
                     page_alert: "Your support of #{@idea.name} is appreciated!",

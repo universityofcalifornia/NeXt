@@ -16,7 +16,7 @@ class IdeasController < ApplicationController
   def index
     @ideas = Idea.includes(:idea_status)
                  .order(created_at: :desc)
-                 .paginate(page: params[:page], per_page: 50)
+                 .paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -28,6 +28,9 @@ class IdeasController < ApplicationController
     idea = Idea.create params[:idea].permit(:name, :pitch, :description, :idea_status_id)
     idea.idea_roles << IdeaRole.new(user: current_user, founder: true, admin: true)
     idea.competency_ids = params[:idea][:competencies]
+
+    current_user.alter_points :ideas, 3
+
     redirect_to idea_url(idea)
   end
 
@@ -47,6 +50,8 @@ class IdeasController < ApplicationController
 
   def destroy
     @idea.destroy
+    current_user.alter_points :ideas, -3
+
     redirect_to ideas_url
   end
 

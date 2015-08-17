@@ -15,11 +15,31 @@ module Auth
         if !params[:user][:password] or params[:user][:password].length == 0 or params[:user][:password] != params[:user][:password_confirmation]
           flash[:page_alert] = '<strong>Error.</strong> Password and confirmation did not match. Please try again.'
           flash[:page_alert_type] = 'danger'
-          redirect_to new_local_user_registration_url
+          redirect_to new_auth_local_registration_url
         elsif User.where(email: params[:user][:email]).count > 0
           flash[:page_alert] = '<strong>Error.</strong> Account already exists with the specified email address. Please try again.'
           flash[:page_alert_type] = 'danger'
-          redirect_to new_local_user_registration_url
+          redirect_to new_auth_local_registration_url
+        elsif !(params[:user][:email].ends_with?('ucla.edu') or
+            params[:user][:email].ends_with?('berkeley.edu') or
+            params[:user][:email].ends_with?('ucdavis.edu') or
+            params[:user][:email].ends_with?('uci.edu') or
+            params[:user][:email].ends_with?('ucmerced.edu') or
+            params[:user][:email].ends_with?('ucr.edu') or
+            params[:user][:email].ends_with?('ucsd.edu') or
+            params[:user][:email].ends_with?('ucsf.edu') or
+            params[:user][:email].ends_with?('ucsb.edu') or
+            params[:user][:email].ends_with?('ucsc.edu') or
+            params[:user][:email].ends_with?('ucop.edu') or
+            params[:user][:email].ends_with?('lbl.gov') or
+            params[:user][:email].ends_with?('llnl.gov') or
+            params[:user][:email].ends_with?('lanl.gov') or
+            params[:user][:email].ends_with?('ucanr.edu') or
+            params[:user][:email].ends_with?('uchastings.edu') or
+            params[:user][:email].ends_with?('cdlib.org'))
+          flash[:page_alert] = '<strong>Error.</strong> Account email address must be a University email address. Please try again.'
+          flash[:page_alert_type] = 'danger'
+          redirect_to new_auth_local_registration_url
         else
           @user = User.create(email: params[:user][:email],
                               name_first: params[:user][:name_first],

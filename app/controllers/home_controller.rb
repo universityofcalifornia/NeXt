@@ -1,7 +1,14 @@
 class HomeController < ApplicationController
 
   def index
-    return current_user ? dashboard : welcome
+
+    return welcome
+    # TODO: differentiate between welcome and dashboard once we have a dashboard design
+    # return current_user ? dashboard : welcome
+  end
+
+  def about
+
   end
 
   private

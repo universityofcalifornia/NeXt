@@ -1,9 +1,55 @@
 class GroupsController < ApplicationController
   respond_to :json, :html
 
-  def index
-    @groups = Group.all
+  before_action :find_group, only: [:show, :edit, :update, :destroy]
+
+  before_action only: [:show, :edit, :update, :destroy] do
+    @group = Group.find(params[:id])
   end
+
+  before_action only: [:edit, :update, :destroy] do
+    render nothing: true, status: :unauthorized unless @group.is_editable_by? current_user
+  end
+
+  def index
+    @groups = Group.order(created_at: :desc)
+                  .paginate(page: params[:page], per_page: 50)
+  end
+
+  def new
+    @group = Group.new
+  end
+
+  def create
+    group_data = group_params
+    group_data[:user_id] = current_user.id
+    @group = Group.create group_data
+    current_user.groups << @group
+
+    current_user.alter_points :other, 3
+
+    redirect_to group_url(@group)
+  end
+
+  def edit
+  end
+
+  def update
+    @group.update!(group_params)
+    redirect_to group_url(@group)
+  end
+
+  def show
+  end
+
+  def destroy
+    @group.destroy
+    current_user.alter_points :other, -3
+
+    redirect_to groups_url
+  end
+
+  # ajax methods
 
   def ajax_index
     groups = Group.where("name like ?", "%#{params[:q]}%")
@@ -16,6 +62,19 @@ class GroupsController < ApplicationController
     if params[:group_name].present?
       new_group = current_user.created_groups.where(:name => params[:group_name]).first_or_create
       current_user.groups << new_group if params[:checked]
+
+      current_user.alter_points(:other, 3) if new_group.new_record?
     end
   end
+
+  private
+
+  def find_group
+    @group = Group.find_by(:id => params[:id])
+  end
+
+  def group_params
+    params.required(:group).permit(:name, :user_id, :description, :contact_email, :listserv, :meetings, :membership_type)
+  end
+
 end

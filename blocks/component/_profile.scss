@@ -1,9 +1,14 @@
 .profile {
 
-  position: relative;
-
-  header {
-    overflow: auto;
+  .profile-header {
+    .avatar {
+      float: left;
+      margin-right: 16px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 20px;
+    }
   }
   
   .subtitle {
@@ -21,13 +26,13 @@
 
   figure.avatar {
 
-    float: right;
     margin-bottom: 1rem;
 
   }
 
   .positions {
 
+    font-size: 12px;
     list-style: none;
     margin: 0;
     padding: 0;

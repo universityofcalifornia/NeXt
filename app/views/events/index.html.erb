@@ -2,41 +2,80 @@
 <%= button_to 'Create Event',
               new_event_url,
               method: 'get',
-              class: 'btn btn-warning btn-block',
+              class: 'btn btn-create btn-block',
               form_class: 'button_to pull-right' %>
-<%= link_to 'Show all', events_path, class: 'btn btn-warning' %>
+
+  <% if @logged_in %>
+    <%= link_to 'Show all', events_path, class: 'btn btn-create' %>
+  <% else %>
+    <%= link_to 'Show my events', logged_in_events_path, class: 'btn btn-create' %>
+  <% end %>
 <% end %>
+
 <h2>Events</h2>
 
 <%= will_paginate @events %>
 
-<div class="list-group">
+<div class="event-list">
   <% @events.each do |event| %>
-    <a class="list-group-item" href="<%= event_url(event) %>">
+    <a href="<%= event_url(event) %>">
       <div class="row">
+
+        <div class="col-sm-2 date">
+          <% if event.start_datetime or event.stop_datetime %>
+            <% if event.start_datetime and event.stop_datetime %>
+              <% if event.start_datetime.strftime('%b %d %Y') == event.stop_datetime.strftime('%b %d %Y') %>
+                <%= event.start_datetime.strftime('%b %d %Y') %>
+              <% elsif event.start_datetime.strftime('%b %Y') == event.stop_datetime.strftime('%b %Y') %>
+                <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
+              <% elsif event.start_datetime.strftime('%Y') == event.stop_datetime.strftime('%Y')  %>
+                <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%b %d %Y') %>
+              <% else %>
+                <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%b %d %Y') %>
+              <% end %>
+            <% elsif event.start_datetime %>
+              <%= event.start_datetime.strftime('%b %d %Y') %>
+            <% elsif event.stop_datetime %>
+              <%= event.stop_datetime.strftime('%b %d %Y') %>
+            <% end %>
+          <% end %>
+        </div>
+
         <div class="col-sm-10">
           <h4><%= event.name %></h4>
-          <p><%= raw event.description %></p>
-          <p><small>Started on <%= event.created_at.strftime("%B %d, %Y") %></small></p>
-          Start Date:<br/ >
-          <%= event.start_datetime.try(:to_s, (:formatted_date)) %><br />
+          <% if event.short_description %>
+            <p><%= event.short_description %></p>
+          <% end %>
+          <p style="font-size:10px;">
+            <% if event.start_datetime or event.stop_datetime %>
+                <% if event.start_datetime and event.stop_datetime %>
+                    <% if event.start_datetime.strftime('%b %d %Y') == event.stop_datetime.strftime('%b %d %Y') %>
+                        <%= event.start_datetime.strftime('%l:%I %p') %> - <%= event.stop_datetime.strftime('%l:%I %p') %>
+                    <% elsif event.start_datetime.strftime('%b %Y') == event.stop_datetime.strftime('%b %Y') %>
 
-          End Date:<br/ >
-          <%= event.stop_datetime.try(:to_s, (:formatted_date)) %>
+                        <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
+                    <% elsif event.start_datetime.strftime('%Y') == event.stop_datetime.strftime('%Y')  %>
+                        <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
+                    <% else %>
+                        <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
+                    <% end %>
+                <% elsif event.start_datetime %>
+                    <%= event.start_datetime.strftime('%l:%I %p %b %d %Y') %>
+                <% elsif event.stop_datetime %>
+                    <%= event.stop_datetime.strftime('%l:%I %p %b %d %Y') %>
+                <% end %>
+            <% end %>
+            <% if event.location %>
+                @ <%= event.location %>
+            <% end %>
+          </p>
         </div>
-          <p><%= event.event_url %></p>
-          <p><%= event.map_url %></p>
-          <%= render 'events/invite_list', :event => event %><br />
-          <%= render 'events/event_groups', :event => event %><br />
-          <p><%= image_tag event.image_url(:thumb) if event.image? %></p>
-          <p><%#= link_to 'Edit', edit_event_path(event) if current_user %></p>
-        </div>
-        <nav class="col-sm-2">
-          <!-- TODO -->
-        </nav>
+
       </div>
     </a>
   <% end %>
 </div>
 
 <%= will_paginate @events %>
+
+<br><br>

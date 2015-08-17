@@ -1,5 +1,36 @@
 body > main {
+  section {
+    margin: 20px auto;
 
-  margin: 1rem 0 4rem;
+    &.padded-section {
+      padding: 0 50px;
+    }
 
+    h1 {
+      text-align: center;
+    }
+  }
+
+  .montage {
+    overflow-x: hidden;
+
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      width: 640px;
+    }
+
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+      background-color: orange;
+      width: 896px;
+    }
+
+    @media (min-width: $screen-lg-min) {
+      width: 1024px;
+    }
+  }
+
+  .wave-logo {
+    max-width: 500px;
+    float: right;
+    margin-bottom: -15px;
+  }
 }

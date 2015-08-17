@@ -1,10 +1,12 @@
-<h2>People</h2>
+<h2 class="valign-middle text-center">
+  <%= image_tag "/images/header_icons/people.png", { class: "header-icon" } %>
+  <span>People</span>
+</h2>
 
-<%= will_paginate @users %>
-
-<table class="table table-stripped">
+<table class="table table-striped people-table">
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Position</th>
       <th>Organization</th>
@@ -15,25 +17,36 @@
   <tbody>
   <% @users.each do |user| %>
   <tr>
-    <td><%= link_to user.display_name(:lf), user_url(user) %></td>
+    <td class="avatar-cell"><%= gravatar_tag user.email, size: 40 %></td>
+    <td><%= link_to user.display_name, user_url(user) %></td>
     <td><%= user.primary_position ? user.primary_position.title : '' %></td>
     <td><%= user.primary_organization ? user.primary_organization.name : '' %></td>
     <td><%= user.created_at.strftime("%B %d, %Y") %></td>
     <td>
       <% if user.website %>
-        <%= link_to 'WWW', user.website_url, target: '_blank' %>
+        <%= link_to user.website_url, target: '_blank' do %>
+          <%= image_tag "/images/links/www.png", alt: "WWW", class: "social-icon" %>
+        <% end %>
       <% end %>
       <% if user.social_github %>
-        <%= link_to 'GH', user.social_github_url, target: '_blank' %>
+        <%= link_to user.social_github_url, target: '_blank' do %>
+          <%= image_tag "/images/links/github.png", alt: "GitHub", class: "social-icon" %>
+        <% end %>
       <% end %>
       <% if user.social_google %>
-        <%= link_to 'G+', user.social_google_url, target: '_blank' %>
+        <%= link_to user.social_google_url, target: '_blank' do %>
+          <%= image_tag "/images/links/google.png", alt: "Google+", class: "social-icon" %>
+        <% end %>
       <% end %>
       <% if user.social_linkedin %>
-        <%= link_to 'LI', user.social_linkedin_url, target: '_blank' %>
+        <%= link_to user.social_linkedin_url, target: '_blank' do %>
+          <%= image_tag "/images/links/linkedin.png", alt: "LinkedIn", class: "social-icon" %>
+        <% end %>
       <% end %>
       <% if user.social_twitter %>
-        <%= link_to 'TW', user.social_twitter_url, target: '_blank' %>
+        <%= link_to user.social_twitter_url, target: '_blank' do %>
+          <%= image_tag "/images/links/twitter.png", alt: "Twitter", class: "social-icon" %>
+        <% end %>
       <% end %>
     </td>
   </tr>
