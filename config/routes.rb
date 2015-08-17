@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   post 'search', to: 'search#default'
 
   get 'about', to: 'home#about'
+  get 'engagement', to: 'home#engagement'
 
   root 'home#index'
 
