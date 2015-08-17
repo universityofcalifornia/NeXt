@@ -1,0 +1,63 @@
+<%= form_for @group, html: { class: 'form-horizontal', :multipart => true } do |f| %>
+    <%= render 'shared/errors', :object => @group %>
+
+    <% if params[:return_to] %>
+        <%= f.hidden_field :return_to, name: :return_to, value: params[:return_to] %>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :contact_email, 'Contact (email)', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :contact_email, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :listserv, 'Listserv', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_field :listserv, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :meetings, 'Meeting Times / Locations', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.text_area :meetings, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :membership_type, 'Membership Type', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= select_tag :membership_type,
+                       options_for_select(['Open to UC','Open to Public', 'Invite-only']),
+                       { class: 'form-control' } %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit(@group.new_record? ? 'Create' : 'Update', class: 'btn btn-success', id: "group_submit") %>
+      </div>
+    </div>
+<% end %>
+
+<script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script>
+<script type="text/javascript">
+    CKEDITOR.replace( 'group_description' );
+    CKEDITOR.replace( 'group_meetings' );
+</script>

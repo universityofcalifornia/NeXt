@@ -1,0 +1,52 @@
+.event-list {
+  padding: 0 1em;
+  .row {
+    background-color: $panel-bg;
+    border: solid $panel-inner-border;
+    border-width: 0 1px 1px 1px;
+  }
+  a:first-child .row {
+    border-top-width: 1px;
+  }
+  a {
+    color: #000;
+  }
+  h4, p {
+    margin: 0;
+  }
+  .date {
+    color: #000;
+    font-size: 24px;
+    font-weight: bold;
+    @media(min-width: $screen-sm-min){
+      text-align: center;
+    }
+  }
+}
+
+.event-info {
+  img {
+    max-width: 100%;
+  }
+  padding: 0 1px;
+  @media(min-width: $screen-sm-min){
+    .split-panels {
+      overflow: auto;
+      .panel {
+        width: 50%;
+        float: left;
+        &:last-child {
+          border-left-width: 0px;
+        }
+      }
+    }
+  }
+  .panel {
+    border-top-width: 0;
+    margin: 0;
+  }
+  font-size: 0.9em;
+  p {
+    margin: 0.35em 0;
+  }
+}

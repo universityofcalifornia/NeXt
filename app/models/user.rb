@@ -127,4 +127,28 @@ class User < ActiveRecord::Base
     body
   end
 
+  def alter_points(type, diff)
+    case
+    when type == :ideas
+      self.idea_points    = [0, idea_points    + diff].max
+    when type == :projects
+      self.project_points = [0, project_points + diff].max
+    else
+      self.other_points   = [0, other_points   + diff].max
+    end
+    self.save
+
+    if primary_organization
+      case
+      when type == :ideas
+        primary_organization.idea_points    = [0, primary_organization.idea_points    + diff].max
+      when type == :projects
+        primary_organization.project_points = [0, primary_organization.project_points + diff].max
+      else
+        primary_organization.other_points   = [0, primary_organization.other_points   + diff].max
+      end
+      primary_organization.save
+    end
+  end
+
 end

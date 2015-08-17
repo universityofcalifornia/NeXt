@@ -27,6 +27,7 @@ class CommentsController < ApplicationController
 
     begin
       context.user.comments.create!(params[:comment].permit(:parent_id, :idea_id, :body, :commit))
+      current_user.alter_points :ideas, 2
       flash[:page_alert] = "Thanks for commenting!"
       flash[:page_alert_type] = 'success'
 

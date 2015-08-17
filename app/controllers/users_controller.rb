@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action only: [:show, :edit, :update] do
+  before_action only: [:show, :edit, :update, :destroy] do
     @user = User.find(params[:id])
   end
 
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def index
     @users = User.includes(:positions, :organizations)
                  .order(:name_last, :name_first)
-                 .paginate(page: params[:page], per_page: 50)
+                 .paginate(page: params[:page], per_page: 15)
   end
 
   def show
@@ -30,6 +30,9 @@ class UsersController < ApplicationController
     @involved_projects = @user.project_roles.where('founder = 0 and admin = 0').includes(:project).take(5).map(){ |project_role| project_role.project }
     @supported_projects = @user.project_votes.includes(:project).take(5).map(&:project)
     @showcased_badges = @user.user_badges.where(showcase: true).take(5).map(&:badge)
+    @givable_badges = Badge.all.select { |badge| badge.is_givable_by? current_user }
+    @founded_groups = Group.where(user_id: @user.id)
+    @groups = @user.groups
   end
 
   def edit
@@ -41,7 +44,6 @@ class UsersController < ApplicationController
   def update
 
     permitted_params = [
-        :email,
         :name_first,
         :name_middle,
         :name_last,
@@ -58,8 +60,19 @@ class UsersController < ApplicationController
     ]
 
     permitted_params << :super_admin if context.is_super_admin?
+    permitted_params << :email if @user.password_hash and @user.password_hash.length > 0
 
-    @user.update params[:user].permit(permitted_params)
+    data = params[:user].permit(permitted_params)
+
+    if @user.password_hash and @user.password_hash.length > 0
+      if params[:user][:password].length > 0
+        if params[:user][:password] == params[:user][:password_confirmation]
+          data[:password_hash] = BCrypt::Password.create(params[:user][:password])
+        end
+      end
+    end
+
+    @user.update data
     @user.competency_ids = params[:user][:competencies]
     @user.resource_ids = params[:user][:resources]
 
@@ -78,6 +91,11 @@ class UsersController < ApplicationController
 
     redirect_to user_url(@user)
 
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to users_url
   end
 
 end

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :resources
 
-  resources :users, only: [:index, :show, :edit, :update] do
+  resources :users, only: [:index, :show, :edit, :update, :destroy] do
     scope module: 'users' do
       resources :badges, only: [:index, :new, :create, :update, :destroy]
     end
@@ -64,6 +64,9 @@ Rails.application.routes.draw do
 
   get 'search', to: 'search#default'
   post 'search', to: 'search#default'
+
+  get 'about', to: 'home#about'
+  get 'engagement', to: 'home#engagement'
 
   root 'home#index'
 

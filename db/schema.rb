@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725000416) do
+ActiveRecord::Schema.define(version: 20150816190116) do
 
-  create_table "badge_groups", force: true do |t|
+  create_table "badge_categories", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  create_table "badge_groups", force: true do |t|
+    t.integer  "badge_id"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -38,12 +46,13 @@ ActiveRecord::Schema.define(version: 20150725000416) do
     t.string   "name"
     t.text     "description"
     t.string   "image"
-    t.integer  "badge_group_id"
+    t.integer  "badge_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "type"
     t.string   "website_url"
+    t.integer  "points",            default: 0
   end
 
   add_index "badges", ["name"], name: "index_badges_on_name", using: :btree
@@ -111,6 +120,7 @@ ActiveRecord::Schema.define(version: 20150725000416) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "image"
+    t.text     "short_description"
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
@@ -121,6 +131,11 @@ ActiveRecord::Schema.define(version: 20150725000416) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "user_id"
+    t.text     "description"
+    t.string   "contact_email"
+    t.text     "listserv"
+    t.text     "meetings"
+    t.string   "membership_type"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
@@ -214,6 +229,10 @@ ActiveRecord::Schema.define(version: 20150725000416) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "idea_points",              default: 0
+    t.integer  "project_points",           default: 0
+    t.integer  "other_points",             default: 0
+    t.boolean  "engagement_meter_display", default: false
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", using: :btree
@@ -389,6 +408,9 @@ ActiveRecord::Schema.define(version: 20150725000416) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "password_hash"
+    t.integer  "idea_points",         default: 0
+    t.integer  "project_points",      default: 0
+    t.integer  "other_points",        default: 0
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
@@ -400,7 +422,5 @@ ActiveRecord::Schema.define(version: 20150725000416) do
   add_foreign_key "event_groups", "groups", name: "event_groups_group_id_fk"
 
   add_foreign_key "groups", "users", name: "groups_user_id_fk"
-
-  add_foreign_key "invites", "events", name: "invites_event_id_fk"
 
 end
