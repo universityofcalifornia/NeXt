@@ -11,7 +11,7 @@
         <%= @badge.badge_category.name %>
         <% end %>
         <%= @badge.type %>
-        <% if @badge.badge_groups %>
+        <% if @badge.badge_groups.any? %>
           <br>Auto-assigned to these groups:
           <%= @badge.badge_groups.map { |bg| link_to bg.group.name, bg.group }.to_sentence.html_safe %>
         <% end %>
