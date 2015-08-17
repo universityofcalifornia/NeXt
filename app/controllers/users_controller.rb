@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def index
     @users = User.includes(:positions, :organizations)
                  .order(:name_last, :name_first)
-                 .paginate(page: params[:page], per_page: 50)
+                 .paginate(page: params[:page], per_page: 15)
   end
 
   def show

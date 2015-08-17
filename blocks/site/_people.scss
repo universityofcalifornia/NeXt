@@ -1,0 +1,15 @@
+.people-table {
+  th {
+    color: $brand-primary;
+    text-transform: uppercase;
+  }
+
+  .avatar-cell {
+    padding: 0;
+    width: 40px;
+  }
+}
+
+.social-icon {
+  height: 20px;
+}
