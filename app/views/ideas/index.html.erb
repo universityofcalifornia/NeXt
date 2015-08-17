@@ -54,18 +54,18 @@
         </p>
       </div>
     </div>
-  </div>
 
-  <div class="col-md-6">
     <h1>5 Top Trending Ideas</h1>
     <ul class="list-group list-group-secondary">
       <% Idea.top_voted(5).each do |idea| %>
         <li class="list-group-item"><%= link_to idea.name, idea %></li>
       <% end %>
     </ul>
+  </div>
 
+  <div class="col-md-6">
     <h1 class="valign-middle">
-      <span>Engagement Meter</span>
+      <span>Ideas Engagement Meter</span>
       <span class="header-icon hidden-xs">
         <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
       </span>

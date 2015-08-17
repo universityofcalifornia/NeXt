@@ -1,0 +1,33 @@
+<h2 class="valign-middle text-center">
+  <%= image_tag "/images/header_icons/engagement_meter.png", { class: "nav-icon" } %>
+  <span>UC Next Engagement Meter</span>
+</h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <h1>Engagement Meter</h1>
+    <p>UC Next is all about incentivizing collaboration using gamification techniques. This includes a UC System wide Engagement meter, which allows the campus locations a friendly but competitive measure of engagement. Points are given to participants in different amounts for winning awards, submitting ideas and collaborating on projects.</p>
+
+    <%= render partial: "shared/engagement_meter", locals: { type: :ideas } %>
+  </div>
+
+  <div class="col-md-6">
+    <h1>How to get points:</h1>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>1) Setting up a Profile ADD 2 points; DELETE a profile SUBTRACT 2 points</p>
+        <p>2) Create a project ADD 5 points ; DELETE a project SUBTRACT 5 points</p>
+        <p>4) Like a project ADD 1 point</p>
+        <p>5) Comment on a project - ADD 2 points</p>
+        <p>3) Create an Idea ADD 3 points; DELETE an Idea SUBTRACT 3 points</p>
+        <p>4) Like an Idea ADD 1 point</p>
+        <p>5) Comment on an idea - ADD 2 points</p>
+        <p>6) Create a Group ADD 3 points ( DELETE a group - can only be done - if you are the only person in the group)</p>
+        <p>7) Join a Group ADD 1 point; LEAVE a group SUBTRACT 1 point</p>
+        <p>8) Awarding a GOLD Sautter Award for your campus = 50 points for you and your campus</p>
+        <p>9) Awarding a SILVER Sautter Award for your campus = 25 points for you and your campus</p>
+        <p>10) Removing an award subtracts those points</p>
+      </div>
+    </div>
+  </div>
+</div>
