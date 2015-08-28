@@ -23,6 +23,7 @@ class Idea < ActiveRecord::Base
   scope :top_voted, -> (limit = nil) {
     joins("LEFT JOIN `idea_votes` ON `idea_votes`.`idea_id` = `ideas`.`id`")
       .select("`ideas`.`id`, `ideas`.`name`, COUNT(`idea_votes`.`id`) AS `votes`")
+      .where("`ideas`.`idea_status_id` != 5")
       .group("`ideas`.`id`")
       .order("votes DESC")
       .limit(limit)
@@ -36,8 +37,16 @@ class Idea < ActiveRecord::Base
     user and (idea_votes.where(user_id: user.id).count > 0)
   end
 
+  def would_particpate? user
+    user and (idea_votes.where(user_id: user.id, participate: true).count > 0)
+  end
+
   def voted_by user
     idea_votes.find_by_user_id(user.id) || idea_votes.new(:user => user)
+  end
+
+  def abandoned?
+    idea_status.name == "Abandoned"
   end
 
   # ELASTICSEARCH

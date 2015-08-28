@@ -18,6 +18,7 @@ module Ideas
       end
 
       vote = @idea.voted_by current_user
+
       vote.participate = params[:participate]
       vote.save
 
@@ -25,9 +26,45 @@ module Ideas
 
       redirect_to path,
                   flash: {
-                    page_alert: "Your support of <strong>#{@idea.name}</strong> is appreciated!",
+                    page_alert: "Your support of #{@idea.name} is appreciated!",
                     page_alert_type: 'success'
                   }
+
+    end
+
+    def update
+
+      path = params[:return_to] || idea_path(@idea)
+      vote = @idea.voted_by current_user
+
+      if vote.participate && params[:participate]=="false"
+        page_alert_msg = "You have withrawn your participation from #{@idea.name}"
+      elsif ! vote.participate && params[:participate]=="true"
+        page_alert_msg = "Thank you for participating in #{@idea.name}!"
+      end
+
+      vote.participate = params[:participate]
+      vote.save
+
+      redirect_to path,
+                flash: {
+                  page_alert: page_alert_msg,
+                  page_alert_type: 'success'
+                }
+
+    end
+
+    def destroy
+  
+      path = params[:return_to] || idea_path(@idea)
+      vote = @idea.voted_by current_user
+      vote.destroy
+  
+      redirect_to path,
+                flash: {
+                  page_alert: "Your support of #{@idea.name} has been withdrawn.",
+                  page_alert_type: 'success'
+                }
 
     end
 

@@ -13,7 +13,9 @@
       <div class="panel-body">
         <ul>
           <% Idea.top_voted(5).each do |idea| %>
-            <li><%= link_to idea.name, idea %></li>
+            <% unless @idea.abandoned? %>
+              <li><%= link_to idea.name, idea %></li>
+            <% end %>
           <% end %>
         </ul>
       </div>

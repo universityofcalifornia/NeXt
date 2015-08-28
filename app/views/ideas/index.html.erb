@@ -84,7 +84,7 @@
       <% end %>
 
       <div class="col-md-4 panel-cell">
-        <% unless idea.has_been_voted_for_by? current_user %>
+        <% unless idea.has_been_voted_for_by? current_user or idea.abandoned? %>
           <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
           <%= render partial: "shared/vote_dialog", locals: {
             object: idea,
