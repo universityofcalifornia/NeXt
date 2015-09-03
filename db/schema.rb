@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150816190116) do
+ActiveRecord::Schema.define(version: 20150902220120) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20150816190116) do
   end
 
   add_index "idea_votes", ["created_at"], name: "index_idea_votes_on_created_at", using: :btree
+  add_index "idea_votes", ["idea_id"], name: "index_idea_votes_on_idea_id", using: :btree
 
   create_table "ideas", force: true do |t|
     t.integer  "idea_status_id"
