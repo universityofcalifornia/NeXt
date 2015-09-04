@@ -32,6 +32,10 @@ class Idea < ActiveRecord::Base
     user and (idea_roles.where(user_id: user.id).count > 0 or user.super_admin)
   end
 
+  def is_votable_by? user
+    user and !has_been_voted_for_by? user
+  end
+
   def has_been_voted_for_by? user
     user and (idea_votes.where(user_id: user.id).count > 0)
   end
