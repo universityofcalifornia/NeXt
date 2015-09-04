@@ -28,8 +28,8 @@ class Organization < ActiveRecord::Base
 
     # Cache the points to avoid calculating again
     unless @engagement_points_max.has_key? type
-      @engagement_points_max[type] =
-        Organization.where(engagement_meter_display: true).maximum(
+      orgs = type == :full_list ? Organization : Organization.where(engagement_meter_display: true)
+      @engagement_points_max[type] = orgs.maximum(
         case type
         when :ideas
           :idea_points
