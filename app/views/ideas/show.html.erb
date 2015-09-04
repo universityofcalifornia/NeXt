@@ -75,16 +75,50 @@
 
       <section class="panel panel-invisible">
 
-        <% if @idea.is_votable_by? current_user %>
+        <% if @idea.has_been_voted_for_by? current_user %>
 
-        <%= button_to 'Good Idea',
+          <% if @idea.would_particpate? current_user %>
+
+            <%= button_to 'Withdraw Participation',
+                      idea_vote_url(@idea,@idea.voted_by(current_user)),
+                      method: :put,
+                      params: { participate: false },
+                      class: 'btn btn-withdraw-participation btn-block',
+                      form_class: 'button_to full-width' %>
+
+            <%= button_to 'Withdraw Support',
+                      idea_vote_url(@idea,@idea.voted_by(current_user)),
+                      method: :delete,
+                      class: 'btn btn-withdraw-support btn-block',
+                      form_class: 'button_to full-width' %>
+
+          <% else %>
+
+            <%= button_to 'Would Participate',
+                      idea_vote_url(@idea,@idea.voted_by(current_user)),
+                      method: :put,
+                      params: { participate: true },
+                      class: 'btn btn-success btn-block',
+                      form_class: 'button_to full-width' %>
+
+            <%= button_to 'Withdraw Support',
+                      idea_vote_url(@idea,@idea.voted_by(current_user)),
+                      method: :delete,
+                      class: 'btn btn-withdraw-support btn-block',
+                      form_class: 'button_to full-width' %>
+
+          <% end %>
+
+        <% elsif @idea.is_votable_by? current_user %>
+
+          <%= button_to 'Good Idea',
                       idea_votes_url(@idea),
                       method: :post,
                       params: { participate: false },
                       class: 'btn btn-support btn-block',
                       form_class: 'button_to full-width' %>
 
-        <%= button_to 'Would Participate',
+          <%= button_to 'Would Participate',
                       idea_votes_url(@idea),
                       method: :post,
                       params: { participate: true },
@@ -164,5 +198,3 @@
   </div>
 
 </div>
-
-
