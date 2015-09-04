@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902173611) do
+ActiveRecord::Schema.define(version: 20150902220120) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
