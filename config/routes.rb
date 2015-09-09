@@ -19,7 +19,11 @@ Rails.application.routes.draw do
 
   get '/comments/new/(:parent_id)', to: 'comments#new', as: 'new_comment'
 
-  resources :competencies
+  resources :competencies do
+    collection do
+      get 'ajax_index'
+    end
+  end
 
   resources :resources
 

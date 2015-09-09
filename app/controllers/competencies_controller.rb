@@ -1,6 +1,8 @@
 class CompetenciesController < ApplicationController
 
-  before_action except: [:show] do
+  respond_to :json, :html
+
+  before_action except: [:show,:ajax_index] do
     if current_user
       unless current_user.super_admin
         raise Application::Error.new "You do not have permission to manage competencies. Please try searching by user instead."
@@ -38,6 +40,15 @@ class CompetenciesController < ApplicationController
   def destroy
     @competency.destroy
     redirect_to competencies_url
+  end
+
+  # ajax methods
+
+  def ajax_index
+    competencies = Competency.where("name like ?", "%#{params[:q]}%")
+    user_competencies = current_user.competencies.map(&:id)
+    new_competencies = competencies.reject{|n| user_competencies.include?(n.id)}
+    render json: new_competencies.as_json(only: [:id, :name])
   end
 
 end

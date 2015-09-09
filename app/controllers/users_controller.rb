@@ -73,7 +73,7 @@ class UsersController < ApplicationController
     end
 
     @user.update data
-    @user.competency_ids = params[:user][:competencies]
+    @user.competency_ids = params[:user][:competencies].split(',')
     @user.resource_ids = params[:user][:resources]
 
     if params[:primary_position_organization_id]
