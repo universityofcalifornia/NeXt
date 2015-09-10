@@ -85,7 +85,7 @@
   <div class="form-group">
     <%= f.label :groups, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :group_tokens, "data-pre" => @event.groups.map(&:name).compact %>
+      <%= f.text_field :group_tokens %>
     </div>
   </div>
 
@@ -107,7 +107,7 @@ $(document).ready(function () {
   $("#event_group_tokens").tokenInput("/groups/ajax_index.json", {
     crossDomain: false,
     preventDuplicates: true,
-    prePopulate: $('#event_group_tokens').data('pre')
+    prePopulate: <%= raw(@event.groups.to_json( :only => [ :id, :name ] )) %>
   });
 
   $('#event_start_datetime').datetimepicker({
