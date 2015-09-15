@@ -1,5 +1,7 @@
 # NeXt Platform
 
+[![Join the chat at https://gitter.im/universityofcalifornia/NeXt](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/universityofcalifornia/NeXt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Status
 
 [![Dependency Status](https://gemnasium.com/universityofcalifornia/NeXt.png)](https://gemnasium.com/universityofcalifornia/NeXt) [![Code Climate](https://codeclimate.com/github/universityofcalifornia/NeXt.png)](https://codeclimate.com/github/universityofcalifornia/NeXt) [![Build Status](https://travis-ci.org/universityofcalifornia/NeXt.png?branch=master)](https://travis-ci.org/universityofcalifornia/NeXt) [![Coverage Status](https://coveralls.io/repos/universityofcalifornia/NeXt/badge.png?branch=master)](https://coveralls.io/r/universityofcalifornia/NeXt?branch=master)
