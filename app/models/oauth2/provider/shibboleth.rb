@@ -39,7 +39,17 @@ module OAuth2
         end
 
         def access_token code, properties
-          self.client.auth_code.get_token(code, properties)
+          Rails.logger.info("Beginning OAuth2 access token process.")
+
+          begin
+            token = self.client.auth_code.get_token(code, properties)
+          rescue => error
+            Rails.logger.error("Could not obtain OAuth token. " + error)
+          end
+
+          Rails.logger.info("Finished with OAuth access token process.")
+
+          token
         end
 
         def new_with_authorization code, properties
