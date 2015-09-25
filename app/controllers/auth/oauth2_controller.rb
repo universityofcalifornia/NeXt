@@ -27,7 +27,7 @@ module Auth
 
       provider_user = provider.get_user
 
-      Rails.logger.info('User' + provider_user.id + 'is authorized.')
+      Rails.logger.info('User ' + provider_user.id + ' is authorized.')
 
       identity = Oauth2Identity.find_or_create_by provider: @provider_name,
                                                   provider_user_id: provider_user.id
