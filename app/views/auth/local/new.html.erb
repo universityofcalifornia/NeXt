@@ -23,13 +23,17 @@
   </nav>
 
   <nav class="col-sm-6">
-    <% if Rails.application.config.respond_to?(:oauth2) and Rails.application.config.oauth2.respond_to?(:provider) and Rails.application.config.oauth2.provider.respond_to?(:shibboleth) and Rails.application.config.oauth2.provider.shibboleth.respond_to?(:enabled) and Rails.application.config.oauth2.provider.shibboleth.enabled %>
+    <% if Rails.application.config.try(:oauth2).try(:provider).try(:shibboleth).try(:enabled) %>
         <div class="panel panel-primary">
           <header class="panel-heading">
             Campus Login
           </header>
           <div class="panel-body">
             <p>Have a campus login account?</p>
+            <p class="small">
+              Available for UCLA, UCSC, UCSD, and more campuses SSO coming soon.
+              If you are from a UC campus/location not on this list use the Local Login for now.
+            </p>
             <p><%= link_to 'Log In with Campus Account', auth_oauth2_launch_url(:shibboleth), class: 'btn btn-primary' %></p>
           </div>
     <% end %>
