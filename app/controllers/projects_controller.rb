@@ -33,6 +33,7 @@ class ProjectsController < ApplicationController
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
+      @project.refresh_index!
 
       current_user.alter_points :projects, 5
 
@@ -54,6 +55,7 @@ class ProjectsController < ApplicationController
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
+      @project.refresh_index!
 
       redirect_to params[:return_to] || project_url(@project)
 

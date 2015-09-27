@@ -75,6 +75,7 @@ class UsersController < ApplicationController
     @user.update data
     @user.competency_ids = params[:user][:competencies].split(',')
     @user.resource_ids = params[:user][:resources]
+    @user.refresh_index!
 
     if params[:primary_position_organization_id]
       if params[:primary_position_organization_id] != '0'
