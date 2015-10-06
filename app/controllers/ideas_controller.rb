@@ -28,6 +28,7 @@ class IdeasController < ApplicationController
     idea = Idea.create params[:idea].permit(:name, :pitch, :description, :idea_status_id)
     idea.idea_roles << IdeaRole.new(user: current_user, founder: true, admin: true)
     idea.competency_ids = params[:idea][:competencies]
+    idea.refresh_index!
 
     current_user.alter_points :ideas, 3
 
@@ -45,6 +46,7 @@ class IdeasController < ApplicationController
   def update
     @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
     @idea.competency_ids = params[:idea][:competencies]
+    @idea.refresh_index!
     redirect_to params[:return_to] ? params[:return_to] : idea_url(@idea)
   end
 

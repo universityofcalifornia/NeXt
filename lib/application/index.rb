@@ -26,6 +26,11 @@ module Application
       index_client.delete index_identity
     end
 
+    def refresh_index!
+      destroy_index! if index_exists?
+      create_index!
+    end
+
     def index_exists?
       index_client.exists index_identity
     end
