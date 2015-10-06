@@ -3,7 +3,7 @@
   <% orgs = (type == :full_list) ? Organization.all : Organization.where(engagement_meter_display: true) %>
   <% orgs.each do |org| %>
     <div class="row">
-      <div class="col-md-3 org-name text-right">
+      <div class="col-md-3 org-name text-right-md text-right-lg">
         <%= org.shortname %>
       </div>
       <div class="col-md-9 progress-container">
