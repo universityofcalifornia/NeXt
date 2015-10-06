@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row wave-logo">
   <div class="col-md-6">
     <section>
       <h1 class="valign-middle">
@@ -47,41 +47,5 @@
       </h1>
       <%= render partial: "shared/engagement_meter", locals: { type: :all } %>
     </section>
-  </div>
-
-  <div class="col-md-6">
-    <!--
-    <section class="padded-section">
-      <h1 class="valign-middle">
-        <span>Social</span>
-        <span class="header-icon">
-          <%= image_tag "/images/header_icons/social.png", { class: "img-responsive" } %>
-        </span>
-      </h1>
-
-      <% [].each do |item| %>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="social-avatar pull-left img-circle"></div>
-            <%= link_to item.author_name, item.url %>
-            <p><%= item.content %></p>
-          </div>
-
-          <div class="panel-footer">
-            <span class="social-icon <%= item.icon_class %>"></span>
-            <%= link_to item.author_handle, item.author_url %>
-            <div class="pull-right">
-              <%= item.time %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </section>
-
-    -->
-
-    <div class="wave-logo hidden-xs" style="margin-top:2em;">
-      <%= image_tag "/images/wave.png", { class: "img-responsive" } %>
-    </div>
   </div>
 </div>
