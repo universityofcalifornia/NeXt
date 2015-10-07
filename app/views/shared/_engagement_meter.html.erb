@@ -3,10 +3,10 @@
   <% orgs = (type == :full_list) ? Organization.all : Organization.where(engagement_meter_display: true) %>
   <% orgs.each do |org| %>
     <div class="row">
-      <div class="col-md-4 org-name">
+      <div class="col-md-3 org-name text-right-md text-right-lg">
         <%= org.shortname %>
       </div>
-      <div class="col-md-8 progress-container">
+      <div class="col-md-9 progress-container">
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="<%= org.engagement_points(type) %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= org.engagement_points_percent(type) %>%;">
             <span class="sr-only"><%= org.engagement_points(type) %> points</span>
@@ -17,8 +17,8 @@
   <% end %>
 
   <div class="row hidden-xs hidden-sm">
-    <div class="col-md-4"></div>
-    <div class="col-md-8 engagement-footer">
+    <div class="col-md-3"></div>
+    <div class="col-md-9 engagement-footer">
       <% 10.times do %>
         <div class="ruler-line"></div>
       <% end %>
@@ -26,8 +26,8 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-8 text-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-9 text-center">
       COLLABORATION POINTS
     </div>
   </div>

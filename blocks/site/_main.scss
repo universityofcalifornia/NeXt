@@ -29,8 +29,11 @@ body > main {
   }
 
   .wave-logo {
-    max-width: 500px;
-    float: right;
-    margin-bottom: -15px;
+    @media (min-width: $screen-md-min) {
+      background-image: url(/images/wave.png);
+      background-size: 40%;
+      background-repeat: no-repeat;
+      background-position: right 15px bottom -10px;
+    }
   }
 }
