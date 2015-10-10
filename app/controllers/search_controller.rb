@@ -33,17 +33,43 @@ class SearchController < ApplicationController
 
     search_body['size'] = params[:limit] if params.include?(:limit)
     search_body['from'] = params[:offset] if params.include?(:offset)
+
     search_body['query'] = {
-      'bool' => {
-        'must' => [
+      "function_score" => {
+        "query" => {
+          'bool' => {
+            'should' => [
+              {
+                'multi_match' => {
+                  'query' => params[:query],
+                  'type' => 'phrase_prefix',
+                  'fields' => ['title', 'description', 'competencies']
+                }
+              }
+            ]
+          }
+        },
+        "functions": [
           {
-            'multi_match' => {
-              'query' => params[:query],
-              'type' => 'phrase_prefix',
-              'fields' => ['_all']
+            "exp": {
+              "created_at": {
+                "origin": Time.now.strftime('%Y-%m-%dT%H:%M:%S%:z'), #"2015-09-27T23:50:00",
+                "scale": "180d",
+                "offset": "90d",
+                "decay": 0.6
+              }
+            }
+          },
+          {
+            "field_value_factor": {
+              "field": "votes",
+              "factor": 4, # gives ideas and projects as 3x weight over users
+              "modifier": "sqrt",
+              "missing": 0.25
             }
           }
-        ]
+        ],
+        "score_mode": "multiply" # default
       }
     }
 
@@ -68,7 +94,8 @@ class SearchController < ApplicationController
           :title => model.send(TYPE_MAP[r['_type']][:title_method]),
           :type => TYPE_MAP[r['_type']][:type_name],
           :score => r['_score'],
-          :description => TYPE_MAP[r['_type']][:description_proc].call(model)
+          :description => TYPE_MAP[r['_type']][:description_proc].call(model),
+          :r => r
         })
       rescue => e
         puts e
