@@ -14,11 +14,34 @@ class HomeController < ApplicationController
   private
 
   def dashboard
+
+    @ideas = perform_search { |query|
+      query.type 'ideas'
+      query.limit 5
+    }.map { |r| r.model }
+
+    @projects = perform_search { |query|
+      query.type 'projects'
+      query.limit 5
+    }.map { |r| r.model }
+
     render 'dashboard'
   end
 
   def welcome
+
+    @ideas = perform_search { |query|
+      query.type 'ideas'
+      query.limit 5
+    }.map { |r| r.model }
+
+    @projects = perform_search { |query|
+      query.type 'projects'
+      query.limit 5
+    }.map { |r| r.model }
+
     render 'welcome'
+
   end
 
 end
