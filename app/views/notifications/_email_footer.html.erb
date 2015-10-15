@@ -1,0 +1,6 @@
+<hr>
+UC NeXt (<%= link_to root_url, root_url %>)<br>
+<% unless @user.nil? %>
+  You can unsubscribe from these emails on your
+  <%= link_to "profile preferences page", edit_user_url(@user) %>.
+<% end %>
