@@ -1,0 +1,8 @@
+<%= image_tag @badge.image %>
+<p>
+  Congratulations, you have received a <%= @badge.name %> badge!
+</p>
+<p>
+  You can see all your badges on your
+  <%= link_to "badges page", user_badges_url(@user) %>.
+</p>

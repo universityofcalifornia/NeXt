@@ -37,8 +37,7 @@ module Users
     end
 
     def create
-      @user.badges << @badge
-      @user.alter_points :other, @badge.points
+      @user.give_badge @badge
 
       redirect_to user_badges_url
     end

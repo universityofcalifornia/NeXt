@@ -127,6 +127,12 @@ class User < ActiveRecord::Base
     body
   end
 
+  def give_badge badge
+    badges << badge
+    alter_points :other, badge.points
+    Notifications.badge_received(badge, self).deliver
+  end
+
   def alter_points(type, diff)
     case
     when type == :ideas
