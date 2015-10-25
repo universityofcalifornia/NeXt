@@ -1,7 +1,13 @@
 logger.progname = 'Seed - Users'
 
+logger.info 'Disabling foreign key checks'
+ActiveRecord::Base.connection.execute('SET foreign_key_checks = 0;')
+
 logger.info 'Truncate'
 User.truncate
+
+logger.info 'Enabling foreign key checks'
+ActiveRecord::Base.connection.execute('SET foreign_key_checks = 1;')
 
 logger.info 'Create - user[local, admin@localhost, password]'
 User.create(email: 'admin@localhost',
