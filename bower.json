@@ -5,6 +5,6 @@
     "WebBlocks-visibility": "WebBlocks/block-visibility",
     "WebBlocks-wrapper-jquery": "WebBlocks/wrapper-jquery",
     "WebBlocks-wrapper-bootstrap": "WebBlocks/wrapper-bootstrap#3.3.0",
-    "WebBlocks-wrapper-normalize.csss": "WebBlocks/wrapper-normalize.css"
+    "WebBlocks-wrapper-normalize.csss": "WebBlocks/wrapper-normalize.css#0edb2c7adc65d9716a1086362e07ca7f7a0aaa2b"
   }
 }
