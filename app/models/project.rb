@@ -83,7 +83,8 @@ class Project < ActiveRecord::Base
   def index_body
     body = prepare_index_body do
       serializable_hash.merge({
-        'competencies' => competencies.map(){ |c| c.name }
+        'competencies' => competencies.map(){ |c| c.name },
+        'votes' => project_votes.count
       })
     end
     body

@@ -12,7 +12,7 @@
         </span>
       </h1>
       <ul class="list-group">
-        <% Project.top_voted(5).each do |idea| %>
+        <% @projects.each do |idea| %>
           <li class="list-group-item"><%= link_to idea.name, idea %></li>
         <% end %>
       </ul>
@@ -28,7 +28,7 @@
         </span>
       </h1>
       <ul class="list-group list-group-secondary">
-        <% Idea.top_voted(5).each do |idea| %>
+        <% @ideas.each do |idea| %>
           <li class="list-group-item"><%= link_to idea.name, idea %></li>
         <% end %>
       </ul>

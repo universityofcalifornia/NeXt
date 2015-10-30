@@ -12,7 +12,7 @@
       </header>
       <div class="panel-body">
         <ul>
-          <% Idea.top_voted(5).each do |idea| %>
+          <% @ideas.each do |idea| %>
             <li><%= link_to idea.name, idea %></li>
           <% end %>
         </ul>
@@ -26,7 +26,7 @@
       </header>
       <div class="panel-body">
         <ul>
-          <% Project.top_voted(5).each do |project| %>
+          <% @projects.each do |project| %>
             <li><%= link_to project.name, project %></li>
           <% end %>
         </ul>
