@@ -1,7 +1,7 @@
 logger.progname = 'Seed - Users'
 
 logger.info 'Truncate'
-User.truncate
+#User.truncate
 
 logger.info 'Create - user[local, admin@localhost, password]'
 User.create(email: 'admin@localhost',
