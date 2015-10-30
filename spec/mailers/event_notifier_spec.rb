@@ -14,7 +14,7 @@ describe EventNotifier, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['from@example.com'])
+      expect(mail.from).to eql(['mailer@ucnext.org'])
     end
 
     it 'assigns @name' do

@@ -9,8 +9,7 @@ class UserGroupsController < ApplicationController
       group = Group.find params[:id]
       if group
         group.badges.each do |badge|
-          current_user.badges << badge
-          current_user.alter_points :other, badge.points
+          current_user.give_badge badge
         end
       end
     end
