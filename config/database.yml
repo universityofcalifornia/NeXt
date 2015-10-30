@@ -14,9 +14,13 @@ development:
   encoding: utf8
   database: next
   username: root
-  password: root
-  host: localhost
-  port: 3306
+  password: 11111111
+  #host: localhost
+  #port: 3306
+
+  #MYSQL_ROOT_PASSWORD: 11111111
+  host: 192.168.99.100
+  port: 32771
   #<<: *default
   #database: db/development.sqlite3
 

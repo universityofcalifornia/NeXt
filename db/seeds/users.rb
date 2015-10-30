@@ -4,7 +4,7 @@ logger.info 'Disabling foreign key checks'
 ActiveRecord::Base.connection.execute('SET foreign_key_checks = 0;')
 
 logger.info 'Truncate'
-User.truncate
+#User.truncate
 
 logger.info 'Enabling foreign key checks'
 ActiveRecord::Base.connection.execute('SET foreign_key_checks = 1;')
