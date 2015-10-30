@@ -68,27 +68,27 @@ module SearchHelper
                     'should' => @should_queries
                 }
             },
-            "functions": [
+            "functions" => [
                 {
-                    "exp": {
-                        "created_at": {
-                            "origin": Time.now.strftime('%Y-%m-%dT%H:%M:%S%:z'), #"2015-09-27T23:50:00",
-                            "scale": "180d",
-                            "offset": "90d",
-                            "decay": 0.6
+                    "exp" => {
+                        "created_at" => {
+                            "origin" => Time.now.strftime('%Y-%m-%dT%H:%M:%S%:z'), #"2015-09-27T23:50:00",
+                            "scale" => "180d",
+                            "offset" => "90d",
+                            "decay" => 0.6
                         }
                     }
                 },
                 {
-                    "field_value_factor": {
-                        "field": "votes",
-                        "factor": 4, # gives ideas and projects as 3x weight over users
-                        "modifier": "sqrt",
-                        "missing": 0.25
+                    "field_value_factor" => {
+                        "field" => "votes",
+                        "factor" => 4, # gives ideas and projects as 3x weight over users
+                        "modifier" => "sqrt",
+                        "missing" => 0.25
                     }
                 }
             ],
-            "score_mode": "multiply" # default
+            "score_mode" => "multiply" # default
         }
       }
     end
