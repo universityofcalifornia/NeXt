@@ -2,7 +2,7 @@ $(document).ready(function() {
   if ($('.twitter-timeline').length) {
     window.setTimeout(function() {
       // Override the Twitter iframe's CSS
-      CustomizeTwitterWidget({ url: 'stylesheets/blocks.css' });
+      CustomizeTwitterWidget({ url: '/assets/blocks.css' });
     }, 500);
 
     window.setTimeout(function() {
