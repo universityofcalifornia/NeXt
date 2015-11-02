@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
 	has_many :event_groups
 
 	validates :name, :presence => true
+  validate :start_date_before_end_date, on: :create
 
   domain_regex = URI::regexp(%w(http https))
 
@@ -44,6 +45,12 @@ class Event < ActiveRecord::Base
       @invite_list.split(/,/).each do |email|
         self.invites.create(:email => email.strip)
       end
+    end
+  end
+
+  def start_date_before_end_date
+    if :end_date < :start_date
+      errors.add(:end_date, "cannot be before the start date") 
     end
   end
 
