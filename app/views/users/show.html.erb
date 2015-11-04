@@ -149,7 +149,24 @@
           </section>
       <% end %>
 
+
+      <% if @user.competencies.any? %>
+        <section class="panel panel-default">
+          <header class="panel-heading">
+            <h3 class="panel-title">Competencies</h3>
+          </header>
+          <div class="panel-body">
+            <dl>
+              <% @user.competencies.each do |f|%>
+              <dd class="ellipsis-text-block"><%= f.name %></dd>
+              <% end %>
+            </dl>
+          </div>
+        </section>
+      <% end %>
+
     </div>
+
 
     <div class="col-sm-5">
 
