@@ -287,3 +287,6 @@ DEPENDENCIES
   thin
   web_blocks!
   will_paginate
+
+BUNDLED WITH
+   1.10.6
