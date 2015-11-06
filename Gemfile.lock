@@ -280,6 +280,7 @@ DEPENDENCIES
   rspec-activemodel-mocks
   rspec-rails
   rufus-scheduler
+  sass-css-importer (>= 1.0.0.beta.0)
   sdoc (~> 0.4.0)
   shoulda-matchers
   spring
@@ -287,3 +288,6 @@ DEPENDENCIES
   thin
   web_blocks!
   will_paginate
+
+BUNDLED WITH
+   1.10.6

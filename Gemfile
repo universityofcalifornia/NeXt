@@ -45,6 +45,7 @@ gem 'gravatarify'
 gem 'extend_method'
 
 # Use web_blocks to compile Javascript assets
+gem 'sass-css-importer', '>= 1.0.0.beta.0'
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
 
 # Test coverage
