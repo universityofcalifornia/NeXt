@@ -8,7 +8,7 @@
       </div>
       <div class="col-md-9 progress-container">
         <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="<%= org.engagement_points(type) %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= org.engagement_points_percent(type) %>%;">
+          <div class="progress-bar" role="progressbar" aria-valuenow="<%= org.engagement_points(type) %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= org.engagement_points_percent(type) %>%;" title="<%= org.engagement_points(type) %> points">
             <span class="sr-only"><%= org.engagement_points(type) %> points</span>
           </div>
         </div>
