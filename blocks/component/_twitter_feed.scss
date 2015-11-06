@@ -1,0 +1,35 @@
+/* CSS overrides for iframe */
+
+.timeline {
+  background-color: $panel-bg;
+  border-color: $panel-default-border;
+  border-radius: $panel-border-radius;
+
+  .timeline-header, .tweet {
+    border-color: $panel-inner-border;
+  }
+
+  .timeline-header {
+    h1.summary {
+      margin: 0;
+      text-transform: none;
+
+      a {
+        color: $link-color;
+      }
+    }
+  }
+
+  .timeline-footer {
+    background-color: $panel-footer-bg;
+    border-top: 1px solid $panel-inner-border;
+
+    .tweet-box-button {
+      border-radius: 20px;
+    }
+  }
+
+  .tweet .e-entry-title a, .tweet .p-author .profile .p-name {
+    color: $link-color;
+  }
+}
