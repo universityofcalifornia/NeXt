@@ -14,7 +14,6 @@ rvm:
 before_install:
   - gem update --system
   - gem --version
-  - gem update bundler
 script:
   - RAILS_ENV=test bundle exec rake db:migrate
   - RELOAD_INDICES=true bundle exec rake test
