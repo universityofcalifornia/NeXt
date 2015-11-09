@@ -16,6 +16,6 @@ before_install:
   - gem --version
   - gem update bundler
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate
+  - RAILS_ENV=test bundle exec rake db:create db:migrate db:seed
   - RELOAD_INDICES=true bundle exec rake test
   - bundle exec rake spec
