@@ -28,12 +28,16 @@ body > main {
     }
   }
 
-  .wave-logo {
-    @media (min-width: $screen-md-min) {
+  @media (min-width: $screen-md-min) {
+    .wave-logo {
       background-image: url(/images/wave.png);
       background-size: 40%;
       background-repeat: no-repeat;
       background-position: right 15px bottom -10px;
+    }
+
+    .wave-compensate {
+      padding-bottom: 25%;
     }
   }
 }

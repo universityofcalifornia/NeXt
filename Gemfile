@@ -45,7 +45,7 @@ gem 'gravatarify'
 gem 'extend_method'
 
 # Use web_blocks to compile Javascript assets
-gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git'
+gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git', :tag => '2.0.4.dev'
 
 # Test coverage
 gem 'coveralls', :require => false
