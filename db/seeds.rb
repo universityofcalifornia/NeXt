@@ -11,7 +11,8 @@ logger.level = Logger::INFO
   'organizations',
   'positions',
   'users',
-  'ideas'
+  'ideas',
+  'projects'
 ].each { |seed| instance_eval File.read "#{path}/#{seed}.rb" }
 
 
