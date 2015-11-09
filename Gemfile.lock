@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/WebBlocks/WebBlocks.git
-  revision: 2e871cbebef6fa72c1a4d54a61bd60fc7fe64f62
+  revision: e208bb3afae7ad45d56212f2b1a16a06969a39fe
+  tag: 2.0.4.dev
   specs:
     web_blocks (2.0.4.dev)
       compass
