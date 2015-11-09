@@ -78,7 +78,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.required(:group).permit(:name, :user_id, :description, :contact_email, :listserv, :meetings, :membership_type)
+    params.required(:group).permit(:name, :user_id, :description, :contact_email, :listserv, :meetings).merge(params.permit(:membership_type))
   end
 
 end

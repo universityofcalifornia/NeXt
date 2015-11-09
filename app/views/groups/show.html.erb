@@ -1,7 +1,6 @@
 <div class="group">
 
   <div class="pull-right">
-
     <% if UserGroup.where(group_id: @group.id, user_id: current_user.id).count > 0 %>
         <%= button_to 'Leave',
                       user_groups_url({group_id: @group.id, return_to: group_url(@group)}),
@@ -9,6 +8,13 @@
                       class: 'btn btn-warning',
                       form_class: 'button_to'
         %>
+
+    <% elsif @group[:membership_type] == "Invite-only" %>
+        <% if @group[:contact_email].blank? %>
+          <div>The group is invite only, please reach out to admin of group</div>
+        <% else %>
+          <div>The group is invite only, please reach out to <%= @group[:contact_email] %></div>
+        <% end %>
     <% else %>
         <%= button_to 'Join',
                       user_groups_url({id: @group.id, return_to: group_url(@group)}),

@@ -15,7 +15,6 @@
   <div class="form-group">
     <%= f.label :idea_status_id, 'Status', class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <% binding.pry %>
       <%= f.select :idea_status_id,
                    options_for_select(@idea_statuses.map(){ |o| [ o.name, o.id] }, @idea.idea_status_id),
                    {},
