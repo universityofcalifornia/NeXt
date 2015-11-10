@@ -1,8 +1,27 @@
 <div class="row">
+  <nav class="col-sm-1"></nav>
 
-  <nav class="col-sm-6">
-    <div class="panel panel-info">
-      <header class="panel-heading">
+  <nav class="col-sm-5">
+    <% if Rails.application.config.try(:oauth2).try(:provider).try(:shibboleth).try(:enabled) %>
+        <div class="panel panel-primary">
+          <header class="panel-heading">
+            Campus Login
+          </header>
+          <div class="panel-body">
+            <p><b>Have a campus login account?</b></p>
+            <p class="small">
+              Campus Login is currently available for UCLA, UCSC, UCSD, UCSF, UC Berkeley and Berkeley Lab, UC Merced, UC Davis, and UC ANR.
+              More UC campuses will be added soon. If you are from a UC campus/location not on this list, please use Local Login for now.
+            </p>
+            <p class = "p_center"><%= link_to 'LOGIN WITH CAMPUS ACCOUNT', auth_oauth2_launch_url(:shibboleth), class: 'btn btn-primary p_gold' %></p>
+          </div>
+    <% end %>
+    </div>
+  </nav>
+
+  <nav class="col-sm-5">
+    <div class="panel panel-info border_blue">
+      <header class="panel-heading" style = "background-color: #0054a6; color: white;">
         Local Login
       </header>
       <div class="panel-body">
@@ -14,7 +33,7 @@
             <%= f.label :password %>
             <%= f.password_field :password, class: 'form-control margin-bottom', required: true %>
 
-            <%= f.submit 'Login', class: 'btn btn-success' %>
+            <%= f.submit 'Login', class: 'btn btn-success background_blue' %>
             or <%= link_to 'Register', new_auth_local_registration_url %>
 
         <% end %>
@@ -22,22 +41,5 @@
     </div>
   </nav>
 
-  <nav class="col-sm-6">
-    <% if Rails.application.config.try(:oauth2).try(:provider).try(:shibboleth).try(:enabled) %>
-        <div class="panel panel-primary">
-          <header class="panel-heading">
-            Campus Login
-          </header>
-          <div class="panel-body">
-            <p>Have a campus login account?</p>
-            <p class="small">
-              Campus Login is currently available for UCLA, UCSC, UCSD, UCSF, UC Berkeley and Berkeley Lab, UC Merced, UC Davis, and UC ANR.
-              More UC campuses will be added soon. If you are from a UC campus/location not on this list, please use Local Login for now.
-            </p>
-            <p><%= link_to 'Log In with Campus Account', auth_oauth2_launch_url(:shibboleth), class: 'btn btn-primary' %></p>
-          </div>
-    <% end %>
-    </div>
-  </nav>
-
+  <nav class="col-sm-1"></nav>
 </div>
