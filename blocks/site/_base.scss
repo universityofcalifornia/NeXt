@@ -70,6 +70,18 @@ h3 {
   margin-left: -40px;
 }
 
+.clear-both {
+  clear: both;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
 @media (max-width: $screen-xs-max) {
   .text-left-xs {
     text-align: left;
