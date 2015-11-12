@@ -23,13 +23,17 @@ class GroupsController < ApplicationController
   def create
     group_data = group_params
     group_data[:user_id] = current_user.id
-    @group = Group.create group_data
-    current_user.groups << @group
-
-    current_user.alter_points :other, 3
-
-    redirect_to group_url(@group)
+    @group = Group.new group_data
+    if @group.save
+      current_user.groups << @group
+      current_user.alter_points :other, 3
+      redirect_to group_url(@group)
+    else
+      render action: 'new'
+    end
   end
+
+
 
   def edit
   end
@@ -74,7 +78,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.required(:group).permit(:name, :user_id, :description, :contact_email, :listserv, :meetings, :membership_type)
+    params.required(:group).permit(:name, :user_id, :description, :contact_email, :listserv, :meetings).merge(params.permit(:membership_type))
   end
 
 end

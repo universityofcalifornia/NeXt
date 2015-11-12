@@ -1,15 +1,18 @@
 class UserGroupsController < ApplicationController
 
   def create
-    if UserGroup.where(group_id: params[:id], user_id: current_user.id).count == 0
-      UserGroup.create(group_id: params[:id], user_id: current_user.id)
-      current_user.alter_points :other, 1
+    if Group.where(id: params[:id], membership_type: "Invite-only").count == 0
 
-      # If this group has any connected badges, give the user all of them (and their points)
-      group = Group.find params[:id]
-      if group
-        group.badges.each do |badge|
-          current_user.give_badge badge
+      if UserGroup.where(group_id: params[:id], user_id: current_user.id).count == 0
+        UserGroup.create(group_id: params[:id], user_id: current_user.id)
+        current_user.alter_points :other, 1
+
+        # If this group has any connected badges, give the user all of them (and their points)
+        group = Group.find params[:id]
+        if group
+          group.badges.each do |badge|
+            current_user.give_badge badge
+          end
         end
       end
     end

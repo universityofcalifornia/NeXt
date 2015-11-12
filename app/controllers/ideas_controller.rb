@@ -25,14 +25,19 @@ class IdeasController < ApplicationController
   end
 
   def create
-    idea = Idea.create params[:idea].permit(:name, :pitch, :description, :idea_status_id)
-    idea.idea_roles << IdeaRole.new(user: current_user, founder: true, admin: true)
-    idea.competency_ids = params[:idea][:competencies]
-    idea.refresh_index!
-
-    current_user.alter_points :ideas, 3
-
-    redirect_to idea_url(idea)
+    @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+    if @idea.save
+      @idea.idea_roles << IdeaRole.new(user: current_user, founder: true, admin: true)
+      @idea.competency_ids = params[:idea][:competencies]
+      @idea.refresh_index!
+      current_user.alter_points :ideas, 3
+      redirect_to idea_url(@idea)
+    else
+      @idea_statuses = IdeaStatus.all
+      @competencies = Competency.order(name: :asc)
+      render action: 'new'
+      #redirect_to :back
+    end
   end
 
   def show
