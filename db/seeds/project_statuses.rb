@@ -1,8 +1,5 @@
 logger.progname = 'Seed - Project Statuses'
 
-logger.info 'Truncate'
-ProjectStatus.truncate
-
 [
   { key: 'forming',   name: 'Forming - recruiting resources', icon: '' },
   { key: 'active',    name: 'Active - fully resourced',       icon: '' },

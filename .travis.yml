@@ -13,6 +13,6 @@ before_install:
   - gem update --system
   - gem --version
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate
+  - RAILS_ENV=test bundle exec rake db:reset
   - RELOAD_INDICES=true bundle exec rake test
   - bundle exec rake spec

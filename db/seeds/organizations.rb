@@ -1,8 +1,5 @@
 logger.progname = 'Seed - Organizations'
 
-logger.info 'Truncate'
-Organization.truncate
-
 [
   { name: 'Berkeley', shortname: 'UCB', url: 'http://berkeley.edu/', engagement_meter_display: true },
   { name: 'Davis', shortname: 'UCD', url: 'http://ucdavis.edu/', engagement_meter_display: true },
