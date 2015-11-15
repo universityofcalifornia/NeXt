@@ -10,12 +10,29 @@
         <span class="header-icon hidden-xs">
           <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive" } %>
         </span>
+        <span class="pull-right bubble-right-big">
+          Total Projects<br>
+          <%= ProjectVote.count %>
+        </span>
       </h1>
       <ul class="list-group">
-        <% @projects.each do |idea| %>
-          <li class="list-group-item"><%= link_to idea.name, idea %></li>
+        <% @projects.each do |project| %>
+          <li class="list-group-item">
+            <%= link_to project.name, project %>
+            <div class="bubble-right-small pull-right">
+              <%= project.project_votes.count %>
+            </div>
+          </li>
         <% end %>
       </ul>
+      <div class="text-center">
+        <%= button_to "More Projects",
+                      projects_url,
+                      method: :get,
+                      class: "btn btn-learn-more",
+                      form_class: "button_to"
+        %>
+      </div>
     </section>
   </div>
 
@@ -26,12 +43,29 @@
         <span class="header-icon hidden-xs">
           <%= image_tag "/images/header_icons/ideas.png", { class: "img-responsive" } %>
         </span>
+        <span class="pull-right bubble-right-big">
+          Total Ideas<br>
+          <%= IdeaVote.count %>
+        </span>
       </h1>
       <ul class="list-group list-group-secondary">
         <% @ideas.each do |idea| %>
-          <li class="list-group-item"><%= link_to idea.name, idea %></li>
+          <li class="list-group-item">
+            <%= link_to idea.name, idea %>
+            <div class="bubble-right-small pull-right">
+              <%= idea.idea_votes.count %>
+            </div>
+          </li>
         <% end %>
       </ul>
+      <div class="text-center">
+        <%= button_to "More Ideas",
+                      ideas_url,
+                      method: :get,
+                      class: "btn btn-participate",
+                      form_class: "button_to"
+        %>
+      </div>
     </section>
   </div>
 </div>
