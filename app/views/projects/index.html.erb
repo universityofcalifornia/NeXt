@@ -32,17 +32,31 @@
       similar problems.
     </p>
     <p>
-      It's not a stodgy portfolio tool, but rather a virtual meeting place
+      It&apos;s not a stodgy portfolio tool, but rather a virtual meeting place
       to find like minded team members who can help us get solutions in
       place faster, more efficiently and with a shared purpose of
       furthering our shared mission of providing World Class Education,
       Research support and Service.
     </p>
 
-    <h1>5 Top Trending Projects</h1>
+    <h1>Top 5 Projects by Vote</h1>
     <ul class="list-group">
-      <% Project.top_voted(5).each do |project| %>
-        <li class="list-group-item"><%= link_to project.name, project %></li>
+      <% @top_projects.each do |project| %>
+        <li class="list-group-item">
+          <%= link_to project.name, project %>
+          <div class="btn-bubble-right-small pull-right">
+            <%= project.project_votes.count %>
+          </div>
+          <%= button_to '+1', '#', class: 'btn btn-support btn-less-padding modal-button', form_class: 'pull-right', method: :get %>
+          <%= render partial: "shared/vote_dialog", locals: {
+            object: project,
+            button_text: [
+              'Good project',
+              'Would participate',
+              'Learn more'
+            ]
+          } %>
+        </li>
       <% end %>
     </ul>
   </div>
@@ -68,7 +82,7 @@
       <% end %>
 
       <div class="col-md-4 panel-cell">
-        <% if project.is_votable_by? current_user %>
+        <div class="pull-right">
           <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
           <%= render partial: "shared/vote_dialog", locals: {
             object: project,
@@ -78,7 +92,25 @@
               'Learn more'
             ]
           } %>
-        <% end %>
+          <div class="btn-bubble-below text-center clear-both small">
+            <div class="table-row">
+              <div class="table-cell">
+                Supporters
+              </div>
+              <div class="table-cell">
+                <%= project.project_votes.count %>
+              </div>
+            </div>
+            <div class="table-row valign-middle">
+              <div class="table-cell extra-padding">
+                Would participate
+              </div>
+              <div class="table-cell">
+                <%= project.project_votes.where(participate: true).count %>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <h4>
           <%= link_to project.name, project %>
@@ -98,15 +130,6 @@
             <%= project.created_at.strftime("%B %d, %Y") %>
           </small>
         </p>
-
-        <% if project.project_votes.count > 0 %>
-          <p class="condensed">
-            <small>
-              Supported by <%= project.project_votes.count %>
-              (<%= project.project_votes.where(participate: true).count %> would participate )
-            </small>
-          </p>
-        <% end %>
       </div>
 
       <% if i % 3 == 2 %>

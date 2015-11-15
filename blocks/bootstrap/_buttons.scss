@@ -11,6 +11,40 @@
   }
 }
 
+.btn-less-padding {
+  padding: 4px 8px;
+  margin-top: -5px;
+}
+
+.btn-bubble-right-small {
+  width: 45px;
+  height: 35px;
+  background-image: url(/images/bubbles/right_small.png);
+  background-repeat: no-repeat;
+  background-size: 45px;
+  margin: -5px 0 0 5px;
+  padding-left: 10px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.btn-bubble-below {
+  position: relative;
+  top: -5px;
+  width: 100px;
+  height: 90px;
+  background-image: url(/images/bubbles/below.png);
+  background-repeat: no-repeat;
+  background-size: 100px;
+  padding: 20px 10px 10px 5px;
+  font-size: 12px;
+  line-height: 15px;
+
+  .extra-padding {
+    padding-top: 5px;
+  }
+}
+
 .btn-create {
   @include button-variant      ($btn-default-color, #f0ad4e, #eea236);
   @include button-variant-hover($btn-hover-color,   #ec971f, #d58512);
