@@ -28,12 +28,37 @@ body > main {
     }
   }
 
-  .wave-logo {
-    @media (min-width: $screen-md-min) {
+  @media (min-width: $screen-md-min) {
+    .wave-logo {
       background-image: url(/images/wave.png);
       background-size: 40%;
       background-repeat: no-repeat;
       background-position: right 15px bottom -10px;
     }
+
+    .wave-compensate {
+      padding-bottom: 25%;
+    }
   }
+}
+
+.small{
+  font-size: 90%;
+  margin-bottom: 3.3rem;
+}
+
+.p_center{
+  text-align: center;
+}
+
+.p_gold{
+  color: #ffb250;
+}
+
+.border_blue{
+  border-color: #0054a6;
+}
+
+.background_blue{
+  background-color: #0054a6; 
 }

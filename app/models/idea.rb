@@ -18,6 +18,9 @@ class Idea < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
 
+  validates :name, presence: true, length: { maximum: 255 }
+
+
   attr_html_reader :description
 
   def is_editable_by? user

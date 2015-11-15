@@ -11,6 +11,8 @@ class Group < ActiveRecord::Base
 
   belongs_to :user
 
+  validates :name, presence: true, length: { maximum: 255 }
+  
   scope :most_recent, -> { order(created_at: :desc) }
 
   attr_html_reader :description
