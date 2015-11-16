@@ -12,8 +12,12 @@ module Auth
       end
 
       def create
-        if !params[:user][:password] or params[:user][:password].length == 0 or params[:user][:password] != params[:user][:password_confirmation]
+        if params[:user][:password] != params[:user][:password_confirmation]
           flash[:page_alert] = '<strong>Error.</strong> Password and confirmation did not match. Please try again.'
+          flash[:page_alert_type] = 'danger'
+          redirect_to new_auth_local_registration_url
+        elsif !params[:user][:password] or params[:user][:password].length < 8 or !params[:user][:password].match(/[a-zA-Z]/) or !params[:user][:password].match(/\d/)
+          flash[:page_alert] = '<strong>Error.</strong> Password needs to be at least 8 characters long and contain at least one letter and one number'
           flash[:page_alert_type] = 'danger'
           redirect_to new_auth_local_registration_url
         elsif User.where(email: params[:user][:email]).count > 0
