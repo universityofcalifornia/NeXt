@@ -32,7 +32,7 @@
       similar problems.
     </p>
     <p>
-      It&apos;s not a stodgy portfolio tool, but rather a virtual meeting place
+      It&apos;s not a portfolio tool, but rather a virtual meeting place
       to find like minded team members who can help us get solutions in
       place faster, more efficiently and with a shared purpose of
       furthering our shared mission of providing World Class Education,
@@ -44,7 +44,7 @@
       <% @top_projects.each do |project| %>
         <li class="list-group-item">
           <%= link_to project.name, project %>
-          <div class="btn-bubble-right-small pull-right">
+          <div class="bubble-right-small pull-right">
             <%= project.project_votes.count %>
           </div>
           <%= button_to '+1', '#', class: 'btn btn-support btn-less-padding modal-button', form_class: 'pull-right', method: :get %>
@@ -92,7 +92,7 @@
               'Learn more'
             ]
           } %>
-          <div class="btn-bubble-below text-center clear-both small">
+          <div class="bubble-below text-center clear-both small">
             <div class="table-row">
               <div class="table-cell">
                 Supporters

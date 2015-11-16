@@ -60,7 +60,7 @@
       <% @top_ideas.each do |idea| %>
         <li class="list-group-item">
           <%= link_to idea.name, idea %>
-          <div class="btn-bubble-right-small pull-right">
+          <div class="bubble-right-small pull-right">
             <%= idea.idea_votes.count %>
           </div>
           <%= button_to '+1', '#', class: 'btn btn-support btn-less-padding modal-button', form_class: 'pull-right', method: :get %>
@@ -108,7 +108,7 @@
               'Learn more'
             ]
           } %>
-          <div class="btn-bubble-below text-center clear-both small">
+          <div class="bubble-below text-center clear-both small">
             <div class="table-row">
               <div class="table-cell">
                 Supporters
