@@ -53,7 +53,6 @@
       <%= f.text_field :map_url, class: 'form-control', rows: 8 %>
     </div>
   </div>
-
   <div class="form-group">
     <%= f.label "Start Date", class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
@@ -103,11 +102,15 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-
+  
+  groups = <%= raw(@event.groups.to_json( :only => [ :id, :name ] )) %>;
+  if(groups[0].id == null){
+    groups = "";
+  }
   $("#event_group_tokens").tokenInput("/groups/ajax_index.json", {
     crossDomain: false,
     preventDuplicates: true,
-    prePopulate: <%= raw(@event.groups.to_json( :only => [ :id, :name ] )) %>
+    prePopulate: groups
   });
 
   $('#event_start_datetime').datetimepicker({
