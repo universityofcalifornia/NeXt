@@ -1,8 +1,5 @@
 logger.progname = 'Seed - Ideas'
 
-logger.info 'Truncate'
-Idea.truncate
-
 logger.info 'Create - Ideation platform'
 Idea.create name: 'Ideation platform',
             idea_status: IdeaStatus.where(key: 'started').first,

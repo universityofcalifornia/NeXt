@@ -1,0 +1,39 @@
+.bubble-right-small {
+  width: 45px;
+  height: 35px;
+  background-image: url(/images/bubbles/right_small.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin: -5px 0 0 5px;
+  padding-left: 10px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.bubble-below {
+  position: relative;
+  top: -5px;
+  width: 100px;
+  height: 90px;
+  background-image: url(/images/bubbles/below.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 20px 10px 10px 5px;
+  font-size: 12px;
+  line-height: 15px;
+
+  .extra-padding {
+    padding-top: 5px;
+  }
+}
+
+.bubble-right-big {
+  width: 120px;
+  height: 40px;
+  background-image: url(/images/bubbles/right_big.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-top: 20px;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+}

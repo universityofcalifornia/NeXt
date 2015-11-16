@@ -1,18 +1,5 @@
 logger.progname = 'Seed - Users'
 
-if ActiveRecord::Base.connection.adapter_name.downcase == 'mysql2'
-  logger.info 'Disabling foreign key checks'
-  ActiveRecord::Base.connection.execute('SET foreign_key_checks = 0;')
-end
-
-logger.info 'Truncate'
-User.truncate
-
-if ActiveRecord::Base.connection.adapter_name.downcase == 'mysql2'
-  logger.info 'Enabling foreign key checks'
-  ActiveRecord::Base.connection.execute('SET foreign_key_checks = 1;')
-end
-
 logger.info 'Create - user[local, admin@localhost, password]'
 User.create(email: 'admin@localhost',
             name_first: 'Admin',
