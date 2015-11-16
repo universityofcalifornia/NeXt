@@ -14,6 +14,13 @@ class IdeasController < ApplicationController
   end
 
   def index
+    results = perform_search do |query|
+      query.type 'ideas'
+      query.limit 5
+    end
+
+    @top_ideas = results.map(&:model).sort_by { |idea| idea.idea_votes.count }.reverse!
+
     @ideas = Idea.includes(:idea_status)
                  .order(created_at: :desc)
                  .paginate(page: params[:page], per_page: 15)

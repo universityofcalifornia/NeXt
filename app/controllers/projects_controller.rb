@@ -16,9 +16,16 @@ class ProjectsController < ApplicationController
   end
 
   def index
+    results = perform_search do |query|
+      query.type 'projects'
+      query.limit 5
+    end
+
+    @top_projects = results.map(&:model).sort_by { |project| project.project_votes.count }.reverse!
+
     @projects = Project.includes(:project_status)
                  .order(created_at: :desc)
-                 .paginate(page: params[:page], per_page: 50)
+                 .paginate(page: params[:page], per_page: 15)
   end
 
   def new
