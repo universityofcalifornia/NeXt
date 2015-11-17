@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
 
   def start_date_before_end_date
     return if stop_datetime.blank? or start_datetime.blank?
-    if stop_datetime < start_datetime
+    if stop_datetime <= start_datetime
       errors.add(:end_date, "cannot be before the start date")
     end
   end
