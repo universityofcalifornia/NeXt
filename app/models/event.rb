@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   validates :start_datetime, :presence => true
   validates :stop_datetime, :presence => true
 	validates :name, :presence => true
-  validate :start_date_before_end_date, on: :create
+  validate :start_date_before_end_date, :on => [ :create, :update ]
 
   domain_regex = URI::regexp(%w(http https))
 
