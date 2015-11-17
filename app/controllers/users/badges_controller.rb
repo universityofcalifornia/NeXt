@@ -6,7 +6,7 @@ module Users
     end
 
     before_action only: [:index, :new] do
-      @givable_badges = Badge.all.select { |badge| badge.is_givable_by? current_user }
+      @givable_badges = Badge.all.select { |badge| badge.is_givable_by?(current_user) && badge.is_givable_to?(@user) }
     end
 
     before_action only: [:update] do
