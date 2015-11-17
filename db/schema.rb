@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011164349) do
+ActiveRecord::Schema.define(version: 20151117005801) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -375,6 +375,8 @@ ActiveRecord::Schema.define(version: 20151011164349) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
   end
+
+  add_index "user_badges", ["user_id", "badge_id"], name: "index_user_badges_on_user_id_and_badge_id", unique: true, using: :btree
 
   create_table "user_groups", force: true do |t|
     t.integer  "user_id"

@@ -95,4 +95,14 @@ class Badge < ActiveRecord::Base
     end
   end
 
+  def is_givable_to? user
+    if user.nil?
+      return false
+    elsif user.badges.include? self
+      return false
+    else
+      return true
+    end
+  end
+
 end
