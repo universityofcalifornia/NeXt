@@ -104,9 +104,10 @@
 $(document).ready(function () {
   
   groups = <%= raw(@event.groups.to_json( :only => [ :id, :name ] )) %>;
-  if(groups[0].id == null){
-    groups = "";
-  }
+  if(groups.length > 0){
+    if(groups[0].id == null){
+      groups = "";
+    }}
   $("#event_group_tokens").tokenInput("/groups/ajax_index.json", {
     crossDomain: false,
     preventDuplicates: true,
