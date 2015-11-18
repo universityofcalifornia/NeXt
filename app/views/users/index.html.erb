@@ -17,10 +17,18 @@
   <tbody>
   <% @users.each do |user| %>
   <tr>
-    <td class="avatar-cell"><%= gravatar_tag user.email, size: 40 %></td>
+    <% if current_user %>
+      <td class="avatar-cell"><%= gravatar_tag user.email, size: 40 %></td>
+    <% else %>
+      <td class="avatar-cell"></td>
+    <% end %>
     <td><%= link_to user.display_name, user_url(user) %></td>
     <td><%= user.primary_position ? user.primary_position.title : '' %></td>
-    <td><%= user.primary_organization ? user.primary_organization.name : '' %></td>
+    <% if user.primary_organization %>
+    <td><%= image_tag "/images/organizations/#{user.primary_organization.name}.png", size: "82x30" %></td>
+    <% else %>
+    <td></td>
+    <% end %>
     <td><%= user.created_at.strftime("%B %d, %Y") %></td>
     <td>
       <% if user.website %>
