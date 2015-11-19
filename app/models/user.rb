@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
 
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true
+  validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
 
   belongs_to :primary_position, class: Position
   extend_method :primary_position do
