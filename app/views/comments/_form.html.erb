@@ -2,7 +2,9 @@
 
   <%= f.hidden_field :return_to, name: :return_to, value: idea_path(@idea) unless @idea.nil? %>
 
-  <%= f.hidden_field :idea_id, value: @idea.id unless @idea.nil? %>
+  <!-- these need to be dynamic based on comment type -->
+  <%= f.hidden_field :commentable_id, value: @idea.id unless @idea.nil? %>
+  <%= f.hidden_field :commentable_type, value: 'Idea' %>
 
   <%= f.hidden_field :parent_id %>
 

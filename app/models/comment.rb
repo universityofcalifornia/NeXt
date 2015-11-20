@@ -1,9 +1,9 @@
 class Comment < ActiveRecord::Base
   
-  acts_as_nested_set
-
-  belongs_to :idea
+  belongs_to :commentable, polymorphic: true
   belongs_to :user
+
+  acts_as_nested_set polymorphic: true
 
   validates :body, :allow_nil => false, :presence => true
 

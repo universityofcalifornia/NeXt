@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   	
     @comment = Comment.new
     @comment.parent_id = params[:parent_id]
-    @idea = @comment.root.idea
+    @idea = @comment.root.commentable
 
     render :layout => false
 
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
     end
 
     begin
-      context.user.comments.create!(params[:comment].permit(:parent_id, :idea_id, :body, :commit))
+      context.user.comments.create!(params[:comment].permit(:parent_id, :commentable_id, :commentable_type, :body, :commit))
       current_user.alter_points :ideas, 2
       flash[:page_alert] = "Thanks for commenting!"
       flash[:page_alert_type] = 'success'
