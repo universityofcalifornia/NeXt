@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   	
     @comment = Comment.new
     @comment.parent_id = params[:parent_id]
-    @idea = @comment.root.commentable
+    @comment.commentable = @comment.root.commentable
 
     render :layout => false
 
