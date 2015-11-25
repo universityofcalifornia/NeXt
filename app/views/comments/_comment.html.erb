@@ -2,6 +2,24 @@
   <h3><%= comment.title %></h3>
   <p class="text-muted"><%= link_to comment.user.display_name, comment.user %>&nbsp;<%= l(comment.created_at, format: '%B, %d %Y %H:%M:%S') %></p>
   <blockquote>
-  	<p>&nbsp;<%= comment.body %>&nbsp;<%= link_to_if current_user, 'Reply',  new_comment_path(comment.id) , :remote => true, :class => 'comment_reply_link' %></p>
+  	<p>&nbsp;<%= comment.body %>&nbsp;
+  	<% if current_user %>
+  	   <%= link_to new_comment_path(comment.id) , :remote => true, :class => 'comment_reply' do %>
+  	     <span class="glyphicon glyphicon-share-alt" aria-hidden="true" title="Reply"></span>
+  	   <% end %>
+  	<% end %> 
+  	<% return_to = nil 
+  	   if comment.is_editable_by?(current_user) 
+  	      case comment.commentable_type
+  	      when "Idea" 
+  	        return_to = idea_path(comment.commentable)
+  	      when "Project"
+  	        return_to = project_path(comment.commentable)
+  		  end %>
+          <%= link_to comment_path(comment, :return_to => return_to), method: :delete, data: { confirm: 'Are you sure?' } do %>
+               <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete Comment"></span>
+           <% end %>
+  	<% end %>	
+  </p>
   </blockquote>
 </div>
