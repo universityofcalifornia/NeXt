@@ -8,17 +8,10 @@
   	     <span class="glyphicon glyphicon-share-alt" aria-hidden="true" title="Reply"></span>
   	   <% end %>
   	<% end %> 
-  	<% return_to = nil 
-  	   if comment.is_editable_by?(current_user) 
-  	      case comment.commentable_type
-  	      when "Idea" 
-  	        return_to = idea_path(comment.commentable)
-  	      when "Project"
-  	        return_to = project_path(comment.commentable)
-  		  end %>
-          <%= link_to comment_path(comment, :return_to => return_to), method: :delete, data: { confirm: 'Are you sure?' } do %>
-               <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete Comment"></span>
-           <% end %>
+    <%  if comment.is_editable_by?(current_user) %>
+      <%= link_to comment_path(comment, :return_to => @comment_return_to), method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete Comment"></span>
+      <% end %>
   	<% end %>	
   </p>
   </blockquote>

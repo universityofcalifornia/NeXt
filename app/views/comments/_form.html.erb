@@ -1,12 +1,6 @@
 <%= form_for @comment, html: { class: 'form-horizontal' } do |f| %>
 
-  <% case 
-       when @comment.commentable_type == 'Idea' %>
-       <%= f.hidden_field :return_to, name: :return_to, value: idea_path(@comment.commentable) %>
-    <% when @comment.commentable_type == 'Project' %>
-       <%= f.hidden_field :return_to, name: :return_to, value: project_path(@comment.commentable) %>
-  <% end %>
-  
+  <%= f.hidden_field :return_to, name: :return_to, value: @comment.return_to %>
   <%= f.hidden_field :commentable_id, value: @comment.commentable_id %>
   <%= f.hidden_field :commentable_type, value: @comment.commentable_type %>
   <%= f.hidden_field :parent_id %>

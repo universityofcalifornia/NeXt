@@ -10,6 +10,12 @@ class CommentsController < ApplicationController
     @comment = Comment.new
     @comment.parent_id = params[:parent_id]
     @comment.commentable = @comment.root.commentable
+    case @comment.commentable_type
+    when "Idea"
+      @comment.return_to = idea_path(@comment.commentable)
+    when "Project"
+      @comment.return_to = project_path(@comment.commentable)
+    end
     render :layout => false
   end
 
@@ -23,13 +29,7 @@ class CommentsController < ApplicationController
     end
     begin
       context.user.comments.create!(params[:comment].permit(:parent_id, :commentable_id, :commentable_type, :body, :commit))
-      case params[:commentable_type]
-      when "Idea"
-        current_user.alter_points :ideas, 2
-      when "Project"
-        current_user.alter_points :projects, 2
-      end
-      
+      change_user_points(params[:commentable_type], 2)      
       flash[:page_alert] = "Thanks for commenting!"
       flash[:page_alert_type] = 'success'
     rescue Exception => e
@@ -40,12 +40,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    case
-    when @comment.commentable_type == "Idea"
-      current_user.alter_points :ideas, -2
-    when @comment.commentable_type == "Project"
-      current_user.alter_points :projects, -2
-    end 
+    change_user_points(@comment.commentable_type, -2)
     @comment.destroy
     flash[:page_alert] = "The comment was deleted successfully."
     flash[:page_alert_type] = 'success'
@@ -53,8 +48,17 @@ class CommentsController < ApplicationController
   end
 
   private
-    def find_comment
-      @comment = Comment.find_by(:id => params[:id])
-    end
+  def find_comment
+    @comment = Comment.find_by(:id => params[:id])
+  end
+
+  def change_user_points(type,points)
+    case type
+    when "Idea"
+      current_user.alter_points :ideas, points
+    when "Project"
+      current_user.alter_points :projects, points
+    end 
+  end
 
 end
