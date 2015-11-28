@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true
-  validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
+  #validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
 
   belongs_to :primary_position, class: Position
   extend_method :primary_position do
@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
 
   def primary_organization
     primary_position ? primary_position.organization : nil
+  end
+
+  def self.valid_password password
+    password.length >= 8 and password.match(/[a-zA-Z]/) and password.match(/\d/)
   end
 
   def is_local?

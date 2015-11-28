@@ -3,8 +3,10 @@ module Auth
     class RegistrationController < ApplicationController
 
       before_action do
-        unless Rails.application.config.respond_to?(:auth) and Rails.application.config.auth.respond_to?(:allow_local) and Rails.application.config.auth.allow_local
-          raise Application::Error.new "Local accounts are not enabled. To enable them, auth.allow_local must be set to true."
+        unless Rails.env.test?
+          unless Rails.application.config.respond_to?(:auth) && Rails.application.config.auth.respond_to?(:allow_local) && Rails.application.config.auth.allow_local
+            raise Application::Error.new "Local accounts are not enabled. To enable them, auth.allow_local must be set to true."
+          end
         end
       end
 
@@ -12,11 +14,13 @@ module Auth
       end
 
       def create
+        puts "In create"
         if params[:user][:password] != params[:user][:password_confirmation]
           flash[:page_alert] = '<strong>Error.</strong> Password and confirmation did not match. Please try again.'
           flash[:page_alert_type] = 'danger'
           redirect_to new_auth_local_registration_url
-        elsif !params[:user][:password] or params[:user][:password].length < 8 or !params[:user][:password].match(/[a-zA-Z]/) or !params[:user][:password].match(/\d/)
+        elsif !User.valid_password(params[:user][:password])
+          logger.info "Invalid password"
           flash[:page_alert] = '<strong>Error.</strong> Password needs to be at least 8 characters long and contain at least one letter and one number'
           flash[:page_alert_type] = 'danger'
           redirect_to new_auth_local_registration_url
