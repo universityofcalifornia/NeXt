@@ -4,6 +4,8 @@
       <%= image_tag badge.image.thumb, class: 'float-left' %>
     </div>
     <h3><%= link_to badge.name, badge_url(badge) %></h3>
-    <p><%= badge.description %>
+    <% unless badge.description.blank? %>
+      <p><%= badge.description[0...50] %> ...</p>
+    <% end %>
   </div>
 </div>
