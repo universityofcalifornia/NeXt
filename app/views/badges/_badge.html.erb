@@ -3,7 +3,7 @@
     <div class="icon">
       <%= image_tag badge.image.thumb, class: 'float-left' %>
     </div>
-    <h3><%= link_to badge.name, badge_url(badge) %></h3>
+    <h3><%= link_to badge.name, badge_path(badge) %></h3>
     <% unless badge.description.blank? %>
       <p><%= badge.description[0...50] %> ...</p>
     <% end %>
