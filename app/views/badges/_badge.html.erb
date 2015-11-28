@@ -1,7 +1,10 @@
 <div class="badge panel panel-default">
   <div class="panel-body">
     <div class="icon">
-      <%= image_tag badge.image.thumb, class: 'float-left' %>
+      <%= image_tag badge.image.thumb, class: "float-left" %>
+      <% if current_user && current_user.badges.include?(badge) %>
+        <%= image_tag "/images/checkmark.png", class: "checkmark" %>
+      <% end %>
     </div>
     <h3><%= link_to badge.name, badge_path(badge) %></h3>
     <% unless badge.description.blank? %>

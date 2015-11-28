@@ -19,6 +19,13 @@ ul.badges {
     margin-right: 10px;
     overflow: hidden;
     text-align: center;
+    position: relative;
+
+    .checkmark {
+      position: absolute;
+      top: 20px;
+      right: 0;
+    }
   }
 
   h3 {
