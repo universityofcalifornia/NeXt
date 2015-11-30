@@ -23,14 +23,6 @@ class Idea < ActiveRecord::Base
 
   attr_html_reader :description
 
-  scope :top_voted, -> (limit = nil) {
-    joins("LEFT JOIN `idea_votes` ON `idea_votes`.`idea_id` = `ideas`.`id`")
-      .select("`ideas`.`id`, `ideas`.`name`, COUNT(`idea_votes`.`id`) AS `votes`")
-      .group("`ideas`.`id`")
-      .order("votes DESC")
-      .limit(limit)
-  }
-
   def is_editable_by? user
     user and (idea_roles.where(user_id: user.id).count > 0 or user.super_admin)
   end

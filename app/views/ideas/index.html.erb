@@ -55,10 +55,24 @@
       </div>
     </div>
 
-    <h1>5 Top Trending Ideas</h1>
+    <h1>Top 5 Ideas by Vote</h1>
     <ul class="list-group list-group-secondary">
-      <% Idea.top_voted(5).each do |idea| %>
-        <li class="list-group-item"><%= link_to idea.name, idea %></li>
+      <% @top_ideas.each do |idea| %>
+        <li class="list-group-item">
+          <%= link_to idea.name, idea %>
+          <div class="bubble-right-small pull-right">
+            <%= idea.idea_votes.count %>
+          </div>
+          <%= button_to '+1', '#', class: 'btn btn-support btn-less-padding modal-button', form_class: 'pull-right', method: :get %>
+          <%= render partial: "shared/vote_dialog", locals: {
+            object: idea,
+            button_text: [
+              'Good idea',
+              'Would participate',
+              'Learn more'
+            ]
+          } %>
+        </li>
       <% end %>
     </ul>
   </div>
@@ -84,7 +98,7 @@
       <% end %>
 
       <div class="col-md-4 panel-cell">
-        <% if idea.is_votable_by? current_user %>
+        <div class="pull-right">
           <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
           <%= render partial: "shared/vote_dialog", locals: {
             object: idea,
@@ -94,7 +108,25 @@
               'Learn more'
             ]
           } %>
-        <% end %>
+          <div class="bubble-below text-center clear-both small">
+            <div class="table-row">
+              <div class="table-cell">
+                Supporters
+              </div>
+              <div class="table-cell">
+                <%= idea.idea_votes.count %>
+              </div>
+            </div>
+            <div class="table-row valign-middle">
+              <div class="table-cell extra-padding">
+                Would participate
+              </div>
+              <div class="table-cell">
+                <%= idea.idea_votes.where(participate: true).count %>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <h4>
           <%= link_to idea.name, idea_url(idea) %>
@@ -114,15 +146,6 @@
             <%= idea.created_at.strftime("%B %d, %Y") %>
           </small>
         </p>
-
-        <% if idea.idea_votes.count > 0 %>
-          <p class="condensed">
-            <small>
-              Supported by <%= idea.idea_votes.count %>
-              (<%= idea.idea_votes.where(participate: true).count %> would participate )
-            </small>
-          </p>
-        <% end %>
       </div>
 
       <% if i % 3 == 2 %>

@@ -49,31 +49,29 @@
 
       </header>
 
-      <% if @showcased_badges.any? || @givable_badges.any? %>
-          <section>
-            <h3>
-                Badges / Awards
-            </h3>
-            <p>
-              <% @showcased_badges.each do |badge| %>
-                  <%= link_to(badge_url badge) do %>
-                      <% image_tag badge.image.thumb %>
-                  <% end %>
+      <% if @user.badges.count > 0 || @givable_badges.any? %>
+        <section>
+          <h3>
+            Badges / Awards
+          </h3>
+          <p>
+            <% @showcased_badges.each do |badge| %>
+              <%= link_to(badge_path(badge)) do %>
+                <% image_tag badge.image.thumb %>
               <% end %>
-            </p>
-            <p>
-              <em>
-                <% if @user.id == current_user.id %>
-                    <%= link_to "Manage badges / awards", user_badges_path(@user), class: 'btn btn-xs btn-info' %>
-                <% else %>
-                    <%= link_to "View additional badges / awards", user_badges_path(@user), class: 'btn btn-xs btn-info' %>
-                <% end %>
-              </em>
-              <% if @givable_badges.any? %>
-                <%= link_to "Give badge / award", new_user_badge_path(@user), class: 'btn btn-xs btn-success' %>
-              <% end %>
-            </p>
-          </section>
+            <% end %>
+          </p>
+          <p>
+            <% if @user.id == current_user.id %>
+              <%= link_to "Manage badges / awards", user_badges_path(@user), class: "btn btn-xs btn-info" %>
+            <% elsif @user.badges.count > 0 %>
+              <%= link_to "View all badges / awards", user_badges_path(@user), class: "btn btn-xs btn-info" %>
+            <% end %>
+            <% if @givable_badges.any? %>
+              <%= link_to "Give badge / award", new_user_badge_path(@user), class: "btn btn-xs btn-success" %>
+            <% end %>
+          </p>
+        </section>
       <% end %>
 
       <% if @user.biography and @user.biography.length > 0 %>

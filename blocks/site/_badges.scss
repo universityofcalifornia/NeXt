@@ -5,7 +5,7 @@ ul.badges {
   li {
     display: inline-block;
     float: left;
-    margin-right: 10px;
+    margin: 0 10px 20px 0;
   }
 }
 
@@ -13,13 +13,27 @@ ul.badges {
   width: 400px;
 
   .icon {
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    line-height: 120px;
     float: left;
     margin-right: 10px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+
+    .checkmark {
+      position: absolute;
+      top: 20px;
+      right: 0;
+    }
   }
 
   h3 {
-    margin-top: 0;
+    margin-top: 20px;
+  }
+
+  p {
+    height: 5rem;
+    overflow: hidden;
   }
 }
