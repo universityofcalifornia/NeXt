@@ -77,8 +77,9 @@ class UserTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid){ User.new.save! }
     assert_raises(ActiveRecord::RecordInvalid){ User.new(email: nil, name_last: 'Test').save! }
     assert_raises(ActiveRecord::RecordInvalid){ User.new(email: 'test@localhost', name_last: nil).save! }
-
-    assert_nothing_raised(ActiveRecord::RecordInvalid){ User.new(email: 'test@localhost', name_last: 'Test').save! }
+    #assert_raises(ActiveRecord::RecordInvalid){ User.new(email: 'test@localhost', name_last: 'test', password: "88888888").save! }
+    #assert_raises(ActiveRecord::RecordInvalid){ User.new(email: 'test@localhost', name_last: 'test', password: "777aaa7").save! }
+    #assert_nothing_raised(ActiveRecord::RecordInvalid){ User.new(email: 'test@localhost', name_last: 'Test', password: "1111111a").save! }
 
   end
 

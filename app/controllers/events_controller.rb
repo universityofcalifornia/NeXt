@@ -34,8 +34,8 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.update!(event_params)
-    redirect_to event_url(@event)
+    @event.update(event_params)
+    respond_with @event
   end
 
   def show

@@ -34,19 +34,19 @@
           <% if event.start_datetime or event.stop_datetime %>
               <% if event.start_datetime and event.stop_datetime %>
                   <% if event.start_datetime.strftime('%b %d %Y') == event.stop_datetime.strftime('%b %d %Y') %>
-                      <%= event.start_datetime.strftime('%l:%I %p') %> - <%= event.stop_datetime.strftime('%l:%I %p') %>
+                      <%= event.start_datetime.strftime('%l:%M %p') %> - <%= event.stop_datetime.strftime('%l:%M %p') %>
                   <% elsif event.start_datetime.strftime('%b %Y') == event.stop_datetime.strftime('%b %Y') %>
 
-                      <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
+                      <%= event.start_datetime.strftime('%l:%M %p') %> <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%l:%M %p') %> <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
                   <% elsif event.start_datetime.strftime('%Y') == event.stop_datetime.strftime('%Y')  %>
-                      <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
+                      <%= event.start_datetime.strftime('%l:%M %p') %> <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%l:%M %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
                   <% else %>
-                      <%= event.start_datetime.strftime('%l:%I %p') %> <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%l:%I %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
+                      <%= event.start_datetime.strftime('%l:%M %p') %> <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%l:%M %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
                   <% end %>
               <% elsif event.start_datetime %>
-                  <%= event.start_datetime.strftime('%l:%I %p %b %d %Y') %>
+                  <%= event.start_datetime.strftime('%l:%M %p %b %d %Y') %>
               <% elsif event.stop_datetime %>
-                  <%= event.stop_datetime.strftime('%l:%I %p %b %d %Y') %>
+                  <%= event.stop_datetime.strftime('%l:%M %p %b %d %Y') %>
               <% end %>
           <% end %>
           <% if event.location %>
@@ -75,13 +75,13 @@
     <div class="panel-default panel">
       <div class="panel-body">
         <h5>Start</h5>
-        <p><%= event.start_datetime ? event.start_datetime.strftime('%l:%I %p %b %d %Y') : raw('<em>Not Specified</em>') %></p>
+        <p><%= event.start_datetime ? event.start_datetime.strftime('%l:%M %p %b %d %Y') : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
     <div class="panel-default panel">
       <div class="panel-body">
         <h5>End</h5>
-        <p><%= event.stop_datetime ? event.stop_datetime.strftime('%l:%I %p %b %d %Y') : raw('<em>Not Specified</em>') %></p>
+        <p><%= event.stop_datetime ? event.stop_datetime.strftime('%l:%M %p %b %d %Y') : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
   </div>

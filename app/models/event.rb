@@ -6,8 +6,10 @@ class Event < ActiveRecord::Base
 	has_many :groups, :through => :event_groups
 	has_many :event_groups
 
+  validates :start_datetime, :presence => true
+  validates :stop_datetime, :presence => true
 	validates :name, :presence => true
-  validate :start_date_before_end_date, on: :create
+  validate :start_date_before_end_date, :on => [ :create, :update ]
 
   domain_regex = URI::regexp(%w(http https))
 
@@ -49,9 +51,20 @@ class Event < ActiveRecord::Base
   end
 
   def start_date_before_end_date
-    if :stop_datetime < :start_datetime
-      errors.add(:end_date, "cannot be before the start date") 
+    return if stop_datetime.blank? or start_datetime.blank?
+    if stop_datetime <= start_datetime
+      errors.add(:end_date, "cannot be before the start date")
     end
   end
 
 end
+
+
+
+
+
+
+
+
+
+
