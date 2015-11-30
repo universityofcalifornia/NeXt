@@ -56,7 +56,7 @@
           </h3>
           <p>
             <% @showcased_badges.each do |badge| %>
-              <%= link_to(badge) do %>
+              <%= link_to(badge_path(badge)) do %>
                 <% image_tag badge.image.thumb %>
               <% end %>
             <% end %>

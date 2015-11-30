@@ -21,7 +21,7 @@ class BadgesController < ApplicationController
   end
 
   def index
-    @badges = Badge.all
+    @awards, @badges = Badge.all.partition { |badge| badge.is_a? Award }
   end
 
   def show
