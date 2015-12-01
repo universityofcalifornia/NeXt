@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   validates :email, :allow_nil => false, :presence => true
   #validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
 
+  attr_accessor :reset_token
+
   belongs_to :primary_position, class: Position
   extend_method :primary_position do
     parent_method ? parent_method : positions.first
@@ -62,6 +64,24 @@ class User < ActiveRecord::Base
     str << ", #{name_first}" if format == :lfm or format == :lf
     str << " #{name_middle[0,1].capitalize}." if format == :lfm and name_middle
     str
+  end
+
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.digest(string)
+    BCrypt::Password.create(string)
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    # UserMailer.password_reset(self).deliver_now
   end
 
   def is_editable_by? user

@@ -66,6 +66,8 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  resources :password_resets, only: [:new, :create, :edit, :update]
+
   get 'search', to: 'search#default'
   post 'search', to: 'search#default'
 

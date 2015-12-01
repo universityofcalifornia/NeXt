@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117005801) do
+ActiveRecord::Schema.define(version: 20151201004039) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -413,6 +413,8 @@ ActiveRecord::Schema.define(version: 20151117005801) do
     t.integer  "idea_points",         default: 0
     t.integer  "project_points",      default: 0
     t.integer  "other_points",        default: 0
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
