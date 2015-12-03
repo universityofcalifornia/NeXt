@@ -39,4 +39,7 @@
 
 # Ignore uploaded files
 /public/uploads/*
+
+# Ignore YAML-based third-party dependency configs
 /config/elasticsearch.yml
+/config/smtp.yml
