@@ -13,11 +13,12 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: password_reset_params[:email].downcase)
     if @user
       @user.create_reset_digest
-      #@user.send_password_reset_email
-      redirect_to edit_password_reset_url(@user.reset_token, email: @user.email)
+      @user.send_password_reset_email
+      # redirect_to edit_password_reset_url(@user.reset_token, email: @user.email)
+
       flash[:page_alert] = "Email sent with password reset instructions"
       flash[:page_alert_type] = "success"
-      #redirect_to root_url
+      redirect_to root_url
     else
       flash[:page_alert] = "<strong>Error.</strong> Email address not found"
       flash[:page_alert_type] = "danger"

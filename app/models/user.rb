@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   end
 
   def send_password_reset_email
-    # UserMailer.password_reset(self).deliver_now
+    PasswordResetEmail.password_reset(self).deliver
   end
 
   def is_editable_by? user
@@ -187,3 +187,6 @@ class User < ActiveRecord::Base
   end
 
 end
+
+#http://localhost:3000/password_resets/9pW38E3Pl2FRDDf0YWdcNA/edit?email=a%40ucla.edu
+#https://localhost:8080/password_resets/9pW38E3Pl2FRDDf0YWdcNA/edit?email=a%40ucla.edu
