@@ -6,9 +6,11 @@
         <%= image_tag "/images/checkmark.png", class: "checkmark" %>
       <% end %>
     </div>
-    <h3><%= link_to badge.name, badge_path(badge) %></h3>
+    <h3>
+      <%= link_to badge.name.ellipsis(40), badge_path(badge) %>
+    </h3>
     <% unless badge.description.blank? %>
-      <p><%= badge.description[0...50] %> ...</p>
+      <p><%= badge.description.ellipsis(50) %></p>
     <% end %>
   </div>
 </div>
