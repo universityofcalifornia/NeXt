@@ -2,7 +2,7 @@
   <div class="panel-body">
     <div class="icon">
       <%= image_tag badge.image.thumb, class: "float-left" %>
-      <% if current_user && current_user.badges.include?(badge) %>
+      <% if @user && @user.is_showcasing_badge?(badge) %>
         <%= image_tag "/images/checkmark.png", class: "checkmark" %>
       <% end %>
     </div>
