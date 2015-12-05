@@ -19,7 +19,7 @@
       </h1>
       <ul class="list-group">
         <% @projects.each do |project| %>
-          <li class="list-group-item">
+          <li class="list-group-item bubbles">
             <%= link_to project.name, project %>
             <div class="bubble-right-small pull-right">
               <%= project.project_votes.count %>
@@ -52,7 +52,7 @@
       </h1>
       <ul class="list-group list-group-secondary">
         <% @ideas.each do |idea| %>
-          <li class="list-group-item">
+          <li class="list-group-item bubbles">
             <%= link_to idea.name, idea %>
             <div class="bubble-right-small pull-right">
               <%= idea.idea_votes.count %>

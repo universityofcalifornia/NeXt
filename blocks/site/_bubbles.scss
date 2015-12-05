@@ -1,10 +1,14 @@
+.list-group .list-group-item.bubbles {
+  padding-right: 50px;
+}
+
 .bubble-right-small {
   width: 45px;
   height: 35px;
   background-image: url(/images/bubbles/right_small.png);
   background-repeat: no-repeat;
   background-size: 100%;
-  margin: -5px 0 0 5px;
+  margin: -5px -50px 0 5px;
   padding-left: 10px;
   line-height: 35px;
   text-align: center;
