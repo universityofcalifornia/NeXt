@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-md-6">
-    <section class="padded-section">
+    <section>
       <h1 class="valign-middle">
         <span>Projects</span>
         <span class="header-icon hidden-xs">
@@ -14,12 +14,12 @@
         </span>
         <span class="pull-right bubble-right-big">
           Total Projects<br>
-          <%= ProjectVote.count %>
+          <%= Project.count %>
         </span>
       </h1>
       <ul class="list-group">
         <% @projects.each do |project| %>
-          <li class="list-group-item">
+          <li class="list-group-item bubbles">
             <%= link_to project.name, project %>
             <div class="bubble-right-small pull-right">
               <%= project.project_votes.count %>
@@ -39,7 +39,7 @@
   </div>
 
   <div class="col-md-6">
-    <section class="padded-section">
+    <section>
       <h1 class="valign-middle">
         <span>Ideas</span>
         <span class="header-icon hidden-xs">
@@ -47,12 +47,12 @@
         </span>
         <span class="pull-right bubble-right-big">
           Total Ideas<br>
-          <%= IdeaVote.count %>
+          <%= Idea.count %>
         </span>
       </h1>
       <ul class="list-group list-group-secondary">
         <% @ideas.each do |idea| %>
-          <li class="list-group-item">
+          <li class="list-group-item bubbles">
             <%= link_to idea.name, idea %>
             <div class="bubble-right-small pull-right">
               <%= idea.idea_votes.count %>
@@ -86,7 +86,7 @@
   </div>
 
   <div class="col-md-6 text-center wave-compensate">
-    <section>
+    <section id="twitter-feed-wrapper">
       <h1 class="valign-middle">
         <span>UC NeXt News</span>
         <span class="header-icon hidden-xs">

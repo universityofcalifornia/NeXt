@@ -75,7 +75,7 @@
         <div class="panel-body">
           <% @group.badges.each do |badge| %>
             <%= link_to(badge_path(badge)) do %>
-              <%= image_tag badge.image.thumb, class: "pull-right" %>
+              <%= image_tag badge.image.thumb, class: "pull-left group-badge-icon" %>
             <% end %>
           <% end %>
           <%= raw @group.description_html %>

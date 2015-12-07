@@ -162,4 +162,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is_showcasing_badge? badge
+    user_badge = user_badges.find_by_badge_id badge.id
+
+    if user_badge && user_badge.showcase
+      return true
+    else
+      return false
+    end
+  end
+
 end

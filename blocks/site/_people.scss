@@ -13,3 +13,13 @@
 .social-icon {
   height: 20px;
 }
+
+.list-with-avatars {
+  .list-group-item {
+    padding: 5px;
+  }
+
+  .list-avatar {
+    margin: -5px 5px -5px -5px;
+  }
+}

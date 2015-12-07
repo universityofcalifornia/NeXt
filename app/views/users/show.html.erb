@@ -7,7 +7,7 @@
       <header class="profile-header" style="overflow:auto">
 
         <figure class="avatar">
-          <%= gravatar_tag @user.email %>
+          <%= gravatar_tag @user.email, secure: true %>
           <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
         </figure>
 
