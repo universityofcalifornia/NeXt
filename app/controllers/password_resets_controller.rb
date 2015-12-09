@@ -39,6 +39,9 @@ class PasswordResetsController < ApplicationController
       flash[:page_alert_type] = 'danger'
       render 'edit'
     elsif @user.update_attributes(password_hash: BCrypt::Password.create(user_params[:password]))
+      @user.reset_digest = nil
+      @user.reset_sent_at = nil
+      @user.save
       flash[:page_alert] = "Password has been reset"
       flash[:page_alert_type] = "success"
       redirect_to root_url
@@ -62,12 +65,19 @@ class PasswordResetsController < ApplicationController
   end
 
   def authenticated_user
-    redirect_to root_url unless BCrypt::Password.new(@user.reset_digest).is_password?(params[:id])
+    if @user.reset_digest==nil
+      flash[:page_alert] = "Password reset link has already been used, enter your email for a new one!"
+      flash[:page_alert_type] = "danger"
+      redirect_to new_password_reset_url 
+    else
+      redirect_to root_url unless BCrypt::Password.new(@user.reset_digest).is_password?(params[:id])
+    end
   end
 
   def check_expiration
-    if @user.password_reset_expired?
-      flash[:danger] = "Password reset has expired."
+    if (@user.password_reset_expired? or (@user.reset_digest == nil))
+      flash[:page_alert] = "Your password reset link has expired, enter your email for a new one!"
+      flash[:page_alert_type] = "danger"
       redirect_to new_password_reset_url
     end
   end
