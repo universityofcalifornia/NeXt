@@ -141,6 +141,14 @@
             <% end %>
           </ul>
           <% end %>
+          <% unless @project.sponsor.nil? or @project.sponsor.blank? %>
+            <h5 class="text-muted no-margin-bottom">Sponsor(s)</h5>
+            <p><%= @project.sponsor %></p>
+          <% end %>
+          <% unless @project.manager.nil? or @project.manager.blank? %>
+            <h5 class="text-muted no-margin-bottom">Manager(s)</h5>
+            <p><%= @project.manager %></p>
+          <% end %>
           <% {
                  'Website' => :website_url,
                  'Documentation' => :documentation_url,

@@ -58,8 +58,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    binding.pry
-
     if @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager)
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
