@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201004039) do
+ActiveRecord::Schema.define(version: 20151203023617) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -335,6 +335,8 @@ ActiveRecord::Schema.define(version: 20151201004039) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.text     "problem_statement", limit: 16777215
+    t.string   "sponsor"
+    t.string   "manager"
   end
 
   add_index "projects", ["created_at"], name: "index_projects_on_created_at", using: :btree
