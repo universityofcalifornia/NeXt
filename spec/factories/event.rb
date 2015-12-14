@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :event do
-  	user
+    user
     name "My first event"
     short_description "Cool event!"
     description "Come to my first event"

@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   def new
-  	
+
     @comment = Comment.new
     @comment.parent_id = params[:parent_id]
     @idea = @comment.root.idea
@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
 
   def create
 
-  	path = params[:return_to]
+    path = params[:return_to]
 
     unless context.user
 
@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
       flash[:page_alert_type] = 'warning'
     end
 
-    redirect_to path 
+    redirect_to path
 
   end
 
