@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     scope module: 'projects' do
-      resources :votes, only: [:create]
+      resources :votes, only: [:create, :update, :destroy]
       resources :documents
     end
   end
