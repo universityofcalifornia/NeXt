@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_filter :set_mailer_host
+
   include ApplicationHelper
   include SearchHelper
 
@@ -36,4 +38,13 @@ class ApplicationController < ActionController::Base
     context.user
   end
   helper_method :current_user
+
+  private
+  def set_mailer_host
+    # Override email URLs to always use the host that served the request
+    host = request.protocol + request.host_with_port
+    ActionMailer::Base.asset_host = host
+    ActionMailer::Base.default_url_options[:host] = host
+  end
+
 end

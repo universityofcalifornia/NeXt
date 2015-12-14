@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Log in" do
 
-	background do
+  background do
     FactoryGirl.create(:user)
   end
 
@@ -10,7 +10,7 @@ feature "Log in" do
 
     #visit 'http://localhost:1234/auth/local/new'
     #p "URL #{current_url}"
-		#save_and_open_page
+    #save_and_open_page
     #click_link 'Login'
     #fill_in "Email", :with => "new"
     #fill_in "Password", :with => "password"

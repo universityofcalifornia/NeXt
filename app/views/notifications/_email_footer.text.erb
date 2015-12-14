@@ -1,0 +1,10 @@
+
+===============
+
+UCNext.org
+<%= root_url %>
+
+<% if @user %>
+You can unsubscribe from these emails on your profile preferences page:
+<%= edit_user_url(@user) %>
+<% end %>
