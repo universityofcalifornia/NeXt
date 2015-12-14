@@ -35,7 +35,7 @@ class Idea < ActiveRecord::Base
     user and (idea_votes.where(user_id: user.id).count > 0)
   end
 
-  def would_particpate? user
+  def would_participate? user
     user and (idea_votes.where(user_id: user.id, participate: true).count > 0)
   end
 
