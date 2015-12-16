@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :event do
-  	user
+    user
     name "My first event"
+    short_description "Cool event!"
     description "Come to my first event"
     map_url "http://my.map_url.org"
     event_url "http://my.event_url.org"

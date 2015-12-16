@@ -97,16 +97,49 @@
 
       <section class="panel panel-invisible">
 
-        <% if @project.is_votable_by? current_user %>
+      <% if @project.has_been_voted_for_by? current_user %>
 
-        <%= button_to 'Good Project',
+        <% if @project.would_participate? current_user %>
+
+           <%= button_to 'Withdraw Participation',
+                      project_vote_url(@project,@project.voted_by(current_user)),
+                      method: :put,
+                      params: { participate: false },
+                      class: 'btn btn-withdraw-participation btn-block',
+                      form_class: 'button_to full-width' %>
+
+            <%= button_to 'Withdraw Support',
+                      project_vote_url(@project,@project.voted_by(current_user)),
+                      method: :delete,
+                      class: 'btn btn-withdraw-support btn-block',
+                      form_class: 'button_to full-width' %>
+
+        <% else %>
+
+            <%= button_to 'Would Participate',
+                      project_vote_url(@project,@project.voted_by(current_user)),
+                      method: :put,
+                      params: { participate: true },
+                      class: 'btn btn-success btn-block',
+                      form_class: 'button_to full-width' %>
+
+            <%= button_to 'Withdraw Support',
+                      project_vote_url(@project,@project.voted_by(current_user)),
+                      method: :delete,
+                      class: 'btn btn-withdraw-support btn-block',
+                      form_class: 'button_to full-width' %>
+        <% end %>
+
+        <% elsif @project.is_votable_by? current_user %>
+
+          <%= button_to 'Good Project',
                       project_votes_url(@project),
                       method: :post,
                       params: { participate: false },
                       class: 'btn btn-support btn-block',
                       form_class: 'button_to full-width' %>
 
-        <%= button_to 'Would Participate',
+          <%= button_to 'Would Participate',
                       project_votes_url(@project),
                       method: :post,
                       params: { participate: true },
@@ -120,11 +153,6 @@
                       edit_project_url(@project),
                       method: :get,
                       class: 'btn btn-edit btn-block',
-                      form_class: 'button_to full-width' %>
-        <%= button_to 'Manage Documents',
-                      project_documents_url(@project),
-                      method: :get,
-                      class: 'btn btn-manage-documents btn-block',
                       form_class: 'button_to full-width' %>
         <%= button_to 'Delete',
                       project_url(@project),
@@ -153,6 +181,14 @@
               <li><%= link_to project_role.user.display_name, project_role.user %></li>
             <% end %>
           </ul>
+          <% end %>
+          <% unless @project.sponsor.nil? or @project.sponsor.blank? %>
+            <h5 class="text-muted no-margin-bottom">Sponsor(s)</h5>
+            <p><%= @project.sponsor %></p>
+          <% end %>
+          <% unless @project.manager.nil? or @project.manager.blank? %>
+            <h5 class="text-muted no-margin-bottom">Manager(s)</h5>
+            <p><%= @project.manager %></p>
           <% end %>
           <% {
                  'Website' => :website_url,

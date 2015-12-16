@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     scope module: 'projects' do
-      resources :votes, only: [:create]
+      resources :votes, only: [:create, :update, :destroy]
       resources :documents
     end
   end
@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   namespace :local do
     resources :users
   end
+
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   get 'search', to: 'search#default'
   post 'search', to: 'search#default'

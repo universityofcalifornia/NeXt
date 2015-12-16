@@ -1,62 +1,27 @@
 <p style="text-align: center;"><%= link_to 'Back to Events', events_path, class: 'btn' %></p>
 
 <div class="event-list">
-  <% event = @event %>
-  <a href="<%= event_url(event) %>">
+  <%= link_to(@event) do %>
     <div class="row">
-
       <div class="col-sm-2 date">
-        <% if event.start_datetime or event.stop_datetime %>
-            <% if event.start_datetime and event.stop_datetime %>
-                <% if event.start_datetime.strftime('%b %d %Y') == event.stop_datetime.strftime('%b %d %Y') %>
-                    <%= event.start_datetime.strftime('%b %d %Y') %>
-                <% elsif event.start_datetime.strftime('%b %Y') == event.stop_datetime.strftime('%b %Y') %>
-                    <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
-                <% elsif event.start_datetime.strftime('%Y') == event.stop_datetime.strftime('%Y')  %>
-                    <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%b %d %Y') %>
-                <% else %>
-                    <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%b %d %Y') %>
-                <% end %>
-            <% elsif event.start_datetime %>
-                <%= event.start_datetime.strftime('%b %d %Y') %>
-            <% elsif event.stop_datetime %>
-                <%= event.stop_datetime.strftime('%b %d %Y') %>
-            <% end %>
-        <% end %>
+        <%= @event.datetime_range %>
       </div>
 
       <div class="col-sm-10">
-        <h4><%= event.name %></h4>
-        <% if event.short_description %>
-            <p><%= event.short_description %></p>
+        <h4><%= @event.name %></h4>
+        <% if @event.short_description %>
+          <p><%= @event.short_description %></p>
         <% end %>
         <p style="font-size:10px;">
-          <% if event.start_datetime or event.stop_datetime %>
-              <% if event.start_datetime and event.stop_datetime %>
-                  <% if event.start_datetime.strftime('%b %d %Y') == event.stop_datetime.strftime('%b %d %Y') %>
-                      <%= event.start_datetime.strftime('%l:%M %p') %> - <%= event.stop_datetime.strftime('%l:%M %p') %>
-                  <% elsif event.start_datetime.strftime('%b %Y') == event.stop_datetime.strftime('%b %Y') %>
-
-                      <%= event.start_datetime.strftime('%l:%M %p') %> <%= event.start_datetime.strftime('%b') %> <%= event.start_datetime.strftime('%d') %> - <%= event.stop_datetime.strftime('%l:%M %p') %> <%= event.stop_datetime.strftime('%d') %> <%= event.stop_datetime.strftime('%Y') %>
-                  <% elsif event.start_datetime.strftime('%Y') == event.stop_datetime.strftime('%Y')  %>
-                      <%= event.start_datetime.strftime('%l:%M %p') %> <%= event.start_datetime.strftime('%b %d') %> - <%= event.stop_datetime.strftime('%l:%M %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
-                  <% else %>
-                      <%= event.start_datetime.strftime('%l:%M %p') %> <%= event.start_datetime.strftime('%b %d %Y') %> - <%= event.stop_datetime.strftime('%l:%M %p') %> <%= event.stop_datetime.strftime('%b %d %Y') %>
-                  <% end %>
-              <% elsif event.start_datetime %>
-                  <%= event.start_datetime.strftime('%l:%M %p %b %d %Y') %>
-              <% elsif event.stop_datetime %>
-                  <%= event.stop_datetime.strftime('%l:%M %p %b %d %Y') %>
-              <% end %>
-          <% end %>
-          <% if event.location %>
-            @ <%= event.location %>
+          <%= @event.datetime_range(times: true) %>
+          <% unless @event.location.blank? %>
+            @ <%= @event.location %>
           <% end %>
         </p>
       </div>
 
     </div>
-  </a>
+  <% end %>
 </div>
 
 <div class="event-info">
@@ -68,20 +33,20 @@
   <div class="panel-default panel">
     <div class="panel-body">
       <h5>Description</h5>
-      <%= raw event.description_html %>
+      <%= raw @event.description_html %>
     </div>
   </div>
   <div class="split-panels">
     <div class="panel-default panel">
       <div class="panel-body">
         <h5>Start</h5>
-        <p><%= event.start_datetime ? event.start_datetime.strftime('%l:%M %p %b %d %Y') : raw('<em>Not Specified</em>') %></p>
+        <p><%= @event.start_datetime ? @event.start_datetime.strftime("%b %d, %Y %l:%M %p") : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
     <div class="panel-default panel">
       <div class="panel-body">
         <h5>End</h5>
-        <p><%= event.stop_datetime ? event.stop_datetime.strftime('%l:%M %p %b %d %Y') : raw('<em>Not Specified</em>') %></p>
+        <p><%= @event.stop_datetime ? @event.stop_datetime.strftime("%b %d, %Y %l:%M %p") : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
   </div>
@@ -89,17 +54,17 @@
     <div class="panel-default panel">
       <div class="panel-body">
         <h5>Location</h5>
-        <p><%= event.location.length > 0 ? event.location : raw('<em>Not Specified</em>') %></p>
+        <p><%= !@event.location.blank? ? @event.location : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
     <div class="panel-default panel">
       <div class="panel-body">
         <h5>Website</h5>
         <p style="overflow:hidden;text-overflow:ellipsis">
-          <% if event.event_url and event.event_url.length > 0 %>
-              <a href="<%= event.event_url %>" target="_blank"><%= event.event_url %></a>
+          <% unless @event.event_url.blank? %>
+            <%= link_to(@event.event_url, target: "_blank") %>
           <% else %>
-              <em>Not Specified</em>
+            <em>Not Specified</em>
           <% end %>
         </p>
       </div>
@@ -120,10 +85,10 @@
       <div class="panel-body">
         <h5>Map</h5>
         <p style="overflow:hidden;text-overflow:ellipsis">
-          <% if event.map_url and event.map_url.length > 0 %>
-              <a href="<%= event.map_url %>" target="_blank"><%= event.map_url %></a>
+          <% unless @event.map_url.blank? %>
+            <%= link_to(@event.map_url, target: "_blank") %>
           <% else %>
-              <em>None Specified</em>
+            <em>None Specified</em>
           <% end %>
         </p>
       </div>

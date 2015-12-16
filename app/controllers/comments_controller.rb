@@ -20,6 +20,9 @@ class CommentsController < ApplicationController
   end
 
   def create
+
+    path = params[:return_to]
+
     unless context.user
       raise Application::Error.new "You must be logged in to comment",
                                      redirect_to: [

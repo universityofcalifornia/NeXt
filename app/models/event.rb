@@ -1,35 +1,36 @@
 class Event < ActiveRecord::Base
 
-	belongs_to :user
+  belongs_to :user
 
-	has_many :invites #, :dependent => :destroy
-	has_many :groups, :through => :event_groups
-	has_many :event_groups
+  has_many :invites #, :dependent => :destroy
+  has_many :groups, :through => :event_groups
+  has_many :event_groups
 
   validates :start_datetime, :presence => true
   validates :stop_datetime, :presence => true
-	validates :name, :presence => true
+  validates :name, :presence => true
+  validates :short_description, :presence => true
   validate :start_date_before_end_date, :on => [ :create, :update ]
 
   domain_regex = URI::regexp(%w(http https))
 
-	attr_accessor :invite_list, :group_tokens
+  attr_accessor :invite_list, :group_tokens
 
-	validates :map_url, :format => { :with => domain_regex }, :if => "map_url.present?"
+  validates :map_url, :format => { :with => domain_regex }, :if => "map_url.present?"
 
   validates :event_url, :format => { :with => domain_regex }, :if => "event_url.present?"
 
-	mount_uploader :image, EventPromoPhotoUploader
+  mount_uploader :image, EventPromoPhotoUploader
 
-	after_create :create_invites
+  after_create :create_invites
 
   attr_html_reader :description
 
-	def invite_list
-		self.invites.pluck(:email).compact.join(', ')
-	end
+  def invite_list
+    self.invites.pluck(:email).compact.join(', ')
+  end
 
-	def group_tokens=(ids)
+  def group_tokens=(ids)
     self.group_ids = ids.split(",")
   end
 
@@ -41,7 +42,60 @@ class Event < ActiveRecord::Base
     end
   end
 
-	private
+  def datetime_range(opts = {})
+    times = opts[:times] || false
+
+    if start_datetime && stop_datetime
+      same_year  = (start_datetime.year  == stop_datetime.year )
+      same_month = (start_datetime.month == stop_datetime.month)
+      same_day   = (start_datetime.day   == stop_datetime.day  )
+
+      if same_year && same_month && same_day
+        if times
+          return start_datetime.strftime("%l:%M %p - ") + stop_datetime.strftime("%l:%M %p")
+        else
+          return start_datetime.strftime("%b %d %Y")
+        end
+
+      elsif same_year && same_month
+        if times
+          return start_datetime.strftime("%b %d %l:%M %p - ") + stop_datetime.strftime("%b %d, %Y %l:%M %p")
+        else
+          return start_datetime.strftime("%b %d - ") + stop_datetime.strftime("%d %Y")
+        end
+
+      elsif same_year
+        if times
+          return start_datetime.strftime("%b %d %l:%M %p - ") + stop_datetime.strftime("%b %d, %Y %l:%M %p")
+        else
+          return start_datetime.strftime("%b %d - ") + stop_datetime.strftime("%b %d %Y")
+        end
+
+      else
+        if times
+          return start_datetime.strftime("%b %d, %Y %l:%M %p - ") + stop_datetime.strftime("%b %d, %Y %l:%M %p")
+        else
+          return start_datetime.strftime("%b %d %Y - ") + stop_datetime.strftime("%b %d %Y")
+        end
+      end
+
+    elsif start_datetime
+      if times
+        return start_datetime.strftime("%b %d, %Y %l:%M %p")
+      else
+        return start_datetime.strftime("%b %d %Y")
+      end
+
+    elsif stop_datetime
+      if times
+        return stop_datetime.strftime("%b %d, %Y %l:%M %p")
+      else
+        return stop_datetime.strftime("%b %d %Y")
+      end
+    end
+  end
+
+  private
   def create_invites
     if @invite_list
       @invite_list.split(/,/).each do |email|
@@ -58,13 +112,3 @@ class Event < ActiveRecord::Base
   end
 
 end
-
-
-
-
-
-
-
-
-
-

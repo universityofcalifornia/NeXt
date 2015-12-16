@@ -1,14 +1,15 @@
 $(document).ready(function() {
-  if ($('.twitter-timeline').length) {
-    window.setTimeout(function() {
-      // Override the Twitter iframe's CSS
-      CustomizeTwitterWidget({ url: '/assets/blocks.css' });
-    }, 500);
+  var twitterChecker;
 
-    window.setTimeout(function() {
-      // Hack to show the border properly
-      var iframe = $('.twitter-timeline-rendered');
-      iframe.height(iframe.height() + 1);
-    }, 1000);
+  if ($('#twitter-feed-wrapper').length) {
+    twitterChecker = window.setInterval(function() {
+      // Wait until Twitter tells us the iframe is rendered
+      if ($('.twitter-timeline-rendered').length) {
+        window.clearInterval(twitterChecker);
+
+        // Override the iframe's CSS
+        CustomizeTwitterWidget({ url: '/assets/blocks.css' });
+      }
+    }, 100);
   }
 });

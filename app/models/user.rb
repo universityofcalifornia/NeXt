@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   validates :email, :allow_nil => false, :presence => true
   #validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
 
+  attr_accessor :reset_token
+
   belongs_to :primary_position, class: Position
   extend_method :primary_position do
     parent_method ? parent_method : positions.first
@@ -62,6 +64,36 @@ class User < ActiveRecord::Base
     str << ", #{name_first}" if format == :lfm or format == :lf
     str << " #{name_middle[0,1].capitalize}." if format == :lfm and name_middle
     str
+  end
+
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.digest(string)
+    BCrypt::Password.create(string)
+  end
+
+  def create_reset_digest
+    if self.reset_token == nil
+      self.reset_token = User.new_token
+      update_attribute(:reset_digest,  User.digest(reset_token))
+      update_attribute(:reset_sent_at, Time.zone.now)
+    end
+  end
+
+  def password_reset_expired?
+    if reset_sent_at < 2.hours.ago
+      self.reset_token = nil
+      self.reset_sent_at = nil
+      return true
+    else
+      return false
+    end  
+  end
+
+  def send_password_reset_email
+    PasswordResetEmail.password_reset(self).deliver
   end
 
   def is_editable_by? user
@@ -162,4 +194,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is_showcasing_badge? badge
+    user_badge = user_badges.find_by_badge_id badge.id
+
+    if user_badge && user_badge.showcase
+      return true
+    else
+      return false
+    end
+  end
+
 end
+
+#http://localhost:3000/password_resets/9pW38E3Pl2FRDDf0YWdcNA/edit?email=a%40ucla.edu
+#https://localhost:8080/password_resets/9pW38E3Pl2FRDDf0YWdcNA/edit?email=a%40ucla.edu

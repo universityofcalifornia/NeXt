@@ -7,8 +7,7 @@ module Projects
 
     def create
 
-      path = params[:return_to] || project_path(@project)
-
+      path = params[:return_to] || project_path(@project)      
       unless current_user
         raise Application::Error.new "You must be logged in to vote for a project",
                                      redirect_to: [
@@ -29,6 +28,38 @@ module Projects
                     page_alert_type: 'success'
                   }
 
+    end
+
+    def update
+      path = params[:return_to] || project_path(@project)
+      vote = @project.voted_by current_user
+
+      if vote.participate && params[:participate]=="false"
+        page_alert_msg = "You have withrawn your participation from #{@project.name}."
+      elsif ! vote.participate && params[:participate]=="true"
+        page_alert_msg = "Thank you for participating in #{@project.name}!"
+      end
+
+      vote.participate = params[:participate]
+      vote.save
+
+      redirect_to path,
+                flash: {
+                  page_alert: page_alert_msg,
+                  page_alert_type: 'success'
+                }
+    end
+
+    def destroy
+      path = params[:return_to] || project_path(@project)
+      vote = @project.voted_by current_user
+      vote.destroy
+      current_user.alter_points :projects, -1
+      redirect_to path,
+                flash: {
+                  page_alert: "Your support of #{@project.name} has been withdrawn.",
+                  page_alert_type: 'success'
+                }
     end
 
   end

@@ -89,7 +89,7 @@
 
         <% if @idea.has_been_voted_for_by? current_user %>
 
-          <% if @idea.would_particpate? current_user %>
+          <% if @idea.would_participate? current_user %>
 
             <%= button_to 'Withdraw Participation',
                       idea_vote_url(@idea,@idea.voted_by(current_user)),

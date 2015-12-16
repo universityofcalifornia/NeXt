@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     unless current_user
       raise Application::Error.new "You must be logged in to view profiles",
                                    redirect_to: [
-                                       auth_oauth2_launch_url(:shibboleth),
+                                       :new_auth_local,
                                        flash: { return_to: user_url(@user) }
                                    ]
     end
