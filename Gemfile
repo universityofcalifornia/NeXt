@@ -64,6 +64,9 @@ gem 'foreigner'
 gem "letter_opener", :group => :development
 gem 'rufus-scheduler'
 
+# generates a status page at /status.json
+gem 'rapporteur'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
@@ -82,3 +85,4 @@ end
 group :development do
   gem 'awesome_print'
 end
+
