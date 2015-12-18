@@ -1,16 +1,18 @@
-.list-group .list-group-item.bubbles {
-  padding-right: 50px;
+.list-group .list-group-item.row.bubbles {
+  padding: 0;
+
+  > div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 
 .bubble-right-small {
-  width: 45px;
-  height: 35px;
+  padding: 10px 10px 10px 20px;
   background-image: url(/images/bubbles/right_small.png);
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
-  margin: -5px -50px 0 5px;
-  padding-left: 10px;
-  line-height: 35px;
+  background-size: 50px;
   text-align: center;
 }
 

@@ -97,6 +97,10 @@ h3 {
   display: table-cell;
 }
 
+.padding-10 {
+  padding: 10px;
+}
+
 @media (max-width: $screen-xs-max) {
   .text-left-xs {
     text-align: left;

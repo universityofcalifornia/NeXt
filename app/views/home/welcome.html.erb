@@ -22,10 +22,20 @@
         </div>
       </div>
       <ul class="list-group">
-        <% @projects.each do |project| %>
-          <li class="list-group-item bubbles">
-            <%= link_to project.name, project %>
-            <div class="bubble-right-small pull-right">
+        <li class="list-group-item row">
+          <div class="col-xs-2 text-right">Rank</div>
+          <div class="col-xs-8"></div>
+          <div class="col-xs-2 text-right">Votes</div>
+        </li>
+        <% @projects.each_with_index do |project, i| %>
+          <li class="list-group-item row bubbles">
+            <div class="col-xs-2 text-right">
+              <%= i + 1 %>.
+            </div>
+            <div class="col-xs-8">
+              <%= link_to project.name, project %>
+            </div>
+            <div class="col-xs-2 bubble-right-small">
               <%= project.project_votes.count %>
             </div>
           </li>
@@ -59,10 +69,20 @@
         </div>
       </div>
       <ul class="list-group list-group-secondary">
-        <% @ideas.each do |idea| %>
-          <li class="list-group-item bubbles">
-            <%= link_to idea.name, idea %>
-            <div class="bubble-right-small pull-right">
+        <li class="list-group-item row">
+          <div class="col-xs-2 text-right">Rank</div>
+          <div class="col-xs-8"></div>
+          <div class="col-xs-2 text-right">Votes</div>
+        </li>
+        <% @ideas.each_with_index do |idea, i| %>
+          <li class="list-group-item row bubbles">
+            <div class="col-xs-2 text-right">
+              <%= i + 1 %>.
+            </div>
+            <div class="col-xs-8">
+              <%= link_to idea.name, idea %>
+            </div>
+            <div class="col-xs-2 bubble-right-small">
               <%= idea.idea_votes.count %>
             </div>
           </li>
