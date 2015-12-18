@@ -32,12 +32,22 @@
 }
 
 .bubble-right-big {
-  width: 120px;
-  height: 40px;
-  background-image: url(/images/bubbles/right_big.png);
-  background-repeat: no-repeat;
-  background-size: 100%;
-  margin-top: 20px;
   padding: 5px 5px 5px 15px;
+  background-image: url(/images/bubbles/right_big.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 135px;
   font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: $headings-color;
+
+  @media (max-width: $screen-sm-max) {
+    margin-bottom: 10px;
+  }
+
+  @media (min-width: $screen-md-min) {
+    margin-top: 15px;
+  }
 }

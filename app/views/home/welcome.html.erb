@@ -7,16 +7,20 @@
 <div class="row">
   <div class="col-md-6">
     <section>
-      <h1 class="valign-middle">
-        <span>Projects</span>
-        <span class="header-icon hidden-xs">
-          <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive" } %>
-        </span>
-        <span class="pull-right bubble-right-big">
+      <div class="row">
+        <div class="col-sm-8 text-center">
+          <h1>
+            <%= image_tag "/images/header_icons/projects.png", { class: "trending-icon pull-right" } %>
+            Trending
+            <br class="visible-lg">
+            Projects
+          </h1>
+        </div>
+        <div class="col-sm-4 bubble-right-big">
           Total Projects<br>
           <%= Project.count %>
-        </span>
-      </h1>
+        </div>
+      </div>
       <ul class="list-group">
         <% @projects.each do |project| %>
           <li class="list-group-item bubbles">
@@ -40,16 +44,20 @@
 
   <div class="col-md-6">
     <section>
-      <h1 class="valign-middle">
-        <span>Ideas</span>
-        <span class="header-icon hidden-xs">
-          <%= image_tag "/images/header_icons/ideas.png", { class: "img-responsive" } %>
-        </span>
-        <span class="pull-right bubble-right-big">
+      <div class="row">
+        <div class="col-sm-8 text-center">
+          <h1>
+            <%= image_tag "/images/header_icons/ideas.png", { class: "trending-icon pull-right" } %>
+            Trending
+            <br class="visible-lg">
+            Ideas
+          </h1>
+        </div>
+        <div class="col-sm-4 bubble-right-big">
           Total Ideas<br>
           <%= Idea.count %>
-        </span>
-      </h1>
+        </div>
+      </div>
       <ul class="list-group list-group-secondary">
         <% @ideas.each do |idea| %>
           <li class="list-group-item bubbles">
