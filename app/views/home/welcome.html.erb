@@ -7,21 +7,35 @@
 <div class="row">
   <div class="col-md-6">
     <section>
-      <h1 class="valign-middle">
-        <span>Projects</span>
-        <span class="header-icon hidden-xs">
-          <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive" } %>
-        </span>
-        <span class="pull-right bubble-right-big">
+      <div class="row">
+        <div class="col-sm-8 text-center">
+          <h1>
+            <%= image_tag "/images/header_icons/projects.png", { class: "trending-icon pull-right" } %>
+            Trending
+            <br class="visible-lg">
+            Projects
+          </h1>
+        </div>
+        <div class="col-sm-4 bubble-right-big">
           Total Projects<br>
           <%= Project.count %>
-        </span>
-      </h1>
+        </div>
+      </div>
       <ul class="list-group">
-        <% @projects.each do |project| %>
-          <li class="list-group-item bubbles">
-            <%= link_to project.name, project %>
-            <div class="bubble-right-small pull-right">
+        <li class="list-group-item row">
+          <div class="col-xs-2 text-right">Rank</div>
+          <div class="col-xs-8"></div>
+          <div class="col-xs-2 text-right">Votes</div>
+        </li>
+        <% @projects.each_with_index do |project, i| %>
+          <li class="list-group-item row bubbles">
+            <div class="col-xs-2 text-right">
+              <%= i + 1 %>.
+            </div>
+            <div class="col-xs-8">
+              <%= link_to project.name, project %>
+            </div>
+            <div class="col-xs-2 bubble-right-small">
               <%= project.project_votes.count %>
             </div>
           </li>
@@ -40,21 +54,35 @@
 
   <div class="col-md-6">
     <section>
-      <h1 class="valign-middle">
-        <span>Ideas</span>
-        <span class="header-icon hidden-xs">
-          <%= image_tag "/images/header_icons/ideas.png", { class: "img-responsive" } %>
-        </span>
-        <span class="pull-right bubble-right-big">
+      <div class="row">
+        <div class="col-sm-8 text-center">
+          <h1>
+            <%= image_tag "/images/header_icons/ideas.png", { class: "trending-icon pull-right" } %>
+            Trending
+            <br class="visible-lg">
+            Ideas
+          </h1>
+        </div>
+        <div class="col-sm-4 bubble-right-big">
           Total Ideas<br>
           <%= Idea.count %>
-        </span>
-      </h1>
+        </div>
+      </div>
       <ul class="list-group list-group-secondary">
-        <% @ideas.each do |idea| %>
-          <li class="list-group-item bubbles">
-            <%= link_to idea.name, idea %>
-            <div class="bubble-right-small pull-right">
+        <li class="list-group-item row">
+          <div class="col-xs-2 text-right">Rank</div>
+          <div class="col-xs-8"></div>
+          <div class="col-xs-2 text-right">Votes</div>
+        </li>
+        <% @ideas.each_with_index do |idea, i| %>
+          <li class="list-group-item row bubbles">
+            <div class="col-xs-2 text-right">
+              <%= i + 1 %>.
+            </div>
+            <div class="col-xs-8">
+              <%= link_to idea.name, idea %>
+            </div>
+            <div class="col-xs-2 bubble-right-small">
               <%= idea.idea_votes.count %>
             </div>
           </li>

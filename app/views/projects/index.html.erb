@@ -39,23 +39,37 @@
       Research support and Service.
     </p>
 
-    <h1>Top 5 Projects by Vote</h1>
+    <h1>Trending Projects</h1>
     <ul class="list-group">
-      <% @top_projects.each do |project| %>
-        <li class="list-group-item">
-          <%= link_to project.name, project %>
-          <div class="bubble-right-small pull-right">
+      <li class="list-group-item row">
+        <div class="col-xs-2 text-right">Rank</div>
+        <div class="col-xs-8"></div>
+        <div class="col-xs-2 text-right">Votes</div>
+      </li>
+      <% @top_projects.each_with_index do |project, i| %>
+        <li class="list-group-item row bubbles">
+          <div class="col-xs-2 text-right">
+            <%= i + 1 %>.
+          </div>
+          <div class="col-xs-6 col-sm-8 col-md-7 col-lg-8">
+            <%= link_to project.name, project %>
+          </div>
+          <div class="col-xs-2 col-sm-1 padding-10 text-right">
+            <% if current_user %>
+              <%= button_to '+1', '#', class: 'btn btn-support btn-less-padding modal-button', method: :get %>
+              <%= render partial: "shared/vote_dialog", locals: {
+                object: project,
+                button_text: [
+                  'Good project',
+                  'Would participate',
+                  'Learn more'
+                ]
+              } %>
+            <% end %>
+          </div>
+          <div class="col-xs-2 col-sm-1 col-md-2 col-lg-1 bubble-right-small">
             <%= project.project_votes.count %>
           </div>
-          <%= button_to '+1', '#', class: 'btn btn-support btn-less-padding modal-button', form_class: 'pull-right', method: :get %>
-          <%= render partial: "shared/vote_dialog", locals: {
-            object: project,
-            button_text: [
-              'Good project',
-              'Would participate',
-              'Learn more'
-            ]
-          } %>
         </li>
       <% end %>
     </ul>
@@ -83,15 +97,17 @@
 
       <div class="col-md-4 panel-cell">
         <div class="pull-right">
-          <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
-          <%= render partial: "shared/vote_dialog", locals: {
-            object: project,
-            button_text: [
-              'Good project',
-              'Would participate',
-              'Learn more'
-            ]
-          } %>
+          <% if current_user %>
+            <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
+            <%= render partial: "shared/vote_dialog", locals: {
+              object: project,
+              button_text: [
+                'Good project',
+                'Would participate',
+                'Learn more'
+              ]
+            } %>
+          <% end %>
           <div class="bubble-below text-center clear-both small">
             <div class="table-row">
               <div class="table-cell">
