@@ -1,5 +1,10 @@
 <header>
 
+  <% unless Rails.env.production? %>
+    <div class="env-banner">
+      <p>Fear not: You're currently on the <b><%= Rails.env %></b> server!</p>
+    </div>
+  <% end %>
   <div class="container topbar">
     <div class="row">
       <div class="col-md-3 text-center">
