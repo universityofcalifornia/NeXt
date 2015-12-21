@@ -43,6 +43,21 @@ h3 {
   }
 }
 
+.trending-icon {
+  @media (max-width: $screen-xs-max) {
+    display: none;
+  }
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    height: 65px;
+    margin-top: -10px;
+  }
+
+  @media (min-width: $screen-md-min) {
+    height: 65px;
+  }
+}
+
 .nav-icon {
   height: 25px;
   margin-right: 5px;
@@ -80,6 +95,10 @@ h3 {
 
 .table-cell {
   display: table-cell;
+}
+
+.padding-10 {
+  padding: 10px;
 }
 
 @media (max-width: $screen-xs-max) {
