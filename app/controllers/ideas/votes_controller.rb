@@ -23,6 +23,12 @@ module Ideas
 
       current_user.alter_points :ideas, 1
 
+      if vote.participate
+        @idea.idea_roles.founders.each do |idea_role|
+          IdeaNotifier.notify_founder(User.where(id: idea_role.user_id).first, current_user, @idea).deliver
+        end
+      end
+
       redirect_to path,
                   flash: {
                     page_alert: "Your support of <strong>#{@idea.name}</strong> is appreciated!",
@@ -40,6 +46,9 @@ module Ideas
         page_alert_msg = "You have withrawn your participation from #{@idea.name}."
       elsif ! vote.participate && params[:participate]=="true"
         page_alert_msg = "Thank you for participating in #{@idea.name}!"
+        @idea.idea_roles.founders.each do |idea_role|
+          IdeaNotifier.notify_founder(User.where(id: idea_role.user_id).first, current_user, @idea).deliver
+        end
       end
 
       vote.participate = params[:participate]
