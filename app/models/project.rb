@@ -23,6 +23,8 @@ class Project < ActiveRecord::Base
 
   has_many :project_documents, dependent: :destroy
 
+  has_many :comments, as: :commentable
+
   attr_html_reader :description
 
   validates :name,

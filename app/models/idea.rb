@@ -16,7 +16,7 @@ class Idea < ActiveRecord::Base
   has_many :idea_competencies
   has_many :competencies, through: :idea_competencies, source: :competency
 
-  has_many :comments, dependent: :destroy
+  has_many :comments, as: :commentable
 
   validates :name, presence: true, length: { maximum: 255 }
 

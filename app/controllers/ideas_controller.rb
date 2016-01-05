@@ -48,8 +48,9 @@ class IdeasController < ApplicationController
   end
 
   def show
-    @comment = Comment.new(parent_id: params[:parent_id])
-    @comments = Comment.where("idea_id = ? and depth = 0", @idea.id)
+    @comment = Comment.new(parent_id: params[:parent_id], commentable: @idea, return_to: idea_path(@idea))
+    @comment_return_to = idea_path(@idea)
+    @comments = Comment.where("commentable_id = ? and commentable_type = 'Idea' and depth = 0", @idea.id)
   end
 
   def edit

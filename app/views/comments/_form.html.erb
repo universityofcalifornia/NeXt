@@ -1,9 +1,8 @@
 <%= form_for @comment, html: { class: 'form-horizontal' } do |f| %>
 
-  <%= f.hidden_field :return_to, name: :return_to, value: idea_path(@idea) unless @idea.nil? %>
-
-  <%= f.hidden_field :idea_id, value: @idea.id unless @idea.nil? %>
-
+  <%= f.hidden_field :return_to, name: :return_to, value: @comment.return_to %>
+  <%= f.hidden_field :commentable_id, value: @comment.commentable_id %>
+  <%= f.hidden_field :commentable_type, value: @comment.commentable_type %>
   <%= f.hidden_field :parent_id %>
 
   <div class="form-group">
