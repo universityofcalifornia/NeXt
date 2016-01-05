@@ -9,23 +9,24 @@ module Auth
       end
 
       def new
+        @user = User.new
       end
 
       def create
-        puts "In create"
+        @user = User.new params[:user].permit(:email, :name_first, :name_last)
         if params[:user][:password] != params[:user][:password_confirmation]
           flash[:page_alert] = '<strong>Error.</strong> Password and confirmation did not match. Please try again.'
           flash[:page_alert_type] = 'danger'
-          redirect_to new_auth_local_registration_url
+          render :action => 'new'
         elsif !User.valid_password(params[:user][:password])
           logger.info "Invalid password"
           flash[:page_alert] = '<strong>Error.</strong> Password needs to be at least 8 characters long and contain at least one letter and one number'
           flash[:page_alert_type] = 'danger'
-          redirect_to new_auth_local_registration_url
+          render :action => 'new'
         elsif User.where(email: params[:user][:email]).count > 0
           flash[:page_alert] = '<strong>Error.</strong> Account already exists with the specified email address. Please try again.'
           flash[:page_alert_type] = 'danger'
-          redirect_to new_auth_local_registration_url
+          render :action => 'new'
         elsif !(params[:user][:email].ends_with?('ucla.edu') or
             params[:user][:email].ends_with?('berkeley.edu') or
             params[:user][:email].ends_with?('ucdavis.edu') or
@@ -45,7 +46,7 @@ module Auth
             params[:user][:email].ends_with?('cdlib.org'))
           flash[:page_alert] = '<strong>Error.</strong> Account email address must be a University email address. Please try again.'
           flash[:page_alert_type] = 'danger'
-          redirect_to new_auth_local_registration_url
+          render :action => 'new'
         else
           @user = User.create(email: params[:user][:email],
                               name_first: params[:user][:name_first],
