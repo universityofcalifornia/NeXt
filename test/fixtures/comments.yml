@@ -3,7 +3,8 @@
 one:
   title: 
   body: MyText
-  idea_id: 1
+  commentable_id: 1
+  commentable_type: Idea
   user_id: 1
   parent_id: 
   lft: 35
@@ -13,7 +14,8 @@ one:
 two:
   title: 
   body: MyText
-  idea_id: 1
+  commentable_id: 1
+  commentable_type: Idea
   user_id: 2
   parent_id: 
   lft: 37

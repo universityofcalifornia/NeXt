@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  $('.comment_reply_link')
+  $('.comment_reply')
     .bind("ajax:success", function(evt, data, status, xhr){
       var $well = $(this).parent().parent();
 

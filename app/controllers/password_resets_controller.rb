@@ -44,7 +44,7 @@ class PasswordResetsController < ApplicationController
       @user.save
       flash[:page_alert] = "Password has been reset"
       flash[:page_alert_type] = "success"
-      redirect_to root_url
+      redirect_to new_auth_local_path
     else
       render 'edit'
     end

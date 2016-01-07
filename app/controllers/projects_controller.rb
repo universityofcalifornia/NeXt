@@ -52,6 +52,9 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new(parent_id: params[:parent_id], commentable: @project, return_to: project_path(@project))
+    @comment_return_to = project_path(@project)
+    @comments = Comment.where("commentable_id = ? and commentable_type = 'Project' and depth = 0", @project.id)
   end
 
   def edit
