@@ -23,19 +23,6 @@
 
       <%= raw @idea.description_html %>
 
-      <% if @idea.comments.count > 0 %>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Comments</h3>
-            </div>
-
-            <div class="panel-body">
-              <%= comments_and_replies_for @comments %>
-            </div>
-          </div>
-      <% end %>
-      <%= render 'comments/form' if current_user %>
-
       <%
          if @idea.competencies.count > 0
            rows = [[]]
@@ -80,6 +67,19 @@
           </section>
         </div>
       <% end %>
+
+      <% if @idea.comments.count > 0 %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Comments</h3>
+            </div>
+
+            <div class="panel-body">
+              <%= comments_and_replies_for @comments %>
+            </div>
+          </div>
+      <% end %>
+      <%= render 'comments/form' if current_user %>
 
     </div>
 
