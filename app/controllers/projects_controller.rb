@@ -55,16 +55,31 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @founder_email = @project.project_roles.where(admin: true).first.user.email
   end
 
   def update
+
+    if User.where(email: params[:project][:project_roles]).exists?
+      @project.project_roles.where(founder: true).first.destroy
+      ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, admin: true, founder: true)
+    elsif !params[:project][:project_roles].blank?
+      flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the project to a UC Next user!'
+      flash[:page_alert_type] = 'danger'
+      @redirect_to_edit = true
+    end
+
     if @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager)
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
       @project.refresh_index!
 
-      redirect_to params[:return_to] || project_url(@project)
+      if @redirect_to_edit
+        redirect_to :back
+      else
+        redirect_to params[:return_to] || project_url(@project)
+      end
 
     else
       render action: 'edit'
