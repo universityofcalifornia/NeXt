@@ -17,14 +17,6 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  def is_edited?
-    if created_at == updated_at
-      return false
-    else
-      return true
-    end
-  end
-
   private
 
 end

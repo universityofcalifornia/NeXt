@@ -3,7 +3,7 @@
   <p class="text-muted"><%= link_to comment.user.display_name, comment.user %>&nbsp;<%= local_time(comment.created_at, '%B, %d %Y %H:%M:%S') %></p>
   <blockquote>
   	<p>&nbsp;<%= comment.body %>&nbsp;
-    <% if comment.is_edited? %>
+    <% if comment.edited? %>
       <span class="text-muted">(Edited)<span>
     <% end %>
   	<% if current_user %>

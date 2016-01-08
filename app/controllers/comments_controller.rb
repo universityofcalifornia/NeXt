@@ -45,6 +45,7 @@ class CommentsController < ApplicationController
   def update
     path = params[:return_to]
     begin
+      @comment.edited = true
       @comment.update!(params[:comment].permit(:body,:commit))    
       flash[:page_alert] = "Thanks for commenting!"
       flash[:page_alert_type] = 'success'
