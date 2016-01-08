@@ -10,4 +10,14 @@ $(document).ready(function(){
     }
   );
 
+  $('.comment_edit')
+    .bind("ajax:success", function(evt, data, status, xhr){
+      var $well = $(this).parent().parent();
+
+      // Insert response partial into page below the form.
+      $well.replaceWith(xhr.responseText);
+
+    }
+  );
+
 });

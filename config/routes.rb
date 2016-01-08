@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :comments, only: [:create, :update, :destroy]
+  resources :comments, only: [:create, :edit, :update, :destroy]
 
   get '/comments/new/(:parent_id)', to: 'comments#new', as: 'new_comment'
 

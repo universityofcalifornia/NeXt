@@ -10,12 +10,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new
     @comment.parent_id = params[:parent_id]
     @comment.commentable = @comment.root.commentable
-    case @comment.commentable_type
-    when "Idea"
-      @comment.return_to = idea_path(@comment.commentable)
-    when "Project"
-      @comment.return_to = project_path(@comment.commentable)
-    end
+    set_return_to
     render :layout => false
   end
 
@@ -42,6 +37,24 @@ class CommentsController < ApplicationController
     redirect_to params[:return_to] 
   end
 
+  def edit
+    set_return_to
+    render :layout => false
+  end
+
+  def update
+    path = params[:return_to]
+    begin
+      @comment.update!(params[:comment].permit(:body,:commit))    
+      flash[:page_alert] = "Thanks for commenting!"
+      flash[:page_alert_type] = 'success'
+    rescue Exception => e
+      flash[:page_alert] = e.message
+      flash[:page_alert_type] = 'warning'
+    end
+    redirect_to params[:return_to] 
+  end
+
   def destroy
     change_user_points(@comment.commentable_type, -2)
     @comment.destroy
@@ -53,6 +66,15 @@ class CommentsController < ApplicationController
   private
   def find_comment
     @comment = Comment.find_by(:id => params[:id])
+  end
+
+  def set_return_to
+    case @comment.commentable_type
+    when "Idea"
+      @comment.return_to = idea_path(@comment.commentable)
+    when "Project"
+      @comment.return_to = project_path(@comment.commentable)
+    end
   end
 
   def change_user_points(type,points)
