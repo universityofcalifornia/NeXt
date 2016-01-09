@@ -4,7 +4,7 @@
   <blockquote>
   	<p>&nbsp;<%= comment.body %>&nbsp;
     <% if comment.edited? %>
-      <span class="text-muted">(Edited)<span>
+      <span class="text-muted">(Edited)&nbsp;<span>
     <% end %>
   	<% if current_user %>
   	   <%= link_to new_comment_path(comment.id) , :remote => true, :class => 'comment_reply' do %>
