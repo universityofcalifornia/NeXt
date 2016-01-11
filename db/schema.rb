@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203023617) do
+ActiveRecord::Schema.define(version: 20160108232258) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -60,16 +60,17 @@ ActiveRecord::Schema.define(version: 20151203023617) do
   create_table "comments", force: true do |t|
     t.string   "title"
     t.text     "body"
-    t.integer  "user_id",                      null: false
+    t.integer  "user_id",                          null: false
     t.integer  "parent_id"
-    t.integer  "lft",                          null: false
-    t.integer  "rgt",                          null: false
-    t.integer  "depth",            default: 0, null: false
+    t.integer  "lft",                              null: false
+    t.integer  "rgt",                              null: false
+    t.integer  "depth",            default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.boolean  "edited",           default: false
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree

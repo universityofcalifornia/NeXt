@@ -67,6 +67,9 @@ gem 'rufus-scheduler'
 # generates a status page at /status.json
 gem 'rapporteur'
 
+# convert UTC to user's local time
+gem 'local_time'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'

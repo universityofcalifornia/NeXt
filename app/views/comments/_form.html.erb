@@ -1,22 +1,32 @@
 <%= form_for @comment, html: { class: 'form-horizontal' } do |f| %>
 
   <%= f.hidden_field :return_to, name: :return_to, value: @comment.return_to %>
-  <%= f.hidden_field :commentable_id, value: @comment.commentable_id %>
-  <%= f.hidden_field :commentable_type, value: @comment.commentable_type %>
-  <%= f.hidden_field :parent_id %>
 
-  <div class="form-group">
-    <div class="col-sm-12">
-      <%= f.text_area :body, class: 'form-control', rows: 3, placeholder: 'Enter a new comment' %>
-    </div>
+  <% unless @comment.persisted? %>
+    <%= f.hidden_field :commentable_id, value: @comment.commentable_id %>
+    <%= f.hidden_field :commentable_type, value: @comment.commentable_type %>
+    <%= f.hidden_field :parent_id %>
+  <% end %>
+
+  <div class="margin-bottom">
+
+      <div class="form-group">
+        <div class="col-sm-12">
+          <%= f.text_area :body, class: 'form-control', rows: 3, placeholder: 'Enter a new comment' %>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-12">
+          <% if @comment.persisted? %>
+            <%= f.submit('Edit Comment' , class: 'btn btn-success') %>
+          <% else %>
+            <%= f.submit('Comment' , class: 'btn btn-success') %>
+          <% end %>
+        </div>
+      </div>
   </div>
-
-  <div class="form-group">
-    <div class="col-sm-12">
-      <%= f.submit('Comment' , class: 'btn btn-success') %>
-    </div>
-  </div>
-
 <% end %>
 
 <!--

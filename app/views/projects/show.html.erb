@@ -16,19 +16,6 @@
 
       <%= raw @project.description_html %>
 
-      <% if @project.comments.count > 0 %>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Comments</h3>
-            </div>
-
-            <div class="panel-body">
-              <%= comments_and_replies_for @comments %>
-            </div>
-          </div>
-      <% end %>
-      <%= render 'comments/form' if current_user %>
-
       <%
          if @project.competencies.count > 0 || @project.resources.count > 0
            rows = [[]]
@@ -90,6 +77,20 @@
           </section>
         </div>
       <% end %>
+
+      <% if @project.comments.count > 0 %>
+        <div class="margin-bottom">
+          <section class="panel panel-default">
+            <header class="panel-heading">
+              <h3 class="panel-title">Comments</h3>
+            </header>
+            <div class="panel-body">
+              <%= comments_and_replies_for @comments %>
+            </div>
+          </section>
+        </div>
+      <% end %>
+      <%= render 'comments/form' if current_user %>
 
     </div>
 
