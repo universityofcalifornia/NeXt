@@ -1,70 +1,81 @@
-<%= csrf_meta_tag %>
-<%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
-
-<% if current_user %>
-    <%= button_to 'Create Group',
-                  new_group_url,
-                  method: :get,
-                  class: 'btn btn-warning btn-block',
-                  form_class: 'button_to pull-right' %>
-<% end %>
-
-<h1>Groups</h1>
-
-<% if current_user %>
-
-<ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All Groups</a></li>
-  <li role="presentation"><a href="#my" aria-controls="my" role="tab" data-toggle="tab">My Groups</a></li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="all" style="padding-top:16px">
-
-    <% end %>
-
-    <%= will_paginate @groups %>
-
-    <div class="list-group">
-      <% @groups.each do |group| %>
-          <a class="list-group-item" href="<%= group_url(group) %>">
-            <div class="row">
-              <div class="col-sm-10">
-                <h4><%= group.name %></h4>
-              </div>
-            </div>
-          </a>
-      <% end %>
-    </div>
-
-    <%= will_paginate @groups %>
-
-  <% if current_user %>
-
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4 text-center">
+    <h2 class="valign-middle">
+      <span class="header-icon hidden-xs">
+        <%= image_tag "/images/header_icons/groups.png", { class: "img-responsive" } %>
+      </span>
+      <span>Groups</span>
+    </h2>
   </div>
-  <div role="tabpanel" class="tab-pane" id="my" style="padding-top:16px">
 
-    <% # TODO: this needs serious rework %>
-
-    <div id="autocomplete_groups">
-      <div style="margin-bottom: 1em;">
-        <%= text_field_tag 'groups', '', class: 'form-control' %>
-      </div>
-      <div id ="user_groups">
-        <%= render 'user_groups/user_groups' %>
-      </div>
-    </div>
-    <div id="new_group" style="display: none">
-      <%= render 'groups/new_group' %>
-    </div>
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <%= javascript_include_tag 'groups.js' %>
-
+  <div class="col-sm-4">
+    <% if current_user %>
+      <%= button_to 'Create Group',
+        new_group_url,
+        method: :get,
+        class: 'btn btn-create btn-block',
+        form_class: 'button_to pull-right'
+      %>
+    <% end %>
   </div>
 </div>
 
+<% if @groups.any? %>
+  <h3 class="text-center">All Groups</h3>
+
+  <div class="panel-table panel-table-secondary container-fluid">
+    <% @groups.each_with_index do |group, i| %>
+      <% if i % 3 == 0 %>
+        <div class="row">
+      <% end %>
+
+      <div class="col-md-4 panel-cell">
+        <div class="pull-right">
+          <% if current_user %>
+            <% if UserGroup.where(group_id: group.id, user_id: current_user.id).count > 0 %>
+              <%= button_to 'Joined', '#',
+                class: 'btn btn-transparent',
+                form_class: 'pull-right',
+                disabled: true
+              %>
+            <% else %>
+              <%= button_to 'Join',
+                user_groups_url({ id: group.id, return_to: groups_url }),
+                method: :post,
+                class: 'btn btn-participate',
+                form_class: 'pull-right'
+              %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <h4>
+          <%= link_to group.name, group %>
+        </h4>
+        <p>
+          <%= raw group.description %>
+        </p>
+        <%= button_to 'More Information',
+          group_url(group),
+          method: :get,
+          class: 'btn btn-learn-more',
+          form_class: 'text-center'
+        %>
+
+        <p class="condensed">
+          <small>
+            <% unless group.contact_email.blank? %>
+              Contact | <%= mail_to group.contact_email %>
+            <% end %>
+          </small>
+        </p>
+      </div>
+
+      <% if i % 3 == 2 %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
+
+<%= will_paginate @groups %>

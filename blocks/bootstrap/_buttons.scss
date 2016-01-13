@@ -60,3 +60,12 @@
   @include button-variant      ($btn-default-color, #39c7ff, #347bad);
   @include button-variant-hover($btn-hover-color,   #1d4a86, #347bad);
 }
+
+.btn-transparent {
+  @include button-variant      ($btn-default-color, transparent, transparent);
+  @include button-variant-hover($btn-hover-color,   transparent, transparent);
+
+  &.disabled, &:disabled {
+    opacity: initial;
+  }
+}

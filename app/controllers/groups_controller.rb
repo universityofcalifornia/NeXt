@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.order(created_at: :desc)
-                  .paginate(page: params[:page], per_page: 50)
+                  .paginate(page: params[:page], per_page: 9)
   end
 
   def new
@@ -32,8 +32,6 @@ class GroupsController < ApplicationController
       render action: 'new'
     end
   end
-
-
 
   def edit
   end
@@ -60,15 +58,6 @@ class GroupsController < ApplicationController
     user_groups = current_user.groups.map(&:id)
     new_groups = groups.reject{|n| user_groups.include?(n.id)}
     render json: new_groups.as_json(only: [:id, :name])
-  end
-
-  def ajax_create
-    if params[:group_name].present?
-      new_group = current_user.created_groups.where(:name => params[:group_name]).first_or_create
-      current_user.groups << new_group if params[:checked]
-
-      current_user.alter_points(:other, 3) if new_group.new_record?
-    end
   end
 
   private
