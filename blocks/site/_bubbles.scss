@@ -4,6 +4,10 @@
   > div {
     padding-top: 10px;
     padding-bottom: 10px;
+
+    &.padding-tweak {
+      padding: 10px 10px 10px 20px;
+    }
   }
 }
 
