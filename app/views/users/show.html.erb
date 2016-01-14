@@ -7,7 +7,11 @@
       <header class="profile-header" style="overflow:auto">
 
         <figure class="avatar">
-          <%= gravatar_tag @user.email, secure: true %>
+          <% if current_user.binary_image.blank? %>
+            <%= gravatar_tag @user.email, secure: true %>
+          <% else %>
+            <%= image_tag "data:img/png;base64,#{current_user.binary_image}" %>
+          <% end %>
           <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
         </figure>
 
