@@ -173,6 +173,13 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <%= f.label :profile_image, 'Profile Image', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= f.file_field :profile_image %>
+      </div>
+    </div>
+
   </fieldset>
 
   <fieldset>
@@ -204,13 +211,6 @@
       <%= f.label :social_twitter, 'Twitter', class: 'col-sm-2 control-label' %>
       <div class="col-sm-10">
         <%= f.text_field :social_twitter, class: 'form-control' %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :profile_image, 'Change Profile Image', class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10">
-        <%= f.file_field :profile_image %>
       </div>
     </div>
 
