@@ -83,6 +83,13 @@ class UsersController < ApplicationController
       current_user.save
     end
 
+    unless User.where(email: params[:user][:email]).first.nil?
+      flash[:page_alert_type] = 'danger'
+      flash[:page_alert] = 'The email you are trying to change to already exists'
+      redirect_to :back
+      return
+    end
+
     if @user.password_hash and @user.password_hash.length > 0
       if params[:user][:password].length > 0
         if params[:user][:password] == params[:user][:password_confirmation]
