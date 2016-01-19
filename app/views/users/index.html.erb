@@ -21,7 +21,8 @@
       <% if current_user %>
         <td class="avatar-cell">
           <% if user.profile_image.blank? %>
-            <%= gravatar_tag user.email, size: 40, secure: true %>
+            <%#= gravatar_tag user.email, size: 40, secure: true %>
+            <%= image_tag "/images/header_icons/wave.png", {size: '40x40', class: "small-wave" } %>
           <% else %>
             <%= image_tag "data:img/png;base64,#{user.profile_image}", size: '40x40', secure: true %>
           <% end %>
