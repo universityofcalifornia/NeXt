@@ -64,8 +64,8 @@ class UsersController < ApplicationController
     data = params[:user].permit(permitted_params)
 
 
-    unless params[:user][:binary_image].blank?
-      img = Magick::Image.from_blob(params[:user][:binary_image].read).first
+    unless params[:user][:profile_image].blank?
+      img = Magick::Image.from_blob(params[:user][:profile_image].read).first
       target = Magick::Image.new(80, 80) do
         self.background_color = 'white'
       end
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
         redirect_to :back
         return
       end
-      current_user.binary_image = image_data
+      current_user.profile_image = image_data
       current_user.save
     end
 

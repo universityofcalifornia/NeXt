@@ -418,7 +418,7 @@ ActiveRecord::Schema.define(version: 20160114204858) do
     t.integer  "other_points",                         default: 0
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.text     "binary_image",        limit: 16777215
+    t.text     "profile_image",       limit: 16777215
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
