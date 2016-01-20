@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   # Method when user is trying to access information that requires a login
   def require_login_status
     session[:return_to] = request.url
-    flash[:page_alert] = 'You do not have the correct access right. Please login to continue.'
+    flash[:page_alert] = 'Please login to continue.'
     flash[:page_alert_type] = 'danger'
   end
 
