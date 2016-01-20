@@ -53,7 +53,7 @@
           <%= link_to group.name, group %>
         </h4>
         <p>
-          <%= raw group.description %>
+          <%= raw group.description.ellipsis(400) %>
         </p>
         <%= button_to 'More Information',
           group_url(group),

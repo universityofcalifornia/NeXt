@@ -132,7 +132,7 @@
           <%= link_to project.name, project %>
         </h4>
         <p>
-          <%= project.pitch %>
+          <%= project.pitch.ellipsis(400) %>
         </p>
 
         <p class="condensed">
