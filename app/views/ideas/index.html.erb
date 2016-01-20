@@ -148,7 +148,7 @@
           <%= link_to idea.name, idea_url(idea) %>
         </h4>
         <p>
-          <%= idea.pitch %>
+          <%= idea.pitch.ellipsis(400) %>
         </p>
 
         <p class="condensed">

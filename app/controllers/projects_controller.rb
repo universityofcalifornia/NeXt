@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @founder_email = @project.project_roles.where(admin: true).first.user.email
+    @founder_email = @project.project_roles.where(admin: true).first.try(:user).try(:email)
   end
 
   def update

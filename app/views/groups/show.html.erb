@@ -3,25 +3,25 @@
   <div class="pull-right">
     <% if current_user %>
       <% if UserGroup.where(group_id: @group.id, user_id: current_user.id).count > 0 %>
-          <%= button_to 'Leave',
-                        user_groups_url({group_id: @group.id, return_to: group_url(@group)}),
-                        method: :delete,
-                        class: 'btn btn-warning',
-                        form_class: 'button_to'
-          %>
+        <%= button_to 'Leave',
+                      user_groups_url({group_id: @group.id, return_to: group_url(@group)}),
+                      method: :delete,
+                      class: 'btn btn-participate',
+                      form_class: 'button_to'
+        %>
 
       <% elsif @group[:membership_type] == "Invite-only" %>
-          <% if @group[:contact_email].blank? %>
-            <div>The group is invite only, please reach out to admin of group</div>
-          <% else %>
-            <div>The group is invite only, please reach out to <%= @group[:contact_email] %></div>
-          <% end %>
+        <% if @group[:contact_email].blank? %>
+          <div>The group is invite only, please reach out to admin of group</div>
+        <% else %>
+          <div>The group is invite only, please reach out to <%= @group[:contact_email] %></div>
+        <% end %>
       <% else %>
-          <%= button_to 'Join',
-                        user_groups_url({id: @group.id, return_to: group_url(@group)}),
-                        method: :post,
-                        class: 'btn btn-primary',
-                        form_class: 'button_to'
+        <%= button_to 'Join',
+                      user_groups_url({id: @group.id, return_to: group_url(@group)}),
+                      method: :post,
+                      class: 'btn btn-participate',
+                      form_class: 'button_to'
           %>
       <% end %>
       <% if @group.is_editable_by? current_user %>
@@ -42,37 +42,33 @@
     <% end %>
   </div>
 
-  <h2><%= @group.name %></h2>
+  <h1><%= @group.name %></h1>
 
   <div class="row">
-
-    <div class="col-sm-3">
-
+    <div class="col-md-6">
       <section class="panel panel-default">
-        <header class="panel-heading">
-          Details
-        </header>
         <div class="panel-body">
-          <h5>Contact</h5>
-          <%= @group.contact_email ? @group.contact_email : raw('<em>None</em>') %>
-          <h5>Listserv</h5>
-          <%= @group.listserv ? @group.listserv : raw('<em>None</em>') %>
-          <% if @group.user %>
-          <h5>Founder</h5>
-          <p><%= @group.user.display_name :fl %></p>
-          <% end %>
+          <h3>Details</h3>
+          <p>
+            Meeting Times &amp; Locations |
+            <%= raw @group.meetings_html %>
+          </p>
+          <p>
+            Contact |
+            <%= mail_to @group.contact_email %>
+          </p>
+          <p>
+            Listserv |
+            <%= @group.listserv %>
+          </p>
         </div>
       </section>
-
     </div>
 
-    <div class="col-sm-9">
-
+    <div class="col-md-6">
       <section class="panel panel-default">
-        <header class="panel-heading">
-          Description
-        </header>
         <div class="panel-body">
+          <h3>Description</h3>
           <% @group.badges.each do |badge| %>
             <%= link_to(badge_path(badge)) do %>
               <%= image_tag badge.image.thumb, class: "pull-left group-badge-icon" %>
@@ -82,17 +78,17 @@
         </div>
       </section>
 
-      <section class="panel panel-default">
-        <header class="panel-heading">
-          Meeting Times &amp; Locations
-        </header>
-        <div class="panel-body">
-          <%= raw @group.meetings_html %>
-        </div>
+      <section>
+        <h3>Members</h3>
+        <ul class="list-group list-with-avatars">
+          <% @group.users.each do |user| %>
+            <li class="list-group-item">
+              <%= gravatar_tag user.email, size: 40, secure: true, html: { class: "list-avatar" } %>
+              <%= link_to user.display_name, user %>
+            </li>
+          <% end %>
+        </ul>
       </section>
-
     </div>
-
   </div>
-
 </div>
