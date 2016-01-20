@@ -16,6 +16,55 @@
 
       <%= raw @project.description_html %>
 
+      <div class="panel panel-default">
+        <header class="panel-heading">
+          <h3>Details</h3>
+        </header>
+        <div class="panel-body">
+          <h5 class="text-muted no-margin-bottom">Phase</h5>
+          <p><%= @project.project_status.name %></p>
+          <% if @project.project_roles.founders.count > 0 %>
+          <h5 class="text-muted no-margin-bottom">
+            <%= "Founder".pluralize @project.project_roles.founders.count %>
+          </h5>
+          <ul class="list-unstyled">
+            <% @project.project_roles.founders.each do |project_role| %>
+              <li><%= link_to project_role.user.display_name, project_role.user %></li>
+            <% end %>
+          </ul>
+          <% end %>
+          <% unless @project.sponsor.nil? or @project.sponsor.blank? %>
+            <h5 class="text-muted no-margin-bottom">Sponsor(s)</h5>
+            <p><%= @project.sponsor %></p>
+          <% end %>
+          <% unless @project.manager.nil? or @project.manager.blank? %>
+            <h5 class="text-muted no-margin-bottom">Manager(s)</h5>
+            <p><%= @project.manager %></p>
+          <% end %>
+          <% {
+                 'Website' => :website_url,
+                 'Documentation' => :documentation_url,
+                 'Source' => :source_url,
+                 'Download' => :download_url
+             }.each do |name, attr| next unless @project.send(attr) and @project.send(attr).strip.length > 0 %>
+            <h5 class="text-muted no-margin-bottom"><%= name %></h5>
+            <%= link_to @project.send(attr), @project.send(attr), target: '_blank', class: 'ellipsis-text-block' %>
+          <% end %>
+
+          <% if @project.project_documents.any? %>
+            <h5 class="text-muted no-margin-bottom">Documents</h5>
+            <ul class="list-unstyled">
+              <% @project.project_documents.each do |document| %>
+                <li>
+                  <%= link_to document.description, project_document_url(@project, document) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
+        </div>
+      </div>
+
       <%
          if @project.competencies.count > 0 || @project.resources.count > 0
            rows = [[]]
@@ -27,9 +76,9 @@
            end
       %>
         <div class="margin-bottom">
-          <section class="panel panel-default">
+          <div class="panel panel-default">
             <header class="panel-heading">
-              <h3 class="panel-title">Expertise and Infrastructure Resources Needed</h3>
+              <h3>Expertise and Infrastructure Resources Needed</h3>
             </header>
             <div class="panel-body">
               <% rows.each do |row| %>
@@ -40,15 +89,15 @@
                 </div>
               <% end %>
             </div>
-          </section>
+          </div>
         </div>
       <% end %>
 
       <% if @project.users.length > 0 %>
         <div class="margin-bottom">
-          <section class="panel panel-default">
+          <div class="panel panel-default">
             <header class="panel-heading">
-              <h3 class="panel-title">Collaborators</h3>
+              <h3>Collaborators</h3>
             </header>
             <div class="panel-body">
               <ul class="list-unstyled">
@@ -57,15 +106,15 @@
                 <% end %>
               </ul>
             </div>
-          </section>
+          </div>
         </div>
       <% end %>
 
       <% if @project.ideas.length > 0 %>
         <div class="margin-bottom">
-          <section class="panel panel-default">
+          <div class="panel panel-default">
             <header class="panel-heading">
-              <h3 class="panel-title">Related Ideas</h3>
+              <h3>Related Ideas</h3>
             </header>
             <div class="panel-body">
               <ul class="list-unstyled">
@@ -74,20 +123,20 @@
                 <% end %>
               </ul>
             </div>
-          </section>
+          </div>
         </div>
       <% end %>
 
       <% if @project.comments.count > 0 %>
         <div class="margin-bottom">
-          <section class="panel panel-default">
+          <div class="panel panel-default">
             <header class="panel-heading">
-              <h3 class="panel-title">Comments</h3>
+              <h3>Comments</h3>
             </header>
             <div class="panel-body">
               <%= comments_and_replies_for @comments %>
             </div>
-          </section>
+          </div>
         </div>
       <% end %>
       <%= render 'comments/form' if current_user %>
@@ -96,7 +145,7 @@
 
     <div class="col-lg-3 col-sm-4">
 
-      <section class="panel panel-invisible">
+      <div class="panel panel-invisible">
 
       <% if @project.has_been_voted_for_by? current_user %>
 
@@ -164,82 +213,53 @@
         %>
         <% end %>
 
-      </section>
+      </div>
 
-      <section class="panel panel-default">
-        <header class="panel-heading">
-          <h4 class="panel-title">Details</h4>
-        </header>
-        <div class="panel-body">
-          <h5 class="text-muted no-margin-bottom">Phase</h5>
-          <p><%= @project.project_status.name %></p>
-          <% if @project.project_roles.founders.count > 0 %>
-          <h5 class="text-muted no-margin-bottom">
-            <%= "Founder".pluralize @project.project_roles.founders.count %>
-          </h5>
-          <ul class="list-unstyled">
-            <% @project.project_roles.founders.each do |project_role| %>
-              <li><%= link_to project_role.user.display_name, project_role.user %></li>
-            <% end %>
-          </ul>
-          <% end %>
-          <% unless @project.sponsor.nil? or @project.sponsor.blank? %>
-            <h5 class="text-muted no-margin-bottom">Sponsor(s)</h5>
-            <p><%= @project.sponsor %></p>
-          <% end %>
-          <% unless @project.manager.nil? or @project.manager.blank? %>
-            <h5 class="text-muted no-margin-bottom">Manager(s)</h5>
-            <p><%= @project.manager %></p>
-          <% end %>
-          <% {
-                 'Website' => :website_url,
-                 'Documentation' => :documentation_url,
-                 'Source' => :source_url,
-                 'Download' => :download_url
-             }.each do |name, attr| next unless @project.send(attr) and @project.send(attr).strip.length > 0 %>
-            <h5 class="text-muted no-margin-bottom"><%= name %></h5>
-            <%= link_to @project.send(attr), @project.send(attr), target: '_blank', class: 'ellipsis-text-block' %>
-          <% end %>
-
-          <% if @project.project_documents.any? %>
-            <h5 class="text-muted no-margin-bottom">Documents</h5>
-            <ul class="list-unstyled">
-              <% @project.project_documents.each do |document| %>
+      <% if @project.project_votes.non_participants.count > 0 %>
+        <div class="panel panel-default">
+          <header class="panel-heading">
+            <h3>
+              Supporters
+              <span class="bubble-right-small bubble-right-inline">
+                <%= @project.project_votes.non_participants.count %>
+              </span>
+            </h3>
+          </header>
+          <div class="panel-body">
+            <a href="#" class="scroller-shower">Show users</a>
+            <ul class="scroller-collapser">
+              <% @project.project_votes.non_participants.each do |project_vote| %>
                 <li>
-                  <%= link_to document.description, project_document_url(@project, document) %>
+                  <%= link_to project_vote.user.display_name, project_vote.user %>
                 </li>
               <% end %>
             </ul>
-          <% end %>
-
+          </div>
         </div>
-      </section>
+      <% end %>
 
-      <%
-      votes_count = @project.project_votes.count
-      if votes_count > 0 %>
-
-        <section class="panel panel-default">
+      <% if @project.project_votes.participants.count > 0 %>
+        <div class="panel panel-default">
           <header class="panel-heading">
-            <h4 class="panel-title">Supporters</h4>
+            <h3>
+              Would Participate
+              <span class="bubble-right-small bubble-right-inline">
+                <%= @project.project_votes.participants.count %>
+              </span>
+            </h3>
           </header>
           <div class="panel-body">
-            <ul>
-              <% @project.project_votes.take(5).each do |project_vote| %>
-                <li><%= link_to project_vote.user.display_name, project_vote.user %><% if project_vote.participate %> <strong style="font-size: 1.2rem">&#9734;</strong><% end %></li>
+            <a href="#" class="scroller-shower">Show users</a>
+            <ul class="scroller-collapser">
+              <% @project.project_votes.participants.each do |project_vote| %>
+                <li>
+                  <%= link_to project_vote.user.display_name, project_vote.user %>
+                </li>
               <% end %>
             </ul>
           </div>
-        </section>
-
-      <% if votes_count > 5 %>
-      <p><em><%= link_to 'See More...', '#' %></em></p>
+        </div>
       <% end %>
-
-      <% end %>
-
     </div>
-
   </div>
-
 </div>

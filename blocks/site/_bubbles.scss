@@ -20,6 +20,13 @@
   text-align: center;
 }
 
+.bubble-right-inline {
+  display: inline-block;
+  width: 50px;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
 .bubble-below {
   position: relative;
   top: -5px;

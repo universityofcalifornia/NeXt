@@ -1,0 +1,19 @@
+/* Content scrolls on larger views, collapses on smaller views */
+
+.scroller-collapser {
+  @media (max-width: $screen-sm-max) {
+    display: none;
+  }
+
+  @media (min-width: $screen-md-min) {
+    max-height: 125px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+.scroller-shower {
+  @media (min-width: $screen-md-min) {
+    display: none;
+  }
+}
