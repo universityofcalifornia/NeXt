@@ -5,7 +5,10 @@ class ProjectsController < ApplicationController
   end
 
   before_action only: [:edit, :update, :destroy] do
-    render nothing: true, status: :unauthorized unless @project.is_editable_by? current_user
+    unless @project.is_editable_by? current_user
+      require_login_status
+      redirect_to :new_auth_local
+    end
   end
 
   before_action only: [:new, :create, :edit, :update] do

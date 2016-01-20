@@ -6,7 +6,16 @@ class UsersController < ApplicationController
 
   before_action only: [:edit, :update] do
     unless @user.is_editable_by? current_user
+      require_login_status
+      redirect_to :new_auth_local
       raise Application::Error.new "You do not have permission to edit the user (id: #{params[:id]})"
+    end
+  end
+
+  before_action only: :show do
+    unless current_user
+      require_login_status
+      redirect_to :new_auth_local
     end
   end
 
@@ -17,13 +26,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    unless current_user
-      raise Application::Error.new "You must be logged in to view profiles",
-                                   redirect_to: [
-                                       :new_auth_local,
-                                       flash: { return_to: user_url(@user) }
-                                   ]
-    end
     @founded_ideas = @user.idea_roles.where(founder: true).includes(:idea).take(5).map(){ |idea_role| idea_role.idea }
     @supported_ideas = @user.idea_votes.includes(:idea).take(5).map(){ |idea_vote| idea_vote.idea }
     @founded_projects = @user.project_roles.where('founder = 1 or admin = 1').includes(:project).take(5).map(){ |project_role| project_role.project }

@@ -39,6 +39,19 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  
+  # Method to redirect back to previously saved session
+  def redirect_back_or_default(default)
+    redirect_to(session.delete(:return_to) || default)
+  end
+
+  # Method when user is trying to access information that requires a login
+  def require_login_status
+    session[:return_to] = request.url
+    flash[:page_alert] = 'You do not have the correct access right. Please login to continue.'
+    flash[:page_alert_type] = 'danger'
+  end
+
   private
   def set_mailer_host
     # Override email URLs to always use the host that served the request

@@ -40,7 +40,8 @@ module Auth
 
       Rails.logger.info('Finishing the OAuth2 return process. Redirecting the user to ' + (flash[:return_to] ? flash[:return_to] : root_path))
 
-      redirect_to flash[:return_to] ? flash[:return_to] : root_path
+      # redirect_to flash[:return_to] ? flash[:return_to] : root_path
+      redirect_back_or_default(root_url)
 
     end
 
