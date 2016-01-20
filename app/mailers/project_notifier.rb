@@ -8,4 +8,11 @@ class ProjectNotifier < ActionMailer::Base
     @project = project
     mail :to => @founder.email, :subject => "New participant in your project!"
   end
+
+  def notify_new_founder new_founder
+    @email = new_founder.user.email
+    @project = new_founder.project
+    @name = new_founder.user.name_first
+    mail :to => @email, :subject => "You are now the admin/founder of a new project!"
+  end
 end
