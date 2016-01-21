@@ -8,7 +8,11 @@ class GroupsController < ApplicationController
   end
 
   before_action only: [:edit, :update, :destroy] do
-    unless @group.is_editable_by? current_user
+    if current_user
+      unless @group.is_editable_by? current_user
+        redirect_to :root_url
+      end
+    else
       require_login_status
       redirect_to :new_auth_local
     end
