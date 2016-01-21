@@ -14,7 +14,8 @@ module Auth
       if user = User.find_by_email(params[:session][:email])
         if BCrypt::Password.new(user.password_hash).is_password? params[:session][:password]
           context.user = user
-          return redirect_to flash[:return_to] ? flash[:return_to] : root_path
+          redirect_back_or_default(root_url)
+          return
         end
       end
       flash[:page_alert] = '<strong>Login failed.</strong> Username or password did not match. Please try again.'

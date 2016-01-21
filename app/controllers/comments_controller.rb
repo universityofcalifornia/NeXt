@@ -3,7 +3,10 @@ class CommentsController < ApplicationController
   before_action :find_comment, only: [:edit, :update, :destroy]
 
   before_action only: [:edit, :update, :destroy] do
-    render nothing: true, status: :unauthorized unless @comment.is_editable_by? current_user
+    unless @comment.is_editable_by? current_user
+      require_login_status
+      redirect_to :new_auth_local
+    end
   end
 
   def new

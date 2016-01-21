@@ -1,8 +1,13 @@
 class BadgesController < ApplicationController
 
   before_action only: [:new, :create] do
-    unless Badge.is_creatable_by? current_user
-      raise Application::Error.new "You do not have permission to create badges/awards."
+    if current_user
+      unless Badge.is_creatable_by? current_user
+        redirect_to :root
+      end
+    else
+      require_login_status
+      redirect_to :new_auth_local
     end
   end
 
@@ -11,8 +16,13 @@ class BadgesController < ApplicationController
   end
 
   before_action only: [:edit, :update, :destroy] do
-    unless @badge.is_editable_by? current_user
-      raise Application::Error.new "You do not have permission to edit this badge/award."
+    if current_user
+      unless @badge.is_editable_by? current_user
+        redirect_to :root
+      end
+    else
+      require_login_status
+      redirect_to :new_auth_local
     end
   end
 
