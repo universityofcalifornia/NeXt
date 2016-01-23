@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many :user_badges, dependent: :destroy
   has_many :badges, through: :user_badges
 
+  has_one :privacy, as: :privacy_options
+
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true
   #validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
@@ -202,6 +204,10 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def is_owner? user
+    return self == user
   end
 
 end
