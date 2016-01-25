@@ -25,6 +25,8 @@ class Project < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
+  has_one :privacy, as: :privacy_options
+
   attr_html_reader :description
 
   validates :name,

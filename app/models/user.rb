@@ -210,6 +210,11 @@ class User < ActiveRecord::Base
     return self == user
   end
 
+  def is_viewable_by? user
+    # Adjustment to normal viewability checks: viewing user must have a profile
+    super && user ? true : false
+  end
+
 end
 
 #http://localhost:3000/password_resets/9pW38E3Pl2FRDDf0YWdcNA/edit?email=a%40ucla.edu

@@ -9,15 +9,22 @@ class PrivacyTest < ActiveSupport::TestCase
   end
 
   test "Objects default to viewable by anyone" do
-    user = User.new
+    idea = Idea.new
 
-    assert user.is_viewable_by? nil
-    assert user.is_viewable_by? User.find(1)
+    assert idea.is_viewable_by? nil
+    assert idea.is_viewable_by? User.find(1)
   end
 
   test "Objects with basic privacy options are viewable by logged-in users" do
+    idea = Idea.new
+    idea.privacy = Privacy.new
+
+    assert idea.is_viewable_by? User.find(1)
+    assert_not idea.is_viewable_by? nil
+  end
+
+  test "User objects default to viewable by logged-in users" do
     user = User.new
-    user.privacy = Privacy.new
 
     assert user.is_viewable_by? user
     assert user.is_viewable_by? User.find(1)
