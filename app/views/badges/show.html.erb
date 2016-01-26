@@ -65,7 +65,12 @@
         <ul class="list-group list-with-avatars">
           <% @badge.user_badges.each do |user_badge| %>
             <li class="list-group-item">
-              <%= gravatar_tag user_badge.user.email, size: 40, secure: true, html: { class: "list-avatar" } %>
+              <%#= gravatar_tag user_badge.user.email, size: 40, secure: true, html: { class: "list-avatar" } %>
+              <% if user_badge.user.profile_image.blank? %>
+                <%= image_tag "/images/profile/default-80x80.png", size: '40x40', secure: true %>
+              <% else %>
+                <%= image_tag "data:img/png;base64,#{user_badge.user.profile_image}", size: '40x40', secure: true %>
+              <% end %>
               <%= link_to user_badge.user.display_name, user_badge.user %>
             </li>
           <% end %>

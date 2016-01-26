@@ -173,6 +173,18 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <%= f.label :profile_image, 'Change Profile Image', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+          <% if current_user.profile_image.blank? %>
+            <%= image_tag "/images/profile/default-80x80.png", style: 'padding-bottom: 10px;' %>
+          <% else %>
+            <%= image_tag "data:img/png;base64,#{current_user.profile_image}", style: 'padding-bottom: 10px;' %>
+          <% end %>
+        <%= f.file_field :profile_image %>
+      </div>
+    </div>
+
   </fieldset>
 
   <fieldset>
@@ -206,6 +218,7 @@
         <%= f.text_field :social_twitter, class: 'form-control' %>
       </div>
     </div>
+
 
   </fieldset>
 
