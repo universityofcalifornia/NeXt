@@ -32,6 +32,18 @@
 
     <% end %>
 
+    <legend>Privacy</legend>
+
+    <div class="form-group">
+      <%= f.label nil, "Profile Visibility", class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.radio_button :hidden, true %>
+        <%= f.label :hidden_true, "Hidden" %><br>
+        <%= f.radio_button :hidden, false %>
+        <%= f.label :hidden_false, "Publish to UC NeXt users" %>
+      </div>
+    </div>
+
     <legend>Basic</legend>
 
     <div class="form-group">

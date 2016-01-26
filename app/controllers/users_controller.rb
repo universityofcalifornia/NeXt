@@ -46,19 +46,20 @@ class UsersController < ApplicationController
   def update
 
     permitted_params = [
-        :name_first,
-        :name_middle,
-        :name_last,
-        :name_suffix,
-        :website,
-        :phone_number,
-        :fax_number,
-        :mailing_address,
-        :biography,
-        :social_google,
-        :social_github,
-        :social_linkedin,
-        :social_twitter
+      :name_first,
+      :name_middle,
+      :name_last,
+      :name_suffix,
+      :website,
+      :phone_number,
+      :fax_number,
+      :mailing_address,
+      :biography,
+      :social_google,
+      :social_github,
+      :social_linkedin,
+      :social_twitter,
+      :hidden
     ]
 
     permitted_params << :super_admin if context.is_super_admin?

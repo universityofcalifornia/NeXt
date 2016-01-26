@@ -215,6 +215,16 @@ class User < ActiveRecord::Base
     super && user ? true : false
   end
 
+  def hidden
+    return privacy.try(:hidden) ? true : false
+  end
+
+  def hidden= value
+    self.privacy ||= Privacy.new
+    self.privacy.hidden = (value == "true")
+    self.privacy.save
+  end
+
 end
 
 #http://localhost:3000/password_resets/9pW38E3Pl2FRDDf0YWdcNA/edit?email=a%40ucla.edu
