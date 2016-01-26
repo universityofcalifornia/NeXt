@@ -71,7 +71,7 @@ class ProjectsController < ApplicationController
   def update
 
     if User.where(email: params[:project][:project_roles]).exists?
-      @project.project_roles.where(founder: true).first.destroy
+      @project.project_roles.where(founder: true).first.destroy unless @project.project_roles.where(founder: true).blank?
       @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, admin: true, founder: true)
       ProjectNotifier.notify_new_founder(@new_founder).deliver
     elsif !params[:project][:project_roles].blank?
