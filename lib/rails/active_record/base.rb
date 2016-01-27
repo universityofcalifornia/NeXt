@@ -27,6 +27,9 @@ module ActiveRecord
       # Anonymous users can't view anything with privacy conditions
       elsif user.nil?
         return false
+      # Super admins can view anything
+      elsif user.super_admin
+        return true
       # If hidden, other users can't view it
       elsif privacy.hidden
         return false
