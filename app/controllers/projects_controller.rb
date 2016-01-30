@@ -65,11 +65,12 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    binding.pry
     @founder_email = @project.project_roles.where(founder: true).first.try(:user).try(:email)
   end
 
   def update
+
+    binding.pry
 
     if User.where(email: params[:project][:project_roles]).exists?
       @project.project_roles.where(founder: true).first.destroy unless @project.project_roles.where(founder: true).blank?
