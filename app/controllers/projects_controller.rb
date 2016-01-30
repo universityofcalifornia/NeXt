@@ -70,11 +70,15 @@ class ProjectsController < ApplicationController
 
   def update
 
-    binding.pry
-
     if User.where(email: params[:project][:project_roles]).exists?
       previous_founder_email = @project.project_roles.where(founder: true).first.user.email unless @project.project_roles.where(founder: true).blank?
       @project.project_roles.where(founder: true).first.destroy unless @project.project_roles.where(founder: true).blank?
+      if params[:project][:virtual_attribute].eql? ('1') and params[:project][:project_roles] != previous_founder_email
+        project_vote = @project.project_votes.where(user_id: User.where(email: previous_founder_email).first.id) unless previous_founder_email.nil?
+        unless project_vote.nil? or project_vote[0].nil?
+          project_vote[0].delete
+        end
+      end
       @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, admin: true, founder: true)
       ProjectNotifier.notify_new_founder(@new_founder).deliver unless @project.project_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:project][:project_roles].blank?
