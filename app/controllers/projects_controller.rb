@@ -73,11 +73,16 @@ class ProjectsController < ApplicationController
     binding.pry
 
     if User.where(email: params[:project][:project_roles]).exists?
+      previous_founder_email = @project.project_roles.where(founder: true).first.user.email unless @project.project_roles.where(founder: true).blank?
       @project.project_roles.where(founder: true).first.destroy unless @project.project_roles.where(founder: true).blank?
       @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, admin: true, founder: true)
-      ProjectNotifier.notify_new_founder(@new_founder).deliver
+      ProjectNotifier.notify_new_founder(@new_founder).deliver unless @project.project_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:project][:project_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the project to a UC Next user!'
+      flash[:page_alert_type] = 'danger'
+      @redirect_to_edit = true
+    elsif params[:project][:project_roles].blank?
+      flash[:page_alert] = 'All projects now must have a founder! Please enter in an email for the transfer founder field.'
       flash[:page_alert_type] = 'danger'
       @redirect_to_edit = true
     end
