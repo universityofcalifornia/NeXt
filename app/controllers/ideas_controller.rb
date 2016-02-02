@@ -67,8 +67,12 @@ class IdeasController < ApplicationController
   def update
 
     if User.where(email: params[:idea][:idea_roles]).exists?
-      previous_founder_email = @idea.idea_roles.where(founder: true).first.user.email unless @idea.idea_roles.where(founder: true).blank?
-      @idea.idea_roles.where(founder: true).first.destroy unless @idea.idea_roles.where(founder: true).blank?
+
+      unless @idea.idea_roles.where(founder: true).blank?
+        previous_founder_email = @idea.idea_roles.where(founder: true).first.user.email
+        @idea.idea_roles.where(founder: true).first.destroy
+      end
+      
       if params[:idea][:virtual_attribute].eql? ('1') and params[:idea][:idea_roles] != previous_founder_email
         idea_vote = @idea.idea_votes.where(user_id: User.where(email: previous_founder_email).first.id) unless previous_founder_email.nil?
         unless idea_vote.nil? or idea_vote[0].nil?

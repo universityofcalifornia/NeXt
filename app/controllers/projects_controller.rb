@@ -71,8 +71,12 @@ class ProjectsController < ApplicationController
   def update
 
     if User.where(email: params[:project][:project_roles]).exists?
-      previous_founder_email = @project.project_roles.where(founder: true).first.user.email unless @project.project_roles.where(founder: true).blank?
-      @project.project_roles.where(founder: true).first.destroy unless @project.project_roles.where(founder: true).blank?
+
+      unless @project.project_roles.where(founder: true).blank?
+        previous_founder_email = @project.project_roles.where(founder: true).first.user.email
+        @project.project_roles.where(founder: true).first.destroy
+      end
+
       if params[:project][:virtual_attribute].eql? ('1') and params[:project][:project_roles] != previous_founder_email
         project_vote = @project.project_votes.where(user_id: User.where(email: previous_founder_email).first.id) unless previous_founder_email.nil?
         unless project_vote.nil? or project_vote[0].nil?
