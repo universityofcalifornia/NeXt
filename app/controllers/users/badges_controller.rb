@@ -3,6 +3,10 @@ module Users
 
     before_action do
       @user = User.find params[:user_id]
+
+      unless @user.is_viewable_by? current_user
+        redirect_to :root
+      end
     end
 
     before_action only: [:index, :new] do
@@ -10,7 +14,9 @@ module Users
     end
 
     before_action only: [:update] do
-      render nothing: true, status: :unauthorized unless @user.id == current_user.id
+      unless @user.id == current_user.id
+        redirect_to :root
+      end
     end
 
     before_action only: [:update, :destroy] do
@@ -26,7 +32,9 @@ module Users
     end
 
     before_action only: [:create, :destroy] do
-      render nothing: true, status: :unauthorized unless @badge.is_givable_by? current_user
+      unless @badge.is_givable_by? current_user
+        redirect_to :root
+      end
     end
 
     def index
