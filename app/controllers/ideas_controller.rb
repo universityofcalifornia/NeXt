@@ -72,7 +72,7 @@ class IdeasController < ApplicationController
         previous_founder_email = @idea.idea_roles.where(founder: true).first.user.email
         @idea.idea_roles.where(founder: true).first.destroy
       end
-      
+
       if params[:idea][:virtual_attribute].eql? ('1') and params[:idea][:idea_roles] != previous_founder_email
         idea_vote = @idea.idea_votes.where(user_id: User.where(email: previous_founder_email).first.id) unless previous_founder_email.nil?
         unless idea_vote.nil? or idea_vote[0].nil?
@@ -91,10 +91,20 @@ class IdeasController < ApplicationController
       @redirect_to_edit = true
     end
 
-    @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
-    @idea.competency_ids = params[:idea][:competencies]
-    @idea.refresh_index!
-    redirect_to params[:return_to] ? params[:return_to] : idea_url(@idea)
+    if @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+      @idea.competency_ids = params[:idea][:competencies]
+      @idea.refresh_index!
+
+      if @redirect_to_edit
+        redirect_to :back
+      else
+        redirect_to params[:return_to] ? params[:return_to] : idea_url(@idea)
+      end
+      
+    else
+      render action: 'edit'
+    end
+
   end
 
   def destroy
