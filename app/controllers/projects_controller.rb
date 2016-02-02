@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @project.is_editable_by? current_user
-        redirect_to :root_url
+        redirect_to :root
       end
     else
       require_login_status
