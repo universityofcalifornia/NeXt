@@ -407,11 +407,11 @@ ActiveRecord::Schema.define(version: 20160123020945) do
   add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.text     "email",                               null: false
+    t.text     "email",                                                null: false
     t.integer  "primary_position_id"
     t.string   "name_first"
     t.string   "name_middle"
-    t.string   "name_last",                           null: false
+    t.string   "name_last",                                            null: false
     t.string   "name_suffix"
     t.string   "website"
     t.string   "phone_number"
@@ -422,16 +422,17 @@ ActiveRecord::Schema.define(version: 20160123020945) do
     t.string   "social_github"
     t.string   "social_linkedin"
     t.string   "social_twitter"
-    t.boolean  "super_admin",         default: false
+    t.boolean  "super_admin",                          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "password_hash"
-    t.integer  "idea_points",         default: 0
-    t.integer  "project_points",      default: 0
-    t.integer  "other_points",        default: 0
+    t.integer  "idea_points",                          default: 0
+    t.integer  "project_points",                       default: 0
+    t.integer  "other_points",                         default: 0
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.text     "profile_image",       limit: 16777215
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree

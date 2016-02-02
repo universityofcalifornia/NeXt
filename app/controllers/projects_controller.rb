@@ -65,17 +65,28 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @founder_email = @project.project_roles.where(admin: true).first.try(:user).try(:email)
+    @founder_email = @project.project_roles.where(founder: true).first.try(:user).try(:email)
   end
 
   def update
 
     if User.where(email: params[:project][:project_roles]).exists?
-      @project.project_roles.where(founder: true).first.destroy
+      previous_founder_email = @project.project_roles.where(founder: true).first.user.email unless @project.project_roles.where(founder: true).blank?
+      @project.project_roles.where(founder: true).first.destroy unless @project.project_roles.where(founder: true).blank?
+      if params[:project][:virtual_attribute].eql? ('1') and params[:project][:project_roles] != previous_founder_email
+        project_vote = @project.project_votes.where(user_id: User.where(email: previous_founder_email).first.id) unless previous_founder_email.nil?
+        unless project_vote.nil? or project_vote[0].nil?
+          project_vote[0].delete
+        end
+      end
       @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, admin: true, founder: true)
-      ProjectNotifier.notify_new_founder(@new_founder).deliver
+      ProjectNotifier.notify_new_founder(@new_founder).deliver unless @project.project_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:project][:project_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the project to a UC Next user!'
+      flash[:page_alert_type] = 'danger'
+      @redirect_to_edit = true
+    elsif params[:project][:project_roles].blank?
+      flash[:page_alert] = 'All projects now must have a founder! Please enter in an email for the transfer founder field.'
       flash[:page_alert_type] = 'danger'
       @redirect_to_edit = true
     end

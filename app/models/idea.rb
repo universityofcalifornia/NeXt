@@ -3,6 +3,8 @@ require 'application/index'
 
 class Idea < ActiveRecord::Base
 
+  attr_accessor :virtual_attribute
+
   acts_as_paranoid
 
   belongs_to :idea_status

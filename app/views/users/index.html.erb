@@ -19,7 +19,14 @@
     <% @users.each do |user| %>
     <tr>
       <% if current_user %>
-        <td class="avatar-cell"><%= gravatar_tag user.email, size: 40, secure: true %></td>
+        <td class="avatar-cell">
+          <% if user.profile_image.blank? %>
+            <%#= gravatar_tag user.email, size: 40, secure: true %>
+            <%= image_tag "/images/profile/default-80x80.png", size: '50x50', class: "small-wave"  %>
+          <% else %>
+            <%= image_tag "data:img/png;base64,#{user.profile_image}", size: '50x50', secure: true %>
+          <% end %>
+        </td>
       <% else %>
         <td class="avatar-cell"></td>
       <% end %>

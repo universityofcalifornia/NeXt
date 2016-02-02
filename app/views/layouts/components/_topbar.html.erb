@@ -18,9 +18,15 @@
 
       <div class="col-md-3 col-md-offset-6 text-right">
         <h2 class="header-item">
-          <%= image_tag "/images/header_icons/wave.png",
-            { class: "small-wave" }
-          %>
+          <% if current_user %>
+            <% if current_user.profile_image.blank? %>
+              <%= image_tag "/images/profile/default-80x80.png", class: 'small-wave' %>
+            <% else %>
+              <%= image_tag "data:img/png;base64,#{current_user.profile_image}", class: 'small-wave' %>
+            <% end %>
+          <% else %>
+            <%= image_tag "/images/header_icons/wave.png", { class: "small-wave" } %>
+          <% end %>
           <%= render "shared/login" %>
         </h2>
 

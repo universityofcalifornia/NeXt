@@ -44,7 +44,7 @@ module OAuth2
           begin
             token = self.client.auth_code.get_token(code, properties)
           rescue => error
-            Rails.logger.error("Could not obtain OAuth token. " + error)
+            Rails.logger.error("Could not obtain OAuth token. " + error.to_s)
           end
 
           Rails.logger.info("Finished with OAuth access token process.")

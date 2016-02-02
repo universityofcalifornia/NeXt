@@ -3,6 +3,8 @@ require 'application/index'
 
 class Project < ActiveRecord::Base
 
+  attr_accessor :virtual_attribute
+
   acts_as_paranoid
 
   belongs_to :project_status

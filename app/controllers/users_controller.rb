@@ -48,7 +48,6 @@ class UsersController < ApplicationController
   end
 
   def update
-
     permitted_params = [
       :name_first,
       :name_middle,
@@ -70,6 +69,35 @@ class UsersController < ApplicationController
     permitted_params << :email if @user.password_hash and @user.password_hash.length > 0
 
     data = params[:user].permit(permitted_params)
+
+
+    unless params[:user][:profile_image].blank?
+      img = Magick::Image.from_blob(params[:user][:profile_image].read).first
+      target = Magick::Image.new(80, 80) do
+        self.background_color = 'white'
+      end
+      img.resize_to_fill!(80, 80)
+      @image = target.composite(img, Magick::CenterGravity, Magick::CopyCompositeOp)
+      file = @image.to_blob { |attrs| attrs.format = 'PNG' }
+      image_data = Base64.encode64(file).gsub(/\n/, "")
+      if image_data.bytesize > 500000
+        flash[:page_alert_type] = 'danger'
+        flash[:page_alert] = "Please upload a smaller image (< 3mb)."
+        redirect_to :back
+        return
+      end
+      current_user.profile_image = image_data
+      current_user.save
+    end
+
+    unless params[:user][:email].eql? current_user.email
+      unless User.where(email: params[:user][:email]).first.nil?
+        flash[:page_alert_type] = 'danger'
+        flash[:page_alert] = 'The email you are trying to change to already exists'
+        redirect_to :back
+        return
+      end
+    end
 
     if @user.password_hash and @user.password_hash.length > 0
       if params[:user][:password].length > 0
@@ -96,6 +124,7 @@ class UsersController < ApplicationController
         @user.primary_position.delete
       end
     end
+
 
     redirect_to user_url(@user)
 
