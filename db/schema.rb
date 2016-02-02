@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114204858) do
+ActiveRecord::Schema.define(version: 20160123020945) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -253,6 +253,19 @@ ActiveRecord::Schema.define(version: 20160114204858) do
 
   add_index "positions", ["department"], name: "index_positions_on_department", using: :btree
   add_index "positions", ["title"], name: "index_positions_on_title", using: :btree
+
+  create_table "privacies", force: true do |t|
+    t.integer  "privacy_options_id"
+    t.string   "privacy_options_type"
+    t.integer  "organization_id"
+    t.boolean  "hidden",               default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "privacies", ["organization_id"], name: "index_privacies_on_organization_id", using: :btree
+  add_index "privacies", ["privacy_options_id", "privacy_options_type"], name: "index_privacies_on_privacy_options_id_and_privacy_options_type", using: :btree
 
   create_table "project_competencies", force: true do |t|
     t.integer  "project_id"

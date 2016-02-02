@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many :user_badges, dependent: :destroy
   has_many :badges, through: :user_badges
 
+  has_one :privacy, as: :privacy_options
+
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true
   #validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
@@ -54,6 +56,7 @@ class User < ActiveRecord::Base
   scope :idea_founders, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, founder: true }) }
   scope :idea_admins, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, admin: true }) }
   scope :where_local, -> { where.not(:password_hash => nil) }
+  scope :public_profiles, -> { includes(:privacy).where(privacies: { hidden: [nil, false] }) }
 
   def display_name format = :fl
     str = ''
@@ -202,6 +205,25 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def is_owner? user
+    return self == user
+  end
+
+  def is_viewable_by? user
+    # Adjustment to normal viewability checks: viewing user must have a profile
+    super && user ? true : false
+  end
+
+  def hidden
+    return privacy.try(:hidden) ? true : false
+  end
+
+  def hidden= value
+    self.privacy ||= Privacy.new
+    self.privacy.hidden = (value == "true")
+    self.privacy.save
   end
 
 end

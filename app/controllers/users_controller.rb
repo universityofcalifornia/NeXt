@@ -1,28 +1,32 @@
 class UsersController < ApplicationController
 
-  before_action only: [:show, :edit, :update, :destroy] do
-    @user = User.find(params[:id])
-  end
-
-  before_action only: [:edit, :update] do
-    unless @user.is_editable_by? current_user
-      require_login_status
-      redirect_to :new_auth_local
-      raise Application::Error.new "You do not have permission to edit the user (id: #{params[:id]})"
-    end
-  end
-
-  before_action only: :show do
+  before_action do
     unless current_user
       require_login_status
       redirect_to :new_auth_local
     end
   end
 
+  before_action only: [:show, :edit, :update, :destroy] do
+    @user = User.find(params[:id])
+
+    unless @user.is_viewable_by? current_user
+      redirect_to :root
+    end
+  end
+
+  before_action only: [:edit, :update, :destroy] do
+    unless @user.is_editable_by? current_user
+      redirect_to :root
+    end
+  end
+
   def index
-    @users = User.includes(:positions, :organizations)
-                 .order(:name_last, :name_first)
-                 .paginate(page: params[:page], per_page: 15)
+    # Super admins see all users, normal users only see publicly listed ones
+    @users = (current_user.super_admin ? User : User.public_profiles)
+      .includes(:positions, :organizations)
+      .order(:name_last, :name_first)
+      .paginate(page: params[:page], per_page: 15)
   end
 
   def show
@@ -45,19 +49,20 @@ class UsersController < ApplicationController
 
   def update
     permitted_params = [
-        :name_first,
-        :name_middle,
-        :name_last,
-        :name_suffix,
-        :website,
-        :phone_number,
-        :fax_number,
-        :mailing_address,
-        :biography,
-        :social_google,
-        :social_github,
-        :social_linkedin,
-        :social_twitter,
+      :name_first,
+      :name_middle,
+      :name_last,
+      :name_suffix,
+      :website,
+      :phone_number,
+      :fax_number,
+      :mailing_address,
+      :biography,
+      :social_google,
+      :social_github,
+      :social_linkedin,
+      :social_twitter,
+      :hidden
     ]
 
     permitted_params << :super_admin if context.is_super_admin?
