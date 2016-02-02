@@ -1,25 +1,30 @@
 require 'test_helper'
 
 class PrivacyTest < ActiveSupport::TestCase
+  def setup
+    @admin_user  = User.find(1)
+    @normal_user = User.find(2)
+  end
+
   test "Objects without privacy support are always viewable" do
     org = Organization.new
 
     assert org.is_viewable_by? nil
-    assert org.is_viewable_by? User.find(1)
+    assert org.is_viewable_by? @normal_user
   end
 
   test "Objects default to viewable by anyone" do
     idea = Idea.new
 
     assert idea.is_viewable_by? nil
-    assert idea.is_viewable_by? User.find(1)
+    assert idea.is_viewable_by? @normal_user
   end
 
   test "Objects with basic privacy options are viewable by logged-in users" do
     idea = Idea.new
     idea.privacy = Privacy.new
 
-    assert idea.is_viewable_by? User.find(1)
+    assert idea.is_viewable_by? @normal_user
     assert_not idea.is_viewable_by? nil
   end
 
@@ -27,17 +32,18 @@ class PrivacyTest < ActiveSupport::TestCase
     user = User.new
 
     assert user.is_viewable_by? user
-    assert user.is_viewable_by? User.find(1)
+    assert user.is_viewable_by? @normal_user
     assert_not user.is_viewable_by? nil
   end
 
-  test "Hidden objects are only viewable by the owner" do
+  test "Hidden objects are only viewable by the owner (or admins)" do
     user = User.new
     user.privacy = Privacy.new
     user.privacy.hidden = true
 
     assert user.is_viewable_by? user
-    assert_not user.is_viewable_by? User.find(1)
+    assert user.is_viewable_by? @admin_user
+    assert_not user.is_viewable_by? @normal_user
     assert_not user.is_viewable_by? nil
   end
 
