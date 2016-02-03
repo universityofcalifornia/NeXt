@@ -99,7 +99,10 @@ class Event < ActiveRecord::Base
   def create_invites
     if @invite_list
       @invite_list.split(/,/).each do |email|
-        self.invites.create(:email => email.strip)
+        invites = self.invites.create(:email => email.strip)
+      end
+      Rufus::Scheduler.singleton.in '10s' do
+        Invite.email_recipients
       end
     end
   end

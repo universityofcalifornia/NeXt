@@ -1,4 +1,5 @@
 class Invite < ActiveRecord::Base
+  
   belongs_to :event
 
   scope :all_that_have_not_responded, -> { where(:responded =>  false) }
@@ -8,6 +9,9 @@ class Invite < ActiveRecord::Base
     invites = all_that_have_not_responded
     invites.each do |invite|
       EventNotifier.notify_invite(invite)
+      invite.responded = true
+      invite.save
     end
   end
+
 end
