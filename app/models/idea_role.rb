@@ -6,6 +6,5 @@ class IdeaRole < ActiveRecord::Base
   belongs_to :idea
 
   scope :founders, -> { where(founder: true) }
-  scope :admins, -> { where(admin: true) }
 
 end

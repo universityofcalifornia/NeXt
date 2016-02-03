@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
     @project = Project.new project_params
 
     if @project.save
-      @project.project_roles << ProjectRole.new(user: current_user, founder: true, admin: true)
+      @project.project_roles << ProjectRole.new(user: current_user, founder: true)
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
@@ -83,7 +83,7 @@ class ProjectsController < ApplicationController
           project_vote[0].delete
         end
       end
-      @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, admin: true, founder: true)
+      @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, founder: true)
       ProjectNotifier.notify_new_founder(@new_founder).deliver unless @project.project_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:project][:project_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the project to a UC Next user!'

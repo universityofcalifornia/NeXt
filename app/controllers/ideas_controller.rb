@@ -41,7 +41,7 @@ class IdeasController < ApplicationController
   def create
     @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id)
     if @idea.save
-      @idea.idea_roles << IdeaRole.new(user: current_user, founder: true, admin: true)
+      @idea.idea_roles << IdeaRole.new(user: current_user, founder: true)
       @idea.competency_ids = params[:idea][:competencies]
       @idea.refresh_index!
       current_user.alter_points :ideas, 3
@@ -79,7 +79,7 @@ class IdeasController < ApplicationController
           idea_vote[0].delete
         end
       end
-      @new_founder = IdeaRole.create(idea_id: @idea.id, user_id: User.where(email: params[:idea][:idea_roles]).first.id, admin: true, founder: true)
+      @new_founder = IdeaRole.create(idea_id: @idea.id, user_id: User.where(email: params[:idea][:idea_roles]).first.id, founder: true)
       IdeaNotifier.notify_new_founder(@new_founder).deliver unless @idea.idea_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:idea][:idea_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the idea to a UC Next user!'

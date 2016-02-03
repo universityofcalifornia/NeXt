@@ -13,7 +13,7 @@ class IdeaNotifier < ActionMailer::Base
     @email = new_founder.user.email
     @idea = new_founder.idea
     @name = new_founder.user.name_first
-    mail :to => @email, :subject => "You are now the admin/founder of a new idea!"
+    mail :to => @email, :subject => "You are now the founder of a new idea!"
   end
 
 end

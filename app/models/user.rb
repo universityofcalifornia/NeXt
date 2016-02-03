@@ -54,7 +54,6 @@ class User < ActiveRecord::Base
                 :password_confirmation
 
   scope :idea_founders, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, founder: true }) }
-  scope :idea_admins, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, admin: true }) }
   scope :where_local, -> { where.not(:password_hash => nil) }
   scope :public_profiles, -> { includes(:privacy).where(privacies: { hidden: [nil, false] }) }
 
