@@ -33,7 +33,7 @@ class IdeasController < ApplicationController
     @top_ideas = results.map(&:model).sort_by { |idea| idea.idea_votes.count }.reverse!
     @organizations = Organization.all
 
-    if current_user && current_user.admin
+    if current_user && current_user.super_admin
       idea_base = Idea
     elsif current_user
       idea_base = Idea.visible_to_orgs(current_user.organizations.map(&:id))
