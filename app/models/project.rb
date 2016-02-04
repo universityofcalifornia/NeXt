@@ -31,6 +31,9 @@ class Project < ActiveRecord::Base
 
   attr_html_reader :description
 
+  scope :system_wide, -> { includes(:privacy).where(privacies: { id: nil }) }
+  scope :visible_to_orgs, -> (organization_ids) { includes(:privacy).where(privacies: { organization_id: organization_ids.push(nil) }) }
+
   validates :name,
     presence: true, length: { maximum: 255 }
 
@@ -91,6 +94,14 @@ class Project < ActiveRecord::Base
       })
     end
     body
+  end
+
+  def is_owner? user
+    if user.nil?
+      return false
+    else
+      return user.project_roles.where(founder: true, project_id: id).count > 0
+    end
   end
 
 end

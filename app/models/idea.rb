@@ -24,8 +24,10 @@ class Idea < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 255 }
 
-
   attr_html_reader :description
+
+  scope :system_wide, -> { includes(:privacy).where(privacies: { id: nil }) }
+  scope :visible_to_orgs, -> (organization_ids) { includes(:privacy).where(privacies: { organization_id: organization_ids.push(nil) }) }
 
   def is_editable_by? user
     user and (idea_roles.where(user_id: user.id).count > 0 or user.super_admin)
@@ -77,6 +79,14 @@ class Idea < ActiveRecord::Base
       })
     end
     body
+  end
+
+  def is_owner? user
+    if user.nil?
+      return false
+    else
+      return user.idea_roles.where(founder: true, idea_id: id).count > 0
+    end
   end
 
 end
