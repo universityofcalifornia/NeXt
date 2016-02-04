@@ -62,7 +62,7 @@
         <h5>Website</h5>
         <p style="overflow:hidden;text-overflow:ellipsis">
           <% unless @event.event_url.blank? %>
-            <%= link_to(@event.event_url, target: "_blank") %>
+            <%= link_to(@event.event_url, @event.event_url) %>
           <% else %>
             <em>Not Specified</em>
           <% end %>
@@ -86,7 +86,7 @@
         <h5>Map</h5>
         <p style="overflow:hidden;text-overflow:ellipsis">
           <% unless @event.map_url.blank? %>
-            <%= link_to(@event.map_url, target: "_blank") %>
+            <%= link_to(@event.map_url, @event.map_url) %>
           <% else %>
             <em>None Specified</em>
           <% end %>

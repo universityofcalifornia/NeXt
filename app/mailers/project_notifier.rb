@@ -13,6 +13,6 @@ class ProjectNotifier < ActionMailer::Base
     @email = new_founder.user.email
     @project = new_founder.project
     @name = new_founder.user.name_first
-    mail :to => @email, :subject => "You are now the admin/founder of a new project!"
+    mail :to => @email, :subject => "You are now the founder of a new project!"
   end
 end

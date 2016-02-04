@@ -6,6 +6,5 @@ class ProjectRole < ActiveRecord::Base
   belongs_to :project
 
   scope :founders, -> { where(founder: true) }
-  scope :admins, -> { where(admin: true) }
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160123020945) do
+ActiveRecord::Schema.define(version: 20160203012020) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -155,7 +155,6 @@ ActiveRecord::Schema.define(version: 20160123020945) do
     t.integer  "idea_id"
     t.integer  "user_id"
     t.boolean  "founder",    default: false
-    t.boolean  "admin",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -306,7 +305,6 @@ ActiveRecord::Schema.define(version: 20160123020945) do
     t.integer  "project_id"
     t.integer  "user_id"
     t.boolean  "founder",    default: false
-    t.boolean  "admin",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"

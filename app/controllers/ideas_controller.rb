@@ -41,7 +41,7 @@ class IdeasController < ApplicationController
   def create
     @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id)
     if @idea.save
-      @idea.idea_roles << IdeaRole.new(user: current_user, founder: true, admin: true)
+      @idea.idea_roles << IdeaRole.new(user: current_user, founder: true)
       @idea.competency_ids = params[:idea][:competencies]
       @idea.refresh_index!
       current_user.alter_points :ideas, 3
@@ -67,15 +67,19 @@ class IdeasController < ApplicationController
   def update
 
     if User.where(email: params[:idea][:idea_roles]).exists?
-      previous_founder_email = @idea.idea_roles.where(founder: true).first.user.email unless @idea.idea_roles.where(founder: true).blank?
-      @idea.idea_roles.where(founder: true).first.destroy unless @idea.idea_roles.where(founder: true).blank?
+
+      unless @idea.idea_roles.where(founder: true).blank?
+        previous_founder_email = @idea.idea_roles.where(founder: true).first.user.email
+        @idea.idea_roles.where(founder: true).first.destroy
+      end
+
       if params[:idea][:virtual_attribute].eql? ('1') and params[:idea][:idea_roles] != previous_founder_email
         idea_vote = @idea.idea_votes.where(user_id: User.where(email: previous_founder_email).first.id) unless previous_founder_email.nil?
         unless idea_vote.nil? or idea_vote[0].nil?
           idea_vote[0].delete
         end
       end
-      @new_founder = IdeaRole.create(idea_id: @idea.id, user_id: User.where(email: params[:idea][:idea_roles]).first.id, admin: true, founder: true)
+      @new_founder = IdeaRole.create(idea_id: @idea.id, user_id: User.where(email: params[:idea][:idea_roles]).first.id, founder: true)
       IdeaNotifier.notify_new_founder(@new_founder).deliver unless @idea.idea_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:idea][:idea_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the idea to a UC Next user!'
@@ -87,10 +91,20 @@ class IdeasController < ApplicationController
       @redirect_to_edit = true
     end
 
-    @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
-    @idea.competency_ids = params[:idea][:competencies]
-    @idea.refresh_index!
-    redirect_to params[:return_to] ? params[:return_to] : idea_url(@idea)
+    if @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+      @idea.competency_ids = params[:idea][:competencies]
+      @idea.refresh_index!
+
+      if @redirect_to_edit
+        redirect_to :back
+      else
+        redirect_to params[:return_to] ? params[:return_to] : idea_url(@idea)
+      end
+      
+    else
+      render action: 'edit'
+    end
+
   end
 
   def destroy
