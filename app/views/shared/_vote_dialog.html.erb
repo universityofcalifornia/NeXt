@@ -12,7 +12,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="<%= title_id %>"><%= object.name %></h4>
+        <h4 class="modal-title" id="<%= title_id %>" style="text-align: left;"><%= object.name %></h4>
       </div>
       <div class="modal-body">
         <% if @object.has_been_voted_for_by? current_user %>
