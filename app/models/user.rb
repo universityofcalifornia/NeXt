@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   acts_as_paranoid
 
+
   has_many :oauth2_identities
 
   has_many :positions, dependent: :destroy
