@@ -32,8 +32,12 @@ class UsersController < ApplicationController
   def show
     @founded_ideas = @user.idea_roles.where(founder: true).includes(:idea).take(5).map(){ |idea_role| idea_role.idea }
     @supported_ideas = @user.idea_votes.includes(:idea).take(5).map(){ |idea_vote| idea_vote.idea }
+
+    # @founded_projects = @user.project_roles.where('founder = 1 or admin = 1').includes(:project).take(5).map(){ |project_role| project_role.project }
+    # @involved_projects = @user.project_roles.where('founder = 0 and admin = 0').includes(:project).take(5).map(){ |project_role| project_role.project }
     @founded_projects = @user.project_roles.where('founder = 1').includes(:project).take(5).map(){ |project_role| project_role.project }
     @involved_projects = @user.project_roles.where('founder = 0').includes(:project).take(5).map(){ |project_role| project_role.project }
+
     @supported_projects = @user.project_votes.includes(:project).take(5).map(&:project)
     @showcased_badges = @user.user_badges.where(showcase: true).take(5).map(&:badge)
     @givable_badges = Badge.all.select { |badge| badge.is_givable_by?(current_user) && badge.is_givable_to?(@user) }
@@ -62,8 +66,10 @@ class UsersController < ApplicationController
       :social_github,
       :social_linkedin,
       :social_twitter,
-      :hidden
+      :hidden,
+      :dont_receive_emails
     ]
+
 
     permitted_params << :super_admin if context.is_super_admin?
     permitted_params << :email if @user.password_hash and @user.password_hash.length > 0

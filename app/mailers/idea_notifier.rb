@@ -12,7 +12,7 @@ class IdeaNotifier < ActionMailer::Base
   end
 
   def notify_new_founder new_founder
-    unless founder.dont_receive_emails
+    unless new_founder.user.dont_receive_emails
       @email = new_founder.user.email
       @idea = new_founder.idea
       @name = new_founder.user.name_first
