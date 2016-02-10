@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
     @project = Project.new project_params
 
     if @project.save
-      @project.project_roles << ProjectRole.new(user: current_user, founder: true, admin: true)
+      @project.project_roles << ProjectRole.new(user: current_user, founder: true)
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
@@ -81,15 +81,19 @@ class ProjectsController < ApplicationController
   def update
 
     if User.where(email: params[:project][:project_roles]).exists?
-      previous_founder_email = @project.project_roles.where(founder: true).first.user.email unless @project.project_roles.where(founder: true).blank?
-      @project.project_roles.where(founder: true).first.destroy unless @project.project_roles.where(founder: true).blank?
+
+      unless @project.project_roles.where(founder: true).blank?
+        previous_founder_email = @project.project_roles.where(founder: true).first.user.email
+        @project.project_roles.where(founder: true).first.destroy
+      end
+
       if params[:project][:virtual_attribute].eql? ('1') and params[:project][:project_roles] != previous_founder_email
         project_vote = @project.project_votes.where(user_id: User.where(email: previous_founder_email).first.id) unless previous_founder_email.nil?
         unless project_vote.nil? or project_vote[0].nil?
           project_vote[0].delete
         end
       end
-      @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, admin: true, founder: true)
+      @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, founder: true)
       ProjectNotifier.notify_new_founder(@new_founder).deliver unless @project.project_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:project][:project_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the project to a UC Next user!'
