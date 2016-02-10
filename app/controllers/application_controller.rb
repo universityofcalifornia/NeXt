@@ -52,6 +52,14 @@ class ApplicationController < ActionController::Base
     flash[:page_alert_type] = 'danger'
   end
 
+  # Sends the user back from whence they came with an error message
+  def redirect_forbidden message
+    redirect_to(request.referrer || :root, flash: {
+      page_alert_type: "danger",
+      page_alert: message
+    })
+  end
+
   private
   def set_mailer_host
     # Override email URLs to always use the host that served the request

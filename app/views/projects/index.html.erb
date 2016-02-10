@@ -140,7 +140,7 @@
             Started
             <% if project.project_roles.founders.count > 0 %>
               by
-              <%= project.project_roles.founders.includes(:user).map { |r| link_to r.user.display_name, r.user }.to_sentence.html_safe %>
+              <%= project.project_roles.founders.includes(:user).map { |r| link_to_user r.user }.to_sentence.html_safe %>
             <% end %>
             on
             <%= project.created_at.strftime("%B %d, %Y") %>

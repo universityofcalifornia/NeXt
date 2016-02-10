@@ -17,7 +17,7 @@
   <tbody>
   <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.display_name(:lf), user_url(user) %></td>
+        <td><%= link_to_user user %></td>
         <td><%= link_to 'Change Password', edit_local_user_url(user) %></td>
         <td><%= link_to 'Edit Profile', edit_user_url(user) %></td>
         <td><%= link_to 'Delete Account', local_user_url(user), method: :delete,

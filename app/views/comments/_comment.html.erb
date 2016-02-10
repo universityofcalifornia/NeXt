@@ -1,6 +1,6 @@
 <div class="well">
   <h3><%= comment.title %></h3>
-  <p class="text-muted"><%= link_to comment.user.display_name, comment.user %>&nbsp;<%= local_time(comment.created_at, '%B, %d %Y %H:%M:%S') %></p>
+  <p class="text-muted"><%= link_to_user comment.user %>&nbsp;<%= local_time(comment.created_at, '%B, %d %Y %H:%M:%S') %></p>
   <blockquote>
   	<p>&nbsp;<%= comment.body %>&nbsp;
     <% if comment.edited? %>

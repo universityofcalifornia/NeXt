@@ -16,57 +16,69 @@
       </tr>
     </thead>
     <tbody>
-    <% @users.each do |user| %>
-    <tr>
-      <% if current_user %>
-        <td class="avatar-cell">
-          <% if user.profile_image.blank? %>
-            <%#= gravatar_tag user.email, size: 40, secure: true %>
-            <%= image_tag "/images/profile/default-80x80.png", size: '50x50', class: "small-wave"  %>
+      <% @users.each do |user| %>
+        <tr>
+          <% if user.is_viewable_by? current_user %>
+            <td class="avatar-cell">
+              <% if user.profile_image.blank? %>
+                <%= image_tag "/images/profile/default-80x80.png", size: '50x50', class: "small-wave"  %>
+              <% else %>
+                <%= image_tag "data:img/png;base64,#{user.profile_image}", size: '50x50', secure: true %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to_user user %>
+            </td>
+            <td>
+              <%= user.primary_position ? user.primary_position.title : '' %>
+            </td>
+            <% if user.primary_organization %>
+              <td><%= image_tag "/images/organizations/#{user.primary_organization.name}.png", size: "82x30" %></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td>
+              <%= user.created_at.strftime("%B %d, %Y") %>
+            </td>
+            <td>
+              <% if user.website %>
+                <%= link_to user.website_url, target: '_blank' do %>
+                  <%= image_tag "/images/links/www.png", alt: "WWW", class: "social-icon" %>
+                <% end %>
+              <% end %>
+              <% if user.social_github %>
+                <%= link_to user.social_github_url, target: '_blank' do %>
+                  <%= image_tag "/images/links/github.png", alt: "GitHub", class: "social-icon" %>
+                <% end %>
+              <% end %>
+              <% if user.social_google %>
+                <%= link_to user.social_google_url, target: '_blank' do %>
+                  <%= image_tag "/images/links/google.png", alt: "Google+", class: "social-icon" %>
+                <% end %>
+              <% end %>
+              <% if user.social_linkedin %>
+                <%= link_to user.social_linkedin_url, target: '_blank' do %>
+                  <%= image_tag "/images/links/linkedin.png", alt: "LinkedIn", class: "social-icon" %>
+                <% end %>
+              <% end %>
+              <% if user.social_twitter %>
+                <%= link_to user.social_twitter_url, target: '_blank' do %>
+                  <%= image_tag "/images/links/twitter.png", alt: "Twitter", class: "social-icon" %>
+                <% end %>
+              <% end %>
+            </td>
+
           <% else %>
-            <%= image_tag "data:img/png;base64,#{user.profile_image}", size: '50x50', secure: true %>
+            <td class="avatar-cell"></td>
+            <td>
+              <%= link_to_user user %>
+            </td>
+            <td colspan="4">
+              <em>This user&apos;s profile is hidden.</em>
+            </td>
           <% end %>
-        </td>
-      <% else %>
-        <td class="avatar-cell"></td>
+        </tr>
       <% end %>
-      <td><%= link_to user.display_name, user_url(user) %></td>
-      <td><%= user.primary_position ? user.primary_position.title : '' %></td>
-      <% if user.primary_organization %>
-      <td><%= image_tag "/images/organizations/#{user.primary_organization.name}.png", size: "82x30" %></td>
-      <% else %>
-      <td></td>
-      <% end %>
-      <td><%= user.created_at.strftime("%B %d, %Y") %></td>
-      <td>
-        <% if user.website %>
-          <%= link_to user.website_url, target: '_blank' do %>
-            <%= image_tag "/images/links/www.png", alt: "WWW", class: "social-icon" %>
-          <% end %>
-        <% end %>
-        <% if user.social_github %>
-          <%= link_to user.social_github_url, target: '_blank' do %>
-            <%= image_tag "/images/links/github.png", alt: "GitHub", class: "social-icon" %>
-          <% end %>
-        <% end %>
-        <% if user.social_google %>
-          <%= link_to user.social_google_url, target: '_blank' do %>
-            <%= image_tag "/images/links/google.png", alt: "Google+", class: "social-icon" %>
-          <% end %>
-        <% end %>
-        <% if user.social_linkedin %>
-          <%= link_to user.social_linkedin_url, target: '_blank' do %>
-            <%= image_tag "/images/links/linkedin.png", alt: "LinkedIn", class: "social-icon" %>
-          <% end %>
-        <% end %>
-        <% if user.social_twitter %>
-          <%= link_to user.social_twitter_url, target: '_blank' do %>
-            <%= image_tag "/images/links/twitter.png", alt: "Twitter", class: "social-icon" %>
-          <% end %>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
     </tbody>
   </table>
 </div>

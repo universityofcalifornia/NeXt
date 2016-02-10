@@ -156,7 +156,7 @@
             Proposed
             <% if idea.idea_roles.founders.count > 0 %>
               by
-              <%= idea.idea_roles.founders.includes(:user).map { |r| link_to r.user.display_name, r.user }.to_sentence.html_safe %>
+              <%= idea.idea_roles.founders.includes(:user).map { |r| link_to_user r.user }.to_sentence.html_safe %>
             <% end %>
             on
             <%= idea.created_at.strftime("%B %d, %Y") %>
