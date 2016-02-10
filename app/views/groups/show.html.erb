@@ -84,7 +84,7 @@
           <% @group.users.each do |user| %>
             <li class="list-group-item">
               <%= gravatar_tag user.email, size: 40, secure: true, html: { class: "list-avatar" } %>
-              <%= link_to user.display_name, user %>
+              <%= link_to_user user %>
             </li>
           <% end %>
         </ul>

@@ -29,7 +29,7 @@
           </h5>
           <ul class="list-unstyled">
             <% @project.project_roles.founders.each do |project_role| %>
-              <li><%= link_to project_role.user.display_name, project_role.user %></li>
+              <li><%= link_to_user project_role.user %></li>
             <% end %>
           </ul>
           <% end %>
@@ -102,7 +102,7 @@
             <div class="panel-body">
               <ul class="list-unstyled">
                 <% @project.users.order(name_last: :asc, name_first: :asc).each do |user| %>
-                  <li><%= link_to user.display_name(:fl), user %></li>
+                  <li><%= link_to_user user %></li>
                 <% end %>
               </ul>
             </div>
@@ -230,7 +230,7 @@
             <ul class="scroller-collapser">
               <% @project.project_votes.non_participants.each do |project_vote| %>
                 <li>
-                  <%= link_to project_vote.user.display_name, project_vote.user %>
+                  <%= link_to_user project_vote.user %>
                 </li>
               <% end %>
             </ul>
@@ -253,7 +253,7 @@
             <ul class="scroller-collapser">
               <% @project.project_votes.participants.each do |project_vote| %>
                 <li>
-                  <%= link_to project_vote.user.display_name, project_vote.user %>
+                  <%= link_to_user project_vote.user %>
                 </li>
               <% end %>
             </ul>

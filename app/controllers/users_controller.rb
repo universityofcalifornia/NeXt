@@ -22,11 +22,10 @@ class UsersController < ApplicationController
   end
 
   def index
-    # Super admins see all users, normal users only see publicly listed ones
-    @users = (current_user.super_admin ? User : User.public_profiles)
-      .includes(:positions, :organizations)
-      .order(:name_last, :name_first)
-      .paginate(page: params[:page], per_page: 15)
+    # Show all users (view hides sensitive information from hidden ones)
+    @users = User.includes(:positions, :organizations)
+                 .order(:name_last, :name_first)
+                 .paginate(page: params[:page], per_page: 15)
   end
 
   def show

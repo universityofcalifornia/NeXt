@@ -28,7 +28,7 @@
         <div class="panel-body">
           <ul class="list-unstyled">
             <% @resource.users.each do |user| %>
-              <li><%= link_to user.display_name(:lf), user %></li>
+              <li><%= link_to_user user %></li>
             <% end %>
           </ul>
         </div>

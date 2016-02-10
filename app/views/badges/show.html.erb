@@ -71,7 +71,7 @@
               <% else %>
                 <%= image_tag "data:img/png;base64,#{user_badge.user.profile_image}", size: '40x40', secure: true %>
               <% end %>
-              <%= link_to user_badge.user.display_name, user_badge.user %>
+              <%= link_to_user user_badge.user %>
             </li>
           <% end %>
         </ul>

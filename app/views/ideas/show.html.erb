@@ -175,7 +175,7 @@
           <div class="panel-body">
             <ul>
               <% @idea.idea_roles.founders.each do |idea_role| %>
-                <li><%= link_to idea_role.user.display_name, idea_role.user %></li>
+                <li><%= link_to_user idea_role.user %></li>
               <% end %>
             </ul>
           </div>
@@ -194,7 +194,7 @@
           <div class="panel-body">
             <ul>
               <% @idea.idea_votes.take(5).each do |idea_vote| %>
-                <li><%= link_to idea_vote.user.display_name, idea_vote.user %><% if idea_vote.participate %> <strong style="font-size: 1.2rem">&#9734;</strong><% end %></li>
+                <li><%= link_to_user idea_vote.user %><% if idea_vote.participate %> <strong style="font-size: 1.2rem">&#9734;</strong><% end %></li>
               <% end %>
             </ul>
           </div>
