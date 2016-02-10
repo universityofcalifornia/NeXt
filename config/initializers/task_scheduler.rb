@@ -7,4 +7,4 @@ require 'rufus/scheduler'
 #   Invite.email_recipients
 # end
 
-scheduler = Rufus::Scheduler.singleton
+# scheduler = Rufus::Scheduler.singleton
