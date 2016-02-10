@@ -11,13 +11,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     unless @user.is_viewable_by? current_user
-      redirect_to :root
+      redirect_forbidden "This user's profile is private."
     end
   end
 
   before_action only: [:edit, :update, :destroy] do
     unless @user.is_editable_by? current_user
-      redirect_to :root
+      redirect_forbidden "You cannot edit this user."
     end
   end
 
