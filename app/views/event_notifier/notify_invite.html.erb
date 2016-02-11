@@ -1,6 +1,8 @@
-You have been invite to event <b><%= @event.name %></b>
+<p>Hi,</p>
 
 
-<%= link_to "Accept", accept_invitation_url(@invite) %><br />
+<p>You have been invited to the event <%= @event.name %> by the UC NeXt user <%= @event.user.name_first %> <%= @event.user.name_last %>. Please RSVP by clicking Accept or Decline.</p>
 
-<%= link_to "Decline", decline_invitation_url(@invite) %>
+<p><%= link_to "Accept", accept_invitation_url(@invite) %><br /></p>
+
+<p><%= link_to "Decline", decline_invitation_url(@invite) %></p>

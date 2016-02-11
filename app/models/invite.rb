@@ -2,14 +2,14 @@ class Invite < ActiveRecord::Base
   
   belongs_to :event
 
-  scope :all_that_have_not_responded, -> { where(:responded =>  false) }
+  scope :not_yet_invited, -> { where(:email_sent =>  false) }
 
 
   def self.email_recipients
-    invites = all_that_have_not_responded
+    invites = not_yet_invited
     invites.each do |invite|
       EventNotifier.notify_invite(invite)
-      invite.responded = true
+      invite.email_sent = true
       invite.save
     end
   end
