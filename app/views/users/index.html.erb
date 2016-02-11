@@ -21,9 +21,9 @@
           <% if user.is_viewable_by? current_user %>
             <td class="avatar-cell">
               <% if user.profile_image.blank? %>
-                <%= image_tag "/images/profile/default-80x80.png", size: '50x50', class: "small-wave"  %>
+                <%= image_tag "/images/profile/default-80x80.png", class: "small-wave", style: 'height: 100%;' %>
               <% else %>
-                <%= image_tag "data:img/png;base64,#{user.profile_image}", size: '50x50', secure: true %>
+                <%= image_tag "data:img/png;base64,#{user.profile_image}", style: 'height: 100%', secure: true %>
               <% end %>
             </td>
             <td>
@@ -84,3 +84,4 @@
 </div>
 
 <%= will_paginate @users %>
+
