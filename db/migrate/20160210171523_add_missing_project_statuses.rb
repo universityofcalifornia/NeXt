@@ -1,18 +1,12 @@
 class AddMissingProjectStatuses < ActiveRecord::Migration
-  def change
-    completed = ProjectStatus.find(3)
-    completed.key = "completed"
-    completed.name = "Successfully completed"
-    completed.save
-
-    deployed = ProjectStatus.find(4)
-    deployed.key = "deployed"
-    deployed.name = "Deployed"
-    deployed.save
-
-    abandoned = ProjectStatus.new
-    abandoned.key = "abandoned"
-    abandoned.name = "Abandoned"
-    abandoned.save
+  def up
+    ActiveRecord::Base.connection.execute("TRUNCATE `project_statuses`;")
+    ProjectStatus.create([
+      { key: 'forming',   name: 'Forming - recruiting resources', icon: '' },
+      { key: 'active',    name: 'Active - fully resourced',       icon: '' },
+      { key: 'completed', name: 'Successfully completed',         icon: '' },
+      { key: 'deployed',  name: 'Deployed',                       icon: '' },
+      { key: 'abandoned', name: 'Abandoned',                      icon: '' }
+    ])
   end
 end
