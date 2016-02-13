@@ -5,6 +5,6 @@ class EventNotifier < ActionMailer::Base
   def notify_invite(invite)
     @invite = invite
     @event = invite.event
-    mail(:to => "#{invite.email}", :subject => "Invitation to Event - #{@event.name}").deliver unless @event.nil?
+    mail :to => "#{invite.email}", :subject => "Invitation to Event - #{@event.name}"
   end
 end
