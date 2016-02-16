@@ -95,8 +95,8 @@ class UsersController < ApplicationController
       current_user.save
     end
 
-    unless params[:user][:email].eql? current_user.email
-      unless User.where(email: params[:user][:email]).first.nil?
+    if params[:user][:email] != @user.email
+      if User.where(email: params[:user][:email]).count > 0
         flash[:page_alert_type] = 'danger'
         flash[:page_alert] = 'The email you are trying to change to already exists'
         redirect_to :back
