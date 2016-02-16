@@ -8,7 +8,7 @@ class Invite < ActiveRecord::Base
   def self.email_recipients
     invites = not_yet_invited
     invites.each do |invite|
-      EventNotifier.notify_invite(invite)
+      EventNotifier.notify_invite(invite).deliver unless invite.event.nil?
       invite.email_sent = true
       invite.save
     end

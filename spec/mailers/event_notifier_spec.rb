@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe EventNotifier, type: :mailer do
   describe 'instructions' do
-    let(:invite) { mock_model(Invite, id: 1, email: 'email@email.com', :event => mock_model(Event, name: 'New Event') ) }
+    let(:invite) { mock_model(Invite, id: 1, email: 'email@email.com', :event => mock_model(Event, name: 'New Event', :user => mock_model(User, name: 'test', email: 'test@email.com') ) ) }
     let(:mail) { EventNotifier.notify_invite(invite) }
 
     it 'renders the subject' do
