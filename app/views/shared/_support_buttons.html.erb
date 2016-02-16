@@ -1,0 +1,44 @@
+<% if object.has_been_voted_for_by? current_user %>
+  <% if object.would_participate? current_user %>
+    <%= button_to "Withdraw Participation",
+      dynamic_vote_url(object, object.voted_by(current_user)),
+      method: :put,
+      params: { participate: false },
+      class: "btn btn-withdraw-participation btn-block",
+      form_class: "button_to full-width"
+    %>
+
+  <% else %>
+    <%= button_to "Would Participate",
+      dynamic_vote_url(object, object.voted_by(current_user)),
+      method: :put,
+      params: { participate: true },
+      class: "btn btn-success btn-block",
+      form_class: "button_to full-width"
+    %>
+  <% end %>
+
+  <%= button_to "Withdraw Support",
+    dynamic_vote_url(object, object.voted_by(current_user)),
+    method: :delete,
+    class: "btn btn-withdraw-support btn-block",
+    form_class: "button_to full-width"
+  %>
+
+<% elsif object.is_votable_by? current_user %>
+  <%= button_to "Good #{object.class.name}",
+    url_for([object, :votes]),
+    method: :post,
+    params: { participate: false },
+    class: "btn btn-support btn-block",
+    form_class: "button_to full-width"
+  %>
+
+  <%= button_to "Would Participate",
+    url_for([object, :votes]),
+    method: :post,
+    params: { participate: true },
+    class: "btn btn-participate btn-block",
+    form_class: "button_to full-width"
+  %>
+<% end %>

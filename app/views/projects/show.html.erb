@@ -1,11 +1,19 @@
-<div class="profile">
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4 text-center">
+    <h2 class="valign-middle">
+      <span class="header-icon hidden-xs">
+        <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive" } %>
+      </span>
+      <span>Project Details</span>
+    </h2>
+  </div>
+</div>
 
+<div class="profile">
   <h2><%= @project.name %></h2>
 
   <div class="row">
-
     <div class="col-lg-9 col-sm-8">
-
       <div class="subtitle">
         <%= @project.problem_statement %>
       </div>
@@ -20,33 +28,38 @@
         <header class="panel-heading">
           <h3>Details</h3>
         </header>
+
         <div class="panel-body">
           <h5 class="text-muted no-margin-bottom">Phase</h5>
           <p><%= @project.project_status.name %></p>
+
           <% if @project.project_roles.founders.count > 0 %>
-          <h5 class="text-muted no-margin-bottom">
-            <%= "Founder".pluralize @project.project_roles.founders.count %>
-          </h5>
-          <ul class="list-unstyled">
-            <% @project.project_roles.founders.each do |project_role| %>
-              <li><%= link_to_user project_role.user %></li>
-            <% end %>
-          </ul>
+            <h5 class="text-muted no-margin-bottom">
+              <%= "Founder".pluralize @project.project_roles.founders.count %>
+            </h5>
+            <ul class="list-unstyled">
+              <% @project.project_roles.founders.each do |project_role| %>
+                <li><%= link_to_user project_role.user %></li>
+              <% end %>
+            </ul>
           <% end %>
+
           <% unless @project.sponsor.nil? or @project.sponsor.blank? %>
             <h5 class="text-muted no-margin-bottom">Sponsor(s)</h5>
             <p><%= @project.sponsor %></p>
           <% end %>
+
           <% unless @project.manager.nil? or @project.manager.blank? %>
             <h5 class="text-muted no-margin-bottom">Manager(s)</h5>
             <p><%= @project.manager %></p>
           <% end %>
+
           <% {
-                 'Website' => :website_url,
-                 'Documentation' => :documentation_url,
-                 'Source' => :source_url,
-                 'Download' => :download_url
-             }.each do |name, attr| next unless @project.send(attr) and @project.send(attr).strip.length > 0 %>
+              'Website' => :website_url,
+              'Documentation' => :documentation_url,
+              'Source' => :source_url,
+              'Download' => :download_url
+            }.each do |name, attr| next if @project.send(attr).blank? %>
             <h5 class="text-muted no-margin-bottom"><%= name %></h5>
             <%= link_to @project.send(attr), @project.send(attr), target: '_blank', class: 'ellipsis-text-block' %>
           <% end %>
@@ -61,19 +74,18 @@
               <% end %>
             </ul>
           <% end %>
-
         </div>
       </div>
 
       <%
-         if @project.competencies.count > 0 || @project.resources.count > 0
-           rows = [[]]
-           (@project.competencies + @project.resources).each do |item|
-             if rows[rows.length - 1].length > 2
-               rows << []
-             end
-             rows[rows.length - 1] << item
-           end
+        if @project.competencies.count > 0 || @project.resources.count > 0
+          rows = [[]]
+          (@project.competencies + @project.resources).each do |item|
+            if rows[rows.length - 1].length > 2
+              rows << []
+            end
+            rows[rows.length - 1] << item
+          end
       %>
         <div class="margin-bottom">
           <div class="panel panel-default">
@@ -88,23 +100,6 @@
                   <% end %>
                 </div>
               <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
-      <% if @project.users.length > 0 %>
-        <div class="margin-bottom">
-          <div class="panel panel-default">
-            <header class="panel-heading">
-              <h3>Collaborators</h3>
-            </header>
-            <div class="panel-body">
-              <ul class="list-unstyled">
-                <% @project.users.order(name_last: :asc, name_first: :asc).each do |user| %>
-                  <li><%= link_to_user user %></li>
-                <% end %>
-              </ul>
             </div>
           </div>
         </div>
@@ -140,79 +135,12 @@
         </div>
       <% end %>
       <%= render 'comments/form' if current_user %>
-
     </div>
 
     <div class="col-lg-3 col-sm-4">
-
       <div class="panel panel-invisible">
-
-      <% if @project.has_been_voted_for_by? current_user %>
-
-        <% if @project.would_participate? current_user %>
-
-           <%= button_to 'Withdraw Participation',
-                      project_vote_url(@project,@project.voted_by(current_user)),
-                      method: :put,
-                      params: { participate: false },
-                      class: 'btn btn-withdraw-participation btn-block',
-                      form_class: 'button_to full-width' %>
-
-            <%= button_to 'Withdraw Support',
-                      project_vote_url(@project,@project.voted_by(current_user)),
-                      method: :delete,
-                      class: 'btn btn-withdraw-support btn-block',
-                      form_class: 'button_to full-width' %>
-
-        <% else %>
-
-            <%= button_to 'Would Participate',
-                      project_vote_url(@project,@project.voted_by(current_user)),
-                      method: :put,
-                      params: { participate: true },
-                      class: 'btn btn-success btn-block',
-                      form_class: 'button_to full-width' %>
-
-            <%= button_to 'Withdraw Support',
-                      project_vote_url(@project,@project.voted_by(current_user)),
-                      method: :delete,
-                      class: 'btn btn-withdraw-support btn-block',
-                      form_class: 'button_to full-width' %>
-        <% end %>
-
-        <% elsif @project.is_votable_by? current_user %>
-
-          <%= button_to 'Good Project',
-                      project_votes_url(@project),
-                      method: :post,
-                      params: { participate: false },
-                      class: 'btn btn-support btn-block',
-                      form_class: 'button_to full-width' %>
-
-          <%= button_to 'Would Participate',
-                      project_votes_url(@project),
-                      method: :post,
-                      params: { participate: true },
-                      class: 'btn btn-participate btn-block',
-                      form_class: 'button_to full-width' %>
-
-        <% end %>
-
-        <% if @project.is_editable_by? current_user %>
-        <%= button_to 'Edit',
-                      edit_project_url(@project),
-                      method: :get,
-                      class: 'btn btn-edit btn-block',
-                      form_class: 'button_to full-width' %>
-        <%= button_to 'Delete',
-                      project_url(@project),
-                      method: :delete,
-                      class: 'btn btn-delete btn-block',
-                      form_class: 'button_to full-width',
-                      data: { confirm: 'Are you sure you want to delete this project?' }
-        %>
-        <% end %>
-
+        <%= render partial: "shared/support_buttons",  locals: { object: @project } %>
+        <%= render partial: "shared/editable_buttons", locals: { object: @project } %>
       </div>
 
       <% if @project.project_votes.non_participants.count > 0 %>
