@@ -95,7 +95,7 @@ class IdeasController < ApplicationController
       flash[:page_alert_type] = 'danger'
       @redirect_to_edit = true
     elsif params[:idea][:idea_roles].blank?
-      flash[:page_alert] = 'All ideas now must have a founder! Please enter in an email for the transfer founder field.'
+      flash[:page_alert] = 'All ideas now must have a founder! Please enter the missing email address for the Transfer Founder field.'
       flash[:page_alert_type] = 'danger'
       @redirect_to_edit = true
     end
