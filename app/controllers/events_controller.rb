@@ -63,6 +63,12 @@ class EventsController < ApplicationController
 
     def find_event
       @event = Event.find_by(:id => params[:id])
+      unless @event
+        redirect_to root_path, flash: {
+          page_alert:      "The event you are looking for no longer exist",
+          page_alert_type: 'danger'
+        }
+      end
     end
 
     def event_params
