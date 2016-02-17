@@ -33,16 +33,29 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = current_user.events.create(event_params)
-    respond_with @event
+    if valid_email? event_params[:invite_list]
+      @event = current_user.events.create(event_params)
+      respond_with @event
+    else
+      flash[:page_alert] = 'Please enter valid emails separated by commas in the invite list!'
+      flash[:page_alert_type] = 'danger'
+      redirect_to :back
+    end
   end
 
   def edit
   end
 
   def update
-    @event.update(event_params)
-    respond_with @event
+
+    if valid_email? event_params[:invite_list]
+      @event.update(event_params)
+      respond_with @event
+    else
+      flash[:page_alert] = 'Please enter valid emails separated by commas in the invite list!'
+      flash[:page_alert_type] = 'danger'
+      redirect_to :back
+    end
   end
 
   def show
@@ -54,6 +67,17 @@ class EventsController < ApplicationController
   end
 
   private
+
+    def valid_email? email_list
+      @checking_array = email_list.split(/,/).uniq.collect{|x| x.strip || x }
+      valid_email_regex = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+      @checking_array.each do |x|
+        if (x =~ valid_email_regex).nil?
+          return false
+        end
+      end
+      true
+    end
 
     def not_logged_in
       unless current_user
