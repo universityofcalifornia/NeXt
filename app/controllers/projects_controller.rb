@@ -105,7 +105,7 @@ class ProjectsController < ApplicationController
       @redirect_to_edit = true
     end
 
-    if @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager)
+    if @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager, :global)
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
@@ -132,7 +132,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager)
+    params.require(:project).permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager, :privacy_org)
   end
 
 
