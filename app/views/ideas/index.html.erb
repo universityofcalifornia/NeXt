@@ -68,7 +68,7 @@
             <%= i + 1 %>.
           </div>
           <div class="col-xs-6 col-sm-8 col-md-7 col-lg-8">
-            <%= link_to idea.name, idea %>
+            <%= link_to_idea idea %>
           </div>
           <div class="col-xs-2 col-sm-1 padding-10 text-right">
             <% if current_user %>
@@ -145,7 +145,7 @@
         </div>
 
         <h4>
-          <%= link_to idea.name, idea_url(idea) %>
+          <%= link_to_idea idea %>
         </h4>
         <p>
           <%= idea.pitch.ellipsis(400) %>

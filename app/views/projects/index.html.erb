@@ -52,7 +52,7 @@
             <%= i + 1 %>.
           </div>
           <div class="col-xs-6 col-sm-8 col-md-7 col-lg-8">
-            <%= link_to project.name, project %>
+            <%= link_to_project project %>
           </div>
           <div class="col-xs-2 col-sm-1 padding-10 text-right">
             <% if current_user %>
@@ -129,7 +129,7 @@
         </div>
 
         <h4>
-          <%= link_to project.name, project %>
+          <%= link_to_project project %>
         </h4>
         <p>
           <%= project.pitch.ellipsis(400) %>

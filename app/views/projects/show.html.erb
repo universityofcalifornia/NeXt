@@ -121,7 +121,7 @@
             <div class="panel-body">
               <ul class="list-unstyled">
                 <% @project.ideas.order(name: :asc).each do |idea| %>
-                  <li><%= link_to idea.name, idea %></li>
+                  <li><%= link_to_idea idea %></li>
                 <% end %>
               </ul>
             </div>

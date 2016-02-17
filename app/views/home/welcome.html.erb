@@ -30,7 +30,7 @@
           <li class="list-group-item row bubbles">
             <div class="col-xs-9">
               <%= i + 1 %>.
-              <%= link_to project.name, project %>
+              <%= link_to_project project %>
             </div>
             <div class="col-xs-3 bubble-right-small">
               <%= project.project_votes.count %>
@@ -74,7 +74,7 @@
           <li class="list-group-item row bubbles">
             <div class="col-xs-9">
               <%= i + 1 %>.
-              <%= link_to idea.name, idea %>
+              <%= link_to_idea idea %>
             </div>
             <div class="col-xs-3 bubble-right-small">
               <%= idea.idea_votes.count %>

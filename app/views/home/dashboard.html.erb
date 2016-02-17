@@ -13,7 +13,7 @@
       <div class="panel-body">
         <ul>
           <% @ideas.each do |idea| %>
-            <li><%= link_to idea.name, idea %></li>
+            <li><%= link_to_idea idea %></li>
           <% end %>
         </ul>
       </div>
@@ -27,7 +27,7 @@
       <div class="panel-body">
         <ul>
           <% @projects.each do |project| %>
-            <li><%= link_to project.name, project %></li>
+            <li><%= link_to_project project %></li>
           <% end %>
         </ul>
       </div>
