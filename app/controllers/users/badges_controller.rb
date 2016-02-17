@@ -5,7 +5,7 @@ module Users
       @user = User.find params[:user_id]
 
       unless @user.is_viewable_by? current_user
-        redirect_to :root
+        redirect_forbidden "This user's profile is private."
       end
     end
 
