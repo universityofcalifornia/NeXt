@@ -4,14 +4,14 @@ class ProjectsController < ApplicationController
     @project = Project.includes(:project_status).find(params[:id])
 
     unless @project.is_viewable_by? current_user
-      redirect_to :root
+      redirect_forbidden "This project is not public."
     end
   end
 
   before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @project.is_editable_by? current_user
-        redirect_to :root
+        redirect_forbidden "You cannot edit this project."
       end
     else
       require_login_status

@@ -4,14 +4,14 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:idea_status).find(params[:id])
 
     unless @idea.is_viewable_by? current_user
-      redirect_to :root
+      redirect_forbidden "This idea is not public."
     end
   end
 
   before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @idea.is_editable_by? current_user
-        redirect_to :root
+        redirect_forbidden "You cannot edit this idea."
       end
     else
       require_login_status
