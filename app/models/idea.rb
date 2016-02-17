@@ -89,4 +89,28 @@ class Idea < ActiveRecord::Base
     end
   end
 
+  def privacy_org
+    return privacy.try(:organization)
+  end
+
+  def privacy_org= org_id
+    org = Organization.find_by_id(org_id.to_i)
+    if org
+      self.privacy ||= Privacy.new
+      self.privacy.organization = org
+      self.privacy.save
+    end
+  end
+
+  def global
+    return privacy_org.nil?
+  end
+
+  def global= value
+    if value == "true" && privacy
+      self.privacy.organization = nil
+      self.privacy.save
+    end
+  end
+
 end

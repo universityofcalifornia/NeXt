@@ -48,7 +48,7 @@ class IdeasController < ApplicationController
   end
 
   def create
-    @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+    @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id, :privacy_org)
     if @idea.save
       @idea.idea_roles << IdeaRole.new(user: current_user, founder: true)
       @idea.competency_ids = params[:idea][:competencies]
@@ -100,7 +100,7 @@ class IdeasController < ApplicationController
       @redirect_to_edit = true
     end
 
-    if @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+    if @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id, :global)
       @idea.competency_ids = params[:idea][:competencies]
       @idea.refresh_index!
 

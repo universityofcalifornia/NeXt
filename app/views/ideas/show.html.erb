@@ -18,6 +18,13 @@
         <%= @idea.pitch %>
       </div>
 
+      <% if @idea.privacy_org %>
+        <small>
+          (Viewable only to members of
+          <%= @idea.privacy_org.name %>)
+        </small>
+      <% end %>
+
       <%= raw @idea.description_html %>
 
       <div class="panel panel-default">
