@@ -19,11 +19,11 @@
       <% @users.each do |user| %>
         <tr>
           <% if user.is_viewable_by? current_user %>
-            <td class="avatar-cell">
+            <td class="avatar-cell" style="height: 40px; width: 40px;">
               <% if user.profile_image.blank? %>
-                <%= image_tag "/images/profile/default-80x80.png", class: "small-wave", style: 'height: 100%;' %>
+                <%= image_tag "/images/profile/default-80x80.png", class: "small-wave" %>
               <% else %>
-                <%= image_tag "data:img/png;base64,#{user.profile_image}", style: 'height: 100%', secure: true %>
+                <%= image_tag "data:img/png;base64,#{user.profile_image}", class: "small-wave", secure: true %>
               <% end %>
             </td>
             <td>

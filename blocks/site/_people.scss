@@ -23,3 +23,16 @@
     margin: -5px 5px -5px -5px;
   }
 }
+
+.small-wave{
+  height: 50px;
+  padding: 5px;
+  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    height: 65px;
+    padding: 10px;
+  }
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    height: 65px;
+    padding: 10px;
+  }
+}
