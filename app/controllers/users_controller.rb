@@ -66,7 +66,8 @@ class UsersController < ApplicationController
       :social_linkedin,
       :social_twitter,
       :hidden,
-      :dont_receive_emails
+      :dont_receive_emails,
+      :activity_summary
     ]
 
 
