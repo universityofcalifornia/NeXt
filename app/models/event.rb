@@ -23,6 +23,7 @@ class Event < ActiveRecord::Base
   mount_uploader :image, EventPromoPhotoUploader
 
   after_create :create_invites
+  after_update :create_invites
 
   attr_html_reader :description
 
@@ -98,11 +99,22 @@ class Event < ActiveRecord::Base
   private
   def create_invites
     if @invite_list
-      @invite_list.split(/,/).each do |email|
-        invites = self.invites.create(:email => email.strip)
+      @unique_invite_list = @invite_list.split(/,/).uniq.collect{|x| x.strip || x }
+      delete_removed_email_in_invite_list @unique_invite_list
+      @unique_invite_list.each do |email|
+        invites = self.invites.create(:email => email.strip) unless self.invite_list.include? email
       end
+      
       Rufus::Scheduler.singleton.in '10s' do
         Invite.email_recipients
+      end
+    end
+  end
+
+  def delete_removed_email_in_invite_list unique_invite_list
+    self.invites.each do |invite|
+      unless unique_invite_list.include? invite.email
+        invite.destroy unless invite.status.eql? (true)
       end
     end
   end
