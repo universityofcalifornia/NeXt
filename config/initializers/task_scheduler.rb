@@ -8,3 +8,12 @@ require 'rufus/scheduler'
 # end
 
 # scheduler = Rufus::Scheduler.singleton
+
+s = Rufus::Scheduler.singleton
+
+
+# Stupid recurrent task...
+#
+s.every '100s' do #.cron('00 12 * * 1') do
+  User.send_activity_summary
+end

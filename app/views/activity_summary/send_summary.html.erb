@@ -1,0 +1,15 @@
+<h4>Hi NeXt User, here is your weekly feed!</h4>
+
+<% unless @project_votes.empty? %>
+  <p>Checkout the most recent votes for your projects</p>
+  <% @project_votes.each do |votes|%>
+    <p><%= link_to "One vote on #{votes.project.name} from #{votes.user.name_first}", project_url(votes.project.id) %></p>
+  <% end %>
+<% end %>
+
+<% unless @idea_votes.empty? %>
+  <p>Checkout the most recent votes for your ideas</p>
+  <% @idea_votes.each do |votes|%>
+    <p><%= link_to "One vote on #{votes.idea.name} from #{votes.user.name_first}", idea_url(votes.idea.id) %></p>
+  <% end %>
+<% end %>
