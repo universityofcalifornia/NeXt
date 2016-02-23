@@ -18,12 +18,12 @@ class HomeController < ApplicationController
     @ideas = perform_search { |query|
       query.type 'ideas'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select { |idea| idea.is_viewable_by? current_user }
 
     @projects = perform_search { |query|
       query.type 'projects'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select { |project| project.is_viewable_by? current_user }
 
     render 'dashboard'
   end
@@ -33,12 +33,12 @@ class HomeController < ApplicationController
     @ideas = perform_search { |query|
       query.type 'ideas'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select { |r| r.is_viewable_by? current_user }
 
     @projects = perform_search { |query|
       query.type 'projects'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select { |r| r.is_viewable_by? current_user }
 
     render 'welcome'
 

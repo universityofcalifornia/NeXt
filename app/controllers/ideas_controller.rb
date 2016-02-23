@@ -30,7 +30,11 @@ class IdeasController < ApplicationController
       query.limit 5
     end
 
-    @top_ideas = results.map(&:model).sort_by { |idea| idea.idea_votes.count }.reverse!
+    @top_ideas = results
+      .map(&:model)
+      .select { |idea| idea.is_viewable_by? current_user }
+      .sort_by { |idea| idea.idea_votes.count }
+      .reverse!
     @organizations = Organization.all
 
     if current_user && current_user.super_admin

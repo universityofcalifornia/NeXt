@@ -32,7 +32,11 @@ class ProjectsController < ApplicationController
       query.limit 5
     end
 
-    @top_projects = results.map(&:model).sort_by { |project| project.project_votes.count }.reverse!
+    @top_projects = results
+      .map(&:model)
+      .select { |project| project.is_viewable_by? current_user }
+      .sort_by { |project| project.project_votes.count }
+      .reverse!
     @organizations = Organization.all
 
     if current_user && current_user.super_admin
