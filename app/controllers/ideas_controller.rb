@@ -32,7 +32,7 @@ class IdeasController < ApplicationController
 
     @top_ideas = results
       .map(&:model)
-      .select { |idea| idea.is_viewable_by? current_user }
+      .select(&:global)
       .sort_by { |idea| idea.idea_votes.count }
       .reverse!
     @organizations = Organization.all

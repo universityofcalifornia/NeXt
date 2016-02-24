@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
 
     @top_projects = results
       .map(&:model)
-      .select { |project| project.is_viewable_by? current_user }
+      .select(&:global)
       .sort_by { |project| project.project_votes.count }
       .reverse!
     @organizations = Organization.all
