@@ -101,6 +101,10 @@ h3 {
   padding: 10px;
 }
 
+.no-break {
+  white-space: nowrap;
+}
+
 @media (max-width: $screen-xs-max) {
   .text-left-xs {
     text-align: left;

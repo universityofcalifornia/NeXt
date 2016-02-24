@@ -9,8 +9,7 @@
     <div class="panel-body">
       <div class="form-group">
         <%= f.label :name, class: 'col-sm-2 control-label' do %>
-          Name
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter a short name for your project."></span>
+          <%= tooltip "Name", "Enter a short name for your project." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_field :name, class: 'form-control', maxlength: 255, placeholder: 'Example: My Clever Project' %>
@@ -22,8 +21,7 @@
 
       <div class="form-group">
         <%= f.label :sponsor, class: 'col-sm-2 control-label' do %>
-          Project Sponsor
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the names of sponsors of this project"></span>
+          <%= tooltip "Project Sponsor", "Enter the names of sponsors of this project" %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_field :sponsor, class: 'form-control', maxlength: 255 %>
@@ -35,14 +33,13 @@
 
       <div class="form-group">
         <%= f.label :manager, class: 'col-sm-2 control-label' do %>
-          Project Manager
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the name of the manager for this project"></span>
+          <%= tooltip "Project Manager", "Enter the name of the manager for this project." %>
         <% end %>
         <div class="col-sm-10">
           <% if params[:action] == 'new' %>
-            <%= f.text_field :manager, class: 'form-control', maxlength: 255, :value => (current_user.name_first.to_s + ' '  + current_user.name_last.to_s).strip %>
+            <%= f.text_field :manager, class: 'form-control', maxlength: 255, :value => current_user.display_name.strip %>
           <% else %>
-              <%= f.text_field :manager, class: 'form-control', maxlength: 255 %>
+            <%= f.text_field :manager, class: 'form-control', maxlength: 255 %>
           <% end %>
           <div class="text-right">
             <small>Limit: 255 characters</small>
@@ -52,8 +49,7 @@
 
       <div class="form-group">
         <%= f.label :project_status_id, class: 'col-sm-2 control-label' do %>
-          Phase
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Choose the current phase of your project from the list."></span>
+          <%= tooltip "Phase", "Choose the current phase of your project from the list." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.select :project_status_id,
@@ -65,8 +61,8 @@
 
       <div class="form-group">
         <%= f.label :problem_statement, class: 'col-sm-2 control-label' do %>
-          Problem Statement
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter a description of the problem your project aims to solve."></span>
+          <%= tooltip "Problem Statement", "Enter a description of the problem your project aims to solve." %>
+          </span>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_area :problem_statement, class: 'form-control', rows: 2, placeholder: 'Example: There are not enough clever projects' %>
@@ -75,8 +71,7 @@
 
       <div class="form-group">
         <%= f.label :pitch, class: 'col-sm-2 control-label' do %>
-          Pitch
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter your project's pitch to get people motivated to help."></span>
+          <%= tooltip "Pitch", "Enter your project's pitch to get people motivated to help." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_area :pitch, class: 'form-control', rows: 2, maxlength: 2000, placeholder: 'Example: If you contribute to our project, everyone will know how awesome you are!' %>
@@ -88,8 +83,7 @@
 
       <div class="form-group">
         <%= f.label :description, class: 'col-sm-2 control-label' do %>
-          Description
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter as much detail about your project as you want. You can use the formatting tools to add custom fonts, colors, etc."></span>
+          <%= tooltip "Description", "Enter as much detail about your project as you want. You can use the formatting tools to add custom fonts, colors, etc." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_area :description, class: 'form-control', rows: 12 %>
@@ -98,8 +92,7 @@
 
       <div class="form-group">
         <%= f.label :ideas, class: 'col-sm-2 control-label' do %>
-          Related Ideas
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Select any ideas related to your project. Hold the Ctrl key while clicking to select multiple items."></span>
+          <%= tooltip "Related Ideas", "Select any ideas related to your project. Hold the Ctrl key while clicking to select multiple items." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.select :ideas,
@@ -111,8 +104,7 @@
 
       <div class="form-group">
         <%= f.label :competencies, class: 'col-sm-2 control-label' do %>
-          Expertise Needed
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Select any expertise needed by your project. Hold the Ctrl key while clicking to select multiple items."></span>
+          <%= tooltip "Expertise Needed", "Select any expertise needed by your project. Hold the Ctrl key while clicking to select multiple items." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.select :competencies,
@@ -124,8 +116,7 @@
 
       <div class="form-group">
         <%= f.label :resources, class: 'col-sm-2 control-label' do %>
-          Infrastructure Resources Needed
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Select any infrastructure resources needed by your project. Hold the Ctrl key while clicking to select multiple items."></span>
+          <%= tooltip "Infrastructure Resources Needed", "Select any infrastructure resources needed by your project. Hold the Ctrl key while clicking to select multiple items." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.select :resources,
@@ -137,8 +128,7 @@
 
       <div class="form-group">
         <%= f.label :website_url, class: 'col-sm-2 control-label' do %>
-          Website
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL for your project's main website."></span>
+          <%= tooltip "Website", "Enter the URL for your project's main website." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_field :website_url, class: 'form-control', maxlength: 255, placeholder: 'http://www.example.com' %>
@@ -150,8 +140,7 @@
 
       <div class="form-group">
         <%= f.label :documentation_url, class: 'col-sm-2 control-label' do %>
-          Documentation
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL for your project's documentation page."></span>
+          <%= tooltip "Documentation", "Enter the URL for your project's documentation page." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_field :documentation_url, class: 'form-control', maxlength: 255, placeholder: 'http://www.example.com/about' %>
@@ -163,8 +152,7 @@
 
       <div class="form-group">
         <%= f.label :source_url, class: 'col-sm-2 control-label' do %>
-          Source
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL for your project's source code."></span>
+          <%= tooltip "Source", "Enter the URL for your project's source code." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_field :source_url, class: 'form-control', maxlength: 255, placeholder: 'https://github.com/example/test' %>
@@ -176,8 +164,7 @@
 
       <div class="form-group">
         <%= f.label :download_url, class: 'col-sm-2 control-label' do %>
-          Download
-          <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the URL where users can download your project."></span>
+          <%= tooltip "Download", "Enter the URL where users can download your project." %>
         <% end %>
         <div class="col-sm-10">
           <%= f.text_field :download_url, class: 'form-control', maxlength: 255, placeholder: 'http://www.example.com/download' %>
@@ -190,8 +177,7 @@
       <% unless @project.new_record? %>
         <div class="form-group">
           <%= f.label :transfer_founder, class: 'col-sm-2 control-label' do %>
-            Transfer Founder
-            <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Enter the email address of the new founder of this project."></span>
+            <%= tooltip "Transfer Founder", "Enter the email address of the new founder of this project." %>
           <% end %>
           <div class="col-sm-10">
             <%= f.email_field :project_roles, class: 'form-control', maxlength: 255, placeholder: 'founder@ucnext.org', value: @founder_email %>
@@ -211,8 +197,7 @@
       <% if @project.new_record? %>
         <div class="form-group">
           <%= f.label :privacy_org, class: 'col-sm-2 control-label' do %>
-            Campus-specific
-            <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="If a campus is selected, only members of that campus can view this project."></span>
+            <%= tooltip "Campus-specific", "If a campus is selected, only members of that campus can view this project." %>
           <% end %>
           <div class="col-sm-10">
             <%= f.collection_select :privacy_org, Organization.all, :id, :name,
@@ -225,8 +210,7 @@
       <% elsif @project.privacy_org %>
         <div class="form-group">
           <%= f.label :global, class: 'col-sm-2 control-label' do %>
-            Campus-specific
-            <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title="If set to global, all NeXt users and guests will be able to view this project."></span>
+            <%= tooltip "Campus-specific", "If set to global, all NeXt users and guests will be able to view this project." %>
           <% end %>
           <div class="col-sm-10">
             <%= f.radio_button :global, false %>
