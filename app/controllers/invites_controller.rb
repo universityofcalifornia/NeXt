@@ -26,6 +26,13 @@ class InvitesController < ApplicationController
 
   def set_data
     @invite = Invite.where(:id => params[:id]).first
+    if @invite.nil?
+      redirect_to root_path, flash: {
+          page_alert:      "The invitation does not exist.",
+          page_alert_type: 'danger'
+        }
+      return
+    end
     @event = @invite.event
   end
 
