@@ -18,12 +18,12 @@ class HomeController < ApplicationController
     @ideas = perform_search { |query|
       query.type 'ideas'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select(&:global)
 
     @projects = perform_search { |query|
       query.type 'projects'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select(&:global)
 
     render 'dashboard'
   end
@@ -33,12 +33,12 @@ class HomeController < ApplicationController
     @ideas = perform_search { |query|
       query.type 'ideas'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select(&:global)
 
     @projects = perform_search { |query|
       query.type 'projects'
       query.limit 5
-    }.map { |r| r.model }
+    }.map(&:model).select(&:global)
 
     render 'welcome'
 

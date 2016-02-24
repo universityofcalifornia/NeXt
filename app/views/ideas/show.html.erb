@@ -18,6 +18,13 @@
         <%= @idea.pitch %>
       </div>
 
+      <% if @idea.privacy_org %>
+        <small>
+          (Viewable only to members of
+          <%= @idea.privacy_org.name %>)
+        </small>
+      <% end %>
+
       <%= raw @idea.description_html %>
 
       <div class="panel panel-default">
@@ -79,7 +86,7 @@
             <div class="panel-body">
               <ul class="list-unstyled">
                 <% @idea.projects.order(name: :asc).each do |project| %>
-                  <li><%= link_to project.name, project %></li>
+                  <li><%= link_to_project project %></li>
                 <% end %>
               </ul>
             </div>

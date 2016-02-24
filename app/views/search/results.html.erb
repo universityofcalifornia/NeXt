@@ -19,6 +19,7 @@
 
 <div class="list-group">
   <% @results.each do |result| %>
+    <% next unless result.model.is_viewable_by? current_user %>
     <a class="list-group-item" href="<%= url_for result.model %>">
         <h5><%= result.title %> <span class="text-muted">( <%= result.type %> )</span></h5>
         <div style="font-size:0.85em; font-style:italic"><%= simple_format result.description %></div>

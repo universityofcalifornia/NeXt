@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <h1>Trending Ideas</h1>
+    <h1>Trending UC-Wide Ideas</h1>
     <ul class="list-group list-group-secondary">
       <li class="list-group-item row">
         <div class="col-xs-2 text-right">Rank</div>
@@ -68,7 +68,7 @@
             <%= i + 1 %>.
           </div>
           <div class="col-xs-6 col-sm-8 col-md-7 col-lg-8">
-            <%= link_to idea.name, idea %>
+            <%= link_to_idea idea %>
           </div>
           <div class="col-xs-2 col-sm-1 padding-10 text-right">
             <% if current_user %>
@@ -113,7 +113,7 @@
 
       <div class="col-md-4 panel-cell">
         <div class="pull-right">
-          <% if current_user %>
+          <% if current_user && idea.is_viewable_by?(current_user) %>
             <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
             <%= render partial: "shared/vote_dialog", locals: {
               object: idea,
@@ -145,23 +145,30 @@
         </div>
 
         <h4>
-          <%= link_to idea.name, idea_url(idea) %>
+          <%= link_to_idea idea %>
         </h4>
-        <p>
-          <%= idea.pitch.ellipsis(400) %>
-        </p>
+        <% if idea.is_viewable_by?(current_user) %>
+          <p>
+            <%= idea.pitch.ellipsis(400) %>
+          </p>
+          <p class="condensed">
+            <small>
+              Proposed
+              <% if idea.idea_roles.founders.count > 0 %>
+                by
+                <%= idea.idea_roles.founders.includes(:user).map { |r| link_to_user r.user }.to_sentence.html_safe %>
+              <% end %>
+              on
+              <%= idea.created_at.strftime("%B %d, %Y") %>
+            </small>
+          </p>
+        <% end %>
 
-        <p class="condensed">
-          <small>
-            Proposed
-            <% if idea.idea_roles.founders.count > 0 %>
-              by
-              <%= idea.idea_roles.founders.includes(:user).map { |r| link_to_user r.user }.to_sentence.html_safe %>
-            <% end %>
-            on
-            <%= idea.created_at.strftime("%B %d, %Y") %>
-          </small>
-        </p>
+        <% if idea.privacy_org %>
+          <%= image_tag "/images/organizations/#{idea.privacy_org.name}.png", size: "82x30", class: "campus-logo" %>
+        <% else %>
+          <%= image_tag "/images/organizations/UC-Wide.png", height: 20, class: "campus-logo" %>
+        <% end %>
       </div>
 
       <% if i % 3 == 2 %>

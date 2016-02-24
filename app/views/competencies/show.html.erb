@@ -11,7 +11,7 @@
         <div class="panel-body">
           <ul class="list-unstyled">
             <% @competency.projects.order(name: :asc).each do |project| %>
-              <li><%= link_to project.name, project %></li>
+              <li><%= link_to_project project %></li>
             <% end %>
           </ul>
         </div>
@@ -28,7 +28,7 @@
         <div class="panel-body">
           <ul class="list-unstyled">
             <% @competency.ideas.order(name: :asc).each do |idea| %>
-              <li><%= link_to idea.name, idea %></li>
+              <li><%= link_to_idea idea %></li>
             <% end %>
           </ul>
         </div>

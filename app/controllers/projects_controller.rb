@@ -4,14 +4,14 @@ class ProjectsController < ApplicationController
     @project = Project.includes(:project_status).find(params[:id])
 
     unless @project.is_viewable_by? current_user
-      redirect_to :root
+      redirect_forbidden "This project is not public."
     end
   end
 
   before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @project.is_editable_by? current_user
-        redirect_to :root
+        redirect_forbidden "You cannot edit this project."
       end
     else
       require_login_status
@@ -32,17 +32,13 @@ class ProjectsController < ApplicationController
       query.limit 5
     end
 
-    @top_projects = results.map(&:model).sort_by { |project| project.project_votes.count }.reverse!
+    @top_projects = results
+      .map(&:model)
+      .select(&:global)
+      .sort_by { |project| project.project_votes.count }
+      .reverse!
     @organizations = Organization.all
-
-    if current_user && current_user.super_admin
-      project_base = Project
-    elsif current_user
-      project_base = Project.visible_to_orgs(current_user.organizations.map(&:id))
-    else
-      project_base = Project.system_wide
-    end
-    @projects = project_base.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
+    @projects = Project.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -105,7 +101,7 @@ class ProjectsController < ApplicationController
       @redirect_to_edit = true
     end
 
-    if @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager)
+    if @project.update params[:project].permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager, :global)
       @project.idea_ids       = params[:project][:ideas]
       @project.competency_ids = params[:project][:competencies]
       @project.resource_ids   = params[:project][:resources]
@@ -132,7 +128,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager)
+    params.require(:project).permit(:name, :problem_statement, :pitch, :description, :project_status_id, :website_url, :documentation_url, :source_url, :download_url, :sponsor, :manager, :privacy_org)
   end
 
 

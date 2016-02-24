@@ -11,9 +11,7 @@
         <div class="col-sm-8 text-center">
           <h1>
             <%= image_tag "/images/header_icons/projects.png", { class: "trending-icon pull-right" } %>
-            Trending
-            <br class="visible-lg">
-            Projects
+            Trending UC-Wide Projects
           </h1>
         </div>
         <div class="col-sm-4 bubble-right-big">
@@ -30,7 +28,7 @@
           <li class="list-group-item row bubbles">
             <div class="col-xs-9">
               <%= i + 1 %>.
-              <%= link_to project.name, project %>
+              <%= link_to_project project %>
             </div>
             <div class="col-xs-3 bubble-right-small">
               <%= project.project_votes.count %>
@@ -55,9 +53,7 @@
         <div class="col-sm-8 text-center">
           <h1>
             <%= image_tag "/images/header_icons/ideas.png", { class: "trending-icon pull-right" } %>
-            Trending
-            <br class="visible-lg">
-            Ideas
+            Trending UC-Wide Ideas
           </h1>
         </div>
         <div class="col-sm-4 bubble-right-big">
@@ -74,7 +70,7 @@
           <li class="list-group-item row bubbles">
             <div class="col-xs-9">
               <%= i + 1 %>.
-              <%= link_to idea.name, idea %>
+              <%= link_to_idea idea %>
             </div>
             <div class="col-xs-3 bubble-right-small">
               <%= idea.idea_votes.count %>

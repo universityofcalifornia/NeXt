@@ -11,7 +11,7 @@
         <div class="panel-body">
           <ul class="list-unstyled">
             <% @resource.projects.each do |project| %>
-              <li><%= link_to project.name, project %></li>
+              <li><%= link_to_project project %></li>
             <% end %>
           </ul>
         </div>

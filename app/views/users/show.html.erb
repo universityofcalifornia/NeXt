@@ -202,7 +202,7 @@
             <h3>Projects Founded</h3>
             <ul class="list-group">
               <% @founded_projects.each do |project| %>
-                  <li class="list-group-item"><%= link_to project.name, project %></li>
+                  <li class="list-group-item"><%= link_to_project project %></li>
               <% end %>
             </ul>
         </section>
@@ -212,7 +212,7 @@
             <h3>Projects Involved With</h3>
             <ul class="list-group">
               <% @involved_projects.each do |project| %>
-                  <li class="list-group-item"><%= link_to project.name, project %></li>
+                  <li class="list-group-item"><%= link_to_project project %></li>
               <% end %>
             </ul>
         </section>
@@ -222,7 +222,7 @@
             <h3>Projects Supported</h3>
             <ul class="list-group">
               <% @supported_projects.each do |project| %>
-                  <li class="list-group-item"><%= link_to project.name, project %></li>
+                  <li class="list-group-item"><%= link_to_project project %></li>
               <% end %>
             </ul>
         </section>
@@ -237,7 +237,7 @@
             <h3>Ideas Founded</h3>
             <ul class="list-group">
               <% @founded_ideas.each do |idea| %>
-                  <li class="list-group-item"><%= link_to idea.name, idea %></li>
+                  <li class="list-group-item"><%= link_to_idea idea %></li>
               <% end %>
             </ul>
         </section>
@@ -247,7 +247,7 @@
             <h3>Ideas Supported</h3>
             <ul class="list-group">
               <% @supported_ideas.each do |idea| %>
-                  <li class="list-group-item"><%= link_to idea.name, idea %></li>
+                  <li class="list-group-item"><%= link_to_idea idea %></li>
               <% end %>
             </ul>
         </section>

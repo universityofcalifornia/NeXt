@@ -4,14 +4,14 @@ class IdeasController < ApplicationController
     @idea = Idea.includes(:idea_status).find(params[:id])
 
     unless @idea.is_viewable_by? current_user
-      redirect_to :root
+      redirect_forbidden "This idea is not public."
     end
   end
 
   before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @idea.is_editable_by? current_user
-        redirect_to :root
+        redirect_forbidden "You cannot edit this idea."
       end
     else
       require_login_status
@@ -30,17 +30,13 @@ class IdeasController < ApplicationController
       query.limit 5
     end
 
-    @top_ideas = results.map(&:model).sort_by { |idea| idea.idea_votes.count }.reverse!
+    @top_ideas = results
+      .map(&:model)
+      .select(&:global)
+      .sort_by { |idea| idea.idea_votes.count }
+      .reverse!
     @organizations = Organization.all
-
-    if current_user && current_user.super_admin
-      idea_base = Idea
-    elsif current_user
-      idea_base = Idea.visible_to_orgs(current_user.organizations.map(&:id))
-    else
-      idea_base = Idea.system_wide
-    end
-    @ideas = idea_base.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
+    @ideas = Idea.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -48,7 +44,7 @@ class IdeasController < ApplicationController
   end
 
   def create
-    @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+    @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id, :privacy_org)
     if @idea.save
       @idea.idea_roles << IdeaRole.new(user: current_user, founder: true)
       @idea.competency_ids = params[:idea][:competencies]
@@ -100,7 +96,7 @@ class IdeasController < ApplicationController
       @redirect_to_edit = true
     end
 
-    if @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id)
+    if @idea.update params[:idea].permit(:name, :pitch, :description, :idea_status_id, :global)
       @idea.competency_ids = params[:idea][:competencies]
       @idea.refresh_index!
 
