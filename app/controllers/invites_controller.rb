@@ -6,7 +6,7 @@ class InvitesController < ApplicationController
     @invite.update(:status => true, :email_sent => true)
 
     redirect_to root_path, flash: {
-      page_alert:      "You have accepted and invite to #{@event.name}",
+      page_alert:      "You have accepted the invitation for #{@event.name}",
       page_alert_type: 'success'
     }
   end
@@ -17,7 +17,7 @@ class InvitesController < ApplicationController
     @invite.update(:status => false, :email_sent => true)
 
     redirect_to root_path, flash: {
-      page_alert:      "You declined the invitation to #{@event.name}",
+      page_alert:      "You have declined the invitation for #{@event.name}",
       page_alert_type: 'success'
     }
   end
