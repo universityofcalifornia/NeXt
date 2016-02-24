@@ -36,15 +36,7 @@ class IdeasController < ApplicationController
       .sort_by { |idea| idea.idea_votes.count }
       .reverse!
     @organizations = Organization.all
-
-    if current_user && current_user.super_admin
-      idea_base = Idea
-    elsif current_user
-      idea_base = Idea.visible_to_orgs(current_user.organizations.map(&:id))
-    else
-      idea_base = Idea.system_wide
-    end
-    @ideas = idea_base.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
+    @ideas = Idea.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
   end
 
   def new
