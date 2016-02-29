@@ -226,6 +226,13 @@ class User < ActiveRecord::Base
     self.privacy.save
   end
 
+  def self.send_activity_summary
+    users = User.where(activity_summary: true)
+    users.each do |u|
+      ActivitySummary.send_summary(u)
+    end
+  end
+
 end
 
 #http://localhost:3000/password_resets/9pW38E3Pl2FRDDf0YWdcNA/edit?email=a%40ucla.edu
