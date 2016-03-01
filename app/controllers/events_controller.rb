@@ -33,13 +33,14 @@ class EventsController < ApplicationController
   end
 
   def create
+    @event = current_user.events.new(event_params)
     if valid_email? event_params[:invite_list]
-      @event = current_user.events.create(event_params)
+      @event.save
       respond_with @event
     else
       flash[:page_alert] = 'Please enter valid emails separated by commas in the invite list!'
       flash[:page_alert_type] = 'danger'
-      redirect_to :back
+      render :action=>'new'
     end
   end
 
@@ -47,14 +48,13 @@ class EventsController < ApplicationController
   end
 
   def update
-
     if valid_email? event_params[:invite_list]
       @event.update(event_params)
       respond_with @event
     else
       flash[:page_alert] = 'Please enter valid emails separated by commas in the invite list!'
       flash[:page_alert_type] = 'danger'
-      redirect_to :back
+      render :action=>'edit'
     end
   end
 
@@ -89,7 +89,7 @@ class EventsController < ApplicationController
       @event = Event.find_by(:id => params[:id])
       unless @event
         redirect_to root_path, flash: {
-          page_alert:      "The event you are looking for no longer exist",
+          page_alert:      "The event does not exist.",
           page_alert_type: 'danger'
         }
       end
