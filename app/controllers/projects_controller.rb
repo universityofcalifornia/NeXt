@@ -34,19 +34,11 @@ class ProjectsController < ApplicationController
 
     @top_projects = results
       .map(&:model)
-      .select { |project| project.is_viewable_by? current_user }
+      .select(&:global)
       .sort_by { |project| project.project_votes.count }
       .reverse!
     @organizations = Organization.all
-
-    if current_user && current_user.super_admin
-      project_base = Project
-    elsif current_user
-      project_base = Project.visible_to_orgs(current_user.organizations.map(&:id))
-    else
-      project_base = Project.system_wide
-    end
-    @projects = project_base.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
+    @projects = Project.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
   end
 
   def new
