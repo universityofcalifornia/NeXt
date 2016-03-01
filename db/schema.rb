@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210214920) do
+ActiveRecord::Schema.define(version: 20160301183630) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -201,7 +201,7 @@ ActiveRecord::Schema.define(version: 20160210214920) do
   create_table "invites", force: true do |t|
     t.integer  "event_id"
     t.string   "email"
-    t.boolean  "status",     default: false
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -432,6 +432,7 @@ ActiveRecord::Schema.define(version: 20160210214920) do
     t.datetime "reset_sent_at"
     t.text     "profile_image",       limit: 16777215
     t.boolean  "dont_receive_emails"
+    t.boolean  "activity_summary"
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
