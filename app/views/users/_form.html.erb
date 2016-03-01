@@ -242,6 +242,19 @@
         <p><%= f.check_box :dont_receive_emails %>
         <span style='font-size: 10px;'>Check if you don't want to receive emails from UC NeXt</span></p>
       </div>
+    </div> 
+
+    <div class="form-group">
+      <div class="col-sm-2">
+          <%= f.label :activity_summary do %>
+          Activity Summary
+          <% end %>
+      </div>
+
+      <div class="col-sm-10">
+        <p><%= f.check_box :activity_summary %>
+        <span style='font-size: 10px;'>Check if you want to receive a weekly email summarizing NeXt events relevant to you</span></p>
+      </div>
     </div>    
 
 
