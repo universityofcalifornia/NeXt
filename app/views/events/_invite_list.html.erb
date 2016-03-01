@@ -2,7 +2,15 @@
 Invites:<br/>
   <ul>
     <% event.invites.each do |invite| %>
+    <% if invite.status %>
+      <li><%= invite.email %>&nbsp;&nbsp;<%= image_tag "/images/additional/yes.png"%></li>
+    <% elsif invite.status.nil?.! && invite.status == false %>
+      <li><%= invite.email %>&nbsp;&nbsp;<%= image_tag "/images/additional/no.png"%></li>
+    <% else %>
       <li><%= invite.email %></li>
+    <% end %>
+
+
     <% end %>
   </ul>
 <% else %>

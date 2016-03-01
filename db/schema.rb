@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219100513) do
+ActiveRecord::Schema.define(version: 20160301183630) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -201,7 +201,7 @@ ActiveRecord::Schema.define(version: 20160219100513) do
   create_table "invites", force: true do |t|
     t.integer  "event_id"
     t.string   "email"
-    t.boolean  "status",     default: false
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"

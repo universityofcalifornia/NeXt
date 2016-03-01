@@ -114,7 +114,7 @@ class Event < ActiveRecord::Base
   def delete_removed_email_in_invite_list unique_invite_list
     self.invites.each do |invite|
       unless unique_invite_list.include? invite.email
-        invite.destroy unless invite.status.eql? (true)
+        invite.destroy if invite.status.nil?
       end
     end
   end
