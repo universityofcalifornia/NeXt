@@ -11,18 +11,18 @@
         %>
 
       <% elsif @group[:membership_type] == "Invite-only" %>
-        <% if @group[:contact_email].blank? %>
-          <div>The group is invite only, please reach out to admin of group</div>
-        <% else %>
-          <div>The group is invite only, please reach out to <%= @group[:contact_email] %></div>
-        <% end %>
+        <%= button_to 'Invite-only', '#',
+                      class: 'btn btn-transparent',
+                      form_class: 'button_to',
+                      disabled: true
+        %>
       <% else %>
         <%= button_to 'Join',
                       user_groups_url({id: @group.id, return_to: group_url(@group)}),
                       method: :post,
                       class: 'btn btn-participate',
                       form_class: 'button_to'
-          %>
+        %>
       <% end %>
       <% if @group.is_editable_by? current_user %>
         <%= button_to 'Edit',

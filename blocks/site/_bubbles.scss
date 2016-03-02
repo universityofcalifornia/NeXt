@@ -1,30 +1,14 @@
-.list-group .list-group-item.row.bubbles {
-  padding: 0;
-
-  > div {
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-    &.padding-tweak {
-      padding: 10px 10px 10px 20px;
-    }
-  }
-}
-
 .bubble-right-small {
-  padding: 10px 10px 10px 20px;
-  background-image: url(/images/bubbles/right_small.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 50px;
-  text-align: center;
-}
-
-.bubble-right-inline {
   display: inline-block;
   width: 50px;
-  margin-top: -10px;
-  margin-bottom: -10px;
+  height: 38px;
+  line-height: 38px;
+  padding-left: 10px;
+  background-image: url(/images/bubbles/right_small.png);
+  background-size: 50px 38px;
+  background-repeat: no-repeat;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .bubble-below {
@@ -63,4 +47,12 @@
   @media (min-width: $screen-md-min) {
     margin-top: 15px;
   }
+}
+
+.bubble-right-small, .bubble-right-big, .bubble-below {
+  font-family: Open Sans Condensed;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #1e4b87;
+  text-shadow: 0.77px 0.77px 0px rgba(153, 153, 153, 0.75);
 }
