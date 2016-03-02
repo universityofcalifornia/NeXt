@@ -1,3 +1,16 @@
+.btn {
+  font-family: Open Sans Condensed;
+  text-transform: uppercase;
+  text-shadow: 0.77px 0.77px 0px rgba(153, 153, 153, 0.75);
+  width: 210px;
+  height: 40px;
+}
+
+.btn-lg, .btn-sm, .btn-xs, .btn-auto-size {
+  width: auto;
+  height: auto;
+}
+
 @mixin button-variant-hover($color, $background, $border) {
   &:hover,
   &:focus,

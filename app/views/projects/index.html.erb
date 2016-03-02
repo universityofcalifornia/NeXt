@@ -53,7 +53,7 @@
           </div>
           <div class="col-xs-4 col-sm-2 col-md-3 tight-col-buttons text-right">
             <% if current_user %>
-              <%= button_to '+1', '#', class: 'btn btn-support modal-button', method: :get %>
+              <%= button_to '+1', '#', class: 'btn btn-support btn-auto-size modal-button', method: :get %>
               <%= render partial: "shared/vote_dialog", locals: {
                 object: project,
                 button_text: [
