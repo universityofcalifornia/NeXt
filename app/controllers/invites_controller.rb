@@ -5,10 +5,17 @@ class InvitesController < ApplicationController
   def accept
     @invite.update(:status => true, :email_sent => true)
 
-    redirect_to root_path, flash: {
-      page_alert:      "You have accepted the invitation for #{@event.name}",
-      page_alert_type: 'success'
-    }
+    if current_user
+      redirect_to event_path(@event.id), flash: {
+        page_alert:      "You have accepted the invitation for #{@event.name}",
+        page_alert_type: 'success'
+      }
+    else
+      redirect_to :new_auth_local, flash: {
+        page_alert:      "You have accepted the invitation for #{@event.name}",
+        page_alert_type: 'success'
+      }
+    end
   end
 
   def decline
@@ -16,10 +23,17 @@ class InvitesController < ApplicationController
     event = Event.find(@invite.event_id)
     @invite.update(:status => false, :email_sent => true)
 
-    redirect_to root_path, flash: {
-      page_alert:      "You have declined the invitation for #{@event.name}",
-      page_alert_type: 'success'
-    }
+    if current_user
+      redirect_to event_path(@event.id), flash: {
+        page_alert:      "You have declined the invitation for #{@event.name}",
+        page_alert_type: 'success'
+      }
+    else
+      redirect_to :new_auth_local, flash: {
+        page_alert:      "You have declined the invitation for #{@event.name}",
+        page_alert_type: 'success'
+      }
+    end
   end
 
   private
