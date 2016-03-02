@@ -24,7 +24,7 @@ module Projects
 
       if vote.participate 
         @project.project_roles.founders.each do |project_role|
-          ProjectNotifier.notify_founder(User.where(id: project_role.user_id).first, current_user, @project).deliver
+          ProjectNotifier.notify_founder(User.where(id: project_role.user_id).first, current_user, @project)
         end
       end
 
@@ -45,7 +45,7 @@ module Projects
       elsif ! vote.participate && params[:participate]=="true"
         page_alert_msg = "Thank you for participating in #{@project.name}!"
         @project.project_roles.founders.each do |project_role|
-          ProjectNotifier.notify_founder(User.where(id: project_role.user_id).first, current_user, @project).deliver
+          ProjectNotifier.notify_founder(User.where(id: project_role.user_id).first, current_user, @project)
         end
       end
 

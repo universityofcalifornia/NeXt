@@ -85,7 +85,7 @@ class IdeasController < ApplicationController
         end
       end
       @new_founder = IdeaRole.create(idea_id: @idea.id, user_id: User.where(email: params[:idea][:idea_roles]).first.id, founder: true)
-      IdeaNotifier.notify_new_founder(@new_founder).deliver unless @idea.idea_roles.where(founder: true).first.user.email == previous_founder_email
+      IdeaNotifier.notify_new_founder(@new_founder) unless @idea.idea_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:idea][:idea_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the idea to a UC Next user!'
       flash[:page_alert_type] = 'danger'
