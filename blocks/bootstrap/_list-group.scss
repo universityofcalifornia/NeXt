@@ -13,4 +13,22 @@
       background-color: $pale-yellow;
     }
   }
+
+  .list-group-item {
+    &.tight-row {
+      padding: 0;
+
+      .tight-col-left {
+        padding: 10px;
+      }
+
+      .tight-col {
+        padding: 10px 10px 10px 0;
+      }
+
+      .tight-col-buttons {
+        padding: 2px 10px 2px 0;
+      }
+    }
+  }
 }
