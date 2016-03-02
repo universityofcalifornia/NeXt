@@ -38,6 +38,12 @@
                 form_class: 'pull-right',
                 disabled: true
               %>
+            <% elsif group.membership_type == "Invite-only" %>
+              <%= button_to 'Invite-only', '#',
+                class: 'btn btn-transparent',
+                form_class: 'pull-right',
+                disabled: true
+              %>
             <% else %>
               <%= button_to 'Join',
                 user_groups_url({ id: group.id, return_to: groups_url }),
