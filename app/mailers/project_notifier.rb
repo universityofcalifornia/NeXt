@@ -16,7 +16,6 @@ class ProjectNotifier < ActionMailer::Base
       @email = new_founder.user.email
       @project = new_founder.project
       @name = new_founder.user.name_first
-      binding.pry
       mail(:to => @email, :subject => "You are now the founder of a new project!").deliver unless Rails.env.staging? and !WHITE_LIST_ARRAY.include? @email
     end
   end

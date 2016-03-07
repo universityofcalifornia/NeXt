@@ -3,6 +3,12 @@ module Auth
     class RegistrationController < ApplicationController
 
       before_action do
+        unless current_user and current_user.admin
+          redirect_to new_auth_local_path
+        end
+      end
+
+      before_action do
         unless Rails.application.config.respond_to?(:auth) && Rails.application.config.auth.respond_to?(:allow_local) && Rails.application.config.auth.allow_local
           raise Application::Error.new "Local accounts are not enabled. To enable them, auth.allow_local must be set to true."
         end
