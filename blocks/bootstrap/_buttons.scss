@@ -11,6 +11,10 @@
   height: auto;
 }
 
+.btn-block {
+  width: 100%;
+}
+
 @mixin button-variant-hover($color, $background, $border) {
   &:hover,
   &:focus,
