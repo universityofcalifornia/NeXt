@@ -161,11 +161,11 @@
           </p>
         <% end %>
 
-        <% if idea.privacy_org %>
-          <%= image_tag "/images/organizations/#{idea.privacy_org.name}.png", size: "82x30", class: "campus-logo" %>
-        <% else %>
-          <%= image_tag "/images/organizations/UC-Wide.png", height: 20, class: "campus-logo" %>
-        <% end %>
+        <%= image_tag(
+          "/images/organizations/" + (idea.privacy_org ? idea.privacy_org.name : "UC-Wide") + ".png",
+          height: 20,
+          class: "campus-logo"
+        ) %>
       </div>
 
       <% if i % 3 == 2 %>
