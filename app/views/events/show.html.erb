@@ -101,13 +101,13 @@
     <%= button_to 'Edit',
                   edit_event_url(@event),
                   method: :get,
-                  class: 'btn btn-success btn-sm',
+                  class: 'btn btn-edit btn-sm',
                   form_class: 'button_to'
     %>
     <%= button_to 'Delete',
                   event_url(@event),
                   method: :delete,
-                  class: 'btn btn-danger btn-sm',
+                  class: 'btn btn-delete btn-sm',
                   form_class: 'button_to',
                   data: { confirm: 'Are you sure you want to delete this event?' }
     %>
