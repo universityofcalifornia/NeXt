@@ -111,7 +111,7 @@
       <div class="col-md-4 panel-cell">
         <div class="pull-right">
           <% if current_user && idea.is_viewable_by?(current_user) %>
-            <%= button_to '+1', '#', class: 'btn btn-support modal-button', form_class: 'pull-right', method: :get %>
+            <%= button_to '+1', '#', class: 'btn btn-support btn-auto-size modal-button', form_class: 'pull-right', method: :get %>
             <%= render partial: "shared/vote_dialog", locals: {
               object: idea,
               button_text: [
@@ -121,7 +121,7 @@
               ]
             } %>
           <% end %>
-          <div class="bubble-below text-center clear-both small">
+          <div class="bubble-below clear-both small">
             <div class="table-row">
               <div class="table-cell">
                 Supporters
@@ -161,11 +161,11 @@
           </p>
         <% end %>
 
-        <% if idea.privacy_org %>
-          <%= image_tag "/images/organizations/#{idea.privacy_org.name}.png", size: "82x30", class: "campus-logo" %>
-        <% else %>
-          <%= image_tag "/images/organizations/UC-Wide.png", height: 20, class: "campus-logo" %>
-        <% end %>
+        <%= image_tag(
+          "/images/organizations/" + (idea.privacy_org ? idea.privacy_org.name : "UC-Wide") + ".png",
+          height: 20,
+          class: "campus-logo"
+        ) %>
       </div>
 
       <% if i % 3 == 2 %>
