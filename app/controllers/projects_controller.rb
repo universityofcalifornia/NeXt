@@ -90,7 +90,7 @@ class ProjectsController < ApplicationController
         end
       end
       @new_founder = ProjectRole.create(project_id: @project.id, user_id: User.where(email: params[:project][:project_roles]).first.id, founder: true)
-      ProjectNotifier.notify_new_founder(@new_founder).deliver unless @project.project_roles.where(founder: true).first.user.email == previous_founder_email
+      ProjectNotifier.notify_new_founder(@new_founder) unless @project.project_roles.where(founder: true).first.user.email == previous_founder_email
     elsif !params[:project][:project_roles].blank?
       flash[:page_alert] = 'There is no UC Next user with the email you just entered. You can only transfer the project to a UC Next user!'
       flash[:page_alert_type] = 'danger'

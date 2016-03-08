@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def send_password_reset_email
-    PasswordResetEmail.password_reset(self).deliver
+    PasswordResetEmail.password_reset(self)
   end
 
   def is_editable_by? user
@@ -170,7 +170,7 @@ class User < ActiveRecord::Base
   def give_badge badge
     badges << badge
     alter_points :other, badge.points
-    Notifications.badge_received(badge, self).deliver
+    Notifications.badge_received(badge, self)
   end
 
   def alter_points(type, diff)

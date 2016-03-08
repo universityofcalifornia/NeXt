@@ -20,6 +20,6 @@ class ActivitySummary < ActionMailer::Base
     @idea_votes.delete_if { |v| !v.created_at.between?(((Date.today - 7.days).beginning_of_day),(Date.today.end_of_day)) }
 
 
-    mail(:to => "#{user.email}", :subject => "You weekly summary").deliver
+    mail(:to => "#{user.email}", :subject => "You weekly summary").deliver unless Rails.env.staging? and !WHITE_LIST_ARRAY.include? user.email
   end
 end
