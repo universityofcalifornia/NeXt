@@ -18,6 +18,9 @@
 
         <h2>
           <%= @user.display_name :fl %>
+          <% if @user.organization %>
+            <%= image_tag "/images/organizations/#{@user.organization.name}.png", height: 30 %>
+          <% end %>
         </h2>
 
         <dl>
