@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301183630) do
+ActiveRecord::Schema.define(version: 20160309003121) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -257,7 +257,6 @@ ActiveRecord::Schema.define(version: 20160301183630) do
     t.integer  "privacy_options_id"
     t.string   "privacy_options_type"
     t.integer  "organization_id"
-    t.boolean  "hidden",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -433,6 +432,7 @@ ActiveRecord::Schema.define(version: 20160301183630) do
     t.text     "profile_image",       limit: 16777215
     t.boolean  "dont_receive_emails"
     t.boolean  "activity_summary"
+    t.boolean  "hidden",                               default: false
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree

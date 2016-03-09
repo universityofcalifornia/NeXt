@@ -35,4 +35,11 @@ module ApplicationHelper
       end
     end
   end
+
+  def organizations_sentence object
+    object.organizations.map(&:name).to_sentence(
+      :two_words_connector => " or ",
+      :last_word_connector => ", or "
+    )
+  end
 end

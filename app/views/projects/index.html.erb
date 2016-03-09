@@ -146,7 +146,7 @@
         <% end %>
 
         <%= image_tag(
-          "/images/organizations/" + (project.privacy_org ? project.privacy_org.name : "UC-Wide") + ".png",
+          "/images/organizations/" + (project.organizations.first.try(:name) || "UC-Wide") + ".png",
           height: 20,
           class: "campus-logo"
         ) %>

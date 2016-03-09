@@ -196,32 +196,32 @@
 
       <% if @project.new_record? %>
         <div class="form-group">
-          <%= f.label :privacy_org, class: 'col-sm-2 control-label' do %>
+          <%= f.label :organization_ids, class: 'col-sm-2 control-label' do %>
             <%= tooltip "Campus-specific", "If a campus is selected, only members of that campus can view this project." %>
           <% end %>
           <div class="col-sm-10">
-            <%= f.collection_select :privacy_org, Organization.all, :id, :name,
+            <%= f.collection_select :organization_ids, Organization.all, :id, :name,
               { include_blank: 'Global' },
-              { class: 'form-control' }
+              { class: 'form-control', multiple: true }
             %>
           </div>
         </div>
 
-      <% elsif @project.privacy_org %>
+      <% elsif !@project.global %>
         <div class="form-group">
           <%= f.label :global, class: 'col-sm-2 control-label' do %>
             <%= tooltip "Campus-specific", "If set to global, all NeXt users and guests will be able to view this project." %>
           <% end %>
           <div class="col-sm-10">
             <%= f.radio_button :global, false %>
-            <%= f.label :global_false, "Viewable only to #{@project.privacy_org.name}" %><br>
+            <%= f.label :global_false, "Viewable only to " + organizations_sentence(@project) %><br>
             <%= f.radio_button :global, true %>
             <%= f.label :global_true, "Global" %>
           </div>
         </div>
       <% end %>
 
-      <% if @project.new_record? || @project.privacy_org %>
+      <% if @project.new_record? || !@project.global %>
         <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
             <small class="text-danger">

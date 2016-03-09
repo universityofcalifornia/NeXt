@@ -22,7 +22,7 @@ class PrivacyTest < ActiveSupport::TestCase
 
   test "Objects with basic privacy options are viewable by logged-in users" do
     idea = Idea.new
-    idea.privacies = [ Privacy.new ]
+    idea.privacies << Privacy.new
 
     assert idea.is_viewable_by? @normal_user
     assert_not idea.is_viewable_by? nil
@@ -38,8 +38,7 @@ class PrivacyTest < ActiveSupport::TestCase
 
   test "Hidden objects are only viewable by the owner (or admins)" do
     user = User.new
-    user.privacies = [ Privacy.new ]
-    user.privacies.first.hidden = true
+    user.hidden = true
 
     assert user.is_viewable_by? user
     assert user.is_viewable_by? @admin_user
@@ -54,12 +53,12 @@ class PrivacyTest < ActiveSupport::TestCase
 
     eric.organizations << ucla
     joe_bruin.organizations << ucla
-    eric.privacies = [ Privacy.new ]
-    eric.privacies.first.organization = ucla
+    idea = Idea.new
+    idea.organizations << ucla
 
-    assert eric.is_viewable_by? eric
-    assert eric.is_viewable_by? joe_bruin
-    assert_not eric.is_viewable_by? User.new
-    assert_not eric.is_viewable_by? nil
+    assert idea.is_viewable_by? eric
+    assert idea.is_viewable_by? joe_bruin
+    assert_not idea.is_viewable_by? User.new
+    assert_not idea.is_viewable_by? nil
   end
 end

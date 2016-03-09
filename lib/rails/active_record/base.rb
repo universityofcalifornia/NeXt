@@ -30,9 +30,6 @@ module ActiveRecord
       # Super admins can view anything
       elsif user.super_admin
         return true
-      # If hidden, other users can't view it
-      elsif privacies.first.hidden
-        return false
       else
         orgs = privacies.map(&:organization_id).compact
 

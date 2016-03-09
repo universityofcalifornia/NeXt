@@ -162,7 +162,7 @@
         <% end %>
 
         <%= image_tag(
-          "/images/organizations/" + (idea.privacy_org ? idea.privacy_org.name : "UC-Wide") + ".png",
+          "/images/organizations/" + (idea.organizations.first.try(:name) || "UC-Wide") + ".png",
           height: 20,
           class: "campus-logo"
         ) %>
