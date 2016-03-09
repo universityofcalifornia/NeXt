@@ -16,10 +16,10 @@ module ActiveRecord
     end
 
     def is_viewable_by? user
-      privacy = self.try :privacy
+      privacies = self.try :privacies
 
       # Object is viewable if it has no privacy conditions or doesn't support them
-      if privacy.nil?
+      if privacies.blank?
         return true
       # Object is always viewable to its owner
       elsif respond_to?(:is_owner?) && is_owner?(user)
@@ -31,14 +31,18 @@ module ActiveRecord
       elsif user.super_admin
         return true
       # If hidden, other users can't view it
-      elsif privacy.hidden
+      elsif privacies.first.hidden
         return false
-      # If a campus is listed, only members of that campus can view it
-      elsif privacy.organization
-        return user.organizations.include? privacy.organization
-      # Otherwise, anyone with a profile can view it
       else
-        return true
+        orgs = privacies.map(&:organization_id).compact
+
+        # If any campuses are listed, only members of that campus can view it
+        if orgs.any?
+          return orgs.include? user.primary_organization.try(:id)
+        # Otherwise, anyone with a profile can view it
+        else
+          return true
+        end
       end
     end
   end

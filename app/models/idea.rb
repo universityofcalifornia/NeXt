@@ -20,7 +20,7 @@ class Idea < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
-  has_one :privacy, as: :privacy_options
+  has_many :privacies, as: :privacy_options
 
   validates :name, presence: true, length: { maximum: 255 }
 
