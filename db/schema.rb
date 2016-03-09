@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309191440) do
+ActiveRecord::Schema.define(version: 20160309201120) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20160309191440) do
     t.integer  "project_points",           default: 0
     t.integer  "other_points",             default: 0
     t.boolean  "engagement_meter_display", default: false
+    t.string   "domain"
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", using: :btree
