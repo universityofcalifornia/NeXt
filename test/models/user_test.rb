@@ -7,10 +7,10 @@ class UserTest < ActiveSupport::TestCase
     user = User.new
     assert user.respond_to? :oauth2_identities
     assert user.respond_to? :oauth2_identities=
-    assert user.respond_to? :positions
-    assert user.respond_to? :positions=
-    assert user.respond_to? :organizations
-    assert user.respond_to? :organizations=
+    assert user.respond_to? :position
+    assert user.respond_to? :position=
+    assert user.respond_to? :organization
+    assert user.respond_to? :organization=
 
   end
 
@@ -31,18 +31,18 @@ class UserTest < ActiveSupport::TestCase
 
     user = User.find(1)
 
-    assert user.respond_to? :positions
+    assert user.respond_to? :position
 
-    count = user.positions.count
-    user.positions << Position.new(title: 'Pos', department: 'Dept')
+    old_position = user.position
+    user.position = Position.new(title: 'Pos', department: 'Dept')
     user.save
 
-    assert_not_nil user.positions
-    assert_equal user.positions.count, count + 1
-    assert_equal user.positions.last.title, 'Pos'
+    assert_not_nil user.position
+    assert_equal user.position.title, 'Pos'
 
-    user.positions.last.delete
-    assert_equal user.positions.count, count
+    user.position.destroy
+    user.reload
+    assert_nil user.position
 
   end
 
@@ -51,18 +51,11 @@ class UserTest < ActiveSupport::TestCase
     user = User.find(1)
     organization = Organization.find(1)
 
-    old_positions = user.position_ids
-    user.positions = []
+    assert_nil user.position
+    user.position = Position.new(title: 'Pos', department: 'Dept', organization: organization)
     user.save
-
-    assert_equal user.positions.count, 0
-    user.positions << Position.new(title: 'Pos', department: 'Dept', organization: organization)
-    user.save
-    assert_equal user.positions.count, 1
-    assert_equal user.organizations.first.id, organization.id
-
-    user.position_ids = old_positions
-    user.save
+    assert_not_nil user.position
+    assert_equal user.organization.id, organization.id
 
   end
 

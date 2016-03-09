@@ -30,13 +30,13 @@
               <%= link_to_user user %>
             </td>
             <td>
-              <%= user.primary_position ? user.primary_position.title : '' %>
+              <%= user.position.try(:title) %>
             </td>
-            <% if user.primary_organization %>
-              <td><%= image_tag "/images/organizations/#{user.primary_organization.name}.png", size: "82x30" %></td>
-            <% else %>
-              <td></td>
-            <% end %>
+            <td>
+              <% if user.organization %>
+                <%= image_tag "/images/organizations/#{user.organization.name}.png", size: "82x30" %>
+              <% end %>
+            </td>
             <td>
               <%= user.created_at.strftime("%B %d, %Y") %>
             </td>

@@ -51,8 +51,8 @@ class PrivacyTest < ActiveSupport::TestCase
     joe_bruin = User.find(2)
     ucla = Organization.find(1)
 
-    eric.organizations << ucla
-    joe_bruin.organizations << ucla
+    eric.organization = ucla
+    joe_bruin.organization = ucla
     idea = Idea.new
     idea.organizations << ucla
 

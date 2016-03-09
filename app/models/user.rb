@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
 
   has_many :oauth2_identities
 
-  has_many :positions, dependent: :destroy
-  has_many :organizations, through: :positions
+  has_one :position, dependent: :destroy
+  has_one :organization, through: :position
 
   has_many :idea_roles, dependent: :destroy
   has_many :idea_votes, dependent: :destroy
@@ -40,11 +40,6 @@ class User < ActiveRecord::Base
   #validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
 
   attr_accessor :reset_token
-
-  belongs_to :primary_position, class: Position
-  extend_method :primary_position do
-    parent_method ? parent_method : positions.first
-  end
 
   attr_html_reader :biography
   attr_html_reader :mailing_address, :nl
@@ -101,10 +96,6 @@ class User < ActiveRecord::Base
     user and (user.id == id or user.super_admin)
   end
 
-  def primary_organization
-    primary_position ? primary_position.organization : nil
-  end
-
   def self.valid_password password
     password.length >= 8 and password.match(/[a-zA-Z]/) and password.match(/\d/)
   end
@@ -158,8 +149,8 @@ class User < ActiveRecord::Base
   def index_body
     body = prepare_index_body do
       serializable_hash.merge({
-        'competencies' => competencies.map(){ |c| c.name },
-        'positions' => positions.map(){ |p| p.title }
+        'competencies' => competencies.map(&:name),
+        'positions'    => position ? [ position.title ] : []
       })
     end
     body
@@ -182,16 +173,16 @@ class User < ActiveRecord::Base
     end
     self.save
 
-    if primary_organization
+    if organization
       case
       when type == :ideas
-        primary_organization.idea_points    = [0, primary_organization.idea_points    + diff].max
+        organization.idea_points    = [0, organization.idea_points    + diff].max
       when type == :projects
-        primary_organization.project_points = [0, primary_organization.project_points + diff].max
+        organization.project_points = [0, organization.project_points + diff].max
       else
-        primary_organization.other_points   = [0, primary_organization.other_points   + diff].max
+        organization.other_points   = [0, organization.other_points   + diff].max
       end
-      primary_organization.save
+      organization.save
     end
   end
 

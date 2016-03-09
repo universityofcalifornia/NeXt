@@ -35,7 +35,7 @@ module ActiveRecord
 
         # If any campuses are listed, only members of that campus can view it
         if orgs.any?
-          return orgs.include? user.primary_organization.try(:id)
+          return orgs.include? user.organization.try(:id)
         # Otherwise, anyone with a profile can view it
         else
           return true

@@ -20,8 +20,8 @@ module SearchHelper
             :type_name => 'Person',
             :title_method => :display_name,
             :description_proc => Proc.new(){ |user|
-              if user.primary_position
-                "#{user.primary_position.title}, #{user.primary_position.department} ( #{user.primary_position.organization.shortname} )"
+              if user.position
+                "#{user.position.title}, #{user.position.department} ( #{user.organization.shortname} )"
               else
                 nil
               end
