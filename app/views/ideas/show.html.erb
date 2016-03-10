@@ -18,10 +18,10 @@
         <%= @idea.pitch %>
       </div>
 
-      <% if @idea.privacy_org %>
+      <% if !@idea.global %>
         <small>
           (Viewable only to members of
-          <%= @idea.privacy_org.name %>)
+          <%= organizations_sentence @idea %>)
         </small>
       <% end %>
 

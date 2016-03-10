@@ -25,7 +25,7 @@ module Ideas
 
       if vote.participate
         @idea.idea_roles.founders.each do |idea_role|
-          IdeaNotifier.notify_founder(User.where(id: idea_role.user_id).first, current_user, @idea).deliver
+          IdeaNotifier.notify_founder(User.where(id: idea_role.user_id).first, current_user, @idea)
         end
       end
 
@@ -47,7 +47,7 @@ module Ideas
       elsif ! vote.participate && params[:participate]=="true"
         page_alert_msg = "Thank you for participating in #{@idea.name}!"
         @idea.idea_roles.founders.each do |idea_role|
-          IdeaNotifier.notify_founder(User.where(id: idea_role.user_id).first, current_user, @idea).deliver
+          IdeaNotifier.notify_founder(User.where(id: idea_role.user_id).first, current_user, @idea)
         end
       end
 

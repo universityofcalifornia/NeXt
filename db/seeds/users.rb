@@ -1,16 +1,13 @@
 logger.progname = 'Seed - Users'
 
 logger.info 'Create - user[local, admin@localhost, password]'
-User.create(email: 'admin@localhost',
+ebollens = User.create(email: 'admin@localhost',
             name_first: 'Admin',
             name_last: 'User',
             super_admin: true,
             password_hash: BCrypt::Password.create('password'))
 
 logger.info 'Create - oauth2_identity[shibboleth, ebollens@ucla.edu]'
-ebollens_primary_position = Position.new(organization: Organization.where(shortname: 'UCLA').first,
-                                         title: 'Open Source Architect',
-                                         department: 'Office of Information Technology')
 
 bio_text = <<TXT
 <p>A passionate web technologist, Eric Bollens works as a software architect for the Education and Collaboration Technology
@@ -66,11 +63,10 @@ Los Angeles, CA 90095-1557',
                 Oauth2Identity.new(provider: 'shibboleth',
                                    provider_user_id: 'ebollens@ucla.edu')
             ],
-            positions: [
-                Position.new(organization: Organization.where(shortname: 'UCLA').first,
-                             title: 'Open Source Architect',
-                             department: 'Office of Information Technology')
-            ])
+            position: Position.new(organization: Organization.where(shortname: 'UCLA').first,
+                                   title: 'Open Source Architect',
+                                   department: 'Office of Information Technology')
+            )
 
 logger.info 'Create - oauth2_identity[shibboleth, example@localhost]'
 User.create(name_first: 'Example',
@@ -99,8 +95,7 @@ User.create(name_first: 'Joe',
                 Oauth2Identity.new(provider: 'shibboleth',
                                    provider_user_id: 'example3@localhost')
             ],
-            positions: [
-                Position.new(organization: Organization.where(shortname: 'UCLA').first,
-                             title: 'Fake Position',
-                             department: 'Non-Existent Department')
-            ])
+            position: Position.new(organization: Organization.where(shortname: 'UCLA').first,
+                                   title: 'Fake Position',
+                                   department: 'Non-Existent Department')
+            )

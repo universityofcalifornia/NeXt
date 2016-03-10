@@ -56,7 +56,7 @@
                       idea_vote_url(@object,@object.voted_by(current_user), {:return_to=>request.path}),
                       method: :put,
                       params: { participate: true },
-                      class: 'btn btn-success btn-block',
+                      class: 'btn btn-participate btn-block',
                       form_class: 'button_to full-width' %>
 
             <%= button_to 'Withdraw Support',
@@ -70,7 +70,7 @@
                       project_vote_url(@object,@object.voted_by(current_user), {:return_to=>request.path}),
                       method: :put,
                       params: { participate: true },
-                      class: 'btn btn-success btn-block',
+                      class: 'btn btn-participate btn-block',
                       form_class: 'button_to full-width' %>
 
                       <%= button_to 'Withdraw Support',

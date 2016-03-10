@@ -87,41 +87,32 @@
 
   </fieldset>
 
-  <fieldset>
+  <% if @user.position %>
+    <fieldset>
+      <legend>Position</legend>
 
-    <legend>Position</legend>
-
-    <div class="form-group">
-      <%= label_tag :primary_position_organization_id, 'Campus', class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10">
-        <%= select_tag :primary_position_organization_id,
-                       options_for_select([['',0]] | @organizations.map(){ |c| [ raw(c.name), c.id] }, (@user.primary_position ? @user.primary_position.organization_id : 0)),
-                       { class: 'form-control' } %>
+      <div class="form-group">
+        <%= label_tag :position_title, 'Title', class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= text_field_tag :position_title, @user.position.title, class: 'form-control' %>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group hide-unless-organization_id">
-      <%= label_tag :primary_position_title, 'Title', class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10">
-        <%= text_field_tag :primary_position_title, (@user.primary_position ? @user.primary_position.title : ''), class: 'form-control' %>
+      <div class="form-group">
+        <%= label_tag :position_department, 'Department', class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= text_field_tag :position_department, @user.position.department, class: 'form-control' %>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group hide-unless-organization_id">
-      <%= label_tag :primary_position_department, 'Department', class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10">
-        <%= text_field_tag :primary_position_department, (@user.primary_position ? @user.primary_position.department : ''), class: 'form-control' %>
+      <div class="form-group">
+        <%= label_tag :position_description, 'Description', class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= text_area_tag :position_description, @user.position.description, class: 'form-control', style: 'height: 10rem;' %>
+        </div>
       </div>
-    </div>
-
-    <div class="form-group hide-unless-organization_id">
-      <%= label_tag :primary_position_description, 'Description', class: 'col-sm-2 control-label' %>
-      <div class="col-sm-10">
-        <%= text_area_tag :primary_position_description, (@user.primary_position ? @user.primary_position.description : ''), class: 'form-control', style: 'height: 10rem;' %>
-      </div>
-    </div>
-
-  </fieldset>
+    </fieldset>
+  <% end %>
 
   <fieldset>
 
@@ -272,15 +263,6 @@
 <script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script>
 <script type="text/javascript">
   CKEDITOR.replace( 'user_biography' );
-</script>
-<script type="text/javascript">
-  $('#primary_position_organization_id').change(function(){
-    if($(this).val() == '0'){
-      $('.hide-unless-organization_id').hide();
-    }else{
-      $('.hide-unless-organization_id').show();
-    }
-  }).change()
 </script>
 
 <script type="text/javascript">

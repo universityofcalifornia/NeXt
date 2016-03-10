@@ -27,12 +27,12 @@ class Project < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
-  has_one :privacy, as: :privacy_options
+  has_many :privacies, as: :privacy_options
+  has_many :organizations, -> { order(:id) }, through: :privacies
 
   attr_html_reader :description
 
   scope :system_wide, -> { includes(:privacy).where(privacies: { id: nil }) }
-  scope :visible_to_orgs, -> (organization_ids) { includes(:privacy).where(privacies: { organization_id: organization_ids.push(nil) }) }
 
   validates :name,
     presence: true, length: { maximum: 255 }
@@ -104,27 +104,13 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def privacy_org
-    return privacy.try(:organization)
-  end
-
-  def privacy_org= org_id
-    org = Organization.find_by_id(org_id.to_i)
-    if org
-      self.privacy ||= Privacy.new
-      self.privacy.organization = org
-      self.privacy.save
-    end
-  end
-
   def global
-    return privacy_org.nil?
+    privacies.blank?
   end
 
   def global= value
-    if value == "true" && privacy
-      self.privacy.organization = nil
-      self.privacy.save
+    if value == "true"
+      privacies.destroy_all
     end
   end
 
