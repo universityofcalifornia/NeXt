@@ -22,10 +22,10 @@
         <%= @project.pitch %>
       </div>
 
-      <% if @project.privacy_org %>
+      <% if !@project.global %>
         <small>
           (Viewable only to members of
-          <%= @project.privacy_org.name %>)
+          <%= organizations_sentence @project %>)
         </small>
       <% end %>
 

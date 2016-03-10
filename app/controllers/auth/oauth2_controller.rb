@@ -33,6 +33,14 @@ module Auth
                                                   provider_user_id: provider_user.id
       unless identity.user
         identity.user = User.create provider_user.data
+
+        # Add matching organization by domain
+        if provider_user.id =~ /@/
+          domain = provider_user.id.sub /.*@/, ""
+          org = Organization.find_by_domain domain
+          identity.user.organization = org if org
+        end
+
         identity.save
       end
 

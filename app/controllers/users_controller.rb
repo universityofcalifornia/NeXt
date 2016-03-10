@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def index
     # Show all users (view hides sensitive information from hidden ones)
-    @users = User.includes(:positions, :organizations)
+    @users = User.includes(:position, :organization)
                  .order(:name_last, :name_first)
                  .paginate(page: params[:page], per_page: 15)
   end
@@ -46,7 +46,6 @@ class UsersController < ApplicationController
 
   def edit
     @competencies = Competency.order(name: :asc).all
-    @organizations = Organization.order(name: :asc).all
     @resources = Resource.all
   end
 
@@ -117,20 +116,6 @@ class UsersController < ApplicationController
     @user.competency_ids = params[:user][:competencies].split(',')
     @user.resource_ids = params[:user][:resources]
     @user.refresh_index!
-
-    if params[:primary_position_organization_id]
-      if params[:primary_position_organization_id] != '0'
-        position = @user.primary_position ? @user.primary_position : Position.new(user_id: @user.id)
-        position.organization_id = params[:primary_position_organization_id]
-        position.title = params[:primary_position_title]
-        position.department = params[:primary_position_department]
-        position.description = params[:primary_position_description]
-        position.save
-      elsif @user.primary_position
-        @user.primary_position.delete
-      end
-    end
-
 
     redirect_to user_url(@user)
 

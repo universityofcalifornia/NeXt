@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301183630) do
+ActiveRecord::Schema.define(version: 20160309201120) do
 
   create_table "badge_categories", force: true do |t|
     t.string   "name"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20160301183630) do
     t.integer  "project_points",           default: 0
     t.integer  "other_points",             default: 0
     t.boolean  "engagement_meter_display", default: false
+    t.string   "domain"
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", using: :btree
@@ -257,7 +258,6 @@ ActiveRecord::Schema.define(version: 20160301183630) do
     t.integer  "privacy_options_id"
     t.string   "privacy_options_type"
     t.integer  "organization_id"
-    t.boolean  "hidden",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -406,7 +406,6 @@ ActiveRecord::Schema.define(version: 20160301183630) do
 
   create_table "users", force: true do |t|
     t.text     "email",                                                null: false
-    t.integer  "primary_position_id"
     t.string   "name_first"
     t.string   "name_middle"
     t.string   "name_last",                                            null: false
@@ -433,11 +432,11 @@ ActiveRecord::Schema.define(version: 20160301183630) do
     t.text     "profile_image",       limit: 16777215
     t.boolean  "dont_receive_emails"
     t.boolean  "activity_summary"
+    t.boolean  "hidden",                               default: false
   end
 
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
   add_index "users", ["name_last", "name_first", "name_middle", "name_suffix"], name: "name", using: :btree
-  add_index "users", ["primary_position_id"], name: "index_users_on_primary_position_id", using: :btree
   add_index "users", ["super_admin"], name: "index_users_on_super_admin", using: :btree
 
   add_foreign_key "event_groups", "events", name: "event_groups_event_id_fk"

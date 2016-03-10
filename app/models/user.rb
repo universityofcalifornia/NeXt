@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
 
   has_many :oauth2_identities
 
-  has_many :positions, dependent: :destroy
-  has_many :organizations, through: :positions
+  has_one :position, dependent: :destroy
+  has_one :organization, through: :position
 
   has_many :idea_roles, dependent: :destroy
   has_many :idea_votes, dependent: :destroy
@@ -35,18 +35,11 @@ class User < ActiveRecord::Base
   has_many :user_badges, dependent: :destroy
   has_many :badges, through: :user_badges
 
-  has_one :privacy, as: :privacy_options
-
   validates :name_last, :allow_nil => false, :presence => true
   validates :email, :allow_nil => false, :presence => true
   #validates :password, :format => {:with => /\A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}\Z/}
 
   attr_accessor :reset_token
-
-  belongs_to :primary_position, class: Position
-  extend_method :primary_position do
-    parent_method ? parent_method : positions.first
-  end
 
   attr_html_reader :biography
   attr_html_reader :mailing_address, :nl
@@ -56,7 +49,7 @@ class User < ActiveRecord::Base
 
   scope :idea_founders, -> (idea) { includes(:idea_roles).where(idea_roles: { idea_id: idea, founder: true }) }
   scope :where_local, -> { where.not(:password_hash => nil) }
-  scope :public_profiles, -> { includes(:privacy).where(privacies: { hidden: [nil, false] }) }
+  scope :public_profiles, -> { where(:hidden => false) }
 
   def display_name format = :fl
     str = ''
@@ -101,10 +94,6 @@ class User < ActiveRecord::Base
 
   def is_editable_by? user
     user and (user.id == id or user.super_admin)
-  end
-
-  def primary_organization
-    primary_position ? primary_position.organization : nil
   end
 
   def self.valid_password password
@@ -160,8 +149,8 @@ class User < ActiveRecord::Base
   def index_body
     body = prepare_index_body do
       serializable_hash.merge({
-        'competencies' => competencies.map(){ |c| c.name },
-        'positions' => positions.map(){ |p| p.title }
+        'competencies' => competencies.map(&:name),
+        'positions'    => position ? [ position.title ] : []
       })
     end
     body
@@ -184,16 +173,16 @@ class User < ActiveRecord::Base
     end
     self.save
 
-    if primary_organization
+    if organization
       case
       when type == :ideas
-        primary_organization.idea_points    = [0, primary_organization.idea_points    + diff].max
+        organization.idea_points    = [0, organization.idea_points    + diff].max
       when type == :projects
-        primary_organization.project_points = [0, primary_organization.project_points + diff].max
+        organization.project_points = [0, organization.project_points + diff].max
       else
-        primary_organization.other_points   = [0, primary_organization.other_points   + diff].max
+        organization.other_points   = [0, organization.other_points   + diff].max
       end
-      primary_organization.save
+      organization.save
     end
   end
 
@@ -207,23 +196,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def is_owner? user
-    return self == user
+  def is_viewable_by? user
+    user && !hidden
   end
 
   def is_viewable_by? user
-    # Adjustment to normal viewability checks: viewing user must have a profile
-    super && user ? true : false
-  end
-
-  def hidden
-    return privacy.try(:hidden) ? true : false
-  end
-
-  def hidden= value
-    self.privacy ||= Privacy.new
-    self.privacy.hidden = (value == "true")
-    self.privacy.save
+    if user.nil?
+      false
+    elsif self == user || user.super_admin
+      true
+    else
+      !hidden
+    end
   end
 
   def self.send_activity_summary

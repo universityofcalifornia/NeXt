@@ -13,42 +13,56 @@
           <% else %>
             <%= image_tag "data:img/png;base64,#{@user.profile_image}" %>
           <% end %>
-          <figcaption class="hide-accessible"><%= @user.name_first %>'s Avatar</figcaption>
+          <figcaption class="hide-accessible"><%= @user.name_first %>&apos;s Avatar</figcaption>
         </figure>
 
         <h2>
           <%= @user.display_name :fl %>
+          <% if @user.organization %>
+            <%= image_tag "/images/organizations/#{@user.organization.name}.png", height: 30 %>
+          <% end %>
         </h2>
 
         <dl>
-          <% @user.positions.each do |position| %>
-              <dt style="font-style:italic">
-                <a href="#" data-toggle="modal" data-target="#position<%= position.id %>">
-                    <%= position.title %>
-                </a>
-              </dt>
-              <dd>
-                <span style="font-style:italic">
-                  <%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %>
-                </span>
-                <div class="modal fade" id="position<%= position.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel"><%= position.title %></h4>
-                      </div>
-                      <div class="modal-body">
-                        <p><%= raw "#{position.description_html ? "#{position.description_html}" : ''}" %></p>
-                        <p><em>at <%= "#{position.department ? "#{position.department}, " : ''}#{position.organization.shortname}" %></em></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
+          <% if @user.position %>
+            <dt style="font-style:italic">
+              <a href="#" data-toggle="modal" data-target="#position">
+                <%= @user.position.title %>
+              </a>
+            </dt>
+            <dd>
+              <span style="font-style:italic">
+                <% if @user.position.department %>
+                  <%= @user.position.department %>,
+                <% end %>
+                <%= @user.organization.shortname %>
+              </span>
+              <div class="modal fade" id="position" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel"><%= @user.position.title %></h4>
+                    </div>
+                    <div class="modal-body">
+                      <p><%= raw @user.position.description_html %></p>
+                      <p>
+                        <em>
+                          at
+                          <% if @user.position.department %>
+                            <%= @user.position.department %>,
+                          <% end %>
+                          <%= @user.organization.shortname %>
+                        </em>
+                      </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
-              </dd>
+              </div>
+            </dd>
           <% end %>
         </dl>
 

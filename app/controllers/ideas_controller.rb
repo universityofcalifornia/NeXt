@@ -44,7 +44,7 @@ class IdeasController < ApplicationController
   end
 
   def create
-    @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id, :privacy_org)
+    @idea = Idea.new params[:idea].permit(:name, :pitch, :description, :idea_status_id, :organization_ids => [])
     if @idea.save
       @idea.idea_roles << IdeaRole.new(user: current_user, founder: true)
       @idea.competency_ids = params[:idea][:competencies]
