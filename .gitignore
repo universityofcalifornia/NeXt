@@ -43,3 +43,4 @@
 # Ignore YAML-based third-party dependency configs
 /config/elasticsearch.yml
 /config/smtp.yml
+/config/auth.yml
