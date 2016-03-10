@@ -117,8 +117,15 @@ class UsersController < ApplicationController
     @user.resource_ids = params[:user][:resources]
     @user.refresh_index!
 
-    redirect_to user_url(@user)
+    if @user.position
+      position = @user.position
+      position.title       = params[:position_title]
+      position.department  = params[:position_department]
+      position.description = params[:position_description]
+      position.save
+    end
 
+    redirect_to user_url(@user)
   end
 
   def destroy
