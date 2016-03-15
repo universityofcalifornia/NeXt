@@ -1,9 +1,0 @@
-oauth2:
-  provider:
-    shibboleth:
-      enabled: false
-      properties:
-        authorize_url: /oauth2/authorize
-        token_url: /oauth2/access_token
-      routes:
-        get_user: /oauth2/user
