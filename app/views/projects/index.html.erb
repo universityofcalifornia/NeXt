@@ -145,11 +145,7 @@
           </p>
         <% end %>
 
-        <%= image_tag(
-          "/images/organizations/" + (project.organizations.first.try(:name) || "UC-Wide") + ".png",
-          height: 20,
-          class: "campus-logo"
-        ) %>
+        <%= image_tag(logo_path(project), height: 20, class: "campus-logo") %>
       </div>
 
       <% if i % 3 == 2 %>
