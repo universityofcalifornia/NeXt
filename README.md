@@ -8,7 +8,7 @@ This repository contains the code base for UC NeXt platform, which is currently 
 
 ## License
 
-The UC NeXt platform is open-source software licensed under the **BSD 3-clause license**. The full text of the license may be found in the [LICENSE](https://github.com/universityofcalifornia/NeXt/blob/master/LICENSE.txt) file.
+The UC NeXt platform is open-source software licensed under the Affero General Public License. The full text of the license may be found in the [LICENSE](https://github.com/universityofcalifornia/NeXt/blob/master/LICENSE.txt) file.
 
 ## Credits
 
