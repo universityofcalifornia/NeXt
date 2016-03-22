@@ -7,7 +7,7 @@ class ProjectNotifier < ActionMailer::Base
       @founder  = founder
       @participant = participant
       @project = project
-      mail(:to => @founder.email, :subject => "New participant in your project!").deliver unless Rails.env.staging? and !WHITE_LIST_ARRAY.include? @email
+      mail(:to => @founder.email, :subject => "New participant in your project!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? @email
     end
   end
 
@@ -16,7 +16,7 @@ class ProjectNotifier < ActionMailer::Base
       @email = new_founder.user.email
       @project = new_founder.project
       @name = new_founder.user.name_first
-      mail(:to => @email, :subject => "You are now the founder of a new project!").deliver unless Rails.env.staging? and !WHITE_LIST_ARRAY.include? @email
+      mail(:to => @email, :subject => "You are now the founder of a new project!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? @email
     end
   end
 end
