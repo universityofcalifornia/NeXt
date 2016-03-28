@@ -1,8 +1,30 @@
-<p>Hi,</p>
+<table width="100%" border="0" cellspacing="10%" cellpadding="10%">
+    <tr>
+        <td align="center">
+          <%= image_tag "/images/email/Header.png" %>
+        </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Hi,</p> 
+        <p>You have been invited to the event <%= @event.name %> by the UC NeXt user <%= @event.user.name_first %> <%= @event.user.name_last %>. Please RSVP by clicking Accept or Decline.</p>
+        <p><%= link_to "Accept", accept_invitation_url(@invite) %><br /></p>
+        <p><%= link_to "Decline", decline_invitation_url(@invite) %></p>
+      </td>
+    </tr>
 
+    <tr>
+      <td align="left">
+        <p style="margin-bottom: 0px;">Thanks,</p>
+        <p style="margin-top: 0px;">The UC Next Team</p>
+      </td>
+    </tr>
 
-<p>You have been invited to the event <%= @event.name %> by the UC NeXt user <%= @event.user.name_first %> <%= @event.user.name_last %>. Please RSVP by clicking Accept or Decline.</p>
-
-<p><%= link_to "Accept", accept_invitation_url(@invite) %><br /></p>
-
-<p><%= link_to "Decline", decline_invitation_url(@invite) %></p>
+    <tr>
+        <td align="right">
+          <%= image_tag "/images/email/Footer.png" %>
+          <hr style="margin: 0px;" />
+          <h5 style="font-family: san-serrif; font-style: normal; color : #121212; margin-top: 0px; text-align: left;">If you don't want to receive these emails, please unsubscribe from your UC NeXt profile setting page.</h5>
+        </td>
+    </tr>
+</table>
