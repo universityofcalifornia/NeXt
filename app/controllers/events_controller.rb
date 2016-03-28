@@ -50,6 +50,11 @@ class EventsController < ApplicationController
   def update
     if valid_email? event_params[:invite_list]
       @event.update(event_params)
+      if $failed_to_delete
+        flash[:page_alert] = 'Failed to delete an invitation because it has already been accepted/declined'
+        flash[:page_alert_type] = 'danger'
+        $failed_to_delete = false
+      end
       respond_with @event
     else
       flash[:page_alert] = 'Please enter valid emails separated by commas in the invite list!'

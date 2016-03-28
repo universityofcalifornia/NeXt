@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  before_action only: [:edit, :update, :destroy] do
+  before_action only: [:edit, :update, :destroy, :show] do
     if current_user
       unless @project.is_editable_by? current_user
         redirect_forbidden "You cannot edit this project."
