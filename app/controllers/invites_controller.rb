@@ -11,6 +11,7 @@ class InvitesController < ApplicationController
         page_alert_type: 'success'
       }
     else
+      require_login_status
       redirect_to :new_auth_local, flash: {
         page_alert:      "You have accepted the invitation for #{@event.name}",
         page_alert_type: 'success'
@@ -29,6 +30,7 @@ class InvitesController < ApplicationController
         page_alert_type: 'success'
       }
     else
+      require_login_status
       redirect_to :new_auth_local, flash: {
         page_alert:      "You have declined the invitation for #{@event.name}",
         page_alert_type: 'success'
