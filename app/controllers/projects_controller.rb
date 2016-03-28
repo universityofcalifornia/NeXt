@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  before_action only: [:edit, :update, :destroy, :show] do
+  before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @project.is_editable_by? current_user
         redirect_forbidden "You cannot edit this project."
@@ -18,6 +18,14 @@ class ProjectsController < ApplicationController
       redirect_to :new_auth_local
     end
   end
+
+  before_action only: [:show] do
+    unless current_user
+      require_login_status
+      redirect_to :new_auth_local
+    end
+  end
+
 
   before_action only: [:new, :create, :edit, :update] do
     @ideas = Idea.order(name: :asc) # TODO: refine the list of this to only those pertinent to the user
