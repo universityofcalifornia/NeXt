@@ -31,8 +31,9 @@ class ActivitySummary < ActionMailer::Base
     end
     @idea_votes.flatten!
     @ideas = @idea_votes.map { |i| i.idea }.uniq
-
-
-    mail(:to => "#{user.email}", :subject => "You weekly summary").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? user.email
+    
+    unless @ideas.empty? and @projects.empty?
+      mail(:to => "#{user.email}", :subject => "You weekly summary").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? user.email
+    end
   end
 end

@@ -8,12 +8,19 @@ class IdeasController < ApplicationController
     end
   end
 
-  before_action only: [:edit, :update, :destroy, :show] do
+  before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @idea.is_editable_by? current_user
         redirect_forbidden "You cannot edit this idea."
       end
     else
+      require_login_status
+      redirect_to :new_auth_local
+    end
+  end
+
+  before_action only: [:show] do
+    unless current_user
       require_login_status
       redirect_to :new_auth_local
     end

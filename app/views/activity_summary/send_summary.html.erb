@@ -46,13 +46,15 @@
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @last_week_project_support_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_project_support_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
-      <% if @previous_week_project_support_votes.count == 0 %>
+      <% if @previous_week_project_support_votes.count == 0 and @last_week_project_support_votes.count != 0 %>
         <%#= ((@last_week_project_support_votes.count - @previous_week_project_support_votes.count).to_f/project.project_votes.count )*100 %>
-        <%= @last_week_project_support_votes.count * 100 %>
+        New
+      <% elsif @previous_week_project_support_votes.count == 0 and @last_week_project_support_votes.count == 0 %>
+        0%
       <% else %>
-        <%= ((@last_week_project_support_votes.count - @previous_week_project_support_votes.count).to_f/@previous_week_project_support_votes.count )*100 %>
+        <%= ((@last_week_project_support_votes.count - @previous_week_project_support_votes.count).to_f/@previous_week_project_support_votes.count )*100 %>%
       <% end %>
-      %</td>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;">Participant Votes</td>
@@ -60,14 +62,15 @@
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_project_participate_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
 
-      <% if @previous_week_project_participate_votes.count == 0 %>
+      <% if @previous_week_project_participate_votes.count == 0 and @last_week_project_participate_votes.count != 0 %>
         <%#= ((@last_week_project_participate_votes.count - @previous_week_project_participate_votes.count ).to_f/project.project_votes.where(participate: true).count )*100 %>
-        <%= @last_week_project_participate_votes.count * 100 %>
-
+        New
+      <% elsif @previous_week_project_participate_votes.count == 0 and @last_week_project_participate_votes.count == 0 %>
+        0%
       <% else %>
-        <%= ((@last_week_project_participate_votes.count - @previous_week_project_participate_votes.count ).to_f/previous_week_project_participate_votes )*100 %>
+        <%= ((@last_week_project_participate_votes.count - @previous_week_project_participate_votes.count ).to_f/@previous_week_project_participate_votes.count )*100 %>%
       <% end %>
-      %</td>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;">Total Votes</td>
@@ -75,26 +78,29 @@
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_project_support_votes.count + @previous_week_project_participate_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
 
-      <% if (@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count) == 0 %>
+      <% if (@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count) == 0 and (@last_week_project_support_votes.count + @last_week_project_participate_votes.count) != 0 %>
         <%#= (((@last_week_project_support_votes.count + @last_week_project_participate_votes.count ) - (@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count)).to_f/(project.project_votes.count + project.project_votes.where(participate: true).count))*100 %>
-        <%= (@last_week_project_support_votes.count + @last_week_project_participate_votes.count) * 100 %>
-
+        New
+      <% elsif (@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count) == 0 and (@last_week_project_support_votes.count + @last_week_project_participate_votes.count) == 0 %>
+        0%
       <% else %>
-        <%= (((@last_week_project_support_votes.count + @last_week_project_participate_votes.count ) - (@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count)).to_f/(@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count))*100 %>
+        <%= (((@last_week_project_support_votes.count + @last_week_project_participate_votes.count ) - (@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count)).to_f/(@previous_week_project_support_votes.count + @previous_week_project_participate_votes.count))*100 %>%
       <% end %>
-      %</td>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;">Comments</td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @last_week_project_comment.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_project_comment.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
-        <% if @previous_week_project_comment.count == 0 %>
-          <%= @last_week_project_comment.count * 100 %>
+        <% if @previous_week_project_comment.count == 0 and @last_week_project_comment.count != 0 %>
+          New
+        <% elsif @previous_week_project_comment.count == 0 and @last_week_project_comment.count == 0 %>
+          0%
         <% else %>
-          <%= (@last_week_project_comment.count - @previous_week_project_comment.count)/@previous_week_project_comment.count%>
+          <%= (@last_week_project_comment.count - @previous_week_project_comment.count)/@previous_week_project_comment.count%>%
         <% end %>
-      %</td>
+      </td>
     </tr>
   </table>
 
@@ -150,13 +156,15 @@
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @last_week_idea_support_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_idea_support_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
-      <% if @previous_week_idea_support_votes.count == 0 %>
+      <% if @previous_week_idea_support_votes.count == 0 and @last_week_idea_support_votes.count != 0 %>
         <%#= ((@last_week_idea_support_votes.count - @previous_week_idea_support_votes.count).to_f/idea.idea_votes.count )*100 %>
-        <%= @last_week_idea_support_votes.count * 100 %>
+        New
+      <% elsif @previous_week_idea_support_votes.count == 0 and @last_week_idea_support_votes.count == 0 %>
+        0%
       <% else %>
-        <%= ((@last_week_idea_support_votes.count - @previous_week_idea_support_votes.count).to_f/@previous_week_idea_support_votes.count )*100 %>
+        <%= ((@last_week_idea_support_votes.count - @previous_week_idea_support_votes.count).to_f/@previous_week_idea_support_votes.count )*100 %>%
       <% end %>
-      %</td>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;">Participant Votes</td>
@@ -164,14 +172,15 @@
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_idea_participate_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
 
-      <% if @previous_week_idea_participate_votes.count == 0 %>
+      <% if @previous_week_idea_participate_votes.count == 0 and @last_week_idea_participate_votes.count != 0 %>
         <%#= ((@last_week_idea_participate_votes.count - @previous_week_idea_participate_votes.count ).to_f/idea.idea_votes.where(participate: true).count )*100 %>
-        <%= @last_week_idea_participate_votes.count * 100 %>
-
+        New
+      <% elsif @previous_week_idea_participate_votes.count == 0 and @last_week_idea_participate_votes.count == 0 %>
+        0%
       <% else %>
-        <%= ((@last_week_idea_participate_votes.count - @previous_week_idea_participate_votes.count ).to_f/previous_week_idea_participate_votes )*100 %>
+        <%= ((@last_week_idea_participate_votes.count - @previous_week_idea_participate_votes.count ).to_f/@previous_week_idea_participate_votes.count )*100 %>%
       <% end %>
-      %</td>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;">Total Votes</td>
@@ -179,26 +188,29 @@
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
 
-      <% if (@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count) == 0 %>
+      <% if (@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count) == 0 and (@last_week_idea_support_votes.count + @last_week_idea_participate_votes.count) != 0 %>
         <%#= (((@last_week_idea_support_votes.count + @last_week_idea_participate_votes.count ) - (@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count)).to_f/(idea.idea_votes.count + idea.idea_votes.where(participate: true).count))*100 %>
-        <%= (@last_week_idea_support_votes.count + @last_week_idea_participate_votes.count) * 100 %>
-
+        New
+      <% elsif (@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count) == 0 and (@last_week_idea_support_votes.count + @last_week_idea_participate_votes.count) == 0 %>
+        0%
       <% else %>
-        <%= (((@last_week_idea_support_votes.count + @last_week_idea_participate_votes.count ) - (@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count)).to_f/(@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count))*100 %>
+        <%= (((@last_week_idea_support_votes.count + @last_week_idea_participate_votes.count ) - (@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count)).to_f/(@previous_week_idea_support_votes.count + @previous_week_idea_participate_votes.count))*100 %>%
       <% end %>
-      %</td>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;">Comments</td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @last_week_idea_comment.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;"><%= @previous_week_idea_comment.count %></td>
       <td style="width: 25%; border-top:1pt solid black; text-align: center;">
-        <% if @previous_week_idea_comment.count == 0 %>
-          <%= @last_week_idea_comment.count * 100 %>
+        <% if @previous_week_idea_comment.count == 0 and @last_week_idea_comment.count != 0 %>
+          New
+        <% elsif @previous_week_idea_comment.count == 0 and @last_week_idea_comment.count == 0 %>
+          0%
         <% else %>
-          <%= (@last_week_idea_comment.count - @previous_week_idea_comment.count)/@previous_week_idea_comment.count%>
+          <%= (@last_week_idea_comment.count - @previous_week_idea_comment.count)/@previous_week_idea_comment.count%>%
         <% end %>
-      %</td>
+      </td>
     </tr>
   </table>
 
@@ -211,7 +223,7 @@
 <!-- 
 <table style="display:inline-table; border-style: solid; border-color: #0054a6;width: 80%; border-spacing: 0px; background-color: #fff9ab">
   <tr>
-    <td style="font-family: Open Sans Condensed; font-style: bold; text-transform: uppercase; color: #0054a6;"><%= @user.project_roles.first.project.name %></td>
+    <td style="font-family: Open Sans Condensed; font-style: bold; text-transform: uppercase; color: #0054a6;"><%#= @user.project_roles.first.project.name %></td>
   </tr>
   <tr>
     <td style="width: 25%; border-top:1pt solid black;"></td>
@@ -251,19 +263,19 @@
   </tr>
 </table>
 
-<% unless @project_votes.empty? %>
+<%# unless @project_votes.empty? %>
   <p>Checkout the most recent votes for your projects</p>
-  <% @project_votes.each do |votes|%>
-    <p><%= link_to "One vote on #{votes.project.name} from #{votes.user.name_first}", project_url(votes.project.id) %></p>
-  <% end %>
-<% end %>
+  <%# @project_votes.each do |votes|%>
+    <p><%#= link_to "One vote on #{votes.project.name} from #{votes.user.name_first}", project_url(votes.project.id) %></p>
+  <%# end %>
+<%# end %>
 
-<% unless @idea_votes.empty? %>
+<%# unless @idea_votes.empty? %>
   <p>Checkout the most recent votes for your ideas</p>
-  <% @idea_votes.each do |votes|%>
-    <p><%= link_to "One vote on #{votes.idea.name} from #{votes.user.name_first}", idea_url(votes.idea.id) %></p>
-  <% end %>
-<% end %> -->
+  <%# @idea_votes.each do |votes|%>
+    <p><%#= link_to "One vote on #{votes.idea.name} from #{votes.user.name_first}", idea_url(votes.idea.id) %></p>
+  <%# end %>
+<%# end %> -->
 
 <p style="font-family: san-serrif; font-style: normal; color : #121212;">Thanks,</p>
 <p style="font-family: san-serrif; font-style: normal; color : #121212;">The UC NeXt Team</p>
