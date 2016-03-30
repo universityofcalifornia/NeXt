@@ -8,7 +8,7 @@ class Notifications < ActionMailer::Base
       @user       = user
       @link_style = "color: #9c5500;"
 
-      mail(:to => @user.email, :subject => "You received a badge!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? invite.email
+      mail(:to => @user.email, :subject => "You received a badge!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? @user.email
     end
   end
 end
