@@ -7,7 +7,7 @@ class IdeaNotifier < ActionMailer::Base
       @founder  = founder
       @participant = participant
       @idea = idea
-      mail(:to => @founder.email, :subject => "New participant in your Idea!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? invite.email
+      mail(:to => @founder.email, :subject => "New participant in your Idea!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? @founder.email
     end
   end
 
@@ -16,7 +16,7 @@ class IdeaNotifier < ActionMailer::Base
       @email = new_founder.user.email
       @idea = new_founder.idea
       @name = new_founder.user.name_first
-      mail(:to => @email, :subject => "You are now the founder of a new idea!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? invite.email
+      mail(:to => @email, :subject => "You are now the founder of a new idea!").deliver unless !WHITE_LIST_ARRAY.nil? and !WHITE_LIST_ARRAY.include? @email
     end
   end
 
