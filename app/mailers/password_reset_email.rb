@@ -3,6 +3,8 @@ class PasswordResetEmail < ActionMailer::Base
           reply_to: "no-reply@ucnext.org"
 
   def password_reset user
-      mail(:to => user.email, :subject => "Reset your password").deliver
+    @user = user
+    mail(:to => user.email, :subject => "Reset your password").deliver
   end
+
 end
