@@ -16,24 +16,29 @@
         <p>Catch the wave of collaboration</p>
       </div>
 
-      <div class="col-md-3 col-md-offset-6 text-right">
-        <h2 class="header-item">
-          <% if current_user %>
-            <% if current_user.profile_image.blank? %>
-              <%= image_tag "/images/profile/default-80x80.png", { height: 25 } %>
-            <% else %>
-              <%= image_tag "data:img/png;base64,#{current_user.profile_image}", { height: 25 } %>
+      <div class="col-md-9 text-right">
+        <div class="row">
+          <div class="col-md-3 col-md-push-9">
+            <h2 class="header-item">
+              <% if current_user %>
+                <% if current_user.profile_image.blank? %>
+                  <%= image_tag "/images/profile/default-80x80.png", { height: 25 } %>
+                <% else %>
+                  <%= image_tag "data:img/png;base64,#{current_user.profile_image}", { height: 25 } %>
+                <% end %>
+              <% else %>
+                <%= image_tag "/images/header_icons/wave.png", { height: 25 } %>
+              <% end %>
+              <%= render "shared/login" %>
+            </h2>
+          </div>
+          <div class="col-md-5 col-md-offset-4 col-md-pull-3"> 
+            <%= form_tag search_url, { role: "search", class: "header-item search" } do %>
+              <input type="text" name="query" placeholder="Search" class="search-input">
+              <button class="btn search-button" type="submit"></button>
             <% end %>
-          <% else %>
-            <%= image_tag "/images/header_icons/wave.png", { height: 25 } %>
-          <% end %>
-          <%= render "shared/login" %>
-        </h2>
-
-        <%= form_tag search_url, { role: "search", class: "header-item search" } do %>
-          <input type="text" name="query" placeholder="Search" class="search-input">
-          <button class="btn search-button" type="submit"></button>
-        <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
