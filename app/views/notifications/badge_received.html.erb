@@ -1,10 +1,29 @@
-<p>
-  <%= image_tag @badge.image.thumb %>
-</p>
-<p>
-  <strong>Congratulations, you have received a <%= @badge.name %> badge!</strong>
-</p>
-<p>
-  You can see all of your badges on your
-  <%= link_to "badges page", user_badges_url(@user), style: @link_style %>.
-</p>
+<table width="100%" border="0" cellspacing="10%" cellpadding="10%">
+    <tr>
+        <td align="center">
+          <%= image_tag "/images/email/Header.png" %>
+        </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <p>
+          <%= image_tag @badge.image.thumb %>
+        </p>
+        <p>
+          <strong>Congratulations <%= @user.name_first %>, you have received a <%= @badge.name %> badge!</strong>
+        </p>
+        <p>
+          You can see all of your badges on your
+          <%= link_to "badges page", user_badges_url(@user), style: @link_style %>.
+        </p>
+      </td>
+    </tr>
+    
+    <tr>
+        <td align="right">
+          <%= image_tag "/images/email/Footer.png" %>
+          <hr style="margin: 0px;" />
+          <h5 style="font-family: san-serrif; font-style: normal; color : #121212; margin-top: 0px; text-align: left;">If you don't want to receive these emails, please unsubscribe from your UC NeXt profile setting page.</h5>
+        </td>
+    </tr>
+</table>
