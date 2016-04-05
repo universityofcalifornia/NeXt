@@ -12,7 +12,7 @@ module Auth
 
     def create
       if user = User.find_by_email(params[:session][:email])
-        if user.oauth2_identities and params[:session][:password].nil?
+        if user.oauth2_identities and user.password_hash.nil?
             flash[:page_alert] = '<strong>Login failed.</strong> Local account not found. Please use the "Login with Campus Account" option.'
             flash[:page_alert_type] = 'danger'
             redirect_to new_auth_local_path
