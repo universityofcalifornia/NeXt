@@ -1,3 +1,13 @@
+<table width="100%" border="0" cellspacing="10%" cellpadding="10%">
+    <tr>
+        <td align="center">
+          <%= image_tag "/images/email/Header.png" %>
+        </td>
+    </tr>
+    <tr>
+      <td>
+
+
 <h4 style="font-family: san-serrif; font-style: bold; color : #121212;">Hi <%= @user.name_first %> </h4>
 <p style="font-family: san-serrif; font-style: normal; color : #121212;">Here are the latest insight from your UC Next Projects and Ideas</p>
 <h4 style="font-family: san-serrif; font-style: bold; color : #121212;">Week of <%= Date::MONTHNAMES[(Date.today-7).month] %> <%= (DateTime.now-7).strftime "%d" %> - <%= Date::MONTHNAMES[Date.today.month] %> <%= DateTime.now.strftime "%d" %></h4>
@@ -33,7 +43,13 @@
 
   <table style="display:inline-table; border-style: solid; border-color: #0054a6;width: 80%; border-spacing: 0px; background-color: #dfeaf3;">
     <tr>
-      <td style="font-family: Open Sans Condensed; font-style: bold; text-transform: uppercase; color: #0054a6;"><%= link_to project.name, project_url(project.id) %></td>
+      <td style="font-family: Open Sans Condensed; font-style: bold; text-transform: uppercase; color: #0054a6; width: 25%;"><%= link_to project.name, project_url(project.id) %>
+      </td>
+      <td style="width: 25%;">
+      <td style="width: 25%;">
+      <td style="width: 25%;">
+        <%= link_to "See Project", project_url(project.id), style: "background-color:#FFA639;border:1px solid #9C5500;border-radius:4px;color:#1E4B87;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:25px;text-align:center;text-decoration:none;width:100px;-webkit-text-size-adjust:none;mso-hide:all; float: right;" %>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;"></td>
@@ -143,7 +159,12 @@
 
   <table style="display:inline-table; border-style: solid; border-color: #0054a6;width: 80%; border-spacing: 0px; background-color: #fff9ab">
     <tr>
-      <td style="font-family: Open Sans Condensed; font-style: bold; text-transform: uppercase; color: #0054a6;"><%= link_to idea.name, idea_url(idea.id) %></td>
+      <td style="font-family: Open Sans Condensed; font-style: bold; text-transform: uppercase; color: #0054a6; width: 25%;"><%= link_to idea.name, idea_url(idea.id) %></td>
+      <td style="width: 25%;">
+      <td style="width: 25%;">
+      <td style="width: 25%;">
+        <%= link_to "See Idea", idea_url(idea.id), style: "background-color:#FFA639;border:1px solid #9C5500;border-radius:4px;color:#1E4B87;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:25px;text-align:center;text-decoration:none;width:100px;-webkit-text-size-adjust:none;mso-hide:all; float: right;" %>
+      </td>
     </tr>
     <tr>
       <td style="width: 25%; border-top:1pt solid black;"></td>
@@ -277,9 +298,22 @@
   <%# end %>
 <%# end %> -->
 
-<p style="font-family: san-serrif; font-style: normal; color : #121212;">Thanks,</p>
-<p style="font-family: san-serrif; font-style: normal; color : #121212;">The UC NeXt Team</p>
-<hr style="margin-bottom: 0px;" />
-<h5 style="font-family: san-serrif; font-style: normal; color : #121212; margin-top: 0px;">This message was sent to <%= @user.email %>. If you don't want to receive these emails, please unsubscribe from your UC NeXt profile setting page.</h5>
+</td>
+    </tr>
 
+    <tr>
+      <td align="left">
+        <p style="margin-bottom: 0px;">Thanks,</p>
+        <p style="margin-top: 0px;">The UC Next Team</p>
+      </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+          <%= image_tag "/images/email/Footer.png" %>
+          <hr style="margin: 0px;" />
+          <h5 style="font-family: san-serrif; font-style: normal; color : #121212; margin-top: 0px; text-align: left;">If you don't want to receive these emails, please unsubscribe from your UC NeXt profile setting page.</h5>
+        </td>
+    </tr>
+</table>
 
