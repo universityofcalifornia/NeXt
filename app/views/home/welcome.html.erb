@@ -1,5 +1,6 @@
 <%= javascript_include_tag 'customize-twitter-1.1.min' %>
 
+
 <div class="montage center-block">
   <%= image_tag "/images/montage.jpg", { class: "hidden-xs" } %>
 </div>
@@ -23,15 +24,15 @@
       </div>
 
       <ul class="list-group">
-        <li class="list-group-item row tight-row">
+        <li class="list-group-item row tight-row" style="color: #0054A6; font-weight: bold; text-transform: uppercase;">
           <div class="col-xs-9 tight-col-left">Rank</div>
           <div class="col-xs-3 tight-col text-right">Votes</div>
         </li>
         <% @projects.each_with_index do |project, i| %>
           <li class="list-group-item row tight-row">
-            <div class="col-xs-9 tight-col-left">
+            <div class="col-xs-9 tight-col-left name-on-hover">
               <%= i + 1 %>.
-              <%= link_to_project project %>
+              <%= link_to project.name, project%>
             </div>
             <div class="col-xs-3 tight-col-buttons text-right">
               <div class="bubble-right-small">
@@ -71,13 +72,13 @@
       </div>
 
       <ul class="list-group list-group-secondary">
-        <li class="list-group-item row tight-row">
+        <li class="list-group-item row tight-row" style="color: #0054A6; font-weight: bold; text-transform: uppercase;">
           <div class="col-xs-9 tight-col-left">Rank</div>
           <div class="col-xs-3 tight-col text-right">Votes</div>
         </li>
         <% @ideas.each_with_index do |idea, i| %>
           <li class="list-group-item row tight-row">
-            <div class="col-xs-9 tight-col-left">
+            <div class="col-xs-9 tight-col-left name-on-hover">
               <%= i + 1 %>.
               <%= link_to_idea idea %>
             </div>
@@ -105,24 +106,49 @@
 <div class="row wave-logo">
   <div class="col-md-6">
     <section>
-      <h1 class="valign-middle">
+      <!-- <h1 class="valign-middle">
         <%= link_to "Engagement Meter", engagement_url %>
         <span class="header-icon hidden-xs">
           <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
         </span>
-      </h1>
+      </h1> -->
+
+      <div class="row">
+        <div class="col-sm-6 text-center">
+          <h1 style="margin-top: 1.25rem;">
+            <%= link_to "Engagement Meter", engagement_url %>
+          </h1>
+        </div>
+        <div class="col-sm-6 header-icon hidden-xs">
+          <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive", style: "height: 65px;"} %>
+        </div>
+      </div>
       <%= render partial: "shared/engagement_meter", locals: { type: :all } %>
     </section>
   </div>
 
   <div class="col-md-6 text-center wave-compensate">
     <section id="twitter-feed-wrapper">
-      <h1 class="valign-middle">
+      <!-- <h1 class="valign-middle">
         <span>UC NeXt News</span>
         <span class="header-icon hidden-xs">
           <%= image_tag "/images/header_icons/social.png", { class: "img-responsive" } %>
         </span>
-      </h1>
+      </h1> -->
+      <div class="row">
+        <div class="col-sm-5 text-center">
+          <h1 style="margin-top: 1.25rem;">
+            <span>UC NeXt News</span>
+          </h1>
+        </div>
+        <div class="col-sm-4">
+          <span class="header-icon hidden-xs">
+            <%= image_tag "/images/header_icons/social.png", { class: "img-responsive", style: "height: 65px;" } %>
+          </span>
+        </div>
+        <div class="col-sm-4">
+        </div>
+      </div>
       <a class="twitter-timeline" href="https://twitter.com/UCNextNews" data-widget-id="660240239294746624">Tweets by @UCNextNews</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </section>

@@ -5,7 +5,8 @@ module Users
       @user = User.find params[:user_id]
 
       unless @user.is_viewable_by? current_user
-        redirect_forbidden "This user's profile is private."
+        require_login_status
+        redirect_to :new_auth_local
       end
     end
 

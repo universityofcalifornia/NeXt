@@ -60,3 +60,14 @@ body > main {
 .background_blue{
   background-color: #0054a6; 
 }
+
+.name-on-hover{
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.name-on-hover:hover{
+  overflow: visible;
+  white-space: normal;
+}
