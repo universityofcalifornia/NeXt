@@ -26,6 +26,13 @@ class BadgesController < ApplicationController
     end
   end
 
+  before_action only: [:show] do
+    unless current_user
+      require_login_status
+      redirect_to :new_auth_local
+    end
+  end
+
   before_action only: [:new, :edit] do
     @groups = Group.order(name: :asc)
   end

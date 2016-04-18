@@ -7,6 +7,13 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
+  before_action only: [:show] do
+    unless current_user
+      require_login_status
+      redirect_to :new_auth_local
+    end
+  end
+
   before_action only: [:edit, :update, :destroy] do
     if current_user
       unless @group.is_editable_by? current_user
