@@ -8,7 +8,7 @@
     </h2>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-4" style="padding-top: 25px;">
     <% if current_user %>
     <%= button_to 'Propose Idea',
                   new_idea_url,
@@ -20,7 +20,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 idea-left-column">
     <h1>UC NeXt Ideas</h1>
 
     <p>
@@ -90,8 +90,8 @@
 
   <div class="col-md-6">
     <h1 class="valign-middle">
-      <span>Ideas Engagement Meter</span>
-      <span class="header-icon hidden-xs">
+      Ideas Engagement Meter
+      <span class="header-icon hidden-md">
         <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
       </span>
     </h1>

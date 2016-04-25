@@ -71,3 +71,9 @@ body > main {
   overflow: visible;
   white-space: normal;
 } */
+
+.idea-left-column{
+  @media (min-width: $screen-lg-min) {
+    padding-top: 21px;
+  }
+}
