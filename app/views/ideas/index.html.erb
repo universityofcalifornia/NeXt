@@ -57,13 +57,13 @@
 
     <h1>Trending UC-Wide Ideas</h1>
     <ul class="list-group list-group-secondary">
-      <li class="list-group-item row tight-row">
-        <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left">Rank</div>
+      <li class="list-group-item row tight-row idea-trending-margin">
+        <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;">Rank</div>
         <div class="col-xs-4 col-sm-2 col-md-3 tight-col text-right">Votes</div>
       </li>
       <% @top_ideas.each_with_index do |idea, i| %>
-        <li class="list-group-item row tight-row">
-          <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left">
+        <li class="list-group-item row tight-row idea-trending-margin">
+          <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;" >
             <%= i + 1 %>.
             <%= link_to_idea idea %>
           </div>
@@ -172,3 +172,5 @@
 <% end %>
 
 <%= will_paginate @ideas %>
+
+<div style="height: 20px;"></div>
