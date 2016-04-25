@@ -86,6 +86,7 @@
         </li>
       <% end %>
     </ul>
+    </div>
   </div>
 
   <div class="col-md-6">
@@ -97,8 +98,6 @@
     </h1>
     <%= render partial: "shared/engagement_meter", locals: { type: :ideas } %>
   </div>
-</div>
-
 <% if @ideas.any? %>
   <h1 class="text-center">UC NeXt Ideas</h1>
 
@@ -168,7 +167,7 @@
         </div>
       <% end %>
     <% end %>
-  </div>
+    </div>
 <% end %>
 
 <%= will_paginate @ideas %>

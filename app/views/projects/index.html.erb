@@ -8,7 +8,7 @@
     </h2>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-4" style="padding-top: 25px;">
     <% if current_user %>
     <%= button_to 'Create Project',
                   new_project_url,
@@ -41,13 +41,13 @@
 
     <h1>Trending UC-Wide Projects</h1>
     <ul class="list-group">
-      <li class="list-group-item row tight-row">
-        <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left">Rank</div>
+      <li class="list-group-item row tight-row project-trending-margin">
+        <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;">Rank</div>
         <div class="col-xs-4 col-sm-2 col-md-3 tight-col text-right">Votes</div>
       </li>
       <% @top_projects.each_with_index do |project, i| %>
-        <li class="list-group-item row tight-row">
-          <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left">
+        <li class="list-group-item row tight-row project-trending-margin">
+          <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;">
             <%= i + 1 %>.
             <%= link_to_project project %>
           </div>
@@ -74,8 +74,8 @@
 
   <div class="col-md-6">
     <h1 class="valign-middle">
-      <span>Project Engagement Meter</span>
-      <span class="header-icon hidden-xs">
+      Project Engagement Meter
+      <span class="header-icon hidden-md">
         <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
       </span>
     </h1>
@@ -156,3 +156,6 @@
 <% end %>
 
 <%= will_paginate @projects %>
+
+<div style="height: 20px;"></div>
+
