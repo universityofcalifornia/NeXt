@@ -43,12 +43,13 @@ class ProjectsController < ApplicationController
     @top_projects = results
       .map(&:model)
       .select(&:global)
-    #  .sort_by { |project| project.project_votes.count }
-    #  .reverse!
+     .sort_by { |project| project.project_votes.count }
+     .reverse!
     @organizations = Organization.all
-    @projects = perform_search { |query|
-      query.type 'projects'
-    }.map(&:model).select(&:global).paginate(page: params[:page], per_page: 15)  
+    @projects = Project.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
+    # @projects = perform_search { |query|
+    #   query.type 'projects'
+    # }.map(&:model).select(&:global).paginate(page: params[:page], per_page: 15)
   end
 
   def new
