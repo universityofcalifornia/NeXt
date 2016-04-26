@@ -32,6 +32,7 @@ class IdeasController < ApplicationController
   end
 
   def index
+
     results = perform_search do |query|
       query.type 'ideas'
       query.limit 5
@@ -40,10 +41,14 @@ class IdeasController < ApplicationController
     @top_ideas = results
       .map(&:model)
       .select(&:global)
-      .sort_by { |idea| idea.idea_votes.count }
-      .reverse!
+      # .sort_by { |idea| idea.idea_votes.count }
+      # .reverse!
     @organizations = Organization.all
-    @ideas = Idea.order(created_at: :desc).paginate(page: params[:page], per_page: 15)
+
+    @ideas = perform_search { |query|
+      query.type 'ideas'
+    }.map(&:model).select(&:global).paginate(page: params[:page], per_page: 15)
+    
   end
 
   def new

@@ -8,7 +8,7 @@
     </h2>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-4" style="padding-top: 25px;">
     <% if current_user %>
     <%= button_to 'Propose Idea',
                   new_idea_url,
@@ -20,7 +20,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 idea-left-column">
     <h1>UC NeXt Ideas</h1>
 
     <p>
@@ -57,13 +57,13 @@
 
     <h1>Trending UC-Wide Ideas</h1>
     <ul class="list-group list-group-secondary">
-      <li class="list-group-item row tight-row">
-        <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left">Rank</div>
+      <li class="list-group-item row tight-row idea-trending-margin">
+        <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;">Rank</div>
         <div class="col-xs-4 col-sm-2 col-md-3 tight-col text-right">Votes</div>
       </li>
       <% @top_ideas.each_with_index do |idea, i| %>
-        <li class="list-group-item row tight-row">
-          <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left">
+        <li class="list-group-item row tight-row idea-trending-margin">
+          <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;" >
             <%= i + 1 %>.
             <%= link_to_idea idea %>
           </div>
@@ -86,19 +86,18 @@
         </li>
       <% end %>
     </ul>
+    </div>
   </div>
 
   <div class="col-md-6">
     <h1 class="valign-middle">
-      <span>Ideas Engagement Meter</span>
-      <span class="header-icon hidden-xs">
+      Ideas Engagement Meter
+      <span class="header-icon hidden-md">
         <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
       </span>
     </h1>
     <%= render partial: "shared/engagement_meter", locals: { type: :ideas } %>
   </div>
-</div>
-
 <% if @ideas.any? %>
   <h1 class="text-center">UC NeXt Ideas</h1>
 
@@ -168,7 +167,9 @@
         </div>
       <% end %>
     <% end %>
-  </div>
+    </div>
 <% end %>
 
 <%= will_paginate @ideas %>
+
+<div style="height: 20px;"></div>

@@ -67,7 +67,29 @@ body > main {
   text-overflow: ellipsis;
 }
 
-div.name-on-hover:hover{
+/* div.name-on-hover:hover{
   overflow: visible;
   white-space: normal;
+} */
+
+.idea-left-column{
+  @media (min-width: $screen-lg-min) {
+    padding-top: 21px;
+  }
+}
+
+.idea-trending-margin{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.project-left-column{
+  @media (min-width: $screen-lg-min) {
+    padding-top: 21px;
+  }
+}
+
+.project-trending-margin{
+  margin-left: 0px;
+  margin-right: 0px;
 }

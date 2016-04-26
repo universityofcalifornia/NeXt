@@ -1,6 +1,5 @@
 <%= javascript_include_tag 'customize-twitter-1.1.min' %>
 
-
 <div class="montage center-block">
   <%= image_tag "/images/montage.jpg", { class: "hidden-xs" } %>
 </div>
@@ -30,10 +29,12 @@
         </li>
         <% @projects.each_with_index do |project, i| %>
           <li class="list-group-item row tight-row">
-            <div class="col-xs-9 tight-col-left name-on-hover">
-              <%= i + 1 %>.
-              <%= link_to project.name, project%>
-            </div>
+            <span class="has-tooltip" data-toggle="tooltip" title= '<%= "#{project.name}" %>' style="overflow: visible;" >
+              <div class="col-xs-9 tight-col-left name-on-hover">
+                <%= i + 1 %>.
+                <%= link_to project.name, project%>
+              </div>
+            </span>
             <div class="col-xs-3 tight-col-buttons text-right">
               <div class="bubble-right-small">
                 <%= project.project_votes.count %>
@@ -78,10 +79,12 @@
         </li>
         <% @ideas.each_with_index do |idea, i| %>
           <li class="list-group-item row tight-row">
-            <div class="col-xs-9 tight-col-left name-on-hover">
-              <%= i + 1 %>.
-              <%= link_to_idea idea %>
-            </div>
+            <span class="has-tooltip" data-toggle="tooltip" title= '<%= "#{idea.name}" %>' style="overflow: visible;" >
+              <div class="col-xs-9 tight-col-left name-on-hover">
+                <%= i + 1 %>.
+                <%= link_to_idea idea %>
+              </div>
+            </span>
             <div class="col-xs-3 tight-col-buttons text-right">
               <div class="bubble-right-small">
               <%= idea.idea_votes.count %>
@@ -150,6 +153,23 @@
         </div>
       </div>
       <a class="twitter-timeline" href="https://twitter.com/UCNextNews" data-widget-id="660240239294746624">Tweets by @UCNextNews</a>
+
+
+      <script>
+        array = document.getElementsByClassName("has-tooltip")
+        var arrayLength = array.length
+        for(var i = 0; i != arrayLength; i++){
+          if (array[i].children[0].offsetHeight < array[i].children[0].scrollHeight ||
+            array[i].children[0].offsetWidth < array[i].children[0].scrollWidth) {
+              array[i].setAttribute('data-toggle', 'aaa')
+            } else {
+              array[i].setAttribute('data-toggle', 'aaa')
+            // your element doesn't have overflow
+          }
+        }
+      </script>
+
+
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </section>
   </div>
