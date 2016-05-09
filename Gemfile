@@ -87,3 +87,5 @@ group :development do
   gem 'awesome_print'
 end
 
+gem 'simplecov', :require => false, :group => :test
+

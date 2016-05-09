@@ -1,6 +1,32 @@
 require 'rails_helper'
+require 'pry'
 
 RSpec.describe EventsController, type: :controller do
+
+  let(:first_event_attribute) {
+     { start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one' }
+   }
+
+  describe "GET #index" do
+    it "assigns all events as @events" do
+      event = Event.create(start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one')
+      get :index
+      expect(assigns(:events)).to eq([event])
+    end
+  end
+
+  # describe "POST #create" do
+  #   context "with valid params" do
+  #     it "creates a new event" do
+  #       binding.pry
+  #       FactoryGirl.create(:user)
+  #       expect {
+  #         post :create, { event: first_event_attribute, format: :json  }
+  #       }.to change(Event, :count).by(1)
+  #     end
+  #   end
+  # end
+
 
   it "Should return false for bad email input" do
     @controller = EventsController.new

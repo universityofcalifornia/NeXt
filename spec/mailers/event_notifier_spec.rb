@@ -22,7 +22,7 @@ describe EventNotifier, type: :mailer do
     end
 
     it 'assigns @confirmation_url' do
-      expect(mail.body.encoded).to match("http://localhost:1234/invites/accept/1")
+      expect(mail.body.encoded).to match("http://test.host/invites/accept/1")
     end
   end
 end
