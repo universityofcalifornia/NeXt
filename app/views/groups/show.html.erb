@@ -83,7 +83,11 @@
         <ul class="list-group list-with-avatars">
           <% @group.users.each do |user| %>
             <li class="list-group-item">
-              <%= gravatar_tag user.email, size: 40, secure: true, html: { class: "list-avatar" } %>
+              <% if user.profile_image.blank? %>
+                <%= image_tag "/images/profile/default-80x80.png", height: 40, width: 40 %>
+              <% else %>
+                <%= image_tag "data:img/png;base64,#{user.profile_image}", height: 40, width: 40 %>
+              <% end %>
               <%= link_to_user user %>
             </li>
           <% end %>

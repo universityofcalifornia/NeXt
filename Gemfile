@@ -8,7 +8,7 @@ gem 'sqlite3'
 gem 'mysql2'
 
 # Use elasticsearch as Elasticsearch client
-gem 'elasticsearch'
+gem 'elasticsearch', '~>1.0.17'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -29,7 +29,7 @@ gem 'paranoia', '~> 2.0'
 gem 'oauth2'
 
 # Database-oriented session storage for larger session data
-gem 'activerecord-session_store'
+gem 'activerecord-session_store', '~>0.1.2'
 
 # GitHub-flavored markdown support
 gem 'github-markup'
@@ -38,9 +38,6 @@ gem 'redcarpet'
 # Pagination support
 gem 'will_paginate'
 
-# Gravatar support
-gem 'gravatarify'
-
 # extend_method
 gem 'extend_method'
 
@@ -48,21 +45,22 @@ gem 'extend_method'
 gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git', :tag => '2.0.4.dev'
 
 # Test coverage
-gem 'coveralls', :require => false
+gem 'coveralls', '0.8.13', :require => false
 
 # Use thin as the app server
 gem 'thin'
 
-gem 'bcrypt', :require => 'bcrypt'
+gem 'bcrypt', '~>3.1.11', :require => 'bcrypt'
 
 # Use awesome_nested_set for nested comments
 gem 'awesome_nested_set'
 
 gem "rmagick"
-gem "carrierwave"
+gem "carrierwave", '~>0.11.2'
 gem 'foreigner'
 gem "letter_opener", :group => :development
 gem 'rufus-scheduler'
+gem 'pry-rails', :group => :development
 
 # generates a status page at /status.json
 gem 'rapporteur'
@@ -88,4 +86,6 @@ end
 group :development do
   gem 'awesome_print'
 end
+
+gem 'simplecov', :require => false, :group => :test
 
