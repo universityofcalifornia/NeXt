@@ -51,6 +51,7 @@ class Event < ActiveRecord::Base
       same_month = (start_datetime.month == stop_datetime.month)
       same_day   = (start_datetime.day   == stop_datetime.day  )
 
+      
       if same_year && same_month && same_day
         if times
           return start_datetime.strftime("%l:%M %p - ") + stop_datetime.strftime("%l:%M %p")
