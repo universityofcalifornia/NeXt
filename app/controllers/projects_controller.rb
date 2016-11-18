@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
   def index
     results = perform_search do |query|
       query.type 'projects'
-      query.limit 5
+      query.limit 15
     end
 
     @top_projects = results
