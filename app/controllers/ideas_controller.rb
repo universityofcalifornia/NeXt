@@ -35,7 +35,7 @@ class IdeasController < ApplicationController
 
     results = perform_search do |query|
       query.type 'ideas'
-      query.limit 5
+      query.limit 15
     end
 
     @top_ideas = results
