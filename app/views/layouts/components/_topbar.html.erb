@@ -34,7 +34,8 @@
           </div>
           <div class="col-md-5 col-md-offset-4 col-md-pull-3"> 
             <%= form_tag search_url, { role: "search", class: "header-item search" } do %>
-              <input type="text" name="query" placeholder="Search" class="search-input">
+              <label for="search-query" class="sr-only">Search Query</label>
+              <input type="text" name="query" id="search-query" placeholder="Search" class="search-input">
               <button class="btn search-button" type="submit"></button>
             <% end %>
           </div>
