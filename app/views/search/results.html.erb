@@ -1,4 +1,4 @@
-<h2>Search Results</h2>
+<h1>Search Results</h1>
 
 <nav class="panel panel-info">
   <header class="panel-heading">
@@ -7,10 +7,12 @@
   <div class="panel-body" id="search-body">
     <form action="<%= search_url %>" role="search">
       <div class="form-group">
-        <input name="query" type="text" class="form-control" placeholder="Search" value="<%= params[:query] ? params[:query] : '' %>">
+        <label for="search-term">Search Term</label>
+        <input name="query" id="search-term" type="text" class="form-control" placeholder="Search" value="<%= params[:query] ? params[:query] : '' %>">
       </div>
       <div class="form-group">
-        <%= select_tag :type, options_for_select([['-- All --','all'],['Ideas','ideas'],['Projects','projects'],['People','users']], (params[:type] ? params[:type] : 'all')), { class: 'form-control' } %>
+        <label for="search-type">Object Type</label>
+        <%= select_tag :type, options_for_select([['-- All --','all'],['Ideas','ideas'],['Projects','projects'],['People','users']], (params[:type] ? params[:type] : 'all')), { id: 'search-type', class: 'form-control' } %>
       </div>
       <button type="submit" class="btn btn-primary">Search Again</button>
     </form>
@@ -21,7 +23,7 @@
   <% @results.each do |result| %>
     <% next unless result.model.is_viewable_by? current_user %>
     <a class="list-group-item" href="<%= url_for result.model %>">
-        <h5><%= result.title %> <span class="text-muted">( <%= result.type %> )</span></h5>
+        <h2><%= result.title %> <span class="text-muted">( <%= result.type %> )</span></h2>
         <div style="font-size:0.85em; font-style:italic"><%= simple_format result.description %></div>
     </a>
   <% end %>

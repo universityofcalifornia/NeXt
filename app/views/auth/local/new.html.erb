@@ -5,7 +5,7 @@
     <% if Rails.application.config.try(:oauth2).try(:provider).try(:shibboleth).try(:enabled) %>
         <div class="panel panel-primary">
           <header class="panel-heading">
-            Campus Login
+            <h1>Campus Login</h1>
           </header>
           <div class="panel-body">
             <p><b>Have a campus login account?</b></p>
@@ -13,16 +13,16 @@
               Campus Login is currently available for UCLA, UCSC, UCSD, UCSF, UC Berkeley and Berkeley Lab, UC Merced, UC Davis, and UC ANR.
               More UC campuses will be added soon. If you are from a UC campus/location not on this list, please use Local Login for now.
             </p>
-            <p class = "p_center"><%= link_to 'LOG IN WITH CAMPUS ACCOUNT', auth_oauth2_launch_url(:shibboleth), class: 'btn btn-primary p_gold', style: 'border-color: #ffb250; font-size: 15px;' %></p>
+            <%= button_to "Log in with campus account", auth_oauth2_launch_url(:shibboleth), class: "btn btn-learn-more btn-auto-size", form_class: "full-width text-center" %>
           </div>
     <% end %>
     </div>
   </nav>
 
   <nav class="col-sm-5">
-    <div class="panel panel-info border_blue">
-      <header class="panel-heading" style = "background-color: #0054a6; color: white;">
-        Local Login
+    <div class="panel panel-primary">
+      <header class="panel-heading">
+        <h1>Local Login</h1>
       </header>
       <div class="panel-body">
         <%= form_for :session, url: auth_local_url do |f| %>
@@ -33,7 +33,7 @@
             <%= f.label :password %>
             <%= f.password_field :password, class: 'form-control margin-bottom', required: true %>
 
-            <%= f.submit 'Login', class: 'btn btn-success background_blue' %>
+            <%= f.submit 'Login', class: 'btn btn-learn-more' %>
             or <%= link_to "Forgot Password", new_password_reset_path %>
 
 
