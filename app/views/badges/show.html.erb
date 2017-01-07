@@ -1,7 +1,7 @@
 <div class="profile">
-  <h2 class="text-center">
+  <h1 class="text-center">
     <%= @badge.name %>
-  </h2>
+  </h1>
 
   <div class="row">
     <div class="col-md-6">
@@ -11,9 +11,9 @@
 
       <section class="panel panel-default">
         <div class="panel-body">
-          <h3>
+          <h2>
             <%= @badge.type %>
-          </h3>
+          </h2>
 
           <% if @badge.badge_groups.any? %>
             <p>
@@ -61,7 +61,7 @@
       </section>
 
       <section>
-        <h3>Recipients</h3>
+        <h2>Recipients</h2>
         <ul class="list-group list-with-avatars">
           <% @badge.user_badges.each do |user_badge| %>
             <li class="list-group-item">
