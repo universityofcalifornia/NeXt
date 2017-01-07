@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-sm-4 col-sm-offset-4 text-center">
-    <h2 class="valign-middle">
+    <h1 class="valign-middle">
       <span class="header-icon hidden-xs">
-        <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive" } %>
+        <%= image_tag "/images/header_icons/projects.png", { class: "img-responsive", alt: "" } %>
       </span>
       <span>Projects</span>
-    </h2>
+    </h1>
   </div>
 
   <div class="col-sm-4" style="padding-top: 25px;">
@@ -21,7 +21,7 @@
 
 <div class="row">
   <div class="col-md-6">
-    <h1>UC NeXt Projects</h1>
+    <h2>UC NeXt Projects</h2>
 
     <p>
       Projects are how we work together and actually coordinate our collaboration!
@@ -39,7 +39,7 @@
       Research support and Service.
     </p>
 
-    <h1>Trending UC-Wide Projects</h1>
+    <h2>Trending UC-Wide Projects</h2>
     <ul class="list-group">
       <li class="list-group-item row tight-row project-trending-margin">
         <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;">Rank</div>
@@ -73,18 +73,18 @@
   </div>
 
   <div class="col-md-6">
-    <h1 class="valign-middle">
+    <h2 class="valign-middle">
       Project Engagement Meter
       <span class="header-icon hidden-md">
-        <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
+        <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive", alt: "" } %>
       </span>
-    </h1>
+    </h2>
     <%= render partial: "shared/engagement_meter", locals: { type: :projects } %>
   </div>
 </div>
 
 <% if @projects.any? %>
-  <h1 class="text-center">UC NeXt Projects</h1>
+  <h2 class="text-center">UC NeXt Projects</h2>
 
   <div class="panel-table panel-table-secondary container-fluid">
     <% @projects.each_with_index do |project, i| %>
@@ -125,9 +125,9 @@
           </div>
         </div>
 
-        <h4>
+        <h3>
           <%= link_to_project project %>
-        </h4>
+        </h3>
         <% if project.is_viewable_by?(current_user) %>
           <p>
             <%= project.pitch.ellipsis(400) %>
