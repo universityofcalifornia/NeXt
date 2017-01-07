@@ -8,7 +8,7 @@
       </div>
 
       <div class="col-sm-10">
-        <h4><%= @event.name %></h4>
+        <h1><%= @event.name %></h1>
         <% if @event.short_description %>
           <p><%= @event.short_description %></p>
         <% end %>
@@ -32,20 +32,20 @@
   <% end %>
   <div class="panel-default panel">
     <div class="panel-body">
-      <h5>Description</h5>
+      <h2>Description</h2>
       <%= raw @event.description_html %>
     </div>
   </div>
   <div class="split-panels">
     <div class="panel-default panel">
       <div class="panel-body">
-        <h5>Start</h5>
+        <h2>Start</h2>
         <p><%= @event.start_datetime ? @event.start_datetime.strftime("%b %d, %Y %l:%M %p") : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
     <div class="panel-default panel">
       <div class="panel-body">
-        <h5>End</h5>
+        <h2>End</h2>
         <p><%= @event.stop_datetime ? @event.stop_datetime.strftime("%b %d, %Y %l:%M %p") : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
@@ -53,13 +53,13 @@
   <div class="split-panels">
     <div class="panel-default panel">
       <div class="panel-body">
-        <h5>Location</h5>
+        <h2>Location</h2>
         <p><%= !@event.location.blank? ? @event.location : raw('<em>Not Specified</em>') %></p>
       </div>
     </div>
     <div class="panel-default panel">
       <div class="panel-body">
-        <h5>Website</h5>
+        <h2>Website</h2>
         <p style="overflow:hidden;text-overflow:ellipsis">
           <% unless @event.event_url.blank? %>
             <%= link_to(@event.event_url, @event.event_url) %>
@@ -73,17 +73,17 @@
   <div class="split-panels">
     <div class="panel-default panel">
       <div class="panel-body">
-        <h5>Groups</h5>
+        <h2>Groups</h2>
         <%= render 'events/event_groups', :event => @event %>
         <% if @event.is_editable_by? current_user %>
-            <h5>Invite List</h5>
+            <h2>Invite List</h2>
             <%= render 'events/invite_list', :event => @event %><br />
         <% end %>
       </div>
     </div>
     <div class="panel-default panel">
       <div class="panel-body">
-        <h5>Map</h5>
+        <h2>Map</h2>
         <p style="overflow:hidden;text-overflow:ellipsis">
           <% unless @event.map_url.blank? %>
             <%= link_to(@event.map_url, @event.map_url) %>

@@ -12,7 +12,7 @@
   <% end %>
 <% end %>
 
-<h2>Events</h2>
+<h1>Events</h1>
 
 <%= will_paginate @events %>
 
@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-sm-10">
-          <h4><%= event.name %></h4>
+          <h2><%= event.name %></h2>
           <% if event.short_description %>
             <p><%= event.short_description %></p>
           <% end %>
