@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-sm-4 col-sm-offset-4 text-center">
-    <h2 class="valign-middle">
+    <h1 class="valign-middle">
       <span class="header-icon hidden-xs">
-        <%= image_tag "/images/header_icons/ideas.png", { class: "img-responsive" } %>
+        <%= image_tag "/images/header_icons/ideas.png", { class: "img-responsive", alt: "" } %>
       </span>
       <span>Ideas</span>
-    </h2>
+    </h1>
   </div>
 
   <div class="col-sm-4" style="padding-top: 25px;">
@@ -21,7 +21,7 @@
 
 <div class="row">
   <div class="col-md-6 idea-left-column">
-    <h1>UC NeXt Ideas</h1>
+    <h2>UC NeXt Ideas</h2>
 
     <p>
       Ideas are the currency of the 21st Century, so collecting them,
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <h1>Trending UC-Wide Ideas</h1>
+    <h2>Trending UC-Wide Ideas</h2>
     <ul class="list-group list-group-secondary">
       <li class="list-group-item row tight-row idea-trending-margin">
         <div class="col-xs-8 col-sm-10 col-md-9 tight-col-left" style="padding-left: 0px;">Rank</div>
@@ -89,18 +89,18 @@
     </div>
 
   <div class="col-md-6">
-    <h1 class="valign-middle">
+    <h2 class="valign-middle">
       Ideas Engagement Meter
       <span class="header-icon hidden-md">
-        <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive" } %>
+        <%= image_tag "/images/header_icons/engagement_meter.png", { class: "img-responsive", alt: "" } %>
       </span>
-    </h1>
+    </h2>
     <%= render partial: "shared/engagement_meter", locals: { type: :ideas } %>
   </div>
 </div>
 
 <% if @ideas.any? %>
-  <h1 class="text-center">UC NeXt Ideas</h1>
+  <h2 class="text-center">UC NeXt Ideas</h2>
 
   <div class="panel-table container-fluid">
     <% @ideas.each_with_index do |idea, i| %>
@@ -141,9 +141,9 @@
           </div>
         </div>
 
-        <h4>
+        <h3>
           <%= link_to_idea idea %>
-        </h4>
+        </h3>
         <% if idea.is_viewable_by?(current_user) %>
           <p>
             <%= idea.pitch.ellipsis(400) %>
