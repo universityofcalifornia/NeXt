@@ -36,7 +36,7 @@ class EventsController < ApplicationController
     @event = current_user.events.new(event_params)
     if valid_email? event_params[:invite_list]
       @event.save
-      respond_with @event
+      redirect_to event_url(@event)
     else
       flash[:page_alert] = 'Please enter valid emails separated by commas in the invite list!'
       flash[:page_alert_type] = 'danger'
@@ -55,7 +55,7 @@ class EventsController < ApplicationController
         flash[:page_alert_type] = 'danger'
         $failed_to_delete = false
       end
-      respond_with @event
+      redirect_to event_url(@event)
     else
       flash[:page_alert] = 'Please enter valid emails separated by commas in the invite list!'
       flash[:page_alert_type] = 'danger'

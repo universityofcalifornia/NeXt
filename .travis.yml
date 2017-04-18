@@ -18,4 +18,5 @@ before_install:
 script:
   - RAILS_ENV=test bundle exec rake db:reset
   - RELOAD_INDICES=true bundle exec rake test
+  - RAILS_ENV=test bundle exec rake db:reset
   - bundle exec rake spec

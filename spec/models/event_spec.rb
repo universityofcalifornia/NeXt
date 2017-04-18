@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 
 describe Event do
   let(:event) { build(:event) }
@@ -13,6 +14,19 @@ describe Event do
       event.event_url = 'moo'
       expect(event).to be_invalid
     end
+  end
+
+  it "should return valid date time" do
+    event = create(:event, :name => 'moo', start_datetime: Date.today, stop_datetime: Date.today + 2.days)
+    event.datetime_range
+    event = create(:event, :name => 'moo', start_datetime: Date.today, stop_datetime: Date.today + 2.hours)
+    event.datetime_range
+  end
+
+  it "fails validation with same start and stop datetime" do
+    event = build(:event, :name => 'moo', start_datetime: Date.today, stop_datetime: Date.today)
+    event.valid?
+    expect(event.errors[:end_date].size).to eq(1)
   end
 
   describe "invites" do

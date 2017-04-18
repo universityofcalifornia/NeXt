@@ -1,10 +1,23 @@
 require 'rails_helper'
 require 'pry'
 
+
 RSpec.describe EventsController, type: :controller do
 
-  let(:first_event_attribute) {
-     { start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one' }
+  let(:valid_event_attribute) {
+     { start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one', invite_list: "" }
+   }
+
+  let(:valid_event_attribute_2) {
+     { start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one', invite_list: "a@a.a" }
+   }
+
+  let(:valid_event_attribute_3) {
+     { start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one', invite_list: "b@b.b" }
+   }
+
+  let(:invalid_event_attribute) {
+     { start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one', invite_list: "sad" }
    }
 
   describe "GET #index" do
@@ -15,17 +28,79 @@ RSpec.describe EventsController, type: :controller do
     end
   end
 
-  # describe "POST #create" do
-  #   context "with valid params" do
-  #     it "creates a new event" do
-  #       binding.pry
-  #       FactoryGirl.create(:user)
-  #       expect {
-  #         post :create, { event: first_event_attribute, format: :json  }
-  #       }.to change(Event, :count).by(1)
-  #     end
-  #   end
-  # end
+  describe "POST #create" do
+    before { allow(controller).to receive(:current_user) { FactoryGirl.create(:user) } }
+    context "with valid params" do
+      it "creates a new event" do
+        expect {
+          post :create, { event: valid_event_attribute, format: :json  }
+        }.to change(Event, :count).by(1)
+      end
+    end
+  end
+
+  describe "POST #create" do
+    before { allow(controller).to receive(:current_user) { FactoryGirl.create(:user) } }
+    context "with invalid params" do
+      it "doesn't create an event" do
+        expect {
+          post :create, { event: invalid_event_attribute  }
+        }.to_not change(Event, :count)
+      end
+    end
+  end
+
+  describe "PUT #update" do
+    before { allow(controller).to receive(:current_user) { User.first} }
+
+    context "with valid params" do
+  
+      let(:attribute) do 
+        { :name => 'new title' }
+      end
+
+      it "located the requested @event" do
+        @event = create :event
+        put :update, :id => @event.id, event: valid_event_attribute
+        # assigns(:event).should eq(@event)   
+        expect(assigns(:event)).to eq(@event)
+      end
+
+      it "updates an event" do
+        @event = create :event
+        # @event.update(valid_event_attribute)
+        put :update, :id => @event.id, event: valid_event_attribute
+        @event.reload
+        expect(@event.name).to eq("event test")
+      end
+
+      it "updates an event by destroying an email" do
+        @event = create(:event, start_datetime: Time.now, stop_datetime: 1.day.from_now(Time.now), name: 'event test', short_description: 'event test one', invite_list: "a@a.a" )
+        # @event.update(valid_event_attribute)
+        put :update, :id => @event.id, event: valid_event_attribute_3
+        @event.reload
+        expect(@event.name).to eq("event test")
+      end
+
+      it "does not update an event" do
+        @event = create :event
+        # @event.update(valid_event_attribute)
+        put :update, :id => @event.id, event: invalid_event_attribute
+
+        @event.reload
+        expect(@event.name).to eq("My first event")
+        expect(@event).to render_template(:edit)
+      end
+
+    end
+  end
+
+
+
+
+
+
+
 
 
   it "Should return false for bad email input" do
