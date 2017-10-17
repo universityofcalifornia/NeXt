@@ -170,6 +170,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    puma (3.10.0)
     rack (1.5.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -291,6 +292,7 @@ DEPENDENCIES
   oauth2
   paranoia (~> 2.0)
   pry-rails
+  puma
   rails (= 4.1.7)
   rapporteur
   redcarpet
@@ -308,4 +310,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.10.5
+   1.15.4
