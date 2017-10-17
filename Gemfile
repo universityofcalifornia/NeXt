@@ -47,8 +47,9 @@ gem 'web_blocks', :git => 'https://github.com/WebBlocks/WebBlocks.git', :tag => 
 # Test coverage
 gem 'coveralls', '0.8.13', :require => false
 
-# Use thin as the app server
+# Use either thin or puma for web server
 gem 'thin'
+gem 'puma'
 
 gem 'bcrypt', '~>3.1.11', :require => 'bcrypt'
 
