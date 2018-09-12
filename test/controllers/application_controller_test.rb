@@ -3,7 +3,7 @@ require 'test_helper'
 class ApplicationControllerTest < ActionController::TestCase
 
   def setup
-    @instance = self.class.prepare_controller_class(self.class.controller_class).new
+    @instance = self.class.controller_class.new
     @instance.request = @request
   end
 
