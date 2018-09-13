@@ -13,7 +13,7 @@
               Campus Login is currently available for UCLA, UCSC, UCSD, UCSF, UC Berkeley and Berkeley Lab, UC Merced, UC Davis, and UC ANR.
               More UC campuses will be added soon. If you are from a UC campus/location not on this list, please use Local Login for now.
             </p>
-            <%= button_to "Log in with campus account", auth_oauth2_launch_url(:shibboleth), class: "btn btn-learn-more btn-auto-size", form_class: "full-width text-center" %>
+            <%= button_to "Log in with campus account", auth_oauth2_launch_url(:shibboleth), class: "btn btn-learn-more btn-auto-size", form_class: "full-width text-center", method: :get %>
           </div>
     <% end %>
     </div>
