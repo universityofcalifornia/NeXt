@@ -56,6 +56,7 @@ gem 'thin', '~> 1.6.4'
 gem 'puma', '~> 3.10.0'
 
 gem 'bcrypt', '~>3.1.11', :require => 'bcrypt'
+gem 'responders', '~> 2.0'
 
 # Use awesome_nested_set for nested comments
 gem 'awesome_nested_set', '~> 3.0.2'
@@ -85,7 +86,6 @@ end
 
 group :test do
   gem 'email_spec', '~> 1.6.0'
-  gem 'responders', '~> 2.0'
 end
 
 # Really useful gem for debugging
