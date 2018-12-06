@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.7.1'
+gem 'rails', '~> 4.2.11'
 
 # Use sqlite3 and mysql2 as database adapters for Active Record
 gem 'sqlite3', '~> 1.3.10'
