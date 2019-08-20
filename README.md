@@ -20,7 +20,7 @@ The UC NeXt platform is built on top of a number of outstanding open source plat
 
 ### Prerequisites
 
-* [Ruby](https://www.ruby-lang.org) 2.1+
+* [Ruby](https://www.ruby-lang.org) 2.3+
 * [Bundler](http://bundler.io/)
 * [Node.js](http://nodejs.org/)
 * [npm](https://www.npmjs.org/)
