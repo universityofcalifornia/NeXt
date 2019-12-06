@@ -53,7 +53,7 @@ gem 'coveralls', '0.8.13', :require => false
 
 # Use either thin or puma for web server
 gem 'thin', '~> 1.6.4'
-gem 'puma', '~> 3.10.0'
+gem 'puma', '~> 3.12.2'
 
 gem 'bcrypt', '~>3.1.11', :require => 'bcrypt'
 gem 'responders', '~> 2.0'
